@@ -1,0 +1,157 @@
+@charset "utf-8";
+
+// Sassのmin()関数
+@function _min($numbers...) {
+  @return min($numbers...);
+}
+// CSSのmin()関数
+@function min($values...) {
+  @return unquote('min(#{$values})');
+}
+
+// Sassのmax()関数
+@function _max($numbers...) {
+  @return max($numbers...);
+}
+// CSSのmax()関数
+@function max($values...) {
+  @return unquote('max(#{$values})');
+}
+
+
+@mixin min_wth( $min_width: 100%, $max_width: 1166px ){
+    width: $min_width;
+    max-width: $max_width;
+}
+
+//縦横中央揃え
+
+@mixin ce(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin ce1(){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+@import "./_reset.scss";
+
+$baseFontColor:#eee;
+$baseBgColor:#000;
+$keyColor:#960021;
+
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+html{
+    //scroll-behavior:smooth;
+    text-rendering: optimizeLegibility;
+}
+body{
+    background:$baseBgColor;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.2em;
+    color: $baseFontColor;
+    font-size:1rem;
+    line-height:1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%; 
+    //font-feature-settings: "palt" 1;
+    /*
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    */
+    word-wrap: break-word;
+}
+a{
+    color: $baseFontColor;
+    text-decoration: none;
+    outline: none;
+    //overflow: hidden;
+}
+img{
+    width:100%;
+    height: auto;
+}
+ul{
+    margin:0;
+    padding: 0;
+    list-style: none;
+}
+li{
+    list-style: none;
+}
+/* loading ※https://projects.lukehaas.me/css-loaders/参照*/
+
+.loader,
+.loader:before,
+.loader:after {
+    background: #ffffff;
+    animation: load1 1s infinite ease-in-out;
+    width: 0.5em;
+    height: 1em;
+}
+.loader {
+    color: #ffffff;
+    text-indent: -9999em;
+    margin: 88px auto;
+    position: relative;
+    font-size: 11px;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+    position: absolute;
+    top: 0;
+    content: '';
+}
+.loader:before {
+    left: -1.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    left: 1.5em;
+}
+
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 1em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 2em;
+  }
+}
+@media (pointer: fine){
+    a:link{
+        text-decoration: none;
+    }
+
+    a:visited{
+        text-decoration: none;
+    }
+
+    a:hover{
+        text-decoration: none;
+    }
+
+    a:active{
+        text-decoration: none;
+    }
+}
+@import "./_parts.scss";
