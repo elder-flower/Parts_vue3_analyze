@@ -57,18 +57,21 @@ $viewportSP: 375;
   @return (1em * calc($av / 1000));
 }
 
-//@import "./_reset.scss";
-
+//@import "./_ress.scss";
+/*
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+*/
 
 /* 基本 */
+/*
 :root {
   --v-space: clamp(90px, 9vw, 120px);
 }
+*/
 
 html {
   //text-rendering: optimizeLegibility; SVG用の設定。
@@ -101,12 +104,9 @@ body {
   //line-height: 1.62;
   position: relative;
   margin: 0;
+  padding: 0;
 
   //bottom: calc(env(safe-area-inset-bottom) + 5%);
-}
-
-main {
-  display: block;
 }
 p {
   line-height: 1.8;

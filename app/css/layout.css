@@ -1,18 +1,21 @@
 @charset "UTF-8";
+/*
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
+*/
 /* 基本 */
+/*
 :root {
   --v-space: clamp(90px, 9vw, 120px);
 }
-
+*/
 body {
   position: relative;
   margin: 0;
+  padding: 0;
   /*
     -webkit-font-feature-settings: "palt" 1;
           font-feature-settings: "palt" 1;
@@ -25,10 +28,6 @@ body {
   background: #111;
   color: #eee;
   font-family: sans-serif;
-}
-
-main {
-  display: block;
 }
 
 p {
@@ -208,5 +207,11 @@ a:active {
 
   a:active {
     text-decoration: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gmenu ul {
+    flex-direction: column;
+    width: 100%;
   }
 }

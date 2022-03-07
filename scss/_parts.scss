@@ -154,3 +154,12 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         }
     }
 }
+
+@media screen and (max-width:768px){
+    .gmenu{
+        ul{
+            width: 100%;
+            flex-direction: column;
+        }
+    }
+}
