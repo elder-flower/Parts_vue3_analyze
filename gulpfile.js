@@ -223,7 +223,7 @@ function js_compile() {
       //        presets: ['@babel/preset-env']
       //    }))
       ////.pipe(concat('b.js'))
-      .pipe(rename({ extname: ".min.js" }))
+      //.pipe(rename({ extname: ".min.js" }))
       .pipe(gulp.dest(paths.js))
   );
 }
