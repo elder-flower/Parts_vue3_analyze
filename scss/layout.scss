@@ -19,11 +19,6 @@
 }
 
 
-@mixin min_wth( $min_width: 100%, $max_width: 1166px ){
-    width: $min_width;
-    max-width: $max_width;
-}
-
 //縦横中央揃え
 
 @mixin ce(){
@@ -39,104 +34,101 @@
     transform: translate(-50%, -50%);
 }
 
+//designカンプで基準となる横幅。
+$viewportPC: 1366;
+$viewportSP: 375;
 
-@import "./_reset.scss";
+@function pxtvw( $px, $width: $viewportSP) {
+	@return (1vw * $px / $width * 100);
+}
 
-$baseFontColor:#eee;
-$baseBgColor:#000;
-$keyColor:#960021;
+@function pxtvw2( $px, $width: $viewportPC) {
+	@return (1vw * $px / $width * 100);
+}
+
+// font-size: pxtvw( 500 );
+
+
+// 行送り / fotsize = line-height
+@function lhgt( $px, $base_fontSize: 16 ){
+  @return (1 * calc( $px / $base_fontSize ));
+}
+
+// XDのAV値を元に「letter spacing」値を出す。
+@function lspc( $av ){
+  @return (1em * calc( $av / 1000 ));
+}
+
+
+
+//@import "./_reset.scss";
 
 *,
 *::before,
-*::after{
+*::after {
   box-sizing: border-box;
 }
-html{
-    //scroll-behavior:smooth;
-    text-rendering: optimizeLegibility;
+
+/* 基本 */
+:root{
+    --v-space: clamp(90px, 9vw, 120px);
 }
-body{
-    background:$baseBgColor;
-    font-family: 'Noto Sans JP', sans-serif;
-    letter-spacing: 0.2em;
-    color: $baseFontColor;
-    font-size:1rem;
-    line-height:1.85;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%; 
-    //font-feature-settings: "palt" 1;
+
+html{
+    //text-rendering: optimizeLegibility; SVG用の設定。
+}
+
+$bgColor: #1111;
+$fontColor: #eee;
+
+body {
+    /*
+    -webkit-font-feature-settings: "palt" 1;
+          font-feature-settings: "palt" 1;
+    */
+    
+    // font-smooth は CSS のプロパティで、フォントが描画されるときのアンチエイリアスの適用を制御します。
+    //-webkit-font-smoothing: antialiased;
+    //-moz-osx-font-smoothing: grayscale;
+    //スマホを横にしたときに文字が大きくないようにする　
+    //-webkit-text-size-adjust: 100%;
+
     /*
     word-break: break-word;
     overflow-wrap: break-word;
     word-wrap: break-word;
     */
-    word-wrap: break-word;
+
+    background: $bgColor;
+    font-family: sans-serif;
+    color: $fontColor;
+    //line-height: 1.62;
+    position: relative;
+    margin: 0;
+    
+    //bottom: calc(env(safe-area-inset-bottom) + 5%);
+}
+
+main {
+  display: block;
+}
+p {
+    line-height: 1.8;
 }
 a{
-    color: $baseFontColor;
-    text-decoration: none;
-    outline: none;
     //overflow: hidden;
+    outline: none;
+    //color: $fontColor;
+    color:inherit;
+    text-decoration: none;
+    //cursor: crosshair;
+    //-webkit-tap-highlight-color: transparent;
 }
-img{
-    width:100%;
-    height: auto;
+/*
+@media (hover: hover){
+    
 }
-ul{
-    margin:0;
-    padding: 0;
-    list-style: none;
-}
-li{
-    list-style: none;
-}
-/* loading ※https://projects.lukehaas.me/css-loaders/参照*/
-
-.loader,
-.loader:before,
-.loader:after {
-    background: #ffffff;
-    animation: load1 1s infinite ease-in-out;
-    width: 0.5em;
-    height: 1em;
-}
-.loader {
-    color: #ffffff;
-    text-indent: -9999em;
-    margin: 88px auto;
-    position: relative;
-    font-size: 11px;
-    transform: translateZ(0);
-    animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-    position: absolute;
-    top: 0;
-    content: '';
-}
-.loader:before {
-    left: -1.5em;
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-}
-.loader:after {
-    left: 1.5em;
-}
-
-@keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 1em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 2em;
-  }
-}
+*/
 @media (pointer: fine){
     a:link{
         text-decoration: none;
@@ -147,11 +139,41 @@ li{
     }
 
     a:hover{
-        text-decoration: none;
+        text-decoration: underline;
     }
 
     a:active{
-        text-decoration: none;
+        text-decoration: underline;
     }
+}
+/*IE11用ハック*/
+/*
+_:-ms-lang(x)::-ms-backdrop, a:link{
+    text-decoration: none;
+}
+_:-ms-lang(x)::-ms-backdrop, a:visited{
+    text-decoration: none;
+}
+_:-ms-lang(x)::-ms-backdrop, a:hover{
+    text-decoration: underline;
+}
+_:-ms-lang(x)::-ms-backdrop, a:active{
+    text-decoration: underline;
+}
+*/
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    vertical-align: bottom;
 }
 @import "./_parts.scss";
