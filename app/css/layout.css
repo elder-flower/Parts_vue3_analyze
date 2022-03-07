@@ -75,22 +75,6 @@ img {
   vertical-align: bottom;
 }
 
-a:link {
-  text-decoration: none;
-}
-
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
-}
-
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
@@ -143,11 +127,9 @@ a:active {
 .gmenu li a {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px 25px;
   color: #fda;
-}
-.gmenu li a:hover {
-  color: #eee;
 }
 .gmenu li li {
   border-bottom: 1px solid rgba(200, 200, 255, 0.6);
@@ -156,7 +138,9 @@ a:active {
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
 .gmenu ul li.has-child:hover ul,
-.gmenu ul li.has-child:hover ul li.has-child:hover ul {
+.gmenu ul li.has-child:hover ul li.has-child:hover ul,
+.gmenu ul li.has-child.active > ul,
+.gmenu ul li.has-child ul li.active > ul {
   visibility: visible;
   opacity: 1;
 }
@@ -169,7 +153,7 @@ a:active {
   left: 1em;
   width: auto;
   opacity: 0;
-  transition: all 0.5s;
+  transition: opacity 0.5s;
 }
 .gmenu ul li.has-child ul a,
 .gmenu ul li.has-child ul li.has-child ul a {
@@ -180,17 +164,11 @@ a:active {
   z-index: 4;
   background: #322;
 }
-.gmenu ul li.has-child ul a:hover {
-  background: #511;
-}
 .gmenu ul li.has-child ul li.has-child ul {
   z-index: 8;
   top: 0;
   left: 140px;
-  background: #222;
-}
-.gmenu ul li.has-child ul li.has-child ul a:hover {
-  background: #661;
+  background: #000;
 }
 @media (pointer: fine) {
   a:link {
@@ -209,9 +187,70 @@ a:active {
     text-decoration: none;
   }
 }
+@media (hover: hover) {
+  .gmenu a:hover {
+    color: #eee;
+  }
+  .gmenu ul li.has-child ul a:hover {
+    background: #511;
+  }
+  .gmenu ul li.has-child ul li.has-child ul a:hover {
+    background: #661;
+  }
+}
 @media screen and (max-width: 768px) {
   .gmenu ul {
     flex-direction: column;
     width: 100%;
+  }
+  .gmenu ul li {
+    width: 100%;
+    border-bottom: 1px solid rgba(200, 200, 255, 0.6);
+  }
+  .gmenu ul li a {
+    width: 100%;
+    text-align: center;
+  }
+  .gmenu ul li li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  .gmenu ul li li:last-child {
+    border-bottom: 0px solid rgba(255, 255, 255, 0.6);
+  }
+  .gmenu li.has-child a {
+    position: relative;
+  }
+  .gmenu li.has-child a::before {
+    position: absolute;
+    top: 48%;
+    left: 5%;
+    transition: transform 0.5s;
+  }
+  .gmenu li.has-child.active a::before {
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .gmenu li.has-child.active li.has-child a::before {
+    transform: translateY(-2px) rotate(-135deg);
+    transition: transform 0.5s;
+  }
+  .gmenu li.has-child.active li.has-child.active a::before {
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .gmenu ul li a,
+.gmenu ul li li a,
+.gmenu ul li.has-child li a,
+.gmenu ul li li li a,
+.gmenu ul li.has-child ul li.has-child ul a {
+    padding: 20px 25px;
+  }
+  .gmenu ul li.has-child ul,
+.gmenu ul li.has-child ul li.has-child ul {
+    display: none;
+    visibility: visible;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 1;
   }
 }

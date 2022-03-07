@@ -10,7 +10,7 @@ $gmenuColor: #eee;
 
 $gmenuBg: #222;
 $gmenuBg2: #322;
-$gmenuBg3: #222;
+$gmenuBg3: #000;
 
 $gmenuBg2Ac:#511;
 $gmenuBg3Ac:#661;
@@ -85,12 +85,10 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         }
         a{
             display: flex;
+            justify-content: center;
             align-items: center;
             padding: 10px 25px;
             color: $gmenuLinkColor;
-            &:hover{
-                color: $gmenuLinkHoverColor;
-            }
         }
         li{
             border-bottom: 1px solid $gmenuSpLine;
@@ -101,7 +99,9 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     }
     /* hover時の設定。 */
     ul li.has-child:hover ul,
-    ul li.has-child:hover ul li.has-child:hover ul{
+    ul li.has-child:hover ul li.has-child:hover ul,
+    ul li.has-child.active > ul,
+    ul li.has-child ul li.active > ul{
         visibility: visible;
         opacity: 1;
     }
@@ -115,7 +115,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         left: 1em;
         visibility: hidden;
         opacity: 0;
-        transition: all 0.5s;
+        transition: opacity 0.5s;
         a{
             padding: 10px 20px 10px 5px;
             white-space: nowrap;
@@ -124,20 +124,33 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     ul li.has-child ul{
         background:$gmenuBg2;
         z-index: 4;
-        a{
-            &:hover{
-                background: $gmenuBg2Ac;
-            }
-        }
     }
     ul li.has-child ul li.has-child ul{
         background:$gmenuBg3;
         z-index: 8;
         top: 0;
         left: 140px;
+    }
+}
+@media (hover: hover){
+    .gmenu{
         a{
             &:hover{
-                background: $gmenuBg3Ac;
+                color: $gmenuLinkHoverColor;
+            }
+        }
+        ul li.has-child ul{
+            a{
+                &:hover{
+                    background: $gmenuBg2Ac;
+                }
+            }
+        }
+        ul li.has-child ul li.has-child ul{
+            a{
+                &:hover{
+                    background: $gmenuBg3Ac;
+                }
             }
         }
     }
@@ -148,6 +161,72 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         ul{
             width: 100%;
             flex-direction: column;
+            li{
+                width: 100%;
+                border-bottom: 1px solid $gmenuSpLine;
+                a{
+                    width: 100%;
+                    text-align: center;
+                }
+                li{
+                    border-bottom: 1px solid $gmenuL2PcSpLine;
+                    &:last-child{
+                        border-bottom: 0px solid $gmenuL2PcSpLine;
+                    }
+                }
+            }
+        }
+        li{
+            &.has-child{
+                a{
+                    position: relative;
+                    &::before{
+                        position: absolute;
+                        top: 48%;
+                        left: 5%;
+                        transition: transform 0.5s;
+                    }
+                }
+                &.active{
+                    a{
+                        &::before{
+                            transform: translateY(-2px) rotate( 45deg);
+                        }
+                    }
+                    li.has-child{
+                        a{
+                            &::before{
+                                transition: transform 0.5s;
+                                transform: translateY(-2px) rotate( -135deg);
+                            }
+                        }
+                        &.active{
+                            a{
+                                &::before{
+                                    transform: translateY(-2px) rotate( 45deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        ul li a,
+        ul li li a,
+        ul li.has-child li a,
+        ul li li li a,
+        ul li.has-child  ul li.has-child ul a{
+            padding: 20px 25px;
+        }
+        ul li.has-child ul,
+        ul li.has-child ul li.has-child ul{
+            width: 100%;
+            position:relative;
+            top: 0;
+            left: 0;
+            display: none;
+            visibility: visible;
+            opacity: 1;
         }
     }
 }
