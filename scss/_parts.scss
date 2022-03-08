@@ -1,8 +1,21 @@
+header{
+    margin:0;
+    padding: 2rem 1rem 0 1rem;
+    width:17%;
+    height: 100vh;
+    background:#222;
+}
+@media screen and (max-width:768px){
+    header{
+        padding: 0;
+        width:100%;
+        height: auto;
+    }
+}
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 
-$gmenuWdth: 500px;
 $gmenuColor: #eee;
 
 $gmenuBg: #222;
@@ -23,11 +36,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     text-align: center;
     position: relative;
     ul{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         width: 100%;
-        max-width: $gmenuWdth;
         margin: 0 auto 0;
         a{
             position: relative;
@@ -40,8 +49,10 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             transition: all 0.5s;
         }
         ul{
+            /*
             visibility: hidden;
             opacity: 0;
+            */
             a{
                 //padding: 20px 25px 10px 25px;
                 padding: 20px 2vw 10px;
@@ -62,18 +73,15 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                     margin-right: 12px;
                     width: 6px;
                     height: 6px;
-                    transform: translateY(-2px) rotate( -135deg);
+                    transform: translateY(-2px) rotate( 135deg );
                 }
             }
             ul{
                 position: absolute;
-                top: 65px;
-                left: 5%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 90%;
-                max-width: 90%;
+                top: 0;
+                left: 200px;
+                width: 100%;
+                max-width: 100%;
                 a{
                     &::before{
                         display: none;
@@ -140,6 +148,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     } 
 }
 @media screen and (max-width: 1050px){
+    /*
     .gmenu{
         ul{
             li{
@@ -148,16 +157,15 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                         left: 3%;
                         width: 94%;
                         max-width: 94%;
-                        dt{
-                            //height: 8vw;
-                        }
                     }
                 }
             }
         }
     }
+    */
 }
 @media screen and (max-width: 768px){
+    /*
     .gmenu{
         ul{
             li{
@@ -171,6 +179,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             }
         }
     }
+    */
 }
 @media screen and (max-width: 500px){
     .gmenu{
