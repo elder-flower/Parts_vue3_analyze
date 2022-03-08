@@ -12,7 +12,7 @@
     <style type="text/css">
         body{
             background: #111;
-            padding: 0;
+            padding: 0rem;
         }
         header{
             margin: 2rem;
@@ -20,50 +20,77 @@
     </style>
 </head>
 <body id="top">
+
 <header>
-<h2>5-1-1 ドロップダウンメニュー（上）</h2>
-
+    <h2>5-1-3 ドロップダウンメニュー（写真付 上ナビ）</h2>    
 </header>
-
-  
-<nav class="gmenu">
-<ul>
-    <li><a href="#">Top</a></li>
-    <li><a href="#">About</a></li>
-    <li class="has-child"><a href="#">Service</a>
-        <ul class="layer2">
-        <li><a href="#">Service Top</a></li>
-        <li><a href="#">Service-1</a></li>
-        <li class="has-child"><a href="#">Service-2</a>
-            <ul lass="layer3">
-                <li><a href="#">Service-2 Top</a></li>
-                <li><a href="#">Service-2-1</a></li>
-                <li><a href="#">Service-2-2</a></li>
-                <li><a href="#">Service-2-3</a></li>
-                <li><a href="#">Service-2-4</a></li>
-            </ul>
-        </li>
-        <li><a href="#">Service-3</a></li>
+        
+<main id="main">
+        
+    <nav class="gmenu">
+        <ul>
+            <li><a href="#">Top</a></li>
+            <li class="has-child"><a href="#">About</a>
+                <ul>
+    
+                    <li><a href="#"><dl>
+                        <dt><img src="img/01.jpg" alt=""></dt>
+                        <dd>About Top</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/02.jpg" alt=""></dt>
+                        <dd>About-1</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/03.jpg" alt=""></dt>
+                        <dd>About-2</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/04.jpg" alt=""></dt>
+                        <dd>About-3</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/05.jpg" alt=""></dt>
+                        <dd>About-4</dd>
+                        </dl></a></li>
+    
+                </ul>
+            </li>
+            <li class="has-child"><a href="#">Service</a>
+                <ul>
+    
+                    <li><a href="#"><dl>
+                        <dt><img src="img/06.jpg" alt=""></dt>
+                        <dd>Service Top</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/07.jpg" alt=""></dt>
+                        <dd>Service-1</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/08.jpg" alt=""></dt>
+                        <dd>Service-2</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/09.jpg" alt=""></dt>
+                        <dd>Service-3</dd>
+                        </dl></a></li>
+                    <li><a href="#"><dl>
+                        <dt><img src="img/10.jpg" alt=""></dt>
+                        <dd>Service-4</dd>
+                        </dl></a></li>
+    
+                </ul>
+            </li>
+            <li><a href="#">Blog</a></li>
         </ul>
-    </li>
-    <li class="has-child"><a href="#">Blog</a>
-        <ul class="layer2">
-        <li><a href="#">Blog Top</a></li>
-        <li><a href="#">Blog-1</a></li>
-        <li><a href="#">Blog-2</a></li>
-        <li><a href="#">Blog-3</a></li>
-        <li><a href="#">Blog-4</a></li>
-        </ul>
-    </li>
-</ul>
-</nav>
-
-
-
-
+    </nav>
+    
+</main>
 
 
 <script src="js/jquery-3.6.0.min.js" type="text/javascript"></script>
 <script src="js/gmenu.js" type="text/javascript"></script>
+
 </body>
 </html>

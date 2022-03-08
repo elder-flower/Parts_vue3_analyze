@@ -82,94 +82,117 @@ img {
   background: #222;
   color: #eee;
   text-align: center;
-  /* hover時の設定。 */
-  /* 2階層目、3階層目のUL設定。*/
 }
+
+/*ナビゲーションを横並びに*/
 .gmenu ul {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 500px;
-  margin: 0 auto 0;
-}
-.gmenu ul .layer2 li a {
-  color: #fda;
-}
-.gmenu ul .layer2 li a::before {
-  border-top: 0px solid transparent;
-  border-left: 0px solid transparent;
-}
-.gmenu ul .layer2 li.has-child a::before {
-  display: block;
-  margin-right: 10px;
-  transform: translateY(-2px) rotate(135deg);
-  border-top: 2px solid #ee9;
-  border-left: 2px solid #ee9;
-  content: "";
-}
-.gmenu ul .layer2 li.has-child ul a::before {
-  border-top: 0px solid transparent;
-  border-left: 0px solid transparent;
-}
-.gmenu li {
+  /*2階層目の基点にするためrelativeを指定*/
   position: relative;
+  justify-content: center;
+  list-style: none;
 }
-.gmenu li.has-child a::before {
+
+/*2階層目以降は横並びにしない*/
+.gmenu ul ul {
   display: block;
+}
+
+/*ナビゲーションのリンク設定*/
+.gmenu ul li a {
+  display: block;
+  /*矢印の基点にするためrelativeを指定*/
+  position: relative;
+  padding: 20px 45px;
+  color: #fda;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.gmenu ul li a:hover {
+  color: #eee;
+}
+
+.gmenu ul li li a {
+  padding: 20px;
+}
+
+/*==矢印の設定*/
+/*2階層目を持つliの矢印の設定*/
+.gmenu ul li.has-child > a::before {
+  position: absolute;
+  top: 25px;
+  left: 15px;
   width: 6px;
   height: 6px;
-  margin-right: 8px;
-  transform: translateY(-2px) rotate(-135deg);
+  transform: rotate(135deg);
   border-top: 2px solid #eee;
-  border-left: 2px solid #eee;
+  border-right: 2px solid #eee;
   content: "";
 }
-.gmenu li a {
+
+/*==2階層目以降の画像設定*/
+.gmenu ul li.has-child img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+  transition: all 0.5s;
+}
+
+/*hoverしたら画像拡大*/
+.gmenu ul li.has-child img:hover {
+  transform: scale(1.2);
+}
+
+.gmenu ul li.has-child dt {
+  height: 20vh;
+  margin: 0 0 20px 0;
+  overflow: hidden;
+}
+/*== 2層目の設定 */
+.gmenu li.has-child ul {
+  /*子要素を横並びに*/
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 25px;
-  color: #fda;
+  /*はじめは非表示*/
+  visibility: hidden;
+  z-index: 4;
+  /*絶対配置で位置を指定*/
+  position: absolute;
+  top: 58px;
+  left: 5%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  /*形状を指定*/
+  background: #422;
+  opacity: 0;
+  /*アニメーション設定*/
+  transition: all 0.3s;
 }
-.gmenu li li {
-  border-bottom: 1px solid rgba(200, 200, 255, 0.6);
-}
-.gmenu li li li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-}
-.gmenu ul li.has-child:hover ul,
-.gmenu ul li.has-child:hover ul li.has-child:hover ul,
-.gmenu ul li.has-child.active > ul,
-.gmenu ul li.has-child ul li.active > ul {
+
+/*hoverしたら表示*/
+.gmenu li.has-child:hover > ul {
   visibility: visible;
   opacity: 1;
 }
-.gmenu ul li.has-child ul,
-.gmenu ul li.has-child ul li.has-child ul {
-  display: block;
-  visibility: hidden;
-  position: absolute;
-  top: 45px;
-  left: 1em;
-  width: auto;
-  opacity: 0;
-  transition: opacity 0.5s;
+
+/*各ナビゲーション横幅*/
+.gmenu li.has-child ul li {
+  width: 20%;
 }
-.gmenu ul li.has-child ul a,
-.gmenu ul li.has-child ul li.has-child ul a {
-  padding: 10px 20px 10px 5px;
-  white-space: nowrap;
+
+/*ナビゲーションaタグの形状*/
+.gmenu li.has-child ul li a {
+  color: #fda;
 }
-.gmenu ul li.has-child ul {
-  z-index: 4;
-  background: #322;
+
+.gmenu li.has-child ul li a:hover,
+.gmenu li.has-child ul li a:active {
+  background: #554;
 }
-.gmenu ul li.has-child ul li.has-child ul {
-  z-index: 8;
-  top: 0;
-  left: 130px;
-  background: #000;
-}
+
+/*==768px以下の形状*/
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
@@ -187,70 +210,71 @@ img {
     text-decoration: none;
   }
 }
-@media (hover: hover) {
-  .gmenu a:hover {
-    color: #eee;
-  }
-  .gmenu ul li.has-child ul a:hover {
-    background: #511;
-  }
-  .gmenu ul li.has-child ul li.has-child ul a:hover {
-    background: #661;
+
+@media screen and (max-width: 1200px) {
+  .gmenu ul li.has-child dt {
+    height: 12vh;
   }
 }
+
 @media screen and (max-width: 768px) {
   .gmenu ul {
-    flex-direction: column;
-    width: 100%;
+    display: block;
   }
-  .gmenu ul li {
-    width: 100%;
-    border-bottom: 1px solid rgba(200, 200, 255, 0.6);
-  }
-  .gmenu ul li a {
-    width: 100%;
-    text-align: center;
-  }
-  .gmenu ul li li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  }
-  .gmenu ul li li:last-child {
-    border-bottom: 0px solid rgba(255, 255, 255, 0.6);
-  }
-  .gmenu li.has-child a {
-    position: relative;
-  }
-  .gmenu li.has-child a::before {
-    position: absolute;
-    top: 48%;
-    left: 5%;
-    transition: transform 0.5s;
-  }
-  .gmenu li.has-child.active a::before {
-    transform: translateY(-2px) rotate(45deg);
-  }
-  .gmenu li.has-child.active li.has-child a::before {
-    transform: translateY(-2px) rotate(-135deg);
-    transition: transform 0.5s;
-  }
-  .gmenu li.has-child.active li.has-child.active a::before {
-    transform: translateY(-2px) rotate(45deg);
-  }
-  .gmenu ul li a,
-.gmenu ul li li a,
-.gmenu ul li.has-child li a,
-.gmenu ul li li li a,
-.gmenu ul li.has-child ul li.has-child ul a {
-    padding: 20px 25px;
-  }
-  .gmenu ul li.has-child ul,
-.gmenu ul li.has-child ul li.has-child ul {
+
+  .gmenu li.has-child ul {
+    /*JSで制御するため一旦表示*/
     display: none;
     visibility: visible;
     position: relative;
     top: 0;
     left: 0;
     width: 100%;
+    /*JSで制御するため一旦表示*/
     opacity: 1;
+    /*JSのslidetoggleで表示させるため非表示に*/
+    transition: none;
+    /*JSで制御するためCSSのアニメーションを切る*/
+  }
+
+  .gmenu li.has-child ul li {
+    width: 100%;
+    text-align: left;
+  }
+
+  .gmenu li.has-child ul li dl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .gmenu li.has-child ul li dt {
+    width: 30%;
+    height: auto;
+    margin: 0;
+  }
+
+  .gmenu li.has-child ul li dd {
+    width: 64%;
+  }
+
+  .gmenu ul li a {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .gmenu ul li li a {
+    padding: 0;
+  }
+
+  /*矢印の位置と向き*/
+  .gmenu ul li.has-child > a::before {
+    top: 17px;
+    left: 20px;
+    transform: rotate(135deg);
+  }
+
+  .gmenu ul li.has-child.active > a::before {
+    transform: rotate(-45deg);
   }
 }
