@@ -79,6 +79,7 @@ img {
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 .gmenu {
+  position: relative;
   background: #222;
   color: #eee;
   text-align: center;
@@ -95,28 +96,57 @@ img {
   padding: 20px 25px;
   background: #222;
   color: #fda;
+  transition: all 0.5s;
 }
 .gmenu ul ul {
-  display: flex;
   visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  align-items: center;
-  justify-content: space-between;
   opacity: 0;
 }
 .gmenu ul ul a {
-  background: #554;
+  padding: 20px 25px 10px 25px;
+  background: #422;
   color: #fda;
-}
-.gmenu li {
-  position: relative;
 }
 .gmenu li.has-child a {
   display: flex;
   position: relative;
   align-items: center;
+}
+.gmenu li.has-child a::before {
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-right: 12px;
+  transform: translateY(-2px) rotate(-135deg);
+  border-top: 2px solid #eee;
+  border-left: 2px solid #eee;
+  content: "";
+}
+.gmenu li.has-child ul {
+  display: flex;
+  position: absolute;
+  top: 65px;
+  left: 5%;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+.gmenu li.has-child ul a::before {
+  display: none;
+}
+.gmenu li.has-child ul dt {
+  overflow: hidden;
+}
+.gmenu li.has-child ul dt img {
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s;
+}
+.gmenu li.has-child ul dd {
+  margin-top: 15px;
+  white-space: nowrap;
 }
 @media (pointer: fine) {
   a:link {
@@ -138,5 +168,15 @@ img {
 @media (hover: hover) {
   .gmenu ul a:hover {
     color: #eee;
+  }
+  .gmenu ul ul a:hover {
+    background: #554;
+  }
+  .gmenu ul ul a:hover dt img {
+    transform: scale(1.2, 1.2);
+  }
+  .gmenu li.has-child:hover ul {
+    visibility: visible;
+    opacity: 1;
   }
 }

@@ -21,6 +21,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     background: $gmenuBg;
     color:$gmenuColor;
     text-align: center;
+    position: relative;
     ul{
         display: flex;
         justify-content: space-between;
@@ -32,31 +33,61 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             background: $gmenuBg;
             color: $gmenuLinkColor;
             padding: 20px 25px;
+            transition: all 0.5s;
         }
         ul{
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             visibility: hidden;
             opacity: 0;
             a{
-                background: $gmenuBg2Ac;
+                padding: 20px 25px 10px 25px;
+                background: $gmenuBg2;
                 color: $gmenuL2LinkColor;
             }
         }
     }
     li{
-        position: relative;
         &.has-child{
             a{
                 position: relative;
                 display: flex;
                 align-items: center;
                 &::before{
-                    
+                    content:'';
+                    display:block;
+                    border-top: 2px solid $gmenuL1Icon;
+                    border-left: 2px solid $gmenuL1Icon;
+                    margin-right: 12px;
+                    width: 6px;
+                    height: 6px;
+                    transform: translateY(-2px) rotate( -135deg);
+                }
+            }
+            ul{
+                position: absolute;
+                top: 65px;
+                left: 5%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 90%;
+                a{
+                    &::before{
+                        display: none;
+                    }
+                }
+                dt{
+                    overflow: hidden;
+                    img{
+                        width: auto;
+                        height: auto;
+                        object-fit: cover;
+                        object-position: center;
+                        transition: transform 0.5s;
+                    }
+                }
+                dd{
+                    margin-top: 15px;
+                    white-space: nowrap;
                 }
             }
         }
@@ -67,8 +98,30 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         ul{
             a{
                 &:hover{
-                    //background: $gmenuBg2Ac;
                     color: $gmenuLinkHoverColor;
+                }
+            }
+            ul{
+                a{
+                    &:hover{
+                        background: $gmenuBg2Ac;
+                        dt{
+                            img{
+                                transform: scale( 1.2, 1.2 );
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        li{
+            &.has-child{
+                &:hover{
+                    ul{
+                        visibility:visible;
+                        opacity: 1;
+                    }
                 }
             }
         }
