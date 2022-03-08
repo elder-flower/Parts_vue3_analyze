@@ -96,8 +96,8 @@ img {
   color: #fda;
 }
 .gmenu ul .layer2 li a::before {
-  border-top: 0px solid #eee;
-  border-left: 0px solid #eee;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
 }
 .gmenu ul .layer2 li.has-child a::before {
   display: block;
@@ -108,8 +108,8 @@ img {
   content: "";
 }
 .gmenu ul .layer2 li.has-child ul a::before {
-  border-top: 0px solid #eee;
-  border-left: 0px solid #eee;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
 }
 .gmenu li {
   position: relative;
@@ -167,7 +167,7 @@ img {
 .gmenu ul li.has-child ul li.has-child ul {
   z-index: 8;
   top: 0;
-  left: 140px;
+  left: 130px;
   background: #000;
 }
 @media (pointer: fine) {
