@@ -16,6 +16,8 @@ function FixedAnime() {
     }
 
 }
+
+// Scrollイベント中に「Event.preventDefault()」があるとJS的に良くないので「Event.preventDefault()」を使わない為の回避処理。
 function sanitize(){
     
     sanitize_core( glinks );
@@ -53,6 +55,8 @@ function tolink(){
         
     for( var aa = 0; aa < glinks.length; aa++){
         var glink = glinks[aa];
+        
+        //「option.passive」はIE11では非対応。
         glink.addEventListener('click', move, {
             passive: true
         });
@@ -72,7 +76,6 @@ function move( e ){
 }
 
 function Init(){
-
     sanitize();
     tolink();
     FixedAnime();
