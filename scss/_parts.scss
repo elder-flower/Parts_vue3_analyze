@@ -29,7 +29,10 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         width: $gmenuWdth;
         margin: 0 auto 0;
         a{
-            display: block;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: $gmenuBg;
             color: $gmenuLinkColor;
             padding: 20px 25px;
@@ -48,9 +51,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     li{
         &.has-child{
             a{
-                position: relative;
-                display: flex;
-                align-items: center;
+
                 &::before{
                     content:'';
                     display:block;
@@ -93,6 +94,13 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             }
         }
     }
+    ul li.has-child.active{
+        a{
+            &::before{
+                transform: translateY(-2px) rotate( 135deg );
+            }
+        }
+    }
 }
 @media (hover: hover){
     .gmenu{
@@ -129,5 +137,66 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     } 
 }
 @media screen and (max-width:768px){
-    
+    .gmenu{
+        ul{
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: auto;
+            a{
+                width: 100%;
+            }
+        }
+        li{
+            width: 100%;
+            border-bottom: 1px solid $gmenuL2PcSpLine;
+            &.has-child{
+                a{
+                    &::before{
+                        position: absolute;
+                        top: 48%;
+                        left: 5%;
+                        transform: translateY(-2px) rotate( -135deg );
+                        transition: transform 0.5s;
+                    }
+                }
+                ul{
+                    position: static;
+                    visibility:visible;
+                    opacity: 1;
+                    display: none;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    a{
+                        padding: 0;
+                    }
+                    dl{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    dt{
+                        flex: 0 0 30%;
+                        height: auto;
+                    }
+                    dd{
+                        flex: 1 1 70%;
+                        margin-top: 0;
+                        padding: 10px 20px 10px 20px;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+        ul li.has-child.active{
+            a{
+                &::before{
+                    transform: translateY(-2px) rotate( 45deg );
+                }
+            }
+        }
+    }
 }

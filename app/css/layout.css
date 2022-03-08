@@ -92,7 +92,10 @@ img {
   margin: 0 auto 0;
 }
 .gmenu ul a {
-  display: block;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
   padding: 20px 25px;
   background: #222;
   color: #fda;
@@ -106,11 +109,6 @@ img {
   padding: 20px 25px 10px 25px;
   background: #422;
   color: #fda;
-}
-.gmenu li.has-child a {
-  display: flex;
-  position: relative;
-  align-items: center;
 }
 .gmenu li.has-child a::before {
   display: block;
@@ -149,6 +147,9 @@ img {
   margin-top: 15px;
   white-space: nowrap;
 }
+.gmenu ul li.has-child.active a::before {
+  transform: translateY(-2px) rotate(135deg);
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
@@ -179,5 +180,59 @@ img {
   .gmenu li.has-child:hover ul {
     visibility: visible;
     opacity: 1;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gmenu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    overflow: hidden;
+  }
+  .gmenu ul a {
+    width: 100%;
+  }
+  .gmenu li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  .gmenu li.has-child a::before {
+    position: absolute;
+    top: 48%;
+    left: 5%;
+    transform: translateY(-2px) rotate(-135deg);
+    transition: transform 0.5s;
+  }
+  .gmenu li.has-child ul {
+    display: none;
+    visibility: visible;
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 1;
+  }
+  .gmenu li.has-child ul a {
+    padding: 0;
+  }
+  .gmenu li.has-child ul dl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .gmenu li.has-child ul dt {
+    flex: 0 0 30%;
+    height: auto;
+  }
+  .gmenu li.has-child ul dd {
+    flex: 1 1 70%;
+    margin-top: 0;
+    padding: 10px 20px 10px 20px;
+    text-align: left;
+  }
+  .gmenu ul li.has-child.active a::before {
+    transform: translateY(-2px) rotate(45deg);
   }
 }
