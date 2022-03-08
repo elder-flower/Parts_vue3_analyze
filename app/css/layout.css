@@ -135,6 +135,7 @@ img {
   display: none;
 }
 .gmenu li.has-child ul dt {
+  height: 18vh;
   overflow: hidden;
 }
 .gmenu li.has-child ul dt img {
