@@ -2,194 +2,75 @@
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 
+$gmenuWdth: 500px;
 $gmenuColor: #eee;
 
 $gmenuBg: #222;
-$gmenu2Bg: #422;
+$gmenuBg2: #422;
 
-$gmenu2BgAc:#554;
+$gmenuBg2Ac:#554;
 
 $gmenuLinkColor: #fda;
 $gmenuLinkHoverColor: #eee;
 $gmenuL2LinkColor: #fda;
 
 $gmenuL1Icon: #eee;
-
 $gmenuL2PcSpLine: rgba(255,255,255,0.6);
 
 .gmenu{
     background: $gmenuBg;
     color:$gmenuColor;
     text-align: center;
-}
-
-/*ナビゲーションを横並びに*/
-.gmenu ul{
-    /*2階層目の基点にするためrelativeを指定*/
-    position: relative;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
-
-/*2階層目以降は横並びにしない*/
-.gmenu ul ul{
-    display: block;
-}
-
-/*ナビゲーションのリンク設定*/
-.gmenu ul li a{
-    /*矢印の基点にするためrelativeを指定*/
-    position: relative;
-    display: block;
-    text-decoration: none;
-    color: $gmenuLinkColor;
-    padding:20px 45px;
-    transition:all .3s;
-}
-
-.gmenu ul li a:hover{
-    color:$gmenuLinkHoverColor;
-}
-
-.gmenu ul li li a{
-    padding:20px;
-}
-
-/*==矢印の設定*/
-
-/*2階層目を持つliの矢印の設定*/
-
-.gmenu ul li.has-child > a::before{
-    content:'';
-    position: absolute;
-    left:15px;
-    top:25px;
-    width:6px;
-    height:6px;
-    border-top: 2px solid $gmenuL1Icon;
-    border-right:2px solid $gmenuL1Icon;
-    transform: rotate(135deg);
-}
-
-/*==2階層目以降の画像設定*/
-
-.gmenu ul li.has-child img{
-    max-width: 100%;
-    height: auto;
-    transition: all .5s;
-    vertical-align: bottom;
-}
-
-/*hoverしたら画像拡大*/
-.gmenu ul li.has-child img:hover{
-    transform: scale(1.2);
-}
-
-.gmenu ul li.has-child dt{
-    overflow: hidden;
-    height: 20vh;
-    margin:0 0 20px 0;
-}
-
-@media screen and (max-width:1200px){
-    .gmenu ul li.has-child dt{
-        height: 12vh;
-    }
-}
-
-/*== 2層目の設定 */
-
-.gmenu li.has-child ul{
-  /*絶対配置で位置を指定*/
-    position: absolute;
-    left:5%;
-    top:58px;
-    z-index: 4;
-    /*子要素を横並びに*/
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    /*形状を指定*/
-    background:$gmenu2Bg;
-    width:90%;
-    /*はじめは非表示*/
-    visibility: hidden;
-    opacity: 0;
-     /*アニメーション設定*/
-    transition: all .3s;
-}
-
-/*hoverしたら表示*/
-.gmenu li.has-child:hover > ul{
-  visibility: visible;
-  opacity: 1;
-}
-
-/*各ナビゲーション横幅*/
-.gmenu li.has-child ul li{
-    width:20%;
-}
-
-/*ナビゲーションaタグの形状*/
-.gmenu li.has-child ul li a{
-    color: $gmenuL2LinkColor;
-}
-
-.gmenu li.has-child ul li a:hover,
-.gmenu li.has-child ul li a:active{
-    background:$gmenu2BgAc;
-}
-
-/*==768px以下の形状*/
-@media screen and (max-width:768px){
-
-    .gmenu ul{
-        display: block;
-    }
-
-    .gmenu li.has-child ul{
-        position: relative;
-        left:0;
-        top:0;
-        width:100%;
-        visibility:visible;/*JSで制御するため一旦表示*/
-        opacity:1;/*JSで制御するため一旦表示*/
-        display: none;/*JSのslidetoggleで表示させるため非表示に*/
-        transition:none;/*JSで制御するためCSSのアニメーションを切る*/
-    }
-    
-    .gmenu li.has-child ul li{
-        width:100%;
-        text-align: left;
-    }
-    .gmenu li.has-child ul li dl{
+    ul{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: $gmenuWdth;
+        margin: 0 auto 0;
+        a{
+            display: block;
+            background: $gmenuBg;
+            color: $gmenuLinkColor;
+            padding: 20px 25px;
+        }
+        ul{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            a{
+                background: $gmenuBg2Ac;
+                color: $gmenuL2LinkColor;
+            }
+        }
     }
-    .gmenu li.has-child ul li dt{
-        width:30%;
-        height: auto;
-        margin: 0;
+    li{
+        position: relative;
+        &.has-child{
+            a{
+                position: relative;
+                display: flex;
+                align-items: center;
+                &::before{
+                    
+                }
+            }
+        }
     }
-    .gmenu li.has-child ul li dd{
-        width:64%;
-    }
-    .gmenu ul li a{
-        padding: 10px 20px;
-        border-bottom:1px solid $gmenuL2PcSpLine;
-    }
-    .gmenu ul li li a{
-        padding: 0;
-    }
-    /*矢印の位置と向き*/
-    .gmenu ul li.has-child > a::before{
-        top:17px;
-        left:20px;
-        transform: rotate(135deg);
-    }
-    .gmenu ul li.has-child.active > a::before{
-        transform: rotate(-45deg);
-    }
+}
+@media (hover: hover){
+    .gmenu{
+        ul{
+            a{
+                &:hover{
+                    //background: $gmenuBg2Ac;
+                    color: $gmenuLinkHoverColor;
+                }
+            }
+        }
+    } 
 }
