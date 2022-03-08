@@ -1,11 +1,12 @@
 header{
     margin:0;
     padding: 2rem 1rem 0 1rem;
-    width:17%;
+    width: 17%;
     height: 100vh;
     background:#222;
+    position: relative;
 }
-@media screen and (max-width:768px){
+@media screen and (max-width:500px){
     header{
         padding: 0;
         width:100%;
@@ -16,6 +17,7 @@ header{
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 
+$imgWdth: 230px;
 $gmenuColor: #eee;
 
 $gmenuBg: #222;
@@ -34,10 +36,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     background: $gmenuBg;
     color:$gmenuColor;
     text-align: center;
-    position: relative;
     ul{
-        width: 100%;
-        margin: 0 auto 0;
         a{
             position: relative;
             display: flex;
@@ -45,18 +44,16 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             align-items: center;
             background: $gmenuBg;
             color: $gmenuLinkColor;
-            padding: 20px 25px;
+            padding: 20px 10px;
             transition: all 0.5s;
         }
         ul{
-            /*
             visibility: hidden;
             opacity: 0;
-            */
             a{
                 //padding: 20px 25px 10px 25px;
-                padding: 20px 2vw 10px;
-                background: $gmenuBg2;
+                padding: 10px 10px;
+                background: transparent;
                 color: $gmenuL2LinkColor;
             }
         }
@@ -64,24 +61,30 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     li{
         &.has-child{
             a{
-
                 &::before{
                     content:'';
                     display:block;
                     border-top: 2px solid $gmenuL1Icon;
                     border-left: 2px solid $gmenuL1Icon;
-                    margin-right: 12px;
                     width: 6px;
                     height: 6px;
-                    transform: translateY(-2px) rotate( 135deg );
+                    position: absolute;
+                    top: 50%;
+                    right: 10%;
+                    transform: translateY(-2px) rotate( 135deg);
                 }
             }
             ul{
+                background: $gmenuBg2;
                 position: absolute;
                 top: 0;
-                left: 200px;
-                width: 100%;
-                max-width: 100%;
+                left: 100%;
+                width: $imgWdth;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: stretch;
+                align-items: center;
                 a{
                     &::before{
                         display: none;
@@ -89,7 +92,6 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                 }
                 dt{
                     overflow: hidden;
-                    height: 9vw;
                     img{
                         width: auto;
                         height: auto;
@@ -99,7 +101,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                     }
                 }
                 dd{
-                    margin-top: 15px;
+                    margin-top: 10px;
                     white-space: nowrap;
                 }
             }
@@ -182,6 +184,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
     */
 }
 @media screen and (max-width: 500px){
+    /*
     .gmenu{
         ul{
             overflow: hidden;
@@ -244,4 +247,5 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             }
         }
     }
+    */
 }

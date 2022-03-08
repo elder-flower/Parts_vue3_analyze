@@ -76,6 +76,7 @@ img {
 }
 
 header {
+  position: relative;
   width: 17%;
   height: 100vh;
   margin: 0;
@@ -86,58 +87,57 @@ header {
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 .gmenu {
-  position: relative;
   background: #222;
   color: #eee;
   text-align: center;
-}
-.gmenu ul {
-  width: 100%;
-  margin: 0 auto 0;
 }
 .gmenu ul a {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
-  padding: 20px 25px;
+  padding: 20px 10px;
   background: #222;
   color: #fda;
   transition: all 0.5s;
 }
 .gmenu ul ul {
-  /*
   visibility: hidden;
   opacity: 0;
-  */
 }
 .gmenu ul ul a {
-  padding: 20px 2vw 10px;
-  background: #422;
+  padding: 10px 10px;
+  background: transparent;
   color: #fda;
 }
 .gmenu li.has-child a::before {
   display: block;
+  position: absolute;
+  top: 50%;
+  right: 10%;
   width: 6px;
   height: 6px;
-  margin-right: 12px;
   transform: translateY(-2px) rotate(135deg);
   border-top: 2px solid #eee;
   border-left: 2px solid #eee;
   content: "";
 }
 .gmenu li.has-child ul {
+  display: flex;
   position: absolute;
   top: 0;
-  left: 200px;
-  width: 100%;
-  max-width: 100%;
+  left: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  width: 230px;
+  height: 100vh;
+  background: #422;
 }
 .gmenu li.has-child ul a::before {
   display: none;
 }
 .gmenu li.has-child ul dt {
-  height: 9vw;
   overflow: hidden;
 }
 .gmenu li.has-child ul dt img {
@@ -148,7 +148,7 @@ header {
   transition: transform 0.5s;
 }
 .gmenu li.has-child ul dd {
-  margin-top: 15px;
+  margin-top: 10px;
   white-space: nowrap;
 }
 .gmenu ul li.has-child.active a::before {
@@ -171,7 +171,7 @@ header {
     text-decoration: none;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px) {
   header {
     width: 100%;
     height: auto;
@@ -180,13 +180,62 @@ header {
   /*
   .gmenu{
       ul{
-          li{
-              &.has-child{
-                  ul{
-                      left: 0;
-                      width: 100%;
-                      max-width: 100%;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: auto;
+          a{
+              width: 100%;
+          }
+      }
+      li{
+          width: 100%;
+          border-bottom: 1px solid $gmenuL2PcSpLine;
+          &.has-child{
+              a{
+                  &::before{
+                      position: absolute;
+                      top: 48%;
+                      left: 5%;
+                      transform: translateY(-2px) rotate( -135deg );
+                      transition: transform 0.5s;
                   }
+              }
+              ul{
+                  position: static;
+                  visibility:visible;
+                  opacity: 1;
+                  display: none;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  a{
+                      padding: 0;
+                  }
+                  dl{
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                  }
+                  dt{
+                      flex: 0 0 30%;
+                      height: auto;
+                  }
+                  dd{
+                      flex: 1 1 70%;
+                      margin-top: 0;
+                      padding: 10px 20px 10px 20px;
+                      text-align: left;
+                  }
+              }
+          }
+      }
+      ul li.has-child.active{
+          a{
+              &::before{
+                  transform: translateY(-2px) rotate( 45deg );
               }
           }
       }
@@ -225,57 +274,20 @@ header {
   }
   */
 }
-@media screen and (max-width: 500px) {
-  .gmenu ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    overflow: hidden;
+@media screen and (max-width: 768px) {
+  /*
+  .gmenu{
+      ul{
+          li{
+              &.has-child{
+                  ul{
+                      left: 0;
+                      width: 100%;
+                      max-width: 100%;
+                  }
+              }
+          }
+      }
   }
-  .gmenu ul a {
-    width: 100%;
-  }
-  .gmenu li {
-    width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  }
-  .gmenu li.has-child a::before {
-    position: absolute;
-    top: 48%;
-    left: 5%;
-    transform: translateY(-2px) rotate(-135deg);
-    transition: transform 0.5s;
-  }
-  .gmenu li.has-child ul {
-    display: none;
-    visibility: visible;
-    position: static;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 1;
-  }
-  .gmenu li.has-child ul a {
-    padding: 0;
-  }
-  .gmenu li.has-child ul dl {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .gmenu li.has-child ul dt {
-    flex: 0 0 30%;
-    height: auto;
-  }
-  .gmenu li.has-child ul dd {
-    flex: 1 1 70%;
-    margin-top: 0;
-    padding: 10px 20px 10px 20px;
-    text-align: left;
-  }
-  .gmenu ul li.has-child.active a::before {
-    transform: translateY(-2px) rotate(45deg);
-  }
+  */
 }
