@@ -26,7 +26,8 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: $gmenuWdth;
+        width: 100%;
+        max-width: $gmenuWdth;
         margin: 0 auto 0;
         a{
             position: relative;
@@ -42,7 +43,8 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             visibility: hidden;
             opacity: 0;
             a{
-                padding: 20px 25px 10px 25px;
+                //padding: 20px 25px 10px 25px;
+                padding: 20px 2vw 10px;
                 background: $gmenuBg2;
                 color: $gmenuL2LinkColor;
             }
@@ -71,6 +73,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                 justify-content: space-between;
                 align-items: center;
                 width: 90%;
+                max-width: 90%;
                 a{
                     &::before{
                         display: none;
@@ -78,7 +81,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                 }
                 dt{
                     overflow: hidden;
-                    height: 13vh;
+                    height: 9vw;
                     img{
                         width: auto;
                         height: auto;
@@ -136,7 +139,40 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         }
     } 
 }
-@media screen and (max-width:768px){
+@media screen and (max-width: 1050px){
+    .gmenu{
+        ul{
+            li{
+                &.has-child{
+                    ul{
+                        left: 3%;
+                        width: 94%;
+                        max-width: 94%;
+                        dt{
+                            //height: 8vw;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 768px){
+    .gmenu{
+        ul{
+            li{
+                &.has-child{
+                    ul{
+                        left: 0;
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 500px){
     .gmenu{
         ul{
             overflow: hidden;

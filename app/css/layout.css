@@ -88,7 +88,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto 0;
 }
 .gmenu ul a {
@@ -106,7 +107,7 @@ img {
   opacity: 0;
 }
 .gmenu ul ul a {
-  padding: 20px 25px 10px 25px;
+  padding: 20px 2vw 10px;
   background: #422;
   color: #fda;
 }
@@ -128,12 +129,13 @@ img {
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  max-width: 90%;
 }
 .gmenu li.has-child ul a::before {
   display: none;
 }
 .gmenu li.has-child ul dt {
-  height: 13vh;
+  height: 9vw;
   overflow: hidden;
 }
 .gmenu li.has-child ul dt img {
@@ -182,7 +184,21 @@ img {
     opacity: 1;
   }
 }
+@media screen and (max-width: 1050px) {
+  .gmenu ul li.has-child ul {
+    left: 3%;
+    width: 94%;
+    max-width: 94%;
+  }
+}
 @media screen and (max-width: 768px) {
+  .gmenu ul li.has-child ul {
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
   .gmenu ul {
     display: flex;
     flex-direction: column;
