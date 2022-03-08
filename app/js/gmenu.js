@@ -1,31 +1,84 @@
-//ドロップダウンの設定を関数でまとめる
-function mediaQueriesWin(){
-    var event_str = 'click';
-    if( navigator.maxTouchPoints !== 0 ){
-        event_str = 'touchstart';
+var doc = document;
+var glinks = doc.querySelectorAll('.header__gmenu a');
+var $win = $(window);
+
+//スクロールすると上部に固定させるための設定を関数でまとめる
+function FixedAnime() {
+    
+    var $header = $('.header');
+
+    var headerH = $header.outerHeight(true);
+    var scroll = $win.scrollTop();
+    if (scroll >= headerH){//headerの高さ以上になったら
+        $header.addClass('fixed');//fixedというクラス名を付与
+    }else{//それ以外は
+        $header.removeClass('fixed');//fixedというクラス名を除去
     }
-	var width = $(window).width();
-	if(width <= 500) {//横幅が500px以下の場合
-		$(".has-child>a").off(event_str);	//has-childクラスがついたaタグのonイベントを複数登録を避ける為offにして一旦初期状態へ
-		$(".has-child>a").on(event_str, function() {//has-childクラスがついたaタグをクリックしたら
-			var parentElem =  $(this).parent();// aタグから見た親要素の<li>を取得し
-			$(parentElem).toggleClass('active');//矢印方向を変えるためのクラス名を付与して
-			$(parentElem).children('ul').stop().slideToggle(500);//liの子要素のスライドを開閉させる※数字が大きくなるほどゆっくり開く
-			return false;//リンクの無効化
-		});
-	}else{//横幅が500px以上の場合
-		$(".has-child>a").off(event_str);//has-childクラスがついたaタグのonイベントをoff(無効)にし
-		$(".has-child>a").removeClass('active');//activeクラスを削除
-		$('.has-child').children('ul').css("display","");//スライドトグルで動作したdisplayも無効化にする
-	}
+
+}
+function sanitize(){
+    
+    sanitize_core( glinks );
+
+    function sanitize_core( elems ){
+
+        if( elems == null ){
+           return
+        }
+        
+        var len = elems.length;
+
+        if( len ){
+            for( var zz = 0; zz < len; zz++){
+                var elem = elems[zz];
+                if( elem.hasAttribute('href') ){
+                    var link = elem.getAttribute('href');
+                    elem.removeAttribute('href');
+                    elem.setAttribute('data-href',link);
+                }
+            }
+        }else{
+            if( elem.hasAttribute('href') ){
+                var link = elems.getAttribute('href');
+                elems.removeAttribute('href');
+                elems.setAttribute('data-href',link);
+            }
+
+        }
+    
+    }
+}
+function tolink(){
+    //ナビゲーションをクリックした際のスムーススクロール
+        
+    for( var aa = 0; aa < glinks.length; aa++){
+        var glink = glinks[aa];
+        glink.addEventListener('click', move, {
+            passive: true
+        });
+
+    }
+}
+function move( e ){
+
+    var th = e.target;
+    var num = 140;
+    
+    var elmHash = $(th).attr('data-href'); //hrefの内容を取得
+    var pos = Math.round($(elmHash).offset().top - num );//headerの高さを引く
+
+    $('body,html').animate({scrollTop: pos}, 500);//取得した位置にスクロール※数値が大きいほどゆっくりスクロール
+
 }
 
-// ページがリサイズされたら動かしたい場合の記述
-$(window).resize(function() {
-    mediaQueriesWin();/* ドロップダウンの関数を呼ぶ*/
-});
+function Init(){
 
-// ページが読み込まれたらすぐに動かしたい場合の記述
-$(window).on('load',function(){
-    mediaQueriesWin();/* ドロップダウンの関数を呼ぶ*/
-});
+    sanitize();
+    tolink();
+    FixedAnime();
+
+}
+// 画面をスクロールをしたら動かしたい場合の記述
+$win[0].addEventListener( 'scroll', FixedAnime, false);
+$win[0].addEventListener( 'load', Init, false );
+

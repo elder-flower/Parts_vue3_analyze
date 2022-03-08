@@ -1,235 +1,50 @@
-header{
-    margin:0;
-    padding: 2rem 1rem 0 1rem;
-    width: 17%;
-    height: 100vh;
-    background:#222;
-    position: relative;
-}
-@media screen and (max-width: 1050px){
-    header{
-        padding: 2rem 10px 0 10px;
-        width: 20%;
-    }
-}
-@media screen and (max-width: 600px){
-    header{
-        padding: 2rem 10px 0 10px;
-        width: 24%;
-    }
-    .gmenu{
-        margin: 0 -10px;
-    }
-}
-@media screen and (max-width:500px){
-    header{
-        padding: 0;
-        width:100%;
-        height: auto;
-        h2{
-            padding: 0.5em;
-        }
-    }
-}
+
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
 
-$imgWdth: 230px;
-$gmenuColor: #eee;
-
-$gmenuBg: #222;
-$gmenuBg2: #422;
-
-$gmenuBg2Ac:#554;
-
-$gmenuLinkColor: #fda;
-$gmenuLinkHoverColor: #eee;
-$gmenuL2LinkColor: #fda;
-
-$gmenuL1Icon: #eee;
-$gmenuL2PcSpLine: rgba(255,255,255,0.6);
-
-.gmenu{
-    background: $gmenuBg;
-    color:$gmenuColor;
+/*========= 上部固定させるためのCSS ===============*/
+.header{
+    height: 70px;/*高さ指定*/
+    width:100%;/*横幅指定*/
+    /*以下はレイアウトのためのCSS*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:#333;
+    color:#fff;
     text-align: center;
-    ul{
-        a{
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: $gmenuBg;
-            color: $gmenuLinkColor;
-            padding: 20px 10px;
-            transition: all 0.5s;
-        }
+    padding: 20px;
+    &__gmenu{
+        width: 90%;
+        margin: 0 auto;
         ul{
-            visibility: hidden;
-            opacity: 0;
-            a{
-                //padding: 20px 25px 10px 25px;
-                padding: 10px 10px;
-                background: transparent;
-                color: $gmenuL2LinkColor;
-            }
-        }
-    }
-    li{
-        &.has-child{
-            a{
-                &::before{
-                    content:'';
-                    display:block;
-                    border-top: 2px solid $gmenuL1Icon;
-                    border-left: 2px solid $gmenuL1Icon;
-                    width: 6px;
-                    height: 6px;
-                    position: absolute;
-                    top: 50%;
-                    right: 10%;
-                    transform: translateY(-2px) rotate( 135deg);
-                }
-            }
-            ul{
-                background: $gmenuBg2;
-                position: absolute;
-                top: 0;
-                left: 100%;
-                width: $imgWdth;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: stretch;
-                align-items: center;
-                a{
-                    &::before{
-                        display: none;
-                    }
-                }
-                dt{
-                    overflow: hidden;
-                    img{
-                        width: auto;
-                        height: auto;
-                        object-fit: cover;
-                        object-position: center;
-                        transition: transform 0.5s;
-                    }
-                }
-                dd{
-                    margin-top: 10px;
-                    white-space: nowrap;
-                }
-            }
-        }
-    }
-    ul li.has-child.active{
-        a{
-            &::before{
-                transform: translateY(-2px) rotate( 135deg );
-            }
-        }
-    }
-}
-@media (hover: hover){
-    .gmenu{
-        ul{
-            a{
-                &:hover{
-                    color: $gmenuLinkHoverColor;
-                }
-            }
-            ul{
-                a{
-                    &:hover{
-                        background: $gmenuBg2Ac;
-                        dt{
-                            img{
-                                transform: scale( 1.2, 1.2 );
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-        li{
-            &.has-child{
-                &:hover{
-                    ul{
-                        visibility:visible;
-                        opacity: 1;
-                    }
-                }
-            }
-        }
-    } 
-}
-@media screen and (max-width:500px){
-    .gmenu{
-        margin: 0;
-        ul{
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: auto;
-            a{
-                width: 100%;
-            }
-        }
-        li{
             width: 100%;
-            border-bottom: 1px solid $gmenuL2PcSpLine;
-            &.has-child{
-                a{
-                    &::before{
-                        position: absolute;
-                        top: 48%;
-                        left: 5%;
-                        transform: translateY(-2px) rotate( -135deg );
-                        transition: transform 0.5s;
-                    }
-                }
-                ul{
-                    position: static;
-                    visibility:visible;
-                    opacity: 1;
-                    display: none;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: auto;
-                    a{
-                        padding: 0;
-                    }
-                    dl{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-                    dt{
-                        flex: 0 0 30%;
-                        height: auto;
-                    }
-                    dd{
-                        flex: 1 1 70%;
-                        margin-top: 0;
-                        padding: 10px 20px 10px 20px;
-                        text-align: left;
-                    }
-                }
-            }
-        }
-        ul li.has-child.active{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             a{
-                &::before{
-                    transform: translateY(-2px) rotate( 45deg );
-                }
+                padding: 20px 25px;
             }
         }
     }
 }
+
+//「IntersectionObserver」を使う場合の目印。
+.scroll-point{
+    position: absolute;
+    z-index: 10;
+    top: 200px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    //background: #444;
+}
+/*JSを使いfixedクラスが付与された際の設定*/
+.fixed{
+    position: fixed;/*fixedを設定して固定*/
+    z-index: 999;/*最前面へ*/
+    top:0;/*位置指定*/
+    left:0;/*位置指定*/
+}
+

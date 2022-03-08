@@ -36,6 +36,7 @@ p {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /*
@@ -74,84 +75,57 @@ img {
   vertical-align: bottom;
 }
 
-header {
-  position: relative;
-  width: 17%;
-  height: 100vh;
-  margin: 0;
-  padding: 2rem 1rem 0 1rem;
-  background: #222;
-}
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-.gmenu {
-  background: #222;
-  color: #eee;
+/*========= 上部固定させるためのCSS ===============*/
+.header {
+  /*横幅指定*/
+  /*以下はレイアウトのためのCSS*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /*高さ指定*/
+  width: 100%;
+  height: 70px;
+  padding: 20px;
+  background: #333;
+  color: #fff;
   text-align: center;
 }
-.gmenu ul a {
+.header__gmenu {
+  width: 90%;
+  margin: 0 auto;
+}
+.header__gmenu ul {
   display: flex;
-  position: relative;
   align-items: center;
-  justify-content: center;
-  padding: 20px 10px;
-  background: #222;
-  color: #fda;
-  transition: all 0.5s;
+  justify-content: space-between;
+  width: 100%;
 }
-.gmenu ul ul {
-  visibility: hidden;
-  opacity: 0;
+.header__gmenu ul a {
+  padding: 20px 25px;
 }
-.gmenu ul ul a {
-  padding: 10px 10px;
-  background: transparent;
-  color: #fda;
-}
-.gmenu li.has-child a::before {
-  display: block;
+
+.scroll-point {
+  z-index: 10;
   position: absolute;
-  top: 50%;
-  right: 10%;
-  width: 6px;
-  height: 6px;
-  transform: translateY(-2px) rotate(135deg);
-  border-top: 2px solid #eee;
-  border-left: 2px solid #eee;
-  content: "";
+  top: 200px;
+  left: 0;
+  width: 100px;
+  height: 100px;
 }
-.gmenu li.has-child ul {
-  display: flex;
-  position: absolute;
+
+/*JSを使いfixedクラスが付与された際の設定*/
+.fixed {
+  /*fixedを設定して固定*/
+  z-index: 999;
+  position: fixed;
+  /*最前面へ*/
   top: 0;
-  left: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: stretch;
-  width: 230px;
-  height: 100vh;
-  background: #422;
-}
-.gmenu li.has-child ul a::before {
-  display: none;
-}
-.gmenu li.has-child ul dt {
-  overflow: hidden;
-}
-.gmenu li.has-child ul dt img {
-  width: auto;
-  height: auto;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 0.5s;
-}
-.gmenu li.has-child ul dd {
-  margin-top: 10px;
-  white-space: nowrap;
-}
-.gmenu ul li.has-child.active a::before {
-  transform: translateY(-2px) rotate(135deg);
+  /*位置指定*/
+  left: 0;
+  /*位置指定*/
 }
 @media (pointer: fine) {
   a:link {
@@ -168,102 +142,5 @@ header {
 
   a:active {
     text-decoration: none;
-  }
-}
-@media screen and (max-width: 1050px) {
-  header {
-    width: 20%;
-    padding: 2rem 10px 0 10px;
-  }
-}
-@media screen and (max-width: 600px) {
-  header {
-    width: 24%;
-    padding: 2rem 10px 0 10px;
-  }
-
-  .gmenu {
-    margin: 0 -10px;
-  }
-}
-@media screen and (max-width: 500px) {
-  header {
-    width: 100%;
-    height: auto;
-    padding: 0;
-  }
-  header h2 {
-    padding: 0.5em;
-  }
-  .gmenu {
-    margin: 0;
-  }
-  .gmenu ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    overflow: hidden;
-  }
-  .gmenu ul a {
-    width: 100%;
-  }
-  .gmenu li {
-    width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  }
-  .gmenu li.has-child a::before {
-    position: absolute;
-    top: 48%;
-    left: 5%;
-    transform: translateY(-2px) rotate(-135deg);
-    transition: transform 0.5s;
-  }
-  .gmenu li.has-child ul {
-    display: none;
-    visibility: visible;
-    position: static;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    opacity: 1;
-  }
-  .gmenu li.has-child ul a {
-    padding: 0;
-  }
-  .gmenu li.has-child ul dl {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .gmenu li.has-child ul dt {
-    flex: 0 0 30%;
-    height: auto;
-  }
-  .gmenu li.has-child ul dd {
-    flex: 1 1 70%;
-    margin-top: 0;
-    padding: 10px 20px 10px 20px;
-    text-align: left;
-  }
-  .gmenu ul li.has-child.active a::before {
-    transform: translateY(-2px) rotate(45deg);
-  }
-}
-@media (hover: hover) {
-  .gmenu ul a:hover {
-    color: #eee;
-  }
-  .gmenu ul ul a:hover {
-    background: #554;
-  }
-  .gmenu ul ul a:hover dt img {
-    transform: scale(1.2, 1.2);
-  }
-  .gmenu li.has-child:hover ul {
-    visibility: visible;
-    opacity: 1;
   }
 }
