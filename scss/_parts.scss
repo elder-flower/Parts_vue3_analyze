@@ -6,11 +6,29 @@ header{
     background:#222;
     position: relative;
 }
+@media screen and (max-width: 1050px){
+    header{
+        padding: 2rem 10px 0 10px;
+        width: 20%;
+    }
+}
+@media screen and (max-width: 600px){
+    header{
+        padding: 2rem 10px 0 10px;
+        width: 24%;
+    }
+    .gmenu{
+        margin: 0 -10px;
+    }
+}
 @media screen and (max-width:500px){
     header{
         padding: 0;
         width:100%;
         height: auto;
+        h2{
+            padding: 0.5em;
+        }
     }
 }
 /* --------------------------------------------------------------------------------
@@ -149,43 +167,9 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
         }
     } 
 }
-@media screen and (max-width: 1050px){
-    /*
+@media screen and (max-width:500px){
     .gmenu{
-        ul{
-            li{
-                &.has-child{
-                    ul{
-                        left: 3%;
-                        width: 94%;
-                        max-width: 94%;
-                    }
-                }
-            }
-        }
-    }
-    */
-}
-@media screen and (max-width: 768px){
-    /*
-    .gmenu{
-        ul{
-            li{
-                &.has-child{
-                    ul{
-                        left: 0;
-                        width: 100%;
-                        max-width: 100%;
-                    }
-                }
-            }
-        }
-    }
-    */
-}
-@media screen and (max-width: 500px){
-    /*
-    .gmenu{
+        margin: 0;
         ul{
             overflow: hidden;
             display: flex;
@@ -218,6 +202,7 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
                     top: 0;
                     left: 0;
                     width: 100%;
+                    height: auto;
                     a{
                         padding: 0;
                     }
@@ -247,5 +232,4 @@ $gmenuL2PcSpLine: rgba(255,255,255,0.6);
             }
         }
     }
-    */
 }
