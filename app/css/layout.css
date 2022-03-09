@@ -87,7 +87,7 @@ img {
   /*高さ指定*/
   width: 100%;
   height: 70px;
-  padding: 20px;
+  padding: 5%;
   background: #333;
   color: #fff;
 }
@@ -102,7 +102,7 @@ img {
   width: 100%;
 }
 .header__gmenu ul a {
-  padding: 20px 25px;
+  padding: 4% 5%;
 }
 
 /*
