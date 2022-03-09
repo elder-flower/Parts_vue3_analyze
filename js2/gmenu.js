@@ -1,119 +1,115 @@
-var doc = document;
-var glinks = doc.querySelectorAll('.header__gmenu a');
+const doc = document;
+const glinks = doc.querySelectorAll(".header__gmenu a");
+const $header = $(".header");
+const $html = $("html");
+const $btn = $(".openbtn");
+const $win = $(window);
 
-var $btn = $('.openbtn');
-var $header = $('.header');
-var $html = $('html');
-var $win = $(window);
+function iObserver() {
+  const spoints = doc.querySelectorAll(".scroll-point");
+  const fd = "fadeDown";
+  const dnone = "dnone";
 
-//スクロールをするとハンバーガーメニューに変化するための設定を関数でまとめる
-function FixedAnime(){
-    
-    var headerH = $header.outerHeight(true);
+  const options = {
+    root: null, // 今回はビューポートをルート要素とする
+    rootMargin: "-30% 0px", // ビューポートの中心を判定基準にする
+    threshold: 0, // 閾値は0
+  };
 
-    //ヘッダーの高さを取得
-    var scroll = $win.scrollTop();
-    if (scroll >= headerH){//ヘッダーの高さ以上までスクロールしたら
-        $btn.addClass('fadeDown');//.openbtnにfadeDownというクラス名を付与して
-        $header.addClass('dnone');//.headerにdnoneというクラス名を付与
-    }else{//それ以外は
-        $btn.removeClass('fadeDown');//fadeDownというクラス名を除き
-        $header.removeClass('dnone');//dnoneというクラス名を除く
-    }
+  const observer = new IntersectionObserver(scroll_check, options);
+
+  // それぞれの「.scroll-point'」を監視する
+  spoints.forEach((point) => {
+    observer.observe(point);
+  });
+
+  function scroll_check(entries) {
+    //console.log( entries );
+
+    // 交差検知をしたもののなかで、isIntersectingがtrueのDOMを色を変える関数に渡す
+    entries.forEach((entry) => {
+      //console.log( entry.isIntersecting );
+      if (entry.isIntersecting) {
+        $btn.removeClass(fd);
+        $header.removeClass(dnone);
+      } else {
+        $btn.addClass(fd);
+        $header.addClass(dnone);
+      }
+    });
+  }
 }
 //リンク先のidまでスムーススクロール
 //※ページ内リンクを行わない場合は不必要なので削除してください
-function page_link(){
-
-    for( var aa = 0; aa < glinks.length; aa++){
-        var glink = glinks[aa];
-        glink.addEventListener('click', goto, {
-            passive: true
-        });
-
-    }
-
-    function goto( e ){
-
-        var num = 0;
-        var tar = e.target;
-        var elmHash = $(tar).attr('data-href');
-        var pos = $(elmHash).offset().top - num;
-
-        $('body,html').animate({scrollTop: pos}, 1000);
-
-    }
-}
-function menu(){
-
-    $btn[0].addEventListener('click', openBtn, {
-            passive: true
+function page_link() {
+  for (let glink of glinks) {
+    glink.addEventListener("click", goto, {
+      passive: true,
     });
+  }
 
-    for( var bb = 0; bb < glinks.length; bb++){
-        var glink = glinks[bb];
-        glink.addEventListener('click', gmenu, {
-            passive: true
-        });
+  function goto(e) {
+    const num = 0;
+    const tar = e.target;
+    const elmHash = $(tar).attr("data-href");
+    const pos = $(elmHash).offset().top - num;
 
-    }
+    $("body,html").animate({ scrollTop: pos }, 1000);
+  }
 }
-function openBtn(){
-    $btn.toggleClass('active');//ボタン自身に activeクラスを付与し
-    $html.toggleClass('panelactive');//htmlにpanelactiveクラスを付与
-}
-
-function gmenu(){
-    $btn.removeClass('active');//ボタンの activeクラスを除去し
-    $html.removeClass('panelactive');//htmlのpanelactiveクラスも除去
-}
-function sanitize(){
-    
-    sanitize_core( glinks );
-
-    function sanitize_core( elems ){
-
-        if( elems == null ){
-           return
-        }
-        
-        var len = elems.length;
-
-        if( len ){
-            for( var zz = 0; zz < len; zz++){
-                var elem = elems[zz];
-                if( elem.hasAttribute('href') ){
-                    var link = elem.getAttribute('href');
-                    elem.removeAttribute('href');
-                    elem.setAttribute('data-href',link);
-                }
-            }
-        }else{
-            if( elem.hasAttribute('href') ){
-                var link = elems.getAttribute('href');
-                elems.removeAttribute('href');
-                elems.setAttribute('data-href',link);
-            }
-
-        }
-    
-    }
-}
-function Init(){
-
-    sanitize();
-    page_link();
-    menu();
-    FixedAnime();
-
-}
-
-// 画面をスクロールをしたら動かしたい場合の記述
-$win[0].addEventListener( 'scroll', FixedAnime, {
+function menu() {
+  $btn[0].addEventListener("click", openBtn, {
     passive: true,
-});
-$win[0].addEventListener( 'load', Init, {
-    once: true,
-    passive: true,
-    capture: false
+  });
+
+  for (let glink of glinks) {
+    glink.addEventListener("click", gmenu, {
+      passive: true,
+    });
+  }
+}
+function openBtn() {
+  $btn.toggleClass("active"); //ボタン自身に activeクラスを付与し
+  $html.toggleClass("panelactive"); //ヘッダーにpanelactiveクラスを付与
+}
+
+function gmenu() {
+  $btn.removeClass("active"); //ボタンの activeクラスを除去し
+  $html.removeClass("panelactive"); //ヘッダーのpanelactiveクラスも除去
+}
+function sanitize() {
+  sanitize_core(glinks);
+
+  function sanitize_core(elems) {
+    if (elems == null) {
+      return;
+    }
+
+    if (elems.length) {
+      for (const elem of elems) {
+        if (elem.hasAttribute("href")) {
+          const link = elem.getAttribute("href");
+          elem.removeAttribute("href");
+          elem.setAttribute("data-href", link);
+        }
+      }
+    } else {
+      if (elem.hasAttribute("href")) {
+        const link = elems.getAttribute("href");
+        elems.removeAttribute("href");
+        elems.setAttribute("data-href", link);
+      }
+    }
+  }
+}
+function Init() {
+  sanitize();
+  page_link();
+  menu();
+  iObserver();
+}
+$win[0].addEventListener("load", Init, {
+  once: true,
+  passive: true,
+  capture: false,
 });
