@@ -1,83 +1,80 @@
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main {
+  padding: 80px 2em 2em 2em;
+}
 h2 {
   margin: 2rem 0 2rem 0;
 }
-
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-
-/*========= 上部固定させるためのCSS ===============*/
-@keyframes DownAnime {
-  from {
-    opacity: 0;
-    transform: translateY(-170px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+body {
+  position: relative;
 }
-/*==ヘッダーの形状*/
 .header {
-  /*fixedで上部固定*/
-  position: fixed;
-  height: 70px;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  z-index: 999; /*最前面へ*/
-  /*以下はレイアウトのためのCSS*/
+  height: 70px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  &.UpMove {
-    animation: UpAnime 0.5s forwards;
-  }
-  &.DownMove {
-    animation: DownAnime 0.5s forwards;
-  }
+  background: #222;
+  z-index: 5;
   &__gmenu {
-    width: 90%;
-    margin: 0 auto;
+    width: 94%;
+    max-width: 500px;
+
+    //フェードアニメーション
+    transition: opacity 0.5s;
     ul {
-      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      /*==ヘッダーのテキストナビゲーションの形状*/
+
       a {
         display: block;
-        padding: 10px;
+        padding: 1em;
       }
     }
   }
 }
-/*　上に上がる動き　*/
-@keyframes UpAnime {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
+@media (max-width: 350px){
+    .header{
+        &__gmenu{
+            ul{
+                a{
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}
+.DownMove {
+  animation: 0.5s ease-out 0s 1 normal forwards running downmove;
+  position: fixed;
+}
+@keyframes downmove {
+  0% {
     opacity: 0;
-    transform: translateY(-100px);
+    transform: translateY(-120px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
-/*　下に下がる動き　*/
-@keyframes DownAnime {
-  from {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.UpMove {
+  animation: 0.5s ease-out 0s 1 normal forwards running upmove;
 }
-
-/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
-#main {
-  padding-top: 80px;
+@keyframes upmove {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
 }
