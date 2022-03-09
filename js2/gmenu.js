@@ -1,81 +1,46 @@
-const doc = document;
-const glinks = doc.querySelectorAll(".header__gmenu a");
-const $header = $(".header");
-const $html = $("html");
-const $btn = $(".openbtn");
-const $win = $(window);
+var doc = document;
+var glinks = doc.querySelectorAll(".header__gmenu a");
+var $win = $(window);
+var $header = $(".header");
 
-function iObserver() {
-  const spoints = doc.querySelectorAll(".scroll-point");
-  const fd = "fadeDown";
-  const dnone = "dnone";
+//スクロール途中からヘッダーの高さを変化させるための設定を関数でまとめる
+function FixedAnime() {
+  var headerH = $header.outerHeight(true); //headerの高さを取得
 
-  const options = {
-    root: null, // 今回はビューポートをルート要素とする
-    rootMargin: "-30% 0px", // ビューポートの中心を判定基準にする
-    threshold: 0, // 閾値は0
-  };
-
-  const observer = new IntersectionObserver(scroll_check, options);
-
-  // それぞれの「.scroll-point'」を監視する
-  spoints.forEach((point) => {
-    observer.observe(point);
-  });
-
-  function scroll_check(entries) {
-    //console.log( entries );
-
-    // 交差検知をしたもののなかで、isIntersectingがtrueのDOMを色を変える関数に渡す
-    entries.forEach((entry) => {
-      //console.log( entry.isIntersecting );
-      if (entry.isIntersecting) {
-        $btn.removeClass(fd);
-        $header.removeClass(dnone);
-      } else {
-        $btn.addClass(fd);
-        $header.addClass(dnone);
-      }
-    });
+  //ヘッダーの高さを取得
+  var scroll = $win.scrollTop();
+  if (scroll >= headerH) {
+    //ヘッダーの高さを超えたら
+    $header.addClass("HeightMin"); //.headerについているHeightMinというクラス名を付与
+  } else {
+    $header.removeClass("HeightMin"); //HeightMinというクラス名を除去
   }
 }
-//リンク先のidまでスムーススクロール
-//※ページ内リンクを行わない場合は不必要なので削除してください
-function page_link() {
-  for (let glink of glinks) {
+function gmenu(flag) {
+  for (var aa = 0; aa < glinks.length; aa++) {
+    var glink = glinks[aa];
     glink.addEventListener("click", goto, {
       passive: true,
     });
   }
 
   function goto(e) {
-    const num = 0;
-    const tar = e.target;
-    const elmHash = $(tar).attr("data-href");
-    const pos = $(elmHash).offset().top - num;
+    var tar = e.target;
+    var headerVal = $header.outerHeight(true); //現在のheaderの高さを取得
+
+    //ヘッダーが高さの状態を取得してスクロールする範囲を調整する
+    var scroll = $win.scrollTop(); //スクロール
+    var adjust = 0; //調整の変数
+    if (scroll <= headerVal) {
+      //スクロールとヘッダーの高さを取得
+      adjust = 70; //スクロール値がヘッダーの高さ以内であれば調整変数に70を入れる
+    }
+
+    var elmHash = tar.getAttribute("data-href"); //hrefを取得
+    var pos = $(elmHash).offset().top - headerVal - adjust; //クリックしたheader分の高さと調整分を引いた高さまでスクロール
 
     $("body,html").animate({ scrollTop: pos }, 1000);
   }
-}
-function menu() {
-  $btn[0].addEventListener("click", openBtn, {
-    passive: true,
-  });
-
-  for (let glink of glinks) {
-    glink.addEventListener("click", gmenu, {
-      passive: true,
-    });
-  }
-}
-function openBtn() {
-  $btn.toggleClass("active"); //ボタン自身に activeクラスを付与し
-  $html.toggleClass("panelactive"); //ヘッダーにpanelactiveクラスを付与
-}
-
-function gmenu() {
-  $btn.removeClass("active"); //ボタンの activeクラスを除去し
-  $html.removeClass("panelactive"); //ヘッダーのpanelactiveクラスも除去
 }
 function sanitize() {
   sanitize_core(glinks);
@@ -85,17 +50,20 @@ function sanitize() {
       return;
     }
 
-    if (elems.length) {
-      for (const elem of elems) {
+    var len = elems.length;
+
+    if (len) {
+      for (var zz = 0; zz < len; zz++) {
+        var elem = elems[zz];
         if (elem.hasAttribute("href")) {
-          const link = elem.getAttribute("href");
+          var link = elem.getAttribute("href");
           elem.removeAttribute("href");
           elem.setAttribute("data-href", link);
         }
       }
     } else {
       if (elem.hasAttribute("href")) {
-        const link = elems.getAttribute("href");
+        var link = elems.getAttribute("href");
         elems.removeAttribute("href");
         elems.setAttribute("data-href", link);
       }
@@ -104,10 +72,13 @@ function sanitize() {
 }
 function Init() {
   sanitize();
-  page_link();
-  menu();
-  iObserver();
+  gmenu();
+  FixedAnime();
 }
+// 画面をスクロールをしたら動かしたい場合の記述
+$win[0].addEventListener("scroll", FixedAnime, {
+  passive: true,
+});
 $win[0].addEventListener("load", Init, {
   once: true,
   passive: true,

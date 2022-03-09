@@ -1,176 +1,67 @@
-/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
-#main {
-  padding: 80px 2em 2em 2em;
-}
 h2 {
   margin: 2rem 0 2rem 0;
 }
+
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-body {
-  position: relative;
-}
-.header {
+//「IntersectionObserver」を使う場合の目印。
+.start-point {
   position: absolute;
-  top: 0;
+  z-index: 10;
+  top: 400px;
   left: 0;
+  width: 100px;
+  height: 100px;
+  //background: #444;
+}
+/*========= 上部固定させるためのCSS ===============*/
+@keyframes DownAnime {
+  from {
+    opacity: 0;
+    transform: translateY(-170px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*==ヘッダーの形状*/
+.header {
+  height: 170px;
   width: 100%;
-  height: 70px;
+  /*以下はレイアウトのためのCSS*/
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background: #222;
-  z-index: 5;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  &.HeightMin {
+    position: fixed;
+    z-index: 999; /*最前面へ*/
+    height: 70px;
+    animation: DownAnime 0.5s forwards;
+  }
   &__gmenu {
-    width: 94%;
-    max-width: 500px;
-
-    //フェードアニメーション
-    transition: opacity 0.5s;
+    width: 90%;
+    margin: 0 auto;
     ul {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+      /*==ヘッダーのテキストナビゲーションの形状*/
       a {
         display: block;
-        padding: 1em;
-      }
-    }
-  }
-}
-@media (max-width: 350px){
-    .header{
-        &__gmenu{
-            ul{
-                a{
-                    padding: 10px;
-                }
-            }
-        }
-    }
-}
-.dnone {
-  .header__gmenu {
-    //フェードアニメーション
-    opacity: 0;
-    ul {
-      //フェードアニメーション
-      transform: translateY(50px);
-      transition: all 0.5s;
-    }
-  }
-}
-
-html.panelactive,
-.panelactive body {
-  height: 100%;
-  //overflow: hidden;
-}
-
-.panelactive {
-  .header {
-    background: none;
-    &__gmenu {
-      width: 100%;
-      max-width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background: rgba(20, 20, 20, 0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      //フェードアニメーション
-      opacity: 1;
-      ul {
-        flex-direction: column;
-        row-gap: 0.5em;
-        //フェードアニメーション
-        transform: translateY(0px);
-        a {
-          padding: 1em 4em 1em 4em;
-          font-weight: bold;
-        }
+        padding: 10px;
       }
     }
   }
 }
 
-.openbtn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-  z-index: 999;
-  background: rgba(50, 50, 50, 0.6);
-  border-radius: 6px;
-  opacity: 0;
-  display: none;
-  //display: flex;
-    ///pointer-events: none;
-  justify-content: center;
-  align-items: center;
-  span {
-    box-sizing: border-box;
-    display: block;
-    height: 3px;
-    width: 60%;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 10px;
-    transition: all 0.5s ease-out;
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: #fff;
-      border-radius: 10px;
-      transition: all 0.5s;
-    }
-    &::before {
-      transform: translateY(-8px);
-    }
-    &::after {
-      transform: translateY(5px);
-    }
-  }
-  &.active {
-    opacity: 1;
-    span {
-      background: none;
-      &::before {
-        transform: translateY(0) rotate(135deg);
-        //transform: translateY(0) rotate(-45deg);
-        //transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      &::after {
-        transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(-45deg);
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.fadeDown {
-  animation: 0.5s ease-out 0s 1 normal forwards running downmove;
-  display: flex;
-}
-@keyframes downmove {
-  0% {
-    opacity: 0;
-    transform: translateY(-120px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main {
+  padding-top: 80px;
 }
