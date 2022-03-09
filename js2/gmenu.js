@@ -1,93 +1,118 @@
 var doc = document;
-var glinks = doc.querySelectorAll(".header__gmenu a");
+var glinks = doc.querySelectorAll('.header__gmenu a');
+
+var $btn = $('.openbtn');
+var $header = $('.header');
 var $win = $(window);
 
-//スクロール途中からヘッダーを出現させるための設定を関数でまとめる
-function FixedAnime() {
-  var $header = $(".header");
+//スクロールをするとハンバーガーメニューに変化するための設定を関数でまとめる
+function FixedAnime(){
+    
+    var headerH = $header.outerHeight(true);
 
-  var elemTop = $("#area-2").offset().top; //#area-3の位置まできたら
-  var scroll = $win.scrollTop();
-
-  if (scroll <= 20) {
-    //上から20pxスクロールされたら
-
-    $header.addClass("DownMove"); //DownMoveというクラス名を除き
-  } else if (scroll >= elemTop) {
-    $header.removeClass("UpMove"); //.headerについているUpMoveというクラス名を除く
-    $header.addClass("DownMove"); //.headerについているDownMoveというクラス名を付与
-  } else {
-    if ($header.hasClass("DownMove")) {
-      //すでに.headerにDownMoveというクラス名がついていたら
-      $header.removeClass("DownMove"); //DownMoveというクラス名を除き
-      $header.addClass("UpMove"); //UpnMoveというクラス名を付与
+    //ヘッダーの高さを取得
+    var scroll = $win.scrollTop();
+    if (scroll >= headerH){//ヘッダーの高さ以上までスクロールしたら
+        $btn.addClass('fadeDown');//.openbtnにfadeDownというクラス名を付与して
+        $header.addClass('dnone');//.headerにdnoneというクラス名を付与
+    }else{//それ以外は
+        $btn.removeClass('fadeDown');//fadeDownというクラス名を除き
+        $header.removeClass('dnone');//dnoneというクラス名を除く
     }
-  }
 }
+//リンク先のidまでスムーススクロール
+//※ページ内リンクを行わない場合は不必要なので削除してください
+function page_link(){
 
-// Scrollイベント中に「Event.preventDefault()」があるとJS的に良くないので「Event.preventDefault()」を使わない為の回避処理。
-function sanitize() {
-  sanitize_core(glinks);
+    for( var aa = 0; aa < glinks.length; aa++){
+        var glink = glinks[aa];
+        glink.addEventListener('click', goto, {
+            passive: true
+        });
 
-  function sanitize_core(elems) {
-    if (elems == null) {
-      return;
     }
 
-    var len = elems.length;
+    function goto( e ){
 
-    if (len) {
-      for (var zz = 0; zz < len; zz++) {
-        var elem = elems[zz];
-        if (elem.hasAttribute("href")) {
-          var link = elem.getAttribute("href");
-          elem.removeAttribute("href");
-          elem.setAttribute("data-href", link);
-        }
-      }
-    } else {
-      if (elem.hasAttribute("href")) {
-        var link = elems.getAttribute("href");
-        elems.removeAttribute("href");
-        elems.setAttribute("data-href", link);
-      }
+        var num = 0;
+        var tar = e.target;
+        var elmHash = $(tar).attr('data-href');
+        var pos = $(elmHash).offset().top - num;
+
+        $('body,html').animate({scrollTop: pos}, 1000);
+
     }
-  }
 }
-function tolink() {
-  //ナビゲーションをクリックした際のスムーススクロール
+function menu(){
 
-  for (var aa = 0; aa < glinks.length; aa++) {
-    var glink = glinks[aa];
-
-    //「option.passive」はIE11では非対応。
-    glink.addEventListener("click", move, {
-      passive: true,
+    $btn[0].addEventListener('click', openBtn, {
+            passive: true
     });
-  }
+
+    for( var bb = 0; bb < glinks.length; bb++){
+        var glink = glinks[bb];
+        glink.addEventListener('click', gmenu, {
+            passive: true
+        });
+
+    }
 }
-function move(e) {
-  var th = e.target;
-  var num = 140;
-
-  var elmHash = $(th).attr("data-href"); //hrefの内容を取得
-  var pos = Math.round($(elmHash).offset().top - num); //headerの高さを引く
-
-  $("body,html").animate({ scrollTop: pos }, 500); //取得した位置にスクロール※数値が大きいほどゆっくりスクロール
+function openBtn(){
+    $btn.toggleClass('active');//ボタン自身に activeクラスを付与し
+    $header.toggleClass('panelactive');//ヘッダーにpanelactiveクラスを付与
 }
 
-function Init() {
-  sanitize();
-  tolink();
-  FixedAnime();
+function gmenu(){
+    $btn.removeClass('active');//ボタンの activeクラスを除去し
+    $header.removeClass('panelactive');//ヘッダーのpanelactiveクラスも除去
+}
+function sanitize(){
+    
+    sanitize_core( glinks );
+
+    function sanitize_core( elems ){
+
+        if( elems == null ){
+           return
+        }
+        
+        var len = elems.length;
+
+        if( len ){
+            for( var zz = 0; zz < len; zz++){
+                var elem = elems[zz];
+                if( elem.hasAttribute('href') ){
+                    var link = elem.getAttribute('href');
+                    elem.removeAttribute('href');
+                    elem.setAttribute('data-href',link);
+                }
+            }
+        }else{
+            if( elem.hasAttribute('href') ){
+                var link = elems.getAttribute('href');
+                elems.removeAttribute('href');
+                elems.setAttribute('data-href',link);
+            }
+
+        }
+    
+    }
+}
+function Init(){
+
+    sanitize();
+    page_link();
+    menu();
+    FixedAnime();
+
 }
 
 // 画面をスクロールをしたら動かしたい場合の記述
-$win[0].addEventListener("scroll", FixedAnime, {
-  passive: true,
+$win[0].addEventListener( 'scroll', FixedAnime, {
+    passive: true,
 });
-$win[0].addEventListener("load", Init, {
-  once: true,
-  passive: true,
-  capture: false,
+$win[0].addEventListener( 'load', Init, {
+    once: true,
+    passive: true,
+    capture: false
 });

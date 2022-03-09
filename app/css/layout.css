@@ -75,64 +75,168 @@ img {
   vertical-align: bottom;
 }
 
-/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
-#main {
-  padding-top: 30px;
+/* --------------------------------------------------------------------------------
+ドロップダウンメニューのレイアウト
+--------------------------------------------------------------------------------*/
+/*========= 上部固定させるためのCSS ===============*/
+/*
+.start-point{
+    position: absolute;
+    z-index: 10;
+    top: 300px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    //background: #444;
+}
+*/
+.openbtn {
+  /*はじめは非表示に*/
+  display: none;
+  z-index: 9999;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  background: rgba(50, 50, 50, 0.8);
+  cursor: crosshair;
+}
+.openbtn span {
+  display: inline-block;
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #eee;
+  transition: all 0.4s;
+}
+.openbtn span:nth-of-type(1) {
+  top: 15px;
+}
+.openbtn span:nth-of-type(2) {
+  top: 23px;
+}
+.openbtn span:nth-of-type(3) {
+  top: 31px;
+}
+.openbtn.active span:nth-of-type(1) {
+  top: 18px;
+  left: 20%;
+  width: 60%;
+  transform: translateY(6px) rotate(-45deg);
+}
+.openbtn.active span:nth-of-type(2) {
+  opacity: 0;
+}
+.openbtn.active span:nth-of-type(3) {
+  top: 30px;
+  left: 20%;
+  width: 60%;
+  transform: translateY(-6px) rotate(45deg);
 }
 
+/*fadeDownクラスが付与された後のボタンの出現アニメーション設定*/
+.fadeDown {
+  display: block;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-name: fadeDownAnime;
+  opacity: 0;
+}
+
+@keyframes fadeDownAnime {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+/*==ヘッダーの形状*/
 .header {
   display: flex;
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  left: 0;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   height: 70px;
-  background: #222;
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  /*.doneクラスがついたヘッダー*/
+  /*.doneクラスがついたヘッダーのテキストナビゲーションの形状*/
 }
 .header__gmenu {
-  width: 94%;
-  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
 }
 .header__gmenu ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  /*==ヘッダーのテキストナビゲーションの形状*/
 }
 .header__gmenu ul a {
   display: block;
   padding: 10px;
 }
-
-.UpMove {
-  animation: 0.5s ease 0s 1 normal forwards running upmove;
+.header.dnone {
+  opacity: 0;
+  /*透過0にして非表示に*/
+}
+.header.dnone.panelactive {
+  opacity: 1;
+  /*不透明にして出現*/
+}
+.header.dnone .header__gmenu {
+  /*天地中央＆テキスト中央揃え*/
+  display: flex;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  /*高さと幅*/
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  /*はじめは透過0に*/
+  opacity: 0;
+  transition: all 0.4s;
+}
+.header.dnone.panelactive .header__gmenu {
+  /*不透明に*/
+  z-index: 3;
+  /*最前面に*/
+  background: rgba(10, 10, 10, 0.8);
+  opacity: 1;
+  /*リストの形状*/
+}
+.header.dnone.panelactive .header__gmenu ul {
+  display: block;
+  /*flexの横並びをblockにして縦並びに*/
+}
+.header.dnone.panelactive .header__gmenu a {
+  display: block;
+  padding: 10px;
+  color: #eec;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s;
 }
 
-.DownMove {
-  animation: 0.5s ease 0s 1 normal forwards running downmove;
-}
-
-@keyframes upmove {
-  0% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-120px);
-    opacity: 0;
-  }
-}
-@keyframes downmove {
-  0% {
-    transform: translateY(-120px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main {
+  padding-top: 80px;
 }
 @media (pointer: fine) {
   a:link {
