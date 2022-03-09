@@ -1,33 +1,18 @@
 var doc = document;
-var glinks = document.querySelectorAll(".header__gmenu a");
+var glinks = doc.querySelectorAll("#g-navi li a");
 var $win = $(window);
-var $header = $(".header");
-var headerH = $header.outerHeight(true); //headerの高さを取得
+var $nav = $("#sub-area nav");
 
-var beforePos = 0; //スクロールの値の比較用の設定
+var mq = matchMedia("(min-width: 768px)");
 
-//スクロール途中でヘッダーが消え、上にスクロールすると復活する設定を関数にまとめる
-function ScrollAnime() {
-  var elemTop = $("#area-2").offset().top; //#area-2の位置まできたら
-  var scroll = $win.scrollTop();
-
-  //ヘッダーの出し入れをする
-  if (scroll == beforePos) {
-    //IE11対策で処理を入れない
-  } else if (elemTop > scroll || 0 > scroll - beforePos) {
-    //ヘッダーが上から出現する
-    $header.removeClass("UpMove"); //.headerにUpMoveというクラス名を除き
-    $header.addClass("DownMove"); //.headerにDownMoveのクラス名を追加
+function Sticky() {
+  if (mq.matches) {
+    /*768px以上にIE用のJSをきかせる*/
+    Stickyfill.add($nav);
   } else {
-    //ヘッダーが上に消える
-    $header.removeClass("DownMove"); //.headerにDownMoveというクラス名を除き
-    $header.addClass("UpMove"); //.headerにUpMoveのクラス名を追加
+    Stickyfill.remove($nav);
   }
-
-  beforePos = scroll; //現在のスクロール値を比較用のbeforePosに格納
 }
-//リンク先のidまでスムーススクロール
-//※ページ内リンクを行わない場合は不必要なので削除してください
 function gmenu() {
   for (var aa = 0; aa < glinks.length; aa++) {
     var glink = glinks[aa];
@@ -35,12 +20,11 @@ function gmenu() {
       passive: true,
     });
   }
-
   function goto(e) {
+    var num = 0;
     var tar = e.target;
-
     var elmHash = tar.getAttribute("data-href");
-    var pos = $(elmHash).offset().top - headerH; //header分の高さを引いた高さまでスクロール
+    var pos = $(elmHash).offset().top - num;
     $("body,html").animate({ scrollTop: pos }, 1000);
   }
 }
@@ -75,12 +59,9 @@ function sanitize() {
 function Init() {
   sanitize();
   gmenu();
-  ScrollAnime();
+  Sticky();
 }
-// 画面をスクロールをしたら動かしたい場合の記述
-$win[0].addEventListener("scroll", ScrollAnime, {
-  passive: true,
-});
+mq.addListener(Sticky);
 $win[0].addEventListener("load", Init, {
   once: true,
   passive: true,
