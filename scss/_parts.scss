@@ -2,18 +2,35 @@
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-
+//「IntersectionObserver」を使う場合の目印。
+/*
+.start-point{
+    position: absolute;
+    z-index: 10;
+    top: 400px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    //background: #444;
+}
+*/
 /*========= 上部固定させるためのCSS ===============*/
+
 .header{
+    top: 0;
+    left: 0;
+    position: fixed;/*fixedを設定して固定*/
     height: 70px;/*高さ指定*/
     width:100%;/*横幅指定*/
+    z-index: 999;/*最前面へ*/
     /*以下はレイアウトのためのCSS*/
     display: flex;
-    //justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
     background:#333;
-    color:#fff;
-    padding: 5%;
+    color:#eee;
+    text-align: center;
+    padding: 20px;
     &__gmenu{
         width: 90%;
         margin: 0 auto;
@@ -22,30 +39,51 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            a{
-                padding: 4% 5%;
-            }
         }
     }
 }
 
-//「IntersectionObserver」を使う場合の目印。
-/*
-.scroll-point{
-    position: absolute;
-    z-index: 10;
-    top: 200px;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    background: #444;
-}
-*/
-/*JSを使いfixedクラスが付与された際の設定*/
-.fixed{
-    position: fixed;/*fixedを設定して固定*/
-    z-index: 999;/*最前面へ*/
-    top:0;/*位置指定*/
-    left:0;/*位置指定*/
+/*==ふわっと出現させるためのCSS*/
+
+/*　上に上がる動き　*/
+
+.header.UpMove{
+    position: fixed;
+    width:100%;
+    animation: UpAnime 0.5s forwards;
 }
 
+@keyframes UpAnime{
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+}
+
+/*　下に下がる動き　*/
+
+.header.DownMove{
+    position: fixed;
+    width:100%;
+    animation: DownAnime 0.5s forwards;
+}
+@keyframes DownAnime{
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main{
+    padding-top: 80px;
+}

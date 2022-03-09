@@ -2,25 +2,33 @@ var doc = document;
 var glinks = doc.querySelectorAll('.header__gmenu a');
 var $win = $(window);
 
-//スクロールすると上部に固定させるための設定を関数でまとめる
+//スクロール途中からヘッダーを出現させるための設定を関数でまとめる
 function FixedAnime() {
-    
     var $header = $('.header');
 
-    var headerH = $header.outerHeight(true);
+    var elemTop = $('#area-2').offset().top;//#area-3の位置まできたら
     var scroll = $win.scrollTop();
-    if (scroll >= headerH){//headerの高さ以上になったら
-        $header.addClass('fixed');//fixedというクラス名を付与
-    }else{//それ以外は
-        $header.removeClass('fixed');//fixedというクラス名を除去
+    
+    if(scroll <= 20){//上から20pxスクロールされたら
+
+        $header.addClass('DownMove');//DownMoveというクラス名を除き
+
+    } else if (scroll >= elemTop){
+
+            $header.removeClass('UpMove');//.headerについているUpMoveというクラス名を除く
+            $header.addClass('DownMove');//.headerについているDownMoveというクラス名を付与
+
+    }else{
+
+            if($header.hasClass('DownMove')){//すでに.headerにDownMoveというクラス名がついていたら
+                $header.removeClass('DownMove');//DownMoveというクラス名を除き
+                $header.addClass('UpMove');//UpnMoveというクラス名を付与
+            }
     }
-
 }
-
-// Scrollイベント中に「Event.preventDefault()」があるとJS的に良くないので「Event.preventDefault()」を使わない為の回避処理。
 function sanitize(){
     
-    sanitize_core( glinks );
+    sanitize_core( glinks);
 
     function sanitize_core( elems ){
 
@@ -55,13 +63,12 @@ function tolink(){
         
     for( var aa = 0; aa < glinks.length; aa++){
         var glink = glinks[aa];
-        
-        //「option.passive」はIE11では非対応。
         glink.addEventListener('click', move, {
             passive: true
         });
 
     }
+
 }
 function move( e ){
 
@@ -76,12 +83,18 @@ function move( e ){
 }
 
 function Init(){
+
     sanitize();
     tolink();
     FixedAnime();
 
 }
 // 画面をスクロールをしたら動かしたい場合の記述
-$win[0].addEventListener( 'scroll', FixedAnime, false);
-$win[0].addEventListener( 'load', Init, false );
-
+$win[0].addEventListener( 'scroll', FixedAnime, {
+    passive: true,
+});
+$win[0].addEventListener( 'load', Init, {
+    once: true,
+    passive: true,
+    capture: false
+});

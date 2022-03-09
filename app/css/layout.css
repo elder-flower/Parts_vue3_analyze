@@ -78,18 +78,37 @@ img {
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
+/*
+.start-point{
+    position: absolute;
+    z-index: 10;
+    top: 400px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    //background: #444;
+}
+*/
 /*========= 上部固定させるためのCSS ===============*/
 .header {
-  /*横幅指定*/
+  /*最前面へ*/
   /*以下はレイアウトのためのCSS*/
   display: flex;
+  /*横幅指定*/
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
   align-items: center;
+  justify-content: space-between;
   /*高さ指定*/
   width: 100%;
+  /*fixedを設定して固定*/
   height: 70px;
-  padding: 5%;
+  padding: 20px;
   background: #333;
-  color: #fff;
+  color: #eee;
+  text-align: center;
 }
 .header__gmenu {
   width: 90%;
@@ -101,31 +120,45 @@ img {
   justify-content: space-between;
   width: 100%;
 }
-.header__gmenu ul a {
-  padding: 4% 5%;
+
+/*==ふわっと出現させるためのCSS*/
+/*　上に上がる動き　*/
+.header.UpMove {
+  position: fixed;
+  width: 100%;
+  animation: UpAnime 0.5s forwards;
 }
 
-/*
-.scroll-point{
-    position: absolute;
-    z-index: 10;
-    top: 200px;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    background: #444;
+@keyframes UpAnime {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
 }
-*/
-/*JSを使いfixedクラスが付与された際の設定*/
-.fixed {
-  /*fixedを設定して固定*/
-  z-index: 999;
+/*　下に下がる動き　*/
+.header.DownMove {
   position: fixed;
-  /*最前面へ*/
-  top: 0;
-  /*位置指定*/
-  left: 0;
-  /*位置指定*/
+  width: 100%;
+  animation: DownAnime 0.5s forwards;
+}
+
+@keyframes DownAnime {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main {
+  padding-top: 80px;
 }
 @media (pointer: fine) {
   a:link {
