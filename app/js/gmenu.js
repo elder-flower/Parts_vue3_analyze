@@ -1,8 +1,9 @@
 var doc = document;
-var glinks = doc.querySelectorAll(".g-nav a");
+var glinks = doc.querySelectorAll('.g-nav a');
 var $win = $(window);
-var $obtn = $(".openbtn");
-var $gnav = $(".g-nav");
+var $obtn = $('.openbtn');
+var $gnav = $('.g-nav');
+var $html = $('html');
 
 function sanitize() {
   sanitize_core(glinks);
@@ -44,11 +45,11 @@ function openBtn() {
 }
 function gmenu() {
   $obtn.toggleClass("active"); //ボタン自身に activeクラスを付与し
-  $gnav.toggleClass("panelactive"); //ナビゲーションにpanelactiveクラスを付与
+  $html.toggleClass("panelactive"); //ナビゲーションにpanelactiveクラスを付与
 }
 function gmenu2() {
   $obtn.removeClass("active"); //ボタンの activeクラスを除去し
-  $gnav.removeClass("panelactive"); //ナビゲーションのpanelactiveクラスも除去
+  $html.removeClass("panelactive"); //ナビゲーションのpanelactiveクラスも除去
 }
 function Init() {
   sanitize();
