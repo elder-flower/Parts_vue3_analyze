@@ -79,61 +79,85 @@ h2 {
   margin: 2rem 0 2rem 0;
 }
 
-/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
-#main {
-  padding: 80px 2em 2em 2em;
-}
-
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-body {
-  position: relative;
+/*========= 上部固定させるためのCSS ===============*/
+@keyframes DownAnime {
+  from {
+    transform: translateY(-170px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-
+/*==ヘッダーの形状*/
 .header {
+  /*最前面へ*/
+  /*以下はレイアウトのためのCSS*/
   display: flex;
-  z-index: 5;
-  position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 999;
+  /*fixedで上部固定*/
+  position: fixed;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-  height: 100px;
-  background: #222;
+  height: 70px;
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+}
+.header.UpMove {
+  animation: UpAnime 0.5s forwards;
+}
+.header.DownMove {
+  animation: DownAnime 0.5s forwards;
 }
 .header__gmenu {
-  width: 94%;
-  max-width: 500px;
-  transition: opacity 0.5s;
+  width: 90%;
+  margin: 0 auto;
 }
 .header__gmenu ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  /*==ヘッダーのテキストナビゲーションの形状*/
 }
 .header__gmenu ul a {
   display: block;
-  padding: 1em;
-}
-.HeightMin {
-  position: fixed;
-  height: 70px;
-  animation: 0.5s ease-out 0s 1 normal forwards running downmove;
+  padding: 10px;
 }
 
-@keyframes downmove {
-  0% {
-    transform: translateY(-120px);
+/*　上に上がる動き　*/
+@keyframes UpAnime {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100px);
     opacity: 0;
   }
-  100% {
-    transform: translateY(0px);
+}
+/*　下に下がる動き　*/
+@keyframes DownAnime {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
 }
-
+/*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
+#main {
+  padding-top: 80px;
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
@@ -149,11 +173,5 @@ body {
 
   a:active {
     text-decoration: none;
-  }
-}
-
-@media (max-width: 350px) {
-  .header__gmenu ul a {
-    padding: 10px;
   }
 }

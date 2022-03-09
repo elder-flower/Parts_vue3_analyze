@@ -1,22 +1,34 @@
 var doc = document;
-var glinks = doc.querySelectorAll(".header__gmenu a");
+var glinks = document.querySelectorAll(".header__gmenu a");
 var $win = $(window);
 var $header = $(".header");
+var headerH = $header.outerHeight(true); //headerの高さを取得
 
-//スクロール途中からヘッダーの高さを変化させるための設定を関数でまとめる
-function FixedAnime() {
-  var headerH = $header.outerHeight(true); //headerの高さを取得
+var beforePos = 0; //スクロールの値の比較用の設定
 
-  //ヘッダーの高さを取得
+//スクロール途中でヘッダーが消え、上にスクロールすると復活する設定を関数にまとめる
+function ScrollAnime() {
+  var elemTop = $("#area-2").offset().top; //#area-2の位置まできたら
   var scroll = $win.scrollTop();
-  if (scroll >= headerH) {
-    //ヘッダーの高さを超えたら
-    $header.addClass("HeightMin"); //.headerについているHeightMinというクラス名を付与
+
+  //ヘッダーの出し入れをする
+  if (scroll == beforePos) {
+    //IE11対策で処理を入れない
+  } else if (elemTop > scroll || 0 > scroll - beforePos) {
+    //ヘッダーが上から出現する
+    $header.removeClass("UpMove"); //.headerにUpMoveというクラス名を除き
+    $header.addClass("DownMove"); //.headerにDownMoveのクラス名を追加
   } else {
-    $header.removeClass("HeightMin"); //HeightMinというクラス名を除去
+    //ヘッダーが上に消える
+    $header.removeClass("DownMove"); //.headerにDownMoveというクラス名を除き
+    $header.addClass("UpMove"); //.headerにUpMoveのクラス名を追加
   }
+
+  beforePos = scroll; //現在のスクロール値を比較用のbeforePosに格納
 }
-function gmenu(flag) {
+//リンク先のidまでスムーススクロール
+//※ページ内リンクを行わない場合は不必要なので削除してください
+function gmenu() {
   for (var aa = 0; aa < glinks.length; aa++) {
     var glink = glinks[aa];
     glink.addEventListener("click", goto, {
@@ -26,19 +38,9 @@ function gmenu(flag) {
 
   function goto(e) {
     var tar = e.target;
-    var headerVal = $header.outerHeight(true); //現在のheaderの高さを取得
 
-    //ヘッダーが高さの状態を取得してスクロールする範囲を調整する
-    var scroll = $win.scrollTop(); //スクロール
-    var adjust = 0; //調整の変数
-    if (scroll <= headerVal) {
-      //スクロールとヘッダーの高さを取得
-      adjust = 70; //スクロール値がヘッダーの高さ以内であれば調整変数に70を入れる
-    }
-
-    var elmHash = tar.getAttribute("data-href"); //hrefを取得
-    var pos = $(elmHash).offset().top - headerVal - adjust; //クリックしたheader分の高さと調整分を引いた高さまでスクロール
-
+    var elmHash = tar.getAttribute("data-href");
+    var pos = $(elmHash).offset().top - headerH; //header分の高さを引いた高さまでスクロール
     $("body,html").animate({ scrollTop: pos }, 1000);
   }
 }
@@ -73,10 +75,10 @@ function sanitize() {
 function Init() {
   sanitize();
   gmenu();
-  FixedAnime();
+  ScrollAnime();
 }
 // 画面をスクロールをしたら動かしたい場合の記述
-$win[0].addEventListener("scroll", FixedAnime, {
+$win[0].addEventListener("scroll", ScrollAnime, {
   passive: true,
 });
 $win[0].addEventListener("load", Init, {
