@@ -86,49 +86,49 @@ h2 {
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
-/*========= 上部固定させるためのCSS ===============*/
-#sub-area {
-  width: 25%;
-  padding: 0px 20px 0 0;
-}
-#sub-area nav {
-  /*stickyで固定*/
-  position: -webkit-sticky;
-  /*Safari*/
-  position: sticky;
-  /*固定したい位置*/
-  top: 100px;
-  padding: 20px;
-  /*ナビゲーションの形状*/
-  background: #222;
-  /* border: 1px solid #000; */
-  box-shadow: 0px 0px 5px #999;
-}
-#sub-area nav ul {
-  list-style: none;
-}
-#sub-area nav li a {
-  display: block;
-  padding: 10px;
-  color: #eee;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-#sub-area nav li a.current a, #sub-area nav li a:hover, #sub-area nav li a:active {
-  color: #eaa;
-}
-
-/*レイアウトのためのCSS*/
 #container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
-#main {
+main {
   width: 70%;
 }
 
+#sub-area {
+  width: 22%;
+  margin-left: 5%;
+}
+#sub-area nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
+  padding: 1em 1em 1em 0.5em;
+  border-radius: 10px;
+  background: #222;
+  box-shadow: 0px 0px 5px 0px rgba(200, 200, 200, 0.8);
+}
+#sub-area nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#sub-area nav ul a {
+  display: block;
+  padding: 1em 2em 1em 1.5em;
+  transition: all 0.3s;
+}
+#sub-area nav ul a.current a, #sub-area nav ul a:hover, #sub-area nav ul a:active {
+  color: #eaa;
+}
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1em 0 1em 0;
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
@@ -146,20 +146,13 @@ h2 {
     text-decoration: none;
   }
 }
-
 @media screen and (max-width: 768px) {
-  #main {
+  main {
     width: 100%;
   }
 
   #sub-area {
     width: 100%;
-    padding: 20px;
-  }
-
-  nav {
-    position: relative;
-    /*stickyからrelativeに戻す*/
-    top: 0;
+    margin: 2em 0 1em 0;
   }
 }
