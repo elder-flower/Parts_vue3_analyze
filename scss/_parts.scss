@@ -35,7 +35,7 @@ $openbtnColor: #eee;
     width: 60%;
     background: $openbtnColor;
     border-radius: 10px;
-    transition: all 0.5s ease-out;
+    transition: all 0.3s ease-in;
     &::before,
     &::after {
       content: "";
@@ -55,17 +55,17 @@ $openbtnColor: #eee;
   }
   &.active {
     span {
-      background: none;
+      background: transparent;
       &::before {
         transform: translateY(0) rotate(135deg);
         //transform: translateY(0) rotate(-45deg);
-        //transform: translateY(0) rotate(45deg);
+        //transform: translateY(0) rotate(-45deg);
         opacity: 1;
       }
       &::after {
         transform: translateY(-3px) rotate(-135deg);
         //transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(-45deg);
+        //transform: translateY(-3px) rotate(45deg);
         opacity: 1;
       }
     }
@@ -107,7 +107,10 @@ $openbtnColor: #eee;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      row-gap: 1.5em;
+      //row-gap: 1.5em;
+      li:not(:last-child){
+        margin-bottom: 1.5em;
+      }
     }
     a {
       display: block;

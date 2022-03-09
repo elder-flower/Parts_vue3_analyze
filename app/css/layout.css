@@ -108,7 +108,7 @@ h2 {
   height: 3px;
   border-radius: 10px;
   background: #eee;
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-in;
 }
 .openbtn span::before, .openbtn span::after {
   display: block;
@@ -126,7 +126,7 @@ h2 {
   transform: translateY(5px);
 }
 .openbtn.active span {
-  background: none;
+  background: transparent;
 }
 .openbtn.active span::before {
   transform: translateY(0) rotate(135deg);
@@ -152,10 +152,12 @@ h2 {
 }
 .g-nav__list ul {
   display: flex;
-  row-gap: 1.5em;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.g-nav__list ul li:not(:last-child) {
+  margin-bottom: 1.5em;
 }
 .g-nav__list a {
   display: block;
