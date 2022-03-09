@@ -24,7 +24,7 @@ body {
   z-index: 5;
   &__gmenu {
     width: 94%;
-    max-width: 800px;
+    max-width: 500px;
 
     //フェードアニメーション
     transition: opacity 0.5s;
@@ -100,7 +100,6 @@ html.panelactive,
   }
 }
 
-
 .openbtn {
   position: fixed;
   top: 15px;
@@ -109,8 +108,11 @@ html.panelactive,
   height: 50px;
   z-index: 999;
   background: rgba(50, 50, 50, 0.6);
+  border-radius: 6px;
   opacity: 0;
-  display: flex;
+  display: none;
+  //display: flex;
+    ///pointer-events: none;
   justify-content: center;
   align-items: center;
   span {
@@ -159,7 +161,8 @@ html.panelactive,
 }
 
 .fadeDown {
-  animation: 0.5s ease 0s 1 normal forwards running downmove;
+  animation: 0.5s ease-out 0s 1 normal forwards running downmove;
+  display: flex;
 }
 @keyframes downmove {
   0% {
