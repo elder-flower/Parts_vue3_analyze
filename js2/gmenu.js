@@ -1,33 +1,9 @@
 var doc = document;
-var glinks = doc.querySelectorAll("#g-navi li a");
+var glinks = doc.querySelectorAll(".g-nav a");
 var $win = $(window);
-var $nav = $("#sub-area nav");
+var $obtn = $(".openbtn");
+var $gnav = $(".g-nav");
 
-var mq = matchMedia("(min-width: 768px)");
-
-function Sticky() {
-  if (mq.matches) {
-    /*768px以上にIE用のJSをきかせる*/
-    Stickyfill.add($nav);
-  } else {
-    Stickyfill.remove($nav);
-  }
-}
-function gmenu() {
-  for (var aa = 0; aa < glinks.length; aa++) {
-    var glink = glinks[aa];
-    glink.addEventListener("click", goto, {
-      passive: true,
-    });
-  }
-  function goto(e) {
-    var num = 0;
-    var tar = e.target;
-    var elmHash = tar.getAttribute("data-href");
-    var pos = $(elmHash).offset().top - num;
-    $("body,html").animate({ scrollTop: pos }, 1000);
-  }
-}
 function sanitize() {
   sanitize_core(glinks);
 
@@ -56,14 +32,26 @@ function sanitize() {
     }
   }
 }
+function openBtn() {
+  $obtn[0].addEventListener("click", gmenu, false);
+
+  for (var aa = 0; aa < glinks.length; aa++) {
+    var glink = glinks[aa];
+    glink.addEventListener("click", gmenu2, {
+      passive: true,
+    });
+  }
+}
+function gmenu() {
+  $obtn.toggleClass("active"); //ボタン自身に activeクラスを付与し
+  $gnav.toggleClass("panelactive"); //ナビゲーションにpanelactiveクラスを付与
+}
+function gmenu2() {
+  $obtn.removeClass("active"); //ボタンの activeクラスを除去し
+  $gnav.removeClass("panelactive"); //ナビゲーションのpanelactiveクラスも除去
+}
 function Init() {
   sanitize();
-  gmenu();
-  Sticky();
+  openBtn();
 }
-mq.addListener(Sticky);
-$win[0].addEventListener("load", Init, {
-  once: true,
-  passive: true,
-  capture: false,
-});
+$win[0].addEventListener("load", Init, false);
