@@ -3,6 +3,7 @@ var glinks = doc.querySelectorAll('.header__gmenu a');
 
 var $btn = $('.openbtn');
 var $header = $('.header');
+var $html = $('html');
 var $win = $(window);
 
 //スクロールをするとハンバーガーメニューに変化するための設定を関数でまとめる
@@ -59,12 +60,12 @@ function menu(){
 }
 function openBtn(){
     $btn.toggleClass('active');//ボタン自身に activeクラスを付与し
-    $header.toggleClass('panelactive');//ヘッダーにpanelactiveクラスを付与
+    $html.toggleClass('panelactive');//htmlにpanelactiveクラスを付与
 }
 
 function gmenu(){
     $btn.removeClass('active');//ボタンの activeクラスを除去し
-    $header.removeClass('panelactive');//ヘッダーのpanelactiveクラスも除去
+    $html.removeClass('panelactive');//htmlのpanelactiveクラスも除去
 }
 function sanitize(){
     

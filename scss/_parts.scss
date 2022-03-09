@@ -1,41 +1,173 @@
-
 /*fixedでブロックがなくなるのではじめの要素のトップに余白を持たせる*/
-#main{
-    padding: 80px 2em 2em 2em;
+#main {
+  padding: 80px 2em 2em 2em;
 }
-
+h2 {
+  margin: 2rem 0 2rem 0;
+}
 /* --------------------------------------------------------------------------------
 ドロップダウンメニューのレイアウト
 --------------------------------------------------------------------------------*/
+body {
+  position: relative;
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+  z-index: 5;
+  &__gmenu {
+    width: 94%;
+    max-width: 800px;
 
-.header{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #222;
-    &__gmenu{
-        width: 94%;
-        max-width: 800px;
-        ul{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            a{
-                display: block;
-                padding: 10px;
+    //フェードアニメーション
+    transition: opacity 0.5s;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        display: block;
+        padding: 1em;
+      }
+    }
+  }
+}
+@media (max-width: 350px){
+    .header{
+        &__gmenu{
+            ul{
+                a{
+                    padding: 10px;
+                }
             }
         }
     }
 }
-.openbtn{
-
+.dnone {
+  .header__gmenu {
+    //フェードアニメーション
+    opacity: 0;
+    ul {
+      //フェードアニメーション
+      transform: translateY(50px);
+      transition: all 0.5s;
+    }
+  }
 }
 
-.fadeDown{
+html.panelactive,
+.panelactive body {
+  height: 100%;
+  //overflow: hidden;
+}
 
+.panelactive {
+  .header {
+    background: none;
+    &__gmenu {
+      width: 100%;
+      max-width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: rgba(20, 20, 20, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      //フェードアニメーション
+      opacity: 1;
+      ul {
+        flex-direction: column;
+        row-gap: 0.5em;
+        //フェードアニメーション
+        transform: translateY(0px);
+        a {
+          padding: 1em 4em 1em 4em;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+
+.openbtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  z-index: 999;
+  background: rgba(50, 50, 50, 0.6);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    box-sizing: border-box;
+    display: block;
+    height: 3px;
+    width: 60%;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    transition: all 0.5s ease-out;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      transition: all 0.5s;
+    }
+    &::before {
+      transform: translateY(-8px);
+    }
+    &::after {
+      transform: translateY(5px);
+    }
+  }
+  &.active {
+    opacity: 1;
+    span {
+      background: none;
+      &::before {
+        transform: translateY(0) rotate(135deg);
+        //transform: translateY(0) rotate(-45deg);
+        //transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      &::after {
+        transform: translateY(-3px) rotate(-135deg);
+        //transform: translateY(-3px) rotate(-135deg);
+        //transform: translateY(-3px) rotate(-45deg);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.fadeDown {
+  animation: 0.5s ease 0s 1 normal forwards running downmove;
+}
+@keyframes downmove {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
