@@ -35,7 +35,7 @@ $openbtnColor: #eee;
     width: 60%;
     background: $openbtnColor;
     border-radius: 10px;
-    transition: all 0.3s ease-in;
+    transition: all 0.1s;
     &::before,
     &::after {
       content: "";
@@ -44,7 +44,7 @@ $openbtnColor: #eee;
       width: 100%;
       background: $openbtnColor;
       border-radius: 10px;
-      transition: all 0.5s;
+      transition: all 0.3s;
     }
     &::before {
       transform: translateY(-8px);

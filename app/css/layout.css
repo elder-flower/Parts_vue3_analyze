@@ -108,7 +108,7 @@ h2 {
   height: 3px;
   border-radius: 10px;
   background: #eee;
-  transition: all 0.3s ease-in;
+  transition: all 0.1s;
 }
 .openbtn span::before, .openbtn span::after {
   display: block;
@@ -117,7 +117,7 @@ h2 {
   border-radius: 10px;
   background: #eee;
   content: "";
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 .openbtn span::before {
   transform: translateY(-8px);
