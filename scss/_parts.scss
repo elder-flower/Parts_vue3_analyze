@@ -73,6 +73,8 @@ $openbtnColor: #eee;
 }
 
 .g-nav {
+  pointer-events: none;
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -81,10 +83,10 @@ $openbtnColor: #eee;
   background: rgba(20, 20, 20, 0.6);
   transition: transform 0.5s;
 
-  //overflow: auto;
+  overflow: auto;
 
   //overflow: scrollを当てたときiOS Safariではデフォルトだと慣性スクロールになっていないので以下のCSSを書く必要
-  //-webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
   
   //左から出現。
   //transform: translate(-100%, 0);
@@ -101,6 +103,7 @@ $openbtnColor: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
+
   &__list {
     ul {
       display: flex;
@@ -123,6 +126,7 @@ $openbtnColor: #eee;
 }
 .panelactive{
   .g-nav{
+    pointer-events: auto;
     transform: translate(-0%, 0);
   }
 }
