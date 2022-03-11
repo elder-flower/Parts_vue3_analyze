@@ -1,26 +1,15 @@
-var win = window;
-var doc = document;
-
-var obtn_class_name = "openbtn";
-var add_class_name = "open";
-
-var root = doc.getElementsByTagName("html");
-var obtns = doc.getElementsByClassName(obtn_class_name);
-var obtns_len = obtns.length;
-
-console.log(root);
-console.log(obtns);
+const win = window;
+const $obtn = $(".openbtn");
 
 // ページが読み込まれたらすぐに動かしたい場合の記述
-win.addEventListener("DOMContentLoaded", openBtn, false);
 
+win.addEventListener("load", openBtn, false);
 function openBtn() {
-  for (var aa = obtns_len; aa--; ) {
-    var obtn = obtns[aa];
-    obtn.addEventListener("click", gmenu, false);
-  }
+  $obtn.each(function (i, elem) {
+    elem.addEventListener("click", gmenu, false);
+  });
 }
 
 function gmenu() {
-  root[0].classList.toggle(add_class_name);
+  $obtn.toggleClass("active");
 }
