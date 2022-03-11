@@ -96,47 +96,72 @@ h2 {
 }
 
 /*========= ぼかしのためのCSS ===============*/
-.openbtn {
-  z-index: 999;
+.fixed {
+  z-index: 9999;
   position: fixed;
   top: 15px;
   right: 15px;
+}
+
+.openbtn {
+  position: relative;
   width: 50px;
   height: 50px;
   border-radius: 6px;
-  background: rgba(80, 80, 80, 0.5);
-  /*
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  */
+  background: rgba(110, 110, 110, 0.5);
+  /*ボタン内側の基点となるためrelativeを指定*/
+  cursor: crosshair;
 }
 .openbtn span {
-  box-sizing: border-box;
-  display: block;
+  display: inline-block;
+  position: absolute;
+  left: 20%;
   width: 60%;
   height: 3px;
-  margin: 0 auto;
-  border-radius: 10px;
-  background: #eee;
-  opacity: 1;
-  transition: all 0.3s;
+  border-radius: 2px;
+  background-color: #ddd;
+  transition: all 0.4s;
 }
 .openbtn span:nth-of-type(1) {
-  transform: translateY(-5px);
+  top: 12px;
+}
+.openbtn span:nth-of-type(2) {
+  top: 20px;
 }
 .openbtn span:nth-of-type(3) {
-  transform: translateY(5px);
+  top: 28px;
 }
-
-.open .openbtn span:nth-of-type(1) {
-  transform: translateY(3px);
-  opacity: 1;
+.openbtn span:nth-of-type(3)::after {
+  /*3つ目の要素のafterにMenu表示を指定*/
+  position: absolute;
+  top: 7px;
+  left: 0px;
+  content: "Menu";
+  color: #fff;
+  font-size: 0.6rem;
+  text-transform: uppercase;
 }
-.open .openbtn span:nth-of-type(3) {
-  transform: translateY(-3px);
-  opacity: 1;
+.openbtn.active span:nth-of-type(1) {
+  top: 13px;
+  left: 20%;
+  width: 60%;
+  transform: translateY(6px) rotate(-45deg);
+}
+.openbtn.active span:nth-of-type(2) {
+  opacity: 0;
+}
+.openbtn.active span:nth-of-type(3) {
+  top: 25px;
+  left: 20%;
+  width: 60%;
+  transform: translateY(-6px) rotate(45deg);
+}
+.openbtn.active span:nth-of-type(3)::after {
+  top: 10px;
+  left: 13px;
+  /*3つ目の要素のafterにClose表示を指定*/
+  transform: translateY(0) rotate(-45deg);
+  content: "Close";
 }
 @media (pointer: fine) {
   a:link {
