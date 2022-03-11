@@ -1,137 +1,68 @@
+input, button, textarea, select{
+    appearance: none;
+}
+
 body {
-  padding: 2rem;
-}
-h2 {
-  margin: 2rem 0 2rem 0;
-}
-.header {
-  h1 {
-    font-size: 36px;
+    padding: 2rem;
   }
-}
+  h2 {
+    margin: 2rem 0 2rem 0;
+  }
+  .header {
+    h1 {
+      font-size: 36px;
+    }
+  }
+  
 
 /*========= ぼかしのためのCSS ===============*/
 
-$openbtnBg: rgba(80, 80, 80, 0.5);
-$openbtnColor: #eee;
+$openbtnBg: rgba(80,80,80,0.5);
+$openbtnColor: #ddd;
 
-.openbtn {
-  position: fixed;
-  z-index: 999;
-  top: 15px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  background: $openbtnBg;
+.openbtn{
+    position:fixed;
+    z-index: 9999;
+    top:15px;
+    right: 15px;
+    cursor:crosshair;
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    background: $openbtnBg;
+    span{
+        display: inline-block;
+        transition: all .4s;
+        position: absolute;
+        left: 20%;
+        height: 3px;
+        border-radius: 2px;
+        background-color: $openbtnColor;
+        width: 60%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  span {
-    box-sizing: border-box;
-    display: block;
-    height: 3px;
-    width: 60%;
-    background: $openbtnColor;
-    border-radius: 10px;
-    transition: all 0.1s;
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: $openbtnColor;
-      border-radius: 10px;
-      transition: all 0.3s;
     }
-    &::before {
-      transform: translateY(-8px);
+    span:nth-of-type(1){
+        top:15px;
     }
-    &::after {
-      transform: translateY(5px);
+    span:nth-of-type(2){
+        top:23px;
     }
-  }
-  &.active {
-    span {
-      background: transparent;
-      &::before {
-        transform: translateY(0) rotate(135deg);
-        //transform: translateY(0) rotate(-45deg);
-        //transform: translateY(0) rotate(-45deg);
-        opacity: 1;
-      }
-      &::after {
-        transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(45deg);
-        opacity: 1;
-      }
+    span:nth-of-type(3){
+        top:31px;
     }
-  }
-}
-
-.g-nav {
-  pointer-events: none;
-  z-index: 10;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(20, 20, 20, 0.6);
-  transition: transform 0.5s;
-
-  overflow: auto;
-
-  //overflow: scrollを当てたときiOS Safariではデフォルトだと慣性スクロールになっていないので以下のCSSを書く必要
-  -webkit-overflow-scrolling: touch;
-  
-  //左から出現。
-  //transform: translate(-100%, 0);
-
-  //右から出現。
-  //transform: translate(100%, 0);
-
-  //上から出現。
-  transform: translate( 0, -100% );
-
-  //下から出現。
-  //transform: translate( 0, 100% );
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &__list {
-    ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      //row-gap: 1.5em;
-      li:not(:last-child){
-        margin-bottom: 1.5em;
-      }
+    &.active span:nth-of-type(1){
+        top: 18px;
+        left: 20%;
+        transform: translateY(6px) rotate(-45deg);
+        width: 60%;
     }
-    a {
-      display: block;
-      font-weight: bold;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    &.active span:nth-of-type(2){
+        opacity: 0;
     }
-  }
-}
-.panelactive{
-  .g-nav{
-    pointer-events: auto;
-    transform: translate(-0%, 0);
-  }
-}
-html.panelactive,
-.panelactive body {
-  height: 100%;
-  //overflow: hidden;
+    &.active span:nth-of-type(3){
+        top: 30px;
+        left: 20%;
+        transform: translateY(-6px) rotate(45deg);
+        width: 60%;
+    }
 }
