@@ -30,54 +30,43 @@ $openbtnColor: #eee;
   height: 50px;
   border-radius: 6px;
   background: $openbtnBg;
+  padding-left: 10px;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   span {
     box-sizing: border-box;
     display: block;
     height: 3px;
-    width: 50%;
-    background: transparent;
+    width: 70%;
+    background: $openbtnColor;
     border-radius: 10px;
-    transition: all 0.1s;
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: $openbtnColor;
-      border-radius: 10px;
-      transition: all 0.3s;
+    opacity: 1;
+    transition: all 0.3s;
+
+    &:nth-of-type(1){
+      transform: translateY(-3px);
     }
-    &::before {
-      transform: translateY(-5px);
-    }
-    &::after {
-      width: 60%;
-      transform: translateY(0px);
+    &:nth-of-type(2) {
+      transform: translateY(2px);
+      width: 40%;
     }
   }
 }
 .open {
   .openbtn {
+    padding-left: 0;
+    align-items: center;
     span {
         width: 70%;
-      &::before {
-        transform: translateY(0) rotate(135deg);
-        //transform: translateY(0) rotate(-45deg);
-        //transform: translateY(0) rotate(-45deg);
-        opacity: 1;
+        &:nth-of-type(1){
+          transform: translateY(1px) rotate(135deg);
+        }
+        &:nth-of-type(2) {
+          transform: translateY(-2px) rotate(-135deg);
+        }
       }
-      &::after {
-        width: 100%;
-        transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(-135deg);
-        //transform: translateY(-3px) rotate(45deg);
-        opacity: 1;
-      }
-    }
   }
 }

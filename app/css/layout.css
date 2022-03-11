@@ -102,50 +102,45 @@ h2 {
   position: fixed;
   top: 15px;
   right: 15px;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   width: 50px;
   height: 50px;
+  padding-left: 10px;
   border-radius: 6px;
   background: rgba(80, 80, 80, 0.5);
 }
 .openbtn span {
   box-sizing: border-box;
   display: block;
-  width: 50%;
-  height: 3px;
-  border-radius: 10px;
-  background: transparent;
-  transition: all 0.1s;
-}
-.openbtn span::before, .openbtn span::after {
-  display: block;
-  width: 100%;
+  width: 70%;
   height: 3px;
   border-radius: 10px;
   background: #eee;
-  content: "";
+  opacity: 1;
   transition: all 0.3s;
 }
-.openbtn span::before {
-  transform: translateY(-5px);
+.openbtn span:nth-of-type(1) {
+  transform: translateY(-3px);
 }
-.openbtn span::after {
-  width: 60%;
-  transform: translateY(0px);
+.openbtn span:nth-of-type(2) {
+  width: 40%;
+  transform: translateY(2px);
 }
 
+.open .openbtn {
+  align-items: center;
+  padding-left: 0;
+}
 .open .openbtn span {
   width: 70%;
 }
-.open .openbtn span::before {
-  transform: translateY(0) rotate(135deg);
-  opacity: 1;
+.open .openbtn span:nth-of-type(1) {
+  transform: translateY(1px) rotate(135deg);
 }
-.open .openbtn span::after {
-  width: 100%;
-  transform: translateY(-3px) rotate(-135deg);
-  opacity: 1;
+.open .openbtn span:nth-of-type(2) {
+  transform: translateY(-2px) rotate(-135deg);
 }
 @media (pointer: fine) {
   a:link {
