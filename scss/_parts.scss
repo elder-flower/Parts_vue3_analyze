@@ -21,56 +21,49 @@ $openbtnBg: rgba(80, 80, 80, 0.5);
 $openbtnColor: #eee;
 
 .openbtn {
-    position: fixed;
-    z-index: 999;
-    top: 15px;
-    right: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    background: $openbtnBg;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    span {
-      box-sizing: border-box;
-      display: block;
-      height: 3px;
-      width: 60%;
-      background: $openbtnColor;
-      border-radius: 10px;
-      transition: all 0.1s;
-      &::before,
-      &::after {
-        content: "";
-        display: block;
-        height: 3px;
-        width: 100%;
-        background: $openbtnColor;
-        border-radius: 10px;
-        transition: all 0.3s;
-      }
-      &::before {
-        transform: translateY(-8px);
-      }
-      &::after {
-        transform: translateY(5px);
-      }
-    }
-  }
+  position: fixed;
+  z-index: 999;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  background: $openbtnBg;
 
-  .open{
-    .openbtn{
-        span {
-            &::before {
-              transform: translateY(0);
-              opacity: 1;
-            }
-            &::after {
-              transform: translateY(-3px);
-              opacity: 1;
-            }
-          }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span {
+    box-sizing: border-box;
+    display: block;
+    height: 3px;
+    width: 60%;
+    background: $openbtnColor;
+    border-radius: 10px;
+    opacity: 1;
+    transition: all 0.3s;
+
+    &:nth-of-type(1) {
+      transform: translateY(-5px);
+    }
+    &:nth-of-type(3) {
+      transform: translateY(5px);
     }
   }
+}
+
+.open {
+  .openbtn {
+    span {
+      &:nth-of-type(1) {
+        transform: translateY(3px);
+        opacity: 1;
+      }
+      &:nth-of-type(3) {
+        transform: translateY(-3px);
+        opacity: 1;
+      }
+    }
+  }
+}
