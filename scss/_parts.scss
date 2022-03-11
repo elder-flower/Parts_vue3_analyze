@@ -30,15 +30,19 @@ $openbtnColor: #eee;
   border-radius: 6px;
   background: $openbtnBg;
 
+  /*
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  */
+  
   span {
     box-sizing: border-box;
     display: block;
     height: 3px;
     width: 60%;
+    margin: 0 auto;
     background: $openbtnColor;
     border-radius: 10px;
     opacity: 1;
