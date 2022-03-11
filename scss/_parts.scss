@@ -32,10 +32,12 @@ $openbtnColor: #eee;
   background: $openbtnBg;
   padding-left: 10px;
 
+  /*
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  */
   span {
     box-sizing: border-box;
     display: block;
@@ -61,6 +63,7 @@ $openbtnColor: #eee;
     align-items: center;
     span {
         width: 70%;
+        margin: 0 auto;
         &:nth-of-type(1){
           transform: translateY(1px) rotate(135deg);
         }
