@@ -54,12 +54,12 @@ $btnBorderColor: #e44;
     &::after{
       content: '';
       position: absolute;
-      top: 50%;
+      bottom: 0;;
       left: 10%;
       display: block;
       transition: all 0.3s;
       transform: scale( 0, 1 );
-      transform-origin: center bottom;
+      transform-origin: left bottom;
       height: 2px;
       width: 80%;
       background: $btnBorderColor;
