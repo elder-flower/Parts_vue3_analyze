@@ -21,70 +21,49 @@ h2 {
 共通　横並びのための設定
 ===================================*/
 
-$btnColor: #d33;
-$btnAcColor: #fff;
-$btnBg: #c4a122;
+$btnColor: #eee;
+$btnAcColor: #ee4;
+$btnBg: #aaaa44;
 
 .gnavi {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap; /*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin: 0 0 50px 0;
+  list-style: none;
+  li {
+    margin-bottom: 20px;
+    a {
+      display: block;
+      padding: 10px 30px;
+      text-decoration: none;
+      color: $btnColor;
 
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
-  a{
-    position: relative;
-    display: block;
-    padding: 0.5em 2em 0.5em 2em;
-    color: $btnColor;
-    transition: all .3s;
-
-    //ここで指定すると、領域から離れた時の事後処理アニメーションが違う。
-    //transition-delay: .5s;
-
-    overflow: hidden;
-    &::before,
-    &::after{
-      content: '';
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: $btnBg;
-      transition: all .5s;
-      z-index: -1;
-    }
-    &::before{
-      top: 0;
-      transform: translateX(-100%);
-    }
-    &::after{
-      bottom: 0;
-      transform: translateX(100%);
-    }
-    &:hover{
-      color: $btnAcColor;
-      background: $btnBg;
-
-      //ここで個別に「transition-delay」を設定すると、領域から離れた時の事後処理アニメーションが違う。
-      transition-delay: .5s;
-      &::before,
-      &::after{
-
-        //width:0; による変化と「translateX」による変化は違う。
-        //width: 100%;
-        transform: translateX(0);
+      /*円の基点とするためrelativeを指定*/
+      position: relative;
+      &::after {
+        content: "";
+        /*絶対配置で線の位置を決める*/
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        /*線になる丸の形状*/
+        width: 100%;
+        height: 5px;
+        border-radius: 50%;
+        background: $btnBg;
+        /*アニメーションの指定*/
+        transition: all 0.3s;
+        transform: scale(0.04, 1); /*X方向0.04、Y方向1*/
+        transform-origin: center bottom; /*中央下部基点*/
       }
     }
-  }
-  .current{
-    a{
+    &.current a,
+    a:hover {
       color: $btnAcColor;
-      background: $btnBg;
-      &::before,
-      &::after{
-        width: 100%;
+      &::after {
+        height: 2px; /*縦幅を変化*/
+        border-radius: 0; /*丸みをなくす*/
+        transform: scale(0.8, 1); /*X方向0.8、Y方向1にスケール拡大*/
       }
     }
   }
