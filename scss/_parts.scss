@@ -38,32 +38,43 @@ $btnBg: #c4a122;
     display: block;
     padding: 0.5em 2em 0.5em 2em;
     color: $btnColor;
-    transition: all .3s .5s;
+    transition: all .3s;
+
+    //ここで指定すると、領域から離れた時の事後処理アニメーションが違う。
+    //transition-delay: .5s;
+
+    overflow: hidden;
     &::before,
     &::after{
       content: '';
       position: absolute;
-      z-index: -1;
-      width: 0;
+      left: 0;
+      width: 100%;
       height: 2px;
       background: $btnBg;
-      transition: all .4s;
-      
+      transition: all .5s;
+      z-index: -1;
     }
     &::before{
       top: 0;
-      left: 0;
+      transform: translateX(-100%);
     }
     &::after{
       bottom: 0;
-      right: 0;
+      transform: translateX(100%);
     }
     &:hover{
       color: $btnAcColor;
       background: $btnBg;
+
+      //ここで個別に「transition-delay」を設定すると、領域から離れた時の事後処理アニメーションが違う。
+      transition-delay: .5s;
       &::before,
       &::after{
-        width: 100%;
+
+        //width:0; による変化と「translateX」による変化は違う。
+        //width: 100%;
+        transform: translateX(0);
       }
     }
   }
