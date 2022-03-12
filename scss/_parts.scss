@@ -54,7 +54,7 @@ $btnBorderColor: #e44;
     &::after{
       content: '';
       position: absolute;
-      bottom: 0;;
+      top: 0;
       left: 10%;
       display: block;
       transition: all 0.3s;
