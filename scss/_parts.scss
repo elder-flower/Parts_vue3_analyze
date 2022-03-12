@@ -40,6 +40,7 @@ $btnBg: #c4a122;
         //transform: scale(1, 1);
 
         width: 100%;
+        height: 100%;
         opacity: 1;
       }
     }
@@ -50,12 +51,16 @@ $btnBg: #c4a122;
     padding: 0.5em 2em 0.5em 2em;
     color: $btnColor;
 
-    transition: all 0.3s;
+    transition: all 0.5s;
+
     &:hover,
     &:active {
       color: $btnAcColor;
       &::after {
-        width: 100%;
+        animation: hover_ani .7s;
+        animation-timing-function:ease;
+        animation-fill-mode:forwards;
+        animation-iteration-count: 1;
         opacity: 1;
 
         //transform: scale(1, 1);
@@ -64,18 +69,35 @@ $btnBg: #c4a122;
     &::after {
       content: "";
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       z-index: -1;
       background: $btnBg;
-      transition: all 0.5s;
+      transition: all 0.7s;
       width: 0;
-      height: 100%;
+      height: 1px;
       opacity: 0;
       
       //「transform」で変化させるのと「width」で変化させるのは違う。
       // transform: scale(0, 1);
       // transform-origin: top left;
     }
+  }
+}
+
+@keyframes hover_ani {
+  0% {
+    width: 0;
+    height: 1px;
+  }
+
+  50% {
+     width: 100%;
+     height: 1px;
+  }
+
+  100% {
+    width: 100%;
+    height: 100%;
   }
 }

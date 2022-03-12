@@ -111,6 +111,7 @@ h2 {
 }
 .gnavi .current a::after {
   width: 100%;
+  height: 100%;
   opacity: 1;
 }
 .gnavi a {
@@ -118,27 +119,46 @@ h2 {
   position: relative;
   padding: 0.5em 2em 0.5em 2em;
   color: #ee4;
-  transition: all 0.3s;
+  transition: all 0.5s;
 }
 .gnavi a:hover, .gnavi a:active {
   color: #000;
 }
 .gnavi a:hover::after, .gnavi a:active::after {
-  width: 100%;
+  animation: hover_ani 0.7s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   opacity: 1;
 }
 .gnavi a::after {
   z-index: -1;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 0;
-  height: 100%;
+  height: 1px;
   background: #c4a122;
   content: "";
   opacity: 0;
-  transition: all 0.5s;
+  transition: all 0.7s;
 }
+
+@keyframes hover_ani {
+  0% {
+    width: 0;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
