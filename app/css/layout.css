@@ -108,30 +108,31 @@ h2 {
 }
 .gnavi a {
   position: relative;
-  padding: 0.5em 2em;
+  padding: 10px 60px;
+  overflow: hidden;
   color: #eee;
 }
 .gnavi a span {
   display: block;
-  overflow: hidden;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(0%, 0%);
+  transform: translate(-50%, 0%);
   white-space: nowrap;
+  opacity: 1;
   transition: all 0.5s;
 }
-.gnavi a span:nth-child(1) {
-  transform: translate(0, 0%);
-  opacity: 1;
-}
 .gnavi a span:nth-child(2) {
-  transform: translate(0, -200%);
+  transform: translate(-50%, 100%);
   opacity: 0;
 }
 .gnavi a:hover span:nth-child(1) {
-  transform: translate(0, -100%);
+  transform: translate(-50%, -100%);
   opacity: 0;
 }
 .gnavi a:hover span:nth-child(2) {
-  transform: translate(0, -100%);
+  transform: translate(-50%, 0%);
   opacity: 1;
 }
 @media (pointer: fine) {

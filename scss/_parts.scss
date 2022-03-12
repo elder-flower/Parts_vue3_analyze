@@ -1,4 +1,3 @@
-
 input,
 button,
 textarea,
@@ -25,7 +24,7 @@ $btnColor: #eee;
 $btnAcColor: #ee4;
 $btnBg: #aaaa44;
 
-.gnavi{
+.gnavi {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,38 +32,43 @@ $btnBg: #aaaa44;
   width: 90%;
   max-width: 500px;
   margin: 0 auto;
-  a{
+  a {
     position: relative;
-    padding: 0.5em 2em;
+    //padding: 0.5em 2em;
+    padding: 10px 60px;
     color: $btnColor;
-    span{
-      display: block;
+    overflow: hidden;
+    span {
+      position: absolute;
 
-      text-align: center;
-      overflow: hidden;
+      // ここと「transform:translateX(-50%)」はtextを中央揃えにする為の処理。
+      left: 50%;
+      top: 0;
+      transition: all 0.5s;
+      transform: translate(0%, 0%);
+      transform: translate(-50%, 0%);
+      display: block;
+      opacity: 1;
       white-space: nowrap;
-      transition: all .5s;
-      &:nth-child(1){
-        transform: translate( 0, 0%);
-        opacity: 1;
-      }
-      &:nth-child(2){
-        transform: translate( 0, -200%);
+      &:nth-child(2) {
         opacity: 0;
+        //transform: translate(0%, 100%);
+        transform: translate(-50%, 100%);
       }
     }
-    &:hover{
-      span{
-        &:nth-child(1){
-          transform: translate( 0, -100%);
+    &:hover {
+      span {
+        &:nth-child(1) {
           opacity: 0;
+          //transform: translate(0%, -100%);
+          transform: translate(-50%, -100%);
         }
-        &:nth-child(2){
-          transform: translate( 0, -100%);
+        &:nth-child(2) {
           opacity: 1;
+          //transform: translate(0%, -0%);
+          transform: translate(-50%, -0%);
         }
       }
     }
   }
 }
-
