@@ -100,43 +100,55 @@ h2 {
 ===================================*/
 .gnavi {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
+  flex-wrap: wrap;
+  /*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin: 0 0 50px 0;
+  list-style: none;
 }
-.gnavi .current a {
-  color: #ee4;
+.gnavi li {
+  margin-bottom: 20px;
 }
-.gnavi .current a::after {
-  height: 2px;
-  transform: scale(1, 1);
-}
-.gnavi a {
+.gnavi li a {
   display: block;
+  /*テキストの基点とするためrelativeを指定*/
   position: relative;
-  padding: 0.5em 2em 0.5em 2em;
-  color: #eee;
+  padding: 10px 60px;
+  /*はみ出る要素を隠す*/
+  overflow: hidden;
+  color: #ee6;
+  text-decoration: none;
 }
-.gnavi a:hover {
-  color: #ee4;
-}
-.gnavi a:hover::after {
-  height: 2px;
-  transform: scale(1, 1);
-}
-.gnavi a::after {
+.gnavi li span {
+  /*X方向に-50% ※中央寄せにするため*/
+  /*ブロック要素にして透過なし、テキスト折り返しなし*/
+  display: block;
+  /*絶対配置でテキストの位置を決める*/
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  transform: scale(0.04, 1);
-  transform-origin: center bottom;
-  background: #aaaa44;
-  content: "";
-  transition: all 0.3s;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+  opacity: 1;
+  /*アニメーションの指定*/
+  transition: all 0.5s;
+}
+.gnavi li span:nth-child(2) {
+  /*透過0に*/
+  transform: translate(-50%, 100%);
+  opacity: 0;
+  /*X方向に-50% Y方向に100%*/
+}
+.gnavi li:hover span:nth-child(1) {
+  /*透過0に*/
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  /*X方向に-50% Y方向に-100%*/
+}
+.gnavi li:hover span:nth-child(2) {
+  /*不透明に*/
+  transform: translate(-50%, 0);
+  opacity: 1;
+  /*X方向に-50% Y方向に0*/
 }
 @media (pointer: fine) {
   a:link {
