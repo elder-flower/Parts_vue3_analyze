@@ -107,7 +107,7 @@ h2 {
   margin: 0 auto;
 }
 .gnavi .current a {
-  color: #000;
+  color: #fff;
 }
 .gnavi .current a::after {
   width: 100%;
@@ -117,17 +117,16 @@ h2 {
 .gnavi a {
   display: block;
   position: relative;
-  padding: 0.5em 2em 0.5em 2em;
+  padding: 10px 30px;
   color: #ee4;
-  transition: all 0.5s;
+  transition: all 0.7s;
 }
 .gnavi a:hover, .gnavi a:active {
-  color: #000;
+  color: #fff;
 }
 .gnavi a:hover::after, .gnavi a:active::after {
-  animation: hover_ani 0.7s;
-  animation-timing-function: ease;
-  animation-iteration-count: 1;
+  width: 100%;
+  animation: hover_ani 0.5s;
   animation-fill-mode: forwards;
   opacity: 1;
 }
@@ -141,13 +140,13 @@ h2 {
   background: #c4a122;
   content: "";
   opacity: 0;
-  transition: all 0.7s;
 }
 
 @keyframes hover_ani {
   0% {
-    width: 0;
+    width: 0%;
     height: 1px;
+    background: #c4a122;
   }
   50% {
     width: 100%;
@@ -156,6 +155,7 @@ h2 {
   100% {
     width: 100%;
     height: 100%;
+    background: #c4a122;
   }
 }
 

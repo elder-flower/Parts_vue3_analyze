@@ -22,8 +22,9 @@ h2 {
 ===================================*/
 
 $btnColor: #ee4;
-$btnAcColor: #000;
+$btnAcColor: #fff;
 $btnBg: #c4a122;
+
 .gnavi {
   display: flex;
   justify-content: space-between;
@@ -48,19 +49,21 @@ $btnBg: #c4a122;
   a {
     position: relative;
     display: block;
-    padding: 0.5em 2em 0.5em 2em;
+    // padding: 0.5em 2em 0.5em 2em;
+    padding:10px 30px;
     color: $btnColor;
 
-    transition: all 0.5s;
+    transition: all 0.7s;
 
     &:hover,
     &:active {
       color: $btnAcColor;
       &::after {
-        animation: hover_ani .7s;
-        animation-timing-function:ease;
+        width: 100%;
+        animation: hover_ani .5s;
+        //animation-timing-function:ease;
         animation-fill-mode:forwards;
-        animation-iteration-count: 1;
+        //animation-iteration-count: 1;
         opacity: 1;
 
         //transform: scale(1, 1);
@@ -69,14 +72,15 @@ $btnBg: #c4a122;
     &::after {
       content: "";
       position: absolute;
+      z-index: -1;
       bottom: 0;
       left: 0;
-      z-index: -1;
-      background: $btnBg;
-      transition: all 0.7s;
       width: 0;
       height: 1px;
+      background: $btnBg;
       opacity: 0;
+
+      //transition: all 0.7s;
       
       //「transform」で変化させるのと「width」で変化させるのは違う。
       // transform: scale(0, 1);
@@ -87,8 +91,9 @@ $btnBg: #c4a122;
 
 @keyframes hover_ani {
   0% {
-    width: 0;
+    width: 0%;
     height: 1px;
+    background: $btnBg;
   }
 
   50% {
@@ -99,5 +104,6 @@ $btnBg: #c4a122;
   100% {
     width: 100%;
     height: 100%;
+    background: $btnBg;
   }
 }
