@@ -22,8 +22,8 @@ h2 {
 ===================================*/
 
 $btnColor: #ee4;
-$btnAcColor: #e44;
-$btnBg: #333;
+$btnAcColor: #000;
+$btnBg: #c4a122;
 .gnavi {
   display: flex;
   justify-content: space-between;
@@ -36,7 +36,11 @@ $btnBg: #333;
     a {
       color: $btnAcColor;
       &::after {
-        transform: scale(1, 1);
+        
+        //transform: scale(1, 1);
+
+        width: 100%;
+        opacity: 1;
       }
     }
   }
@@ -51,7 +55,10 @@ $btnBg: #333;
     &:active {
       color: $btnAcColor;
       &::after {
-        transform: scale(1, 1);
+        width: 100%;
+        opacity: 1;
+
+        //transform: scale(1, 1);
       }
     }
     &::after {
@@ -59,13 +66,16 @@ $btnBg: #333;
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
       z-index: -1;
       background: $btnBg;
-      transition: all 0.3s;
-      transform: scale(0, 1);
-      transform-origin: top left;
+      transition: all 0.5s;
+      width: 0;
+      height: 100%;
+      opacity: 0;
+      
+      //「transform」で変化させるのと「width」で変化させるのは違う。
+      // transform: scale(0, 1);
+      // transform-origin: top left;
     }
   }
 }

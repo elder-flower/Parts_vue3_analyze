@@ -107,10 +107,11 @@ h2 {
   margin: 0 auto;
 }
 .gnavi .current a {
-  color: #e44;
+  color: #000;
 }
 .gnavi .current a::after {
-  transform: scale(1, 1);
+  width: 100%;
+  opacity: 1;
 }
 .gnavi a {
   display: block;
@@ -120,23 +121,23 @@ h2 {
   transition: all 0.3s;
 }
 .gnavi a:hover, .gnavi a:active {
-  color: #e44;
+  color: #000;
 }
 .gnavi a:hover::after, .gnavi a:active::after {
-  transform: scale(1, 1);
+  width: 100%;
+  opacity: 1;
 }
 .gnavi a::after {
   z-index: -1;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 0;
   height: 100%;
-  transform: scale(0, 1);
-  transform-origin: top left;
-  background: #333;
+  background: #c4a122;
   content: "";
-  transition: all 0.3s;
+  opacity: 0;
+  transition: all 0.5s;
 }
 @media (pointer: fine) {
   a:link {
