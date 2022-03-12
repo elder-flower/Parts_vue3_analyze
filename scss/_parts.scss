@@ -39,6 +39,8 @@ $btnBg: #aaaa44;
     color: $btnColor;
     overflow: hidden;
     span {
+
+      // position: absolute; にする事によりアニメーション動作が変わる。
       position: absolute;
 
       // ここと「transform:translateX(-50%)」はtextを中央揃えにする為の処理。
