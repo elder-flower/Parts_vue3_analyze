@@ -16,60 +16,10 @@ h2 {
     font-size: 36px;
   }
 }
-/*========= ぼかしのためのCSS ===============*/
-
-$openbtnBg: rgba(80,80,80,0.5);
 
 /*==================================================
 共通　横並びのための設定
 ===================================*/
-
-@mixin lineDir(
-    $dir: 'bc'
-){
-    @if $dir == 'bc' {
-        bottom: 0;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: center top;/*上部中央基点*/
-    }
-    @else if $dir == 'bl' {
-        bottom: 0;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: left top;/*左上基点*/
-    }
-    @else if $dir == 'mc' {
-        top:50%;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: center top;/*上部中央基点*/
-    }
-    @else if $dir == 'ml' {
-        top:50%;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: left top;/*左上基点*/
-    }
-    @else if $dir == 'tc' {
-        top: 0%;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: center top;/*上部中央基点*/
-    }
-    @else if $dir == 'tl' {
-        top: 0%;
-        left: 10%;
-        transition: all .3s;
-        transform: scale(0, 1);/*X方向0、Y方向1*/
-        transform-origin: left top;/*左上基点*/
-    }
-}
 
 $btnColor: #ee4;
 $btnAcColor: #e44;
@@ -77,39 +27,50 @@ $btnAcColor: #e44;
 $btnBorderColor: #e44;
 
 .gnavi{
-    display: flex;
-    flex-wrap: wrap;/*スマホ表示折り返し用なのでPCのみなら不要*/
-    margin:0 0 50px 0;
-    list-style: none;
-    li{
-        margin-bottom:20px;
-        a,
-        button{
-            display: block;
-            padding:10px 30px;
-            text-decoration: none;
-            color: $btnColor;
-            
-            /*線の基点とするためrelativeを指定*/
-            position: relative;
-        }
-        &.current a,
-        a:hover{
-            color:$btnAcColor;
-            &::after{
-                transform: scale(1, 1);/*X方向にスケール拡大*/
-            }
-        }
-        a::after{
-            content: '';
-            /*絶対配置で線の位置を決める*/
-            position: absolute;
-            @include lineDir( 'bl' );
-            /*線の形状*/
-            width: 80%;
-            height: 2px;
-            background:$btnBorderColor;
-            /*アニメーションの指定*/
-        }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  .current{
+    a{
+      &:link,
+      &:visited{
+        color: $btnAcColor;
+      }
+      &::after{
+        transform: scaleX( 1 );
+      }
     }
+
+  }
+  a{
+    display: block;
+    padding: 0.5em 2em 0.5em 2em;
+    color: $btnColor;
+    transition: all 0.3s;
+    position: relative;
+    &::after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left:0;
+      display: block;
+      transition: all 0.3s;
+      transform: scaleX( 0 );
+      transform-origin: left bottom;
+      height: 2px;
+      width: 100%;
+      background: $btnBorderColor;
+    }
+    &:hover,
+    &:active{
+      color: $btnAcColor;
+      &::after{
+        transform: scaleX( 1 );
+      }
+    }
+  }
+
 }
