@@ -100,65 +100,61 @@ h2 {
 ===================================*/
 .gnavi {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
+  flex-wrap: wrap;
+  /*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin: 0 0 50px 0;
+  list-style: none;
 }
-.gnavi .current a {
-  color: #fff;
+.gnavi li {
+  margin-bottom: 20px;
 }
-.gnavi .current a::after {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-}
-.gnavi a {
+.gnavi li a {
   display: block;
+  /*線の基点とするためrelativeを指定*/
   position: relative;
   padding: 10px 30px;
-  color: #ee4;
-  transition: all 0.7s;
+  /*はみ出る要素を隠す*/
+  overflow: hidden;
+  color: #d33;
+  text-decoration: none;
+  /*アニメーションの指定*/
+  transition: all 0.2s;
 }
-.gnavi a:hover, .gnavi a:active {
-  color: #fff;
+.gnavi li a:hover {
+  transition-delay: 0.5s;
 }
-.gnavi a:hover::after, .gnavi a:active::after {
-  width: 100%;
-  animation: hover_ani 0.5s;
-  animation-fill-mode: forwards;
-  opacity: 1;
+.gnavi li a:hover::before, .gnavi li a:hover::after {
+  transform: translateX(0);
+  /*X方向に0%移動*/
 }
-.gnavi a::after {
-  z-index: -1;
+.gnavi li a::before, .gnavi li a::after {
+  /*絶対配置で線の位置を決める*/
   position: absolute;
-  bottom: 0;
   left: 0;
-  width: 0;
-  height: 1px;
+  width: 100%;
+  /*線の形状*/
+  height: 2px;
   background: #c4a122;
   content: "";
-  opacity: 0;
+  /*アニメーションの指定*/
+  transition: all 0.5s;
 }
-
-@keyframes hover_ani {
-  0% {
-    width: 0%;
-    height: 1px;
-    background: #c4a122;
-  }
-  50% {
-    width: 100%;
-    height: 1px;
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    background: #c4a122;
-  }
+.gnavi li a::before {
+  top: 0;
+  transform: translateX(-100%);
+  /*X方向に-100%移動*/
 }
-
+.gnavi li a::after {
+  bottom: 0;
+  transform: translateX(100%);
+  /*X方向に100%移動*/
+}
+.gnavi li.current a,
+.gnavi li a:hover {
+  /*背景色をつける*/
+  background: #c4a122;
+  color: #fff;
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

@@ -1,3 +1,4 @@
+
 input,
 button,
 textarea,
@@ -21,89 +22,64 @@ h2 {
 共通　横並びのための設定
 ===================================*/
 
-$btnColor: #ee4;
+$btnColor: #d33;
 $btnAcColor: #fff;
 $btnBg: #c4a122;
 
-.gnavi {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
-  .current {
-    a {
-      color: $btnAcColor;
-      &::after {
-        
-        //transform: scale(1, 1);
-
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-      }
+.gnavi{
+    display: flex;
+    flex-wrap: wrap;/*スマホ表示折り返し用なのでPCのみなら不要*/
+    margin:0 0 50px 0;
+    list-style: none;
+    li{
+        margin-bottom:20px;
+        a{
+            display: block;
+            padding:10px 30px;
+            text-decoration: none;
+            color: $btnColor;
+            
+            /*線の基点とするためrelativeを指定*/
+            position: relative;
+            /*はみ出る要素を隠す*/
+            overflow: hidden;
+            /*アニメーションの指定*/
+            transition: all .2s;
+            &:hover{
+                transition-delay: .5s;
+                &::before,
+                &::after{
+                    transform: translateX(0);/*X方向に0%移動*/
+                }
+            }
+            &::before,
+            &::after{
+                content: "";
+                /*絶対配置で線の位置を決める*/
+                position: absolute;
+                left: 0;
+                /*線の形状*/
+                height: 2px;
+                width:100%;
+                background: $btnBg;
+                /*アニメーションの指定*/
+                transition: all .5s;
+            }
+            &::before{
+                top: 0;
+                transform: translateX(-100%);/*X方向に-100%移動*/
+            }
+            &::after{
+                bottom: 0;
+                transform: translateX(100%);/*X方向に100%移動*/
+            }
+        }
+        &.current a,
+        a:hover{
+            /*背景色をつける*/
+            background: $btnBg;
+            color: $btnAcColor;
+        }
     }
-  }
-  a {
-    position: relative;
-    display: block;
-    // padding: 0.5em 2em 0.5em 2em;
-    padding:10px 30px;
-    color: $btnColor;
-
-    transition: all 0.7s;
-
-    &:hover,
-    &:active {
-      color: $btnAcColor;
-      &::after {
-        width: 100%;
-        animation: hover_ani .5s;
-        //animation-timing-function:ease;
-        animation-fill-mode:forwards;
-        //animation-iteration-count: 1;
-        opacity: 1;
-
-        //transform: scale(1, 1);
-      }
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: $btnBg;
-      opacity: 0;
-
-      //transition: all 0.7s;
-      
-      //「transform」で変化させるのと「width」で変化させるのは違う。
-      // transform: scale(0, 1);
-      // transform-origin: top left;
-    }
-  }
 }
 
-@keyframes hover_ani {
-  0% {
-    width: 0%;
-    height: 1px;
-    background: $btnBg;
-  }
-
-  50% {
-     width: 100%;
-     height: 1px;
-  }
-
-  100% {
-    width: 100%;
-    height: 100%;
-    background: $btnBg;
-  }
-}
