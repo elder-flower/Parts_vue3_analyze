@@ -96,71 +96,53 @@ h2 {
 }
 
 /*========= ぼかしのためのCSS ===============*/
-.openbtn {
+/*==================================================
+共通　横並びのための設定
+===================================*/
+.gnavi {
   display: flex;
-  z-index: 999;
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  background: rgba(80, 80, 80, 0.5);
+  flex-wrap: wrap;
+  /*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin: 0 0 50px 0;
+  list-style: none;
 }
-.openbtn span {
-  box-sizing: border-box;
+.gnavi li {
+  margin-bottom: 20px;
+}
+.gnavi li a,
+.gnavi li button {
   display: block;
-  width: 60%;
-  height: 3px;
-  border-radius: 10px;
-  background: #eee;
+  /*線の基点とするためrelativeを指定*/
+  position: relative;
+  padding: 10px 30px;
+  color: #ee4;
+  text-decoration: none;
 }
-.openbtn span:nth-child(1) {
-  transform: translateY(-11px);
-  transition: all 0.3s;
+.gnavi li.current a,
+.gnavi li a:hover {
+  color: #e44;
 }
-.openbtn span:nth-child(2) {
-  transform: translateY(-6px);
-  transition: all 0.1s;
+.gnavi li.current a::after,
+.gnavi li a:hover::after {
+  transform: scale(1, 1);
+  /*X方向にスケール拡大*/
 }
-.openbtn span:nth-child(3) {
-  transform: translateY(-1px);
-  transition: all 0.3s;
-}
-.openbtn span:nth-child(3)::after {
-  display: block;
-  margin: 5px 0 0 -1px;
-  content: "menu";
-  font-size: 0.6em;
-  text-transform: uppercase;
-}
-
-.open .openbtn span {
-  width: 68%;
-}
-.open .openbtn span:nth-child(1) {
-  transform: translateY(-3px) rotate(135deg);
-  opacity: 1;
-}
-.open .openbtn span:nth-child(2) {
-  background: transparent;
-}
-.open .openbtn span:nth-child(2)::after {
-  display: block;
-  margin: 14px 0 0 0px;
-  content: "close";
-  font-size: 0.6em;
-  text-transform: uppercase;
-}
-.open .openbtn span:nth-child(3) {
-  transform: translateY(-9px) rotate(-135deg);
-  opacity: 1;
-}
-.open .openbtn span:nth-child(3)::after {
+.gnavi li a::after {
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  /*左上基点*/
+  /*線の形状*/
+  width: 80%;
+  height: 2px;
+  transform: scale(0, 1);
+  /*X方向0、Y方向1*/
+  transform-origin: left top;
+  background: #e44;
   content: "";
+  transition: all 0.3s;
+  /*アニメーションの指定*/
 }
 @media (pointer: fine) {
   a:link {
