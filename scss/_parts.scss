@@ -55,20 +55,20 @@ $btnBorderColor: #e44;
       content: '';
       position: absolute;
       bottom: 0;
-      left:0;
+      left: 10%;
       display: block;
       transition: all 0.3s;
-      transform: scaleX( 0 );
-      transform-origin: left bottom;
+      transform: scale( 0, 1 );
+      transform-origin: center bottom;
       height: 2px;
-      width: 100%;
+      width: 80%;
       background: $btnBorderColor;
     }
     &:hover,
     &:active{
       color: $btnAcColor;
       &::after{
-        transform: scaleX( 1 );
+        transform: scale( 1, 1 );
       }
     }
   }

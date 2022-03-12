@@ -123,11 +123,11 @@ h2 {
   display: block;
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 10%;
+  width: 80%;
   height: 2px;
-  transform: scaleX(0);
-  transform-origin: left bottom;
+  transform: scale(0, 1);
+  transform-origin: center bottom;
   background: #e44;
   content: "";
   transition: all 0.3s;
@@ -136,7 +136,7 @@ h2 {
   color: #e44;
 }
 .gnavi a:hover::after, .gnavi a:active::after {
-  transform: scaleX(1);
+  transform: scale(1, 1);
 }
 @media (pointer: fine) {
   a:link {
