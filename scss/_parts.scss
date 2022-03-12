@@ -4,7 +4,6 @@ textarea,
 select {
   appearance: none;
 }
-
 body {
   padding: 2rem;
 }
@@ -26,53 +25,85 @@ $btnBg: #aaaa44;
 
 .gnavi {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
-  a {
+  flex-wrap: wrap; /*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin: 0 0 50px 0;
+  list-style: none;
+  li {
+    /*線の基点とするためrelativeを指定*/
     position: relative;
-    //padding: 0.5em 2em;
-    padding: 10px 60px;
-    color: $btnColor;
-    overflow: hidden;
-    span {
-
-      // position: absolute; にする事により1つ目のspan要素と2つ目のspan要素を重ね合わせる。
-      position: absolute;
-
-      // ここと「transform:translateX(-50%)」はtextを中央揃えにする為の処理。
-      left: 50%;
-      top: 0;
-      transition: all 0.5s;
-      //transform: translate(0%, 0%);
-
-      //アニメーション動作はそれぞれの「transform:translateY()」の位置。
-      transform: translate(-50%, 0%);
+    margin: 0 10px;
+    a {
       display: block;
-      opacity: 1;
-      white-space: nowrap;
-      &:nth-child(2) {
-        opacity: 0;
-        //transform: translate(0%, 100%);
-        transform: translate(-50%, 100%);
+      padding: 10px 30px;
+      text-decoration: none;
+      color: #eee;
+    }
+    &::before,
+    &::after {
+      content: "";
+      /*絶対配置で線の位置を決める*/
+      position: absolute;
+      background: #eeee55;
+      /*線の形状*/
+      width: 0;
+      height: 2px;
+      /*アニメーションの指定*/
+      transition: all 0.2s linear;
+    }
+    &::before {
+      right: 0;
+      bottom: 0;
+    }
+    &::after {
+      left: 0;
+      top: 0;
+    }
+    span {
+      display: block;
+      &::before,
+      &::after {
+        content: "";
+        /*絶対配置で線の位置を決める*/
+        position: absolute;
+        background: #eeee55;
+        /*線の形状*/
+        width: 2px;
+        height: 0;
+        /*アニメーションの指定*/
+        transition: all 0.1s linear;
+      }
+      &::before {
+        left: 0;
+        bottom: 0;
+      }
+      &::after {
+        right: 0;
+        top: 0;
       }
     }
-    &:hover {
-      span {
-        &:nth-child(1) {
-          opacity: 0;
-          //transform: translate(0%, -100%);
-          transform: translate(-50%, -100%);
-        }
-        &:nth-child(2) {
-          opacity: 1;
-          //transform: translate(0%, -0%);
-          transform: translate(-50%, -0%);
-        }
-      }
+    &.current::before,
+    &.current::after,
+    &:hover::before,
+    &:hover::after {
+      width: 100%;
+    }
+    &:hover::after {
+      transition-delay: 0s; /*すぐ線を出現させる*/
+    }
+    &:hover::before {
+      transition-delay: 0.3s; /*線の出現を0.3秒遅らせる*/
+    }
+    &.current span::before,
+    &.current span::after,
+    &:hover span::before,
+    &:hover span::after {
+      height: 100%;
+    }
+    &:hover span::before {
+      transition-delay: 0.5s; /*線の出現を0.5秒遅らせる*/
+    }
+    &:hover span::after {
+      transition-delay: 0.2s; /*線の出現を0.2秒遅らせる*/
     }
   }
 }
