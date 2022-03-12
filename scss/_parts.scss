@@ -40,14 +40,16 @@ $btnBg: #aaaa44;
     overflow: hidden;
     span {
 
-      // position: absolute; にする事によりアニメーション動作が変わる。
+      // position: absolute; にする事により1つ目のspan要素と2つ目のspan要素を重ね合わせる。
       position: absolute;
 
       // ここと「transform:translateX(-50%)」はtextを中央揃えにする為の処理。
       left: 50%;
       top: 0;
       transition: all 0.5s;
-      transform: translate(0%, 0%);
+      //transform: translate(0%, 0%);
+
+      //アニメーション動作はそれぞれの「transform:translateY()」の位置。
       transform: translate(-50%, 0%);
       display: block;
       opacity: 1;
