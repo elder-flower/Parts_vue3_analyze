@@ -41,7 +41,8 @@ $btnBg: #ee4;
       background: $btnBg;
       width: 0;
       height: 2px;
-      transition: all 0.2s;
+      transition: all 0.2s linear;
+      transition-delay: 0.2s;
     }
     &::before {
       top: 0;
@@ -50,9 +51,6 @@ $btnBg: #ee4;
     &::after {
       bottom: 0;
       left: 0;
-
-      //ここで指定すると後処理アニメーションに違いが出てくる。
-      //transition-delay: 0.4s;
     }
     &:hover,
     &.current {
@@ -61,10 +59,12 @@ $btnBg: #ee4;
         width: 100%;
       }
       &::before {
-        transition-delay: 0.2s;
+        //ここで指定すると「hover」後のアニメーション処理が違う。
+        //transition-delay: 0.2s;
       }
       &::after {
-        transition-delay: 0.2s;
+        //ここで指定すると「hover」後のアニメーション処理が違う。
+        //transition-delay: 0.2s;
       }
     }
   }
@@ -87,10 +87,10 @@ $btnBg: #ee4;
         height: 100%;
       }
       &::before {
-        transition-delay: 0s;
+        //transition-delay: 0s;
       }
       &::after {
-        transition-delay: 0s;
+        //transition-delay: 0s;
       }
     }
     &::before,
@@ -100,21 +100,15 @@ $btnBg: #ee4;
       background: $btnBg;
       width: 2px;
       height: 0;
-      transition: all 0.1s;
+      transition: all 0.2s linear;
     }
     &::before {
       top: 0;
       left: 0;
-
-      //ここで指定すると後処理アニメーションに違いが出てくる。
-      //transition-delay: 0.6s;
     }
     &::after {
       bottom: 0;
       right: 0;
-
-      //ここで指定すると後処理アニメーションに違いが出てくる。
-      //transition-delay: 0.2s;
     }
   }
 }

@@ -115,7 +115,8 @@ h2 {
   height: 2px;
   background: #ee4;
   content: "";
-  transition: all 0.2s;
+  transition: all 0.2s linear;
+  transition-delay: 0.2s;
 }
 .gnavi li::before {
   top: 0;
@@ -127,12 +128,6 @@ h2 {
 }
 .gnavi li:hover::before, .gnavi li:hover::after, .gnavi li.current::before, .gnavi li.current::after {
   width: 100%;
-}
-.gnavi li:hover::before, .gnavi li.current::before {
-  transition-delay: 0.2s;
-}
-.gnavi li:hover::after, .gnavi li.current::after {
-  transition-delay: 0.2s;
 }
 .gnavi .current a::before, .gnavi .current a::after {
   height: 100%;
@@ -148,19 +143,13 @@ h2 {
 .gnavi a:hover::before, .gnavi a:hover::after {
   height: 100%;
 }
-.gnavi a:hover::before {
-  transition-delay: 0s;
-}
-.gnavi a:hover::after {
-  transition-delay: 0s;
-}
 .gnavi a::before, .gnavi a::after {
   position: absolute;
   width: 2px;
   height: 0;
   background: #ee4;
   content: "";
-  transition: all 0.1s;
+  transition: all 0.2s linear;
 }
 .gnavi a::before {
   top: 0;
