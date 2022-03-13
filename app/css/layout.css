@@ -152,11 +152,11 @@ h2 {
 }
 .gnavi li span::before {
   top: 0;
-  right: 0;
+  left: 0;
 }
 .gnavi li span::after {
+  right: 0;
   bottom: 0;
-  left: 0;
 }
 .gnavi li.current::before, .gnavi li.current::after, .gnavi li:hover::before, .gnavi li:hover::after {
   width: 100%;
