@@ -4,7 +4,6 @@ textarea,
 select {
   appearance: none;
 }
-
 body {
   padding: 2rem;
 }
@@ -21,79 +20,101 @@ h2 {
 ===================================*/
 
 $btnColor: #eee;
-$btnAcColor: #ee4;
-$btnBg: #aaaa44;
+$btnAcColor: #eee;
+$btnBg: #ee4;
 
 .gnavi {
   display: flex;
-  flex-wrap: wrap; /*スマホ表示折り返し用なのでPCのみなら不要*/
-  margin: 0 0 50px 0;
-  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+
   li {
-    /*線の基点とするためrelativeを指定*/
     position: relative;
-    margin: 0 10px;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: $btnBg;
+      width: 0;
+      height: 2px;
+      transition: all 0.2s;
+    }
+    &::before {
+      top: 0;
+      right: 0;
+    }
+    &::after {
+      bottom: 0;
+      left: 0;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.4s;
+    }
+    &:hover,
+    &.current {
+      &::before,
+      &::after {
+        width: 100%;
+      }
+      &::before {
+        transition-delay: 0.2s;
+      }
+      &::after {
+        transition-delay: 0.2s;
+      }
+    }
+  }
+  .current {
     a {
-      display: block;
-      padding: 10px 30px;
-      text-decoration: none;
-      color: #eeeeee;
+      &::before,
+      &::after {
+        height: 100%;
+      }
+    }
+  }
+  a {
+    display: block;
+    padding: 0.5em 2em;
+    color: $btnColor;
+    &:hover {
+      color: $btnAcColor;
+      &::before,
+      &::after {
+        height: 100%;
+      }
+      &::before {
+        transition-delay: 0s;
+      }
+      &::after {
+        transition-delay: 0s;
+      }
     }
     &::before,
     &::after {
       content: "";
-      /*絶対配置で線の位置を決める*/
       position: absolute;
-      /*線の形状*/
-      width: 0;
-      height: 2px;
-      background: #ee4;
-      /*アニメーションの指定*/
-      transition: all 0.2s linear;
-      transition-delay: 0.2s;
+      background: $btnBg;
+      width: 2px;
+      height: 0;
+      transition: all 0.1s;
     }
     &::before {
-      right: 0;
       top: 0;
+      left: 0;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.6s;
     }
     &::after {
-      left: 0;
       bottom: 0;
-    }
-    span {
-      display: block;
-      &::before,
-      &::after {
-        content: "";
-        /*絶対配置で線の位置を決める*/
-        position: absolute;
-        /*線の形状*/
-        width: 2px;
-        height: 0;
-        background: #ee4;
-        /*アニメーションの指定*/
-        transition: all 0.2s linear;
-      }
-      &::before {
-        left: 0;
-        top: 0;
-      }
-      &::after {
-        right: 0;
-        bottom: 0;
-      }
-    }
-    &.current::before,
-    &.current::after,
-    &:hover::before,
-    &:hover::after {
-      width: 100%; /*横幅を100%に*/
-    }
-    &.current span::before,
-    &.current span::after,
-    &:hover span::before,
-    &:hover span::after {
-      height: 100%; /*縦幅を100%に*/
+      right: 0;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.2s;
     }
   }
 }
