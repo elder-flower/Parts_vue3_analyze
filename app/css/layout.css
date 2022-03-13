@@ -100,84 +100,66 @@ h2 {
 ===================================*/
 .gnavi {
   display: flex;
-  flex-wrap: wrap;
-  /*スマホ表示折り返し用なのでPCのみなら不要*/
-  margin: 0 0 50px 0;
-  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 .gnavi li {
-  /*線の基点とするためrelativeを指定*/
   position: relative;
-  margin: 0 10px;
-}
-.gnavi li a {
-  display: block;
-  padding: 10px 30px;
-  color: #eee;
-  text-decoration: none;
 }
 .gnavi li::before, .gnavi li::after {
-  /*絶対配置で線の位置を決める*/
   position: absolute;
-  /*線の形状*/
   width: 0;
   height: 2px;
-  background: #eeee55;
+  background: #ee4;
   content: "";
-  /*アニメーションの指定*/
-  transition: all 0.2s linear;
+  transition: all 0.2s;
 }
 .gnavi li::before {
-  right: 0;
-  bottom: 0;
+  top: 0;
+  left: 0;
 }
 .gnavi li::after {
-  top: 0;
-  left: 0;
-}
-.gnavi li span {
-  display: block;
-}
-.gnavi li span::before, .gnavi li span::after {
-  /*絶対配置で線の位置を決める*/
-  position: absolute;
-  /*線の形状*/
-  width: 2px;
-  height: 0;
-  background: #eeee55;
-  content: "";
-  /*アニメーションの指定*/
-  transition: all 0.1s linear;
-}
-.gnavi li span::before {
-  bottom: 0;
-  left: 0;
-}
-.gnavi li span::after {
-  top: 0;
   right: 0;
+  bottom: 0;
+  transition-delay: 0.4s;
 }
-.gnavi li.current::before, .gnavi li.current::after, .gnavi li:hover::before, .gnavi li:hover::after {
+.gnavi li:hover::before, .gnavi li:hover::after, .gnavi li.current::before, .gnavi li.current::after {
   width: 100%;
 }
-.gnavi li:hover::after {
-  transition-delay: 0s;
-  /*すぐ線を出現させる*/
-}
-.gnavi li:hover::before {
-  transition-delay: 0.3s;
-  /*線の出現を0.3秒遅らせる*/
-}
-.gnavi li.current span::before, .gnavi li.current span::after, .gnavi li:hover span::before, .gnavi li:hover span::after {
+.gnavi .current a::before, .gnavi .current a::after {
   height: 100%;
 }
-.gnavi li:hover span::before {
-  transition-delay: 0.5s;
-  /*線の出現を0.5秒遅らせる*/
+.gnavi a {
+  display: block;
+  padding: 0.5em 2em;
+  color: #eee;
 }
-.gnavi li:hover span::after {
+.gnavi a:hover {
+  color: #eee;
+}
+.gnavi a:hover::before, .gnavi a:hover::after {
+  height: 100%;
+}
+.gnavi a::before, .gnavi a::after {
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background: #ee4;
+  content: "";
+  transition: all 0.2s;
+}
+.gnavi a::before {
+  bottom: 0;
+  left: 0;
+  transition-delay: 0.6s;
+}
+.gnavi a::after {
+  top: 0;
+  right: 0;
   transition-delay: 0.2s;
-  /*線の出現を0.2秒遅らせる*/
 }
 @media (pointer: fine) {
   a:link {
