@@ -37,7 +37,7 @@ $btnBg: #aaaa44;
       display: block;
       padding: 10px 30px;
       text-decoration: none;
-      color: #eee;
+      color: #eeeeee;
     }
     &::before,
     &::after {
@@ -75,11 +75,11 @@ $btnBg: #aaaa44;
         transition: all 0.2s linear;
       }
       &::before {
-        left: 0;
+        right: 0;
         top: 0;
       }
       &::after {
-        right: 0;
+        left: 0;
         bottom: 0;
       }
     }
