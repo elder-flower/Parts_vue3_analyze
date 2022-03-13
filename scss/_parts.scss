@@ -41,7 +41,7 @@ $btnBg: #ee4;
       background: $btnBg;
       width: 0;
       height: 2px;
-      transition: all 0.2s;
+      transition: all 0.2s linear;
     }
     &::before {
       top: 0;
@@ -50,13 +50,21 @@ $btnBg: #ee4;
     &::after {
       bottom: 0;
       right: 0;
-      transition-delay: 0.4s;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.4s;
     }
     &:hover,
     &.current{
       &::before,
       &::after {
         width: 100%;
+      }
+      &::before{
+        transition-delay: 0s;
+      }
+      &::after{
+        transition-delay: 0.3s;
       }
     }
   }
@@ -78,6 +86,12 @@ $btnBg: #ee4;
       &::after {
         height: 100%;
       }
+      &::before{
+        transition-delay: 0.5s;
+      }
+      &::after{
+        transition-delay: 0.2s;
+      }
     }
     &::before,
     &::after {
@@ -86,17 +100,21 @@ $btnBg: #ee4;
       background: $btnBg;
       width: 2px;
       height: 0;
-      transition: all 0.2s;
+      transition: all 0.1s linear;
     }
     &::before {
       bottom: 0;
       left: 0;
-      transition-delay: 0.6s;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.6s;
     }
     &::after {
       top: 0;
       right: 0;
-      transition-delay: 0.2s;
+
+      //ここで指定すると後処理アニメーションに違いが出てくる。
+      //transition-delay: 0.2s;
     }
   }
 }
