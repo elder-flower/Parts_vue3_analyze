@@ -26,54 +26,30 @@ main {
 
 $btnColor: #eee;
 $btnColor2: #ee7;
-$btnBg: #222;
-$btnBg2: #333;
-$btnBg3: #000;
+$btnBg: #111;
+$btnShadow: rgba(255, 255, 255, 0.5);
 
 $btnBorder: #333;
 
-/* ボタン共通設定 */
-.btn03 {
-  display: inline-block;
-  color: $btnColor;
-  border-radius: 20px;
+/*== 影がついて浮き上がる */
+
+/*ボタンの形状*/
+.float1{
+  background: $btnBg;
   border: 1px solid $btnBorder;
-  transition: all 0.3s;
-  span {
-    padding: 0.5em 2em;
-    display: block;
-  }
-  &:hover {
-    color: $btnColor2;
-    border: 1px solid transparent;
-  }
-}
-.pushleft {
-  position: relative;
+  color: $btnColor;
+  padding:10px 20px;
+  display: inline-block;
+  text-decoration: none; 
+  outline: none;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: -4px;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: $btnBg2;
-    border-radius: 20px;
-  }
-  span {
-    background: $btnBg;
-    padding: 0.5em 2em;
-    border-radius: 20px;
-    z-index: 3;
-    transition: all 0.3s;
-  }
-  &:hover {
-    span{
-      background: $btnBg3;
-      transform: translate(-4px, 4px);
-    }
+  /*アニメーションの指定*/
+  transition: all .3s;
 
+
+  /*hoverをしたらボックスに影がつく*/
+  &:hover{
+    box-shadow: 0 7px 10px $btnShadow;
+    border-color: transparent;
   }
 }

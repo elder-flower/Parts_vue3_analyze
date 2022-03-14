@@ -101,47 +101,23 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/* ボタン共通設定 */
-.btn03 {
+/*== 影がついて浮き上がる */
+/*ボタンの形状*/
+.float1 {
   display: inline-block;
+  padding: 10px 20px;
   border: 1px solid #333;
-  border-radius: 20px;
+  outline: none;
+  background: #111;
   color: #eee;
+  text-decoration: none;
+  /*アニメーションの指定*/
   transition: all 0.3s;
+  /*hoverをしたらボックスに影がつく*/
 }
-.btn03 span {
-  display: block;
-  padding: 0.5em 2em;
-}
-.btn03:hover {
-  border: 1px solid transparent;
-  color: #ee7;
-}
-
-.pushleft {
-  position: relative;
-}
-.pushleft::before {
-  z-index: -1;
-  position: absolute;
-  top: 4px;
-  left: -4px;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background: #333;
-  content: "";
-}
-.pushleft span {
-  z-index: 3;
-  padding: 0.5em 2em;
-  border-radius: 20px;
-  background: #222;
-  transition: all 0.3s;
-}
-.pushleft:hover span {
-  transform: translate(-4px, 4px);
-  background: #000;
+.float1:hover {
+  border-color: transparent;
+  box-shadow: 0 7px 10px rgba(255, 255, 255, 0.5);
 }
 @media (pointer: fine) {
   a:link {
