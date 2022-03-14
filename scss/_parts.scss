@@ -35,21 +35,15 @@ $btnBorder: #333;
 
 /*ボタンの形状*/
 .float1{
-  background: $btnBg;
-  border: 1px solid $btnBorder;
-  color: $btnColor;
-  padding:10px 20px;
   display: inline-block;
-  text-decoration: none; 
-  outline: none;
+  padding: 0.5em 2em;
+  background: $btnBg;
+  color:$btnColor;
+  border:  1px solid $btnBorder;
 
-  /*アニメーションの指定*/
-  transition: all .3s;
-
-
-  /*hoverをしたらボックスに影がつく*/
+  transition: all .3s ease;
   &:hover{
-    box-shadow: 0 7px 10px $btnShadow;
-    border-color: transparent;
+    border:  1px solid transparent;
+    box-shadow: 0 6px 7px 0px $btnShadow;
   }
 }

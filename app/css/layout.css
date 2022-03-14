@@ -105,19 +105,15 @@ main p {
 /*ボタンの形状*/
 .float1 {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 0.5em 2em;
   border: 1px solid #333;
-  outline: none;
   background: #111;
   color: #eee;
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: all 0.3s;
-  /*hoverをしたらボックスに影がつく*/
+  transition: all 0.3s ease;
 }
 .float1:hover {
-  border-color: transparent;
-  box-shadow: 0 7px 10px rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+  box-shadow: 0 6px 7px 0px rgba(255, 255, 255, 0.5);
 }
 @media (pointer: fine) {
   a:link {
