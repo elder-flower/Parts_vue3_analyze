@@ -25,44 +25,68 @@ main {
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
+$btnColor2: #ee7;
 $btnBg: #222;
+$btnBg2: #222;
+$btnBg3: #000;
 
-$btnBorder: #ee7;
-$btnBorder2: #aa7;
+$btnBorder: #333;
 
-.pushcircle{
+/* ボタン共通設定 */
+.btn03 {
+  /*影の基点とするためrelativeを指定*/
   position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  box-sizing: border-box;
+  /*ボタンの形状*/
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  background: transparent;
+  border-radius: 25px;
+  border: solid 1px $btnBorder;
+  outline: none;
+  /*アニメーションの指定*/
+  transition: all 0.2s ease;
+}
+
+/*hoverをした後のボタンの形状*/
+.btn03:hover {
+  border-color: transparent;
+}
+
+/*ボタンの中のテキスト*/
+.btn03 span {
+  position: relative;
+  z-index: 2; /*z-indexの数値をあげて文字を背景よりも手前に表示*/
+  /*テキストの形状*/
+  display: block;
+  padding: 10px 30px;
   background: $btnBg;
+  border-radius: 25px;
   color: $btnColor;
+  /*アニメーションの指定*/
+  transition: all 0.3s ease;
+}
 
-   /*天地中央にテキストを配置*/
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+/*== 下に押し込まれる（立体が平面に） */
 
-  &:hover{
-    &::after{
-      transform: translate( -50%, -50% ) scale(1);
-      border: 2px solid $btnBorder;
-    }
-  }
-  /*内側の線*/
-  &::after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate( -50%, -50% ) scale(1.1);
-    //transform-origin: center;
-    width: 85%;
-    height: 85%;
-    border: 2px solid $btnBorder2;
-    border-radius: 50%;
+/*影の設定*/
+.pushdown:before {
+  content: "";
+  /*絶対配置で影の位置を決める*/
+  position: absolute;
+  z-index: -1;
+  top: 4px;
+  left: 0;
+  /*影の形状*/
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  background-color: $btnBg2;
+}
 
-    transition: transform .3s ease;
-  }
+/*hoverの際にY軸に4pxずらす*/
+.pushdown:hover span {
+  background-color: $btnBg3;
+  color: $btnColor2;
+  transform: translateY(4px);
 }
