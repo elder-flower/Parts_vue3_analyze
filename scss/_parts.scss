@@ -33,58 +33,68 @@ $btnBorder: rgb(255, 255, 91);
 
 $btnArrow: #eee;
 
-.btnripple3{
+.btnripple3 {
+  /*波紋の基点とするためrelativeを指定*/
   position: relative;
+
+  /*以下で矢印の位置を調整。*/
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   max-width: 300px;
   margin: 0 auto;
 
   overflow: visible;
   padding: 0.5em 2em;
   color: $btnColor;
-  &::before{
-    content:'';
+  &::before {
+    content: "";
+
+    /*絶対配置で波形の位置を決める*/
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50% );
-    width: 150px;
-    height: 150px;
+    transform: translate(-50%, -50%);
+
+    /*波形の形状*/
     border: 1px solid $btnBorder;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
+
     opacity: 0;
   }
-  &::after{
-    content:'';
-    display: block;
+  &::after {
+    content: "";
+    //display: block;
+
+
     width: 5px;
     height: 5px;
     border-top: 1px solid $btnArrow;
     border-right: 1px solid $btnArrow;
-    transform: rotate( 45deg );
+    transform: rotate(45deg);
   }
-  &:hover{
-    &::before{
-      animation: hover .6s linear 0;
+  &:hover {
+    &::before {
+      animation: hover 0.6s forwards;
       //animation-iteration-count: infinite;
       animation-iteration-count: 1;
     }
   }
 }
 
-
 @keyframes hover {
   0% {
-    transform: translate( -50%, -50% ) scale(0.2);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 1;
   }
-  30%{
+  30% {
     opacity: 1;
   }
   100% {
-    transform: translate( -50%, -50% ) scale(1.2);
+    transform: translate(-50%, -50%) scale(2);
     opacity: 0;
   }
 }
