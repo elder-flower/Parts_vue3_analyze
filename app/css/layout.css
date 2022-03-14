@@ -122,7 +122,7 @@ main p {
   left: 0;
   */
   padding: 0.5em 2em;
-  transform-origin: 0 50% -25px;
+  transform-origin: 0 50% 25px;
   transform-style: preserve-3d;
   border: 1px solid #555;
   transition: all 0.5s;
