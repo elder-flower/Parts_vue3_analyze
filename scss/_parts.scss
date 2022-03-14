@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -33,78 +33,68 @@ $btnBorder: #ee7;
 
 $btnArrow: #eee;
 
-.btnripple2{
-    /*波紋の基点とするためrelativeを指定*/
-    position: relative;
-    /*波紋の形状*/
-    display:inline-block;
-    background: $btnBg;
-    width:70px;
-    height:70px;
-    border-radius: 50%;
-    color: $btnColor;
-    outline: none;
-    /*アニメーションの設定*/
-    transition: all .3s;
+/*波形のアニメーション*/
+@keyframes circleanime {
+  0% {
+    transform: scale(0.68);
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
 }
 
-/*hoverした際の背景色の設定*/
-.btnripple2:hover{
-    background: $btnhoverBg;
-}
+.btnripple2 {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  background: $btnBg;
+  border-radius: 50%;
+  &::before,
+  &::after {
+    content: "";
 
-/*波形を2つ設定*/
-.btnripple2::after,
-.btnripple2::before {
-    content: '';
     /*絶対配置で波形の位置を決める*/
     position: absolute;
-    left: -25%;
     top: -25%;
+    left: -25%;
+
     /*波形の形状*/
     border: 1px solid $btnBorder;
+    border-radius: 50%;
     width: 150%;
     height: 150%;
-    border-radius: 50%;
-    /*はじめは不透明*/
     opacity: 1;
+
     /*ループするアニメーションの設定*/
-    animation:1s circleanime linear infinite;
-}
-
-/*波形の2つ目は0.5秒遅らせてアニメーション*/
-.btnripple2::before {
-    animation-delay:.5s;
-}
-
-/*波形のアニメーション*/
-@keyframes circleanime{
-    0%{
-      transform: scale(0.68);
+    animation: 1s circleanime linear infinite;
+  }
+  &::after {
+    animation-delay: .5s;
+  }
+  &:hover {
+    background: $btnhoverBg;
+  }
+  span {
+    &::after {
+      content: "";
+      display: block;
+      /*絶対配置で矢印の位置を決める*/
+      position: absolute;
+      /*
+      top: 38%;
+      left: 45%;
+      */
+      top: 50%;
+      left: 50%;
+      transform: translate(-20%, -50%);
+      /*矢印の形状*/
+      border: 14px solid transparent;
+      border-top-width: 10px;
+      border-bottom-width: 10px;
+      border-left-color: $btnArrow;
     }
-    100%{
-        transform: scale(1.2);
-        opacity: 0;
-    }
-}
-
-/*中央矢印*/
-.btnripple2 span::after {
-    content: '';
-    /*絶対配置で矢印の位置を決める*/
-    position: absolute;
-    top: 38%;
-    left: 45%;
-    /*矢印の形状*/
-    border: 14px solid transparent;
-    border-top-width: 10px;
-    border-bottom-width: 10px;
-    border-left-color: $btnArrow;
-}
-
-/*========= レイアウトのためのCSS ===============*/
-p{
-    margin: 1rem;
-    width: 100%;
-    text-align: center;
+  }
+  //border: 1px solid $btnBorder;
 }
