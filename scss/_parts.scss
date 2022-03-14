@@ -46,35 +46,27 @@ $btnBorder: #333;
     z-index: 3;
   }
 }
-.bgcenterout{
+.bgskew{
   &:hover {
     &::after {
-      transform: scale(1, 1);
-      //transform-origin: top left;
-
+      animation: skewanime .5s forwards;/*アニメーションの名前と速度を定義*/
     }
   }
   &::after {
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -130%;
+    width:120%;
     height: 100%;
     background: $btnhoverBg;
     z-index: -1;
 
-    //transition: all 0.3s ease;
-
-    //「transition: all」だと意図した動き（hover時に左から現れて止まって、離れると右に流れる動作。）にならない。
-    transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
-
-    //バリエーション
-    //transition: transform .6s cubic-bezier(1, 0, 0.1, 1) 0s;
-    //transition: transform .6s ease 0s;
-
-    // 逆さまなのも注意。
-    transform-origin: center center;
-    transform: scale(0, 0);
+    transform: skewX(-25deg);
   }
+}
+@keyframes skewanime {
+	100% {
+		left:-10%;/*画面の見えていない左から右へ移動する終了地点*/
+	}
 }

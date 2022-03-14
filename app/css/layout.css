@@ -118,22 +118,29 @@ main p {
   z-index: 3;
 }
 
-.bgcenterout:hover::after {
-  transform: scale(1, 1);
+.bgskew:hover::after {
+  animation: skewanime 0.5s forwards;
+  /*アニメーションの名前と速度を定義*/
 }
-.bgcenterout::after {
+.bgskew::after {
   z-index: -1;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: -130%;
+  width: 120%;
   height: 100%;
-  transform: scale(0, 0);
-  transform-origin: center center;
+  transform: skewX(-25deg);
   background: #222;
   content: "";
-  transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
 }
+
+@keyframes skewanime {
+  100% {
+    left: -10%;
+    /*画面の見えていない左から右へ移動する終了地点*/
+  }
+}
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
