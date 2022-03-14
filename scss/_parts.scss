@@ -60,10 +60,16 @@ $btnBorder: #333;
     height: 100%;
     background: $btnhoverBg;
     z-index: -1;
+
+
     //transition: all 0.3s ease;
 
-    //「cubic-bezier(0.8, 0, 0.2, 1)」にしないと意図した動きにならない。
-    transition: transform .6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+    //「transition: all」だと意図した動き（hover時に左から現れて止まって、離れると右に流れる動作。）にならない。
+    //transition: transform .6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+   
+    transition: transform .6s cubic-bezier(1, 0, 0.1, 1) 0s;
+    
+    //transition: transform .6s ease 0s;
 
     // 逆さまなのも注意。
     transform-origin: top right;
