@@ -118,29 +118,29 @@ main p {
   color: #ee7;
 }
 
-.pushdown {
+.pushright {
   position: relative;
 }
-.pushdown::before {
+.pushright::before {
   z-index: -1;
   position: absolute;
   top: 4px;
-  left: 0;
+  left: 4px;
   width: 100%;
   height: 100%;
   border-radius: 20px;
   background: #333;
   content: "";
 }
-.pushdown span {
+.pushright span {
   z-index: 3;
   padding: 0.5em 2em;
   border-radius: 20px;
   background: #222;
   transition: all 0.3s;
 }
-.pushdown:hover span {
-  transform: translateY(4px);
+.pushright:hover span {
+  transform: translate(4px, 4px);
   background: #000;
 }
 @media (pointer: fine) {
