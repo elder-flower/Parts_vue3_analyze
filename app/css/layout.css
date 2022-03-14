@@ -102,94 +102,99 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/* ボタン共通設定 */
+/*--- 線から塗り（共通設定） ---*/
 .btn05 {
+  /*ボタンの形状*/
   display: inline-block;
+  /*線の基点とするためrelativeを指定*/
   position: relative;
-  overflow: hidden;
-  background: #444;
-}
-.btn05 span {
-  display: block;
-  z-index: 3;
-  padding: 0.5em 2em;
+  padding: 10px 20px;
+  outline: none;
+  background: #333;
   color: #eee;
-}
-.btn05:hover span {
-  background: #222;
-  color: #ee5;
+  text-decoration: none;
+  /*アニメーションの指定*/
   transition: all 0.3s;
-  transition-delay: 0.6s;
+  transition-delay: 0.7s;
+  /*0.7秒遅れてアニメーション*/
 }
 
-.bordercircle1 span {
+/*hoverした際の、ボタンの背景とテキスト色の変更*/
+.btn05:hover {
+  background: #000;
+  color: #ee5;
+}
+
+/*線の設定*/
+.btn05 span {
   display: block;
-  position: relative;
+}
+
+/*横線の設定*/
+.btn05::before,
+.btn05::after {
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  /*線の形状*/
+  width: 0;
+  height: 1px;
+  background: #aaa;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.2s linear;
+}
+
+/*縦線の設定*/
+.btn05 span::before,
+.btn05 span::after {
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  /*線の形状*/
+  width: 1px;
+  height: 0;
+  background: #aaa;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.2s linear;
+}
+
+/*hoverした際、線が縦横100%伸びる*/
+.btn05:hover::before,
+.btn05:hover::after {
   width: 100%;
+}
+
+.btn05:hover span::before,
+.btn05:hover span::after {
   height: 100%;
-  transition: all 0.3s;
 }
-.bordercircle1 span::before {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 0;
-  background: #111;
-  content: "";
-  transition: all 0.2s;
-}
-.bordercircle1 span::after {
-  z-index: 1;
-  position: absolute;
+
+/*== 左下⇒右下⇒右上⇒左上⇒左下に枠線が伸びて塗りに */
+/*左下から右下へ伸びる横線*/
+.bordercircle2::after {
   bottom: 0;
   left: 0;
-  width: 0;
-  height: 1px;
-  background: #111;
-  content: "";
-  transition: all 0.2s;
 }
-.bordercircle1::before {
-  z-index: 1;
-  position: absolute;
+
+/*右下から上へ伸びる縦線*/
+.bordercircle2 span::after {
   right: 0;
   bottom: 0;
-  width: 1px;
-  height: 0;
-  background: #111;
-  content: "";
-  transition: all 0.2s;
+  transition-delay: 0.2s;
 }
-.bordercircle1::after {
-  z-index: 1;
-  position: absolute;
+
+/*右上から左上へ伸びる横線*/
+.bordercircle2::before {
   top: 0;
   right: 0;
-  width: 0;
-  height: 1px;
-  background: #111;
-  content: "";
-  transition: all 0.2s;
+  transition-delay: 0.4s;
 }
-.bordercircle1:hover {
-  opacity: 1;
+
+/*左上から左下へ伸びる横線*/
+.bordercircle2 span::before {
+  top: 0;
+  left: 0;
   transition-delay: 0.6s;
-}
-.bordercircle1:hover span::before {
-  height: 100%;
-}
-.bordercircle1:hover span::after {
-  width: 100%;
-  transition-delay: 0.2s;
-}
-.bordercircle1:hover::before {
-  height: 100%;
-}
-.bordercircle1:hover::after {
-  width: 100%;
-  transition-delay: 0.2s;
 }
 @media (pointer: fine) {
   a:link {
