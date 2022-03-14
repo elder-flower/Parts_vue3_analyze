@@ -44,7 +44,7 @@ $btnBorder: #555;
 
   transition: all .3s;
   &:hover{
-    transform: translateY( -4px );
-    box-shadow: 0 4px 5px 0 $btnBg2;
+    transform: translateY( -3px );
+    box-shadow: 0 2px 3px $btnBg2;
   }
 }

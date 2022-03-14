@@ -113,8 +113,8 @@ main p {
   transition: all 0.3s;
 }
 .float3:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 5px 0 rgba(250, 250, 250, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 2px 3px rgba(250, 250, 250, 0.5);
 }
 @media (pointer: fine) {
   a:link {
