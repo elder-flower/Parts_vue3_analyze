@@ -27,64 +27,99 @@ main {
 
 $btnColor: #eee;
 $btnAcColor: #ee5;
-$btnBg: #222;
+$btnBg: #444;
 $btnBg2: #222;
 
-$btnBorder: #111;
+$btnBg3: #000;
+$btnBg4: #000;
 
-/* ボタン共通設定 */
-.btn04 {
-  display: inline-block;
+/*--- 線から塗り（共通設定） ---*/
+
+.btn05 {
+  /*線の基点とするためrelativeを指定*/
   position: relative;
-  overflow: hidden;
-  span {
-    display: block;
-    padding: 0.5em 2em;
-    color: $btnColor;
-    border: 1px solid $btnBorder;
-    z-index: 3;
-  }
-  &:hover {
-    span {
-      transition: all 0.3s 0.4s;
-      color: $btnAcColor;
-    }
-  }
+  /*ボタンの形状*/
+  display: inline-block;
+  color: $btnColor;
+  padding: 10px 20px;
+  background: $btnBg;
+  text-decoration: none;
+  outline: none;
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+  transition-delay: 0.7s; /*0.7秒遅れてアニメーション*/
 }
-.bordercenter {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-top: 2px solid $btnBorder;
-    border-bottom: 2px solid $btnBorder;
-    transform: scale(0, 1);
-    transform-origin: top center;
-    transition: all 0.4s;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $btnBg;
-    z-index: -1;
-    transform: scale(0, 1);
-    transform-origin: top center;
-    transition: all 0.3s;
-  }
-  &:hover {
-    &::before {
-      transform: scale(1, 1);
-    }
-    &::after {
-      transform: scale(1, 1);
-      transition-delay: 0.4s;
-    }
-  }
+
+/*hoverした際の、ボタンの背景とテキスト色の変更*/
+.btn05:hover {
+  background: $btnBg2;
+  color: $btnAcColor;
+}
+
+/*線の設定*/
+.btn05 span {
+  display: block;
+}
+
+/*横線の設定*/
+.btn05::before,
+.btn05::after {
+  content: "";
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  /*線の形状*/
+  width: 0;
+  height: 1px;
+  background: $btnBg3;
+  /*アニメーションの指定*/
+  transition: all 0.2s linear;
+}
+
+/*縦線の設定*/
+.btn05 span::before,
+.btn05 span::after {
+  content: "";
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  /*線の形状*/
+  width: 1px;
+  height: 0;
+  background: $btnBg4;
+  /*アニメーションの指定*/
+  transition: all 0.2s linear;
+}
+
+/*hoverした際、線が縦横100%伸びる*/
+.btn05:hover::before,
+.btn05:hover::after {
+  width: 100%;
+}
+.btn05:hover span::before,
+.btn05:hover span::after {
+  height: 100%;
+}
+
+/*== 左上と右下から枠線が伸びて塗りに */
+
+/*横線が0.2秒送れて出現*/
+
+.bordercircle1::before {
+  right: 0;
+  top: 0;
+  transition-delay: 0.2s;
+}
+.bordercircle1::after {
+  left: 0;
+  bottom: 0;
+  transition-delay: 0.2s;
+}
+
+/*縦線が出現*/
+.bordercircle1 span::before {
+  left: 0;
+  top: 0;
+}
+.bordercircle1 span::after {
+  right: 0;
+  bottom: 0;
 }
