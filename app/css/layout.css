@@ -104,91 +104,53 @@ main p {
 /*== ボタン共通設定 */
 /* ボタン共通設定 */
 .btn04 {
-  /*ボタンの形状*/
   display: inline-block;
-  /*線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 10px 30px;
-  /*はみ出す背景色を隠す*/
   overflow: hidden;
-  border: 1px solid #111;
-  outline: none;
-  color: #eee;
-  text-decoration: none;
 }
-
-/*hoverした際のボタンの形状*/
-.btn04:hover {
-  border-color: transparent;
-  color: #ee5;
-  /*色の変化を遅らせる*/
-  transition-delay: 0.6s;
-}
-
-/*線の設定*/
 .btn04 span {
   display: block;
-  z-index: 2;
+  z-index: 3;
+  padding: 0.5em 2em;
+  border: 1px solid #111;
+  color: #eee;
+}
+.btn04:hover span {
+  color: #ee5;
+  transition: all 0.3s 0.4s;
 }
 
-/*== 線から塗りに変化（中央から外） */
-/*線の設定*/
-.bordercenter span::before,
-.bordercenter span::after {
-  /*絶対配置で線の位置を決める*/
-  position: absolute;
-  /*線の形状*/
-  width: 100%;
-  height: 1px;
-  transform: scale(0, 1);
-  transform-origin: center;
-  background: #111;
-  content: "";
-  /*アニメーションの設定*/
-  transition: all 0.3s;
-}
-
-/*上線*/
-.bordercenter span::before {
-  top: 0;
-  left: 0;
-}
-
-/*下線*/
-.bordercenter span::after {
-  bottom: 0;
-  left: 0;
-}
-
-/*hoverをすると線が伸びる*/
-.bordercenter:hover span::before,
-.bordercenter:hover span::after {
-  transform: scale(1, 1);
-}
-
-/*背景の設定*/
 .bordercenter::before {
-  z-index: -1;
-  /*絶対配置で線の位置を決める*/
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  /*背景の形状*/
   height: 100%;
   transform: scale(0, 1);
-  transform-origin: center;
+  transform-origin: top center;
+  border-top: 2px solid #111;
+  border-bottom: 2px solid #111;
+  content: "";
+  transition: all 0.4s;
+}
+.bordercenter::after {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  transform-origin: top center;
   background: #222;
   content: "";
-  /*アニメーションの設定*/
   transition: all 0.3s;
 }
-
-/*hoverをすると背景が伸びる*/
 .bordercenter:hover::before {
-  width: 100%;
   transform: scale(1, 1);
-  /*0.4秒遅れてアニメーション*/
+}
+.bordercenter:hover::after {
+  transform: scale(1, 1);
   transition-delay: 0.4s;
 }
 @media (pointer: fine) {

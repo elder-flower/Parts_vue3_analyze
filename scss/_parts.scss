@@ -17,8 +17,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -27,99 +27,64 @@ main{
 
 $btnColor: #eee;
 $btnAcColor: #ee5;
-$btnBg: #111;
+$btnBg: #222;
 $btnBg2: #222;
 
 $btnBorder: #111;
 
 /* ボタン共通設定 */
 .btn04 {
-    /*線の基点とするためrelativeを指定*/
-    position: relative;
-    /*ボタンの形状*/
-    display:inline-block;
-    padding: 10px 30px;
-
-    color:$btnColor;
-    border:1px solid $btnBorder;
-    text-decoration: none;
-    outline: none;
-    /*はみ出す背景色を隠す*/
-    overflow: hidden;
-}
-
-/*hoverした際のボタンの形状*/
-.btn04:hover {
-    color:$btnAcColor;
-    border-color: transparent;
-    /*色の変化を遅らせる*/
-    transition-delay: .6s;
-}
-
-/*線の設定*/
-.btn04 span{
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  span {
     display: block;
-    z-index: 2;
+    padding: 0.5em 2em;
+    color: $btnColor;
+    border: 1px solid $btnBorder;
+    z-index: 3;
+  }
+  &:hover {
+    span {
+      transition: all 0.3s 0.4s;
+      color: $btnAcColor;
+    }
+  }
 }
-
-/*== 線から塗りに変化（中央から外） */
-
-/*線の設定*/
-.bordercenter span::before,
-.bordercenter span::after{
-    content: '';
-    /*絶対配置で線の位置を決める*/
+.bordercenter {
+  &::before {
+    content: "";
     position: absolute;
-    /*線の形状*/
-    width: 100%;
-    height:1px;
-    background: $btnBg;
-    /*アニメーションの設定*/
-    transition: all .3s;
-    transform: scale(0,1);
-    transform-origin: center;
-}
-
-/*上線*/
-.bordercenter span::before {
-    left:0;
-    top:0;
-}
-
-/*下線*/
-.bordercenter span::after {
-    left:0;
-    bottom:0;
-}
-
-/*hoverをすると線が伸びる*/
-.bordercenter:hover span::before,
-.bordercenter:hover span::after{
-    transform: scale(1,1);
-}
-
-/*背景の設定*/
-.bordercenter::before{
-    content: '';
-    /*絶対配置で線の位置を決める*/
-    position: absolute;
+    top: 0;
     left: 0;
-    top:0;
-    z-index: -1;
-    /*背景の形状*/
-    height: 100%;
-    width:100%;
-    background:$btnBg2;
-    /*アニメーションの設定*/
-    transition: all .3s;
-    transform: scale(0,1);
-    transform-origin: center;
-}
-
-/*hoverをすると背景が伸びる*/
-.bordercenter:hover::before{
     width: 100%;
-    /*0.4秒遅れてアニメーション*/
-    transition-delay: .4s;
-    transform: scale(1,1);
+    height: 100%;
+    border-top: 2px solid $btnBorder;
+    border-bottom: 2px solid $btnBorder;
+    transform: scale(0, 1);
+    transform-origin: top center;
+    transition: all 0.4s;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $btnBg;
+    z-index: -1;
+    transform: scale(0, 1);
+    transform-origin: top center;
+    transition: all 0.3s;
+  }
+  &:hover {
+    &::before {
+      transform: scale(1, 1);
+    }
+    &::after {
+      transform: scale(1, 1);
+      transition-delay: 0.4s;
+    }
+  }
 }
