@@ -1,4 +1,3 @@
-
 input,
 button,
 textarea,
@@ -18,8 +17,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -35,86 +34,51 @@ $btnBorder: #111;
 
 /* ボタン共通設定 */
 .btn04 {
-    /*線の基点とするためrelativeを指定*/
-    position: relative;
-    /*ボタンの形状*/
-    display:inline-block;
-    padding: 10px 30px;
-    color:$btnColor;
-    border:1px solid $btnBorder;
-    text-decoration: none;
-    outline: none;
-    /*はみ出す背景色を隠す*/
-    overflow: hidden;
-}
-
-/*hoverした際のボタンの形状*/
-.btn04:hover {
-    color:$btnAcColor;
-    border-color: transparent;
-    /*色の変化を遅らせる*/
-    transition-delay: .6s;
-}
-
-/*線の設定*/
-.btn04 span{
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  span {
     display: block;
-    z-index: 2;
-}
-
-/*== 線から塗りに変化（上から下） */
-
-/*線の設定*/
-.bordertop span::before,
-.bordertop span::after {
-    content: '';
-    /*絶対配置で線の位置を決める*/
+    padding: 0.5em 2em;
+    color: $btnColor;
+    border: 1px solid $btnBorder;
+    transition: all 0.3s .3s;
+    z-index: 3;
+  }
+  &::before {
+    content: "";
     position: absolute;
-    width:1px;
-    height: 0;
-    /*線の形状*/
-    background: $btnBg2;
-    /*アニメーションの設定*/
-    transition: all .3s;
-}
-
-/*左線*/
-.bordertop span::before {
-    left:0;
-    top:0;
-}
-
-/*右線*/
-.bordertop span::after {
-    right:0;
-    top:0;
-}
-
-/*hoverをすると線が伸びる*/
-.bordertop:hover span::before,
-.bordertop:hover span::after {
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-}
-
-/*背景の設定*/
-.bordertop::before{
-	content: '';
-    /*絶対配置で線の位置を決める*/
-	position: absolute;
-	left: 0;
-    top:0;
-	z-index: -1;
-    /*背景の形状*/
-	width: 100%;
-	height: 0;
-	background:$btnBg;
-    /*アニメーションの設定*/
-	transition: all .3s;
-}
-
-/*hoverをすると背景が伸びる*/
-.bordertop:hover::before{
-	height: 100%;
-    /*0.4秒遅れてアニメーション*/
-	transition-delay: .4s;
+    border-left: 2px solid $btnBorder;
+    border-right: 2px solid $btnBorder;
+    transform: scale(1, 0);
+    transition: all 0.3s;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $btnBg;
+    z-index: -1;
+    transform: translateY(-100%);
+    transition: all 0.3s;
+  }
+  &:hover {
+    span {
+      color: $btnAcColor;
+    }
+    &::before {
+      transform: scale(1, 1);
+    }
+    &::after {
+      transform: translateY(0%);
+      transition-delay: 0.3s;
+    }
+  }
 }
