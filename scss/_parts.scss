@@ -45,7 +45,7 @@ $btnBorder: #333;
     z-index: 3;
   }
 }
-.bgbottom {
+.bgcenterx {
   &:hover {
     &::after {
       transform: scale(1, 1);
@@ -73,7 +73,7 @@ $btnBorder: #333;
     //transition: transform .6s ease 0s;
 
     // 逆さまなのも注意。
-    transform-origin: bottom left;
-    transform: scale(1, 0);
+    transform-origin: center center;
+    transform: scale(0, 1);
   }
 }
