@@ -131,49 +131,53 @@ main p {
   z-index: 2;
 }
 
-/*== 線から塗りに変化（右から左） */
+/*== 線から塗りに変化（中央から外） */
 /*線の設定*/
-.borderright span::before,
-.borderright span::after {
+.bordercenter span::before,
+.bordercenter span::after {
   /*絶対配置で線の位置を決める*/
   position: absolute;
-  width: 0;
-  height: 1px;
   /*線の形状*/
+  width: 100%;
+  height: 1px;
+  transform: scale(0, 1);
+  transform-origin: center;
   background: #111;
   content: "";
   /*アニメーションの設定*/
   transition: all 0.3s;
 }
 
-/*右上線*/
-.borderright span::before {
+/*上線*/
+.bordercenter span::before {
   top: 0;
-  right: 0;
+  left: 0;
 }
 
-/*右下線*/
-.borderright span::after {
-  right: 0;
+/*下線*/
+.bordercenter span::after {
   bottom: 0;
+  left: 0;
 }
 
 /*hoverをすると線が伸びる*/
-.borderright:hover span::before,
-.borderright:hover span::after {
-  width: 100%;
+.bordercenter:hover span::before,
+.bordercenter:hover span::after {
+  transform: scale(1, 1);
 }
 
 /*背景の設定*/
-.borderright::before {
+.bordercenter::before {
   z-index: -1;
   /*絶対配置で線の位置を決める*/
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
   /*背景の形状*/
   height: 100%;
+  transform: scale(0, 1);
+  transform-origin: center;
   background: #222;
   content: "";
   /*アニメーションの設定*/
@@ -181,8 +185,9 @@ main p {
 }
 
 /*hoverをすると背景が伸びる*/
-.borderright:hover::before {
+.bordercenter:hover::before {
   width: 100%;
+  transform: scale(1, 1);
   /*0.4秒遅れてアニメーション*/
   transition-delay: 0.4s;
 }

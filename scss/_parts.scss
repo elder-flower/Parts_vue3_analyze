@@ -23,7 +23,6 @@ main{
     text-align: center;
   }
 }
-
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
@@ -63,59 +62,64 @@ $btnBorder: #111;
     z-index: 2;
 }
 
-/*== 線から塗りに変化（右から左） */
+/*== 線から塗りに変化（中央から外） */
 
 /*線の設定*/
-.borderright span::before,
-.borderright span::after {
+.bordercenter span::before,
+.bordercenter span::after{
     content: '';
     /*絶対配置で線の位置を決める*/
     position: absolute;
-    width:0;
-    height:1px;
     /*線の形状*/
+    width: 100%;
+    height:1px;
     background: $btnBg;
     /*アニメーションの設定*/
     transition: all .3s;
+    transform: scale(0,1);
+    transform-origin: center;
 }
 
-/*右上線*/
-.borderright span::before {
-    right:0;
+/*上線*/
+.bordercenter span::before {
+    left:0;
     top:0;
 }
 
-/*右下線*/
-.borderright span::after {
-    right:0;
+/*下線*/
+.bordercenter span::after {
+    left:0;
     bottom:0;
 }
 
 /*hoverをすると線が伸びる*/
-.borderright:hover span::before,
-.borderright:hover span::after {
-    width: 100%;
+.bordercenter:hover span::before,
+.bordercenter:hover span::after{
+    transform: scale(1,1);
 }
 
 /*背景の設定*/
-.borderright::before{
+.bordercenter::before{
     content: '';
     /*絶対配置で線の位置を決める*/
     position: absolute;
-    right: 0;
-    bottom:0;
+    left: 0;
+    top:0;
     z-index: -1;
     /*背景の形状*/
     height: 100%;
-    width: 0;
+    width:100%;
     background:$btnBg2;
     /*アニメーションの設定*/
     transition: all .3s;
+    transform: scale(0,1);
+    transform-origin: center;
 }
 
 /*hoverをすると背景が伸びる*/
-.borderright:hover::before{
+.bordercenter:hover::before{
     width: 100%;
     /*0.4秒遅れてアニメーション*/
     transition-delay: .4s;
+    transform: scale(1,1);
 }
