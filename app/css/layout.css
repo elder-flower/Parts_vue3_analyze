@@ -102,22 +102,19 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== 影が拡がって浮き上がる */
+/*== 影がついて浮き上がる */
 /*ボタンの形状*/
 .float2 {
   display: inline-block;
   padding: 10px 20px;
   border: 1px solid #333;
-  outline: none;
   background: #222;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(128, 128, 128, 0.1);
   color: #eee;
-  text-decoration: none;
-  /*アニメーションの設定*/
+  /*アニメーションの指定*/
   transition: all 0.3s;
+  /*hoverをしたらボックスの影が拡がり色が濃くなる*/
 }
-
-/*hoverをしたらボックスの影が拡がり色が濃くなる*/
 .float2:hover {
   border-color: transparent;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), 0 0 50px rgba(128, 128, 128, 0.1);
