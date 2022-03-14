@@ -32,33 +32,37 @@ $btnBorder2: #aa7;
 
 .pushcircle{
   position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
   background: $btnBg;
   color: $btnColor;
 
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+   /*天地中央にテキストを配置*/
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
   &:hover{
     &::after{
-      transform: translate( -50%, -50% ) scale(0.9);
+      transform: translate( -50%, -50% ) scale(1);
       border: 2px solid $btnBorder;
     }
   }
+  /*内側の線*/
   &::after{
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50% ) scale(1);
+    transform: translate( -50%, -50% ) scale(1.1);
     //transform-origin: center;
     width: 85%;
     height: 85%;
+    border: 2px solid $btnBorder2;
     border-radius: 50%;
 
-    border: 2px solid $btnBorder2;
-    transition: transform .3s;
+    transition: transform .3s ease;
   }
 }

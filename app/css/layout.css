@@ -102,18 +102,21 @@ main p {
 
 /*== ボタン共通設定 */
 .pushcircle {
+  box-sizing: border-box;
+  /*天地中央にテキストを配置*/
   display: inline-flex;
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: #222;
   color: #eee;
+  /*内側の線*/
 }
 .pushcircle:hover::after {
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(1);
   border: 2px solid #ee7;
 }
 .pushcircle::after {
@@ -122,11 +125,11 @@ main p {
   left: 50%;
   width: 85%;
   height: 85%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1.1);
   border: 2px solid #aa7;
   border-radius: 50%;
   content: "";
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
 @media (pointer: fine) {
   a:link {
