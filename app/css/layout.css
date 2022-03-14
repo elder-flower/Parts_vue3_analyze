@@ -96,14 +96,13 @@ h2 {
 }
 
 main p {
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 /*== ボタン共通設定 */
 .btn {
-  display: block;
+  display: inline-block;
   position: relative;
-  width: 200px;
   padding: 0.5em 2em;
   overflow: hidden;
   border: 1px solid #333;
@@ -118,6 +117,7 @@ main p {
 
 .bgleft:hover::after {
   transform: scale(1, 1);
+  transform-origin: top left;
 }
 .bgleft::after {
   z-index: -1;
@@ -127,21 +127,11 @@ main p {
   width: 100%;
   height: 100%;
   transform: scale(0, 1);
-  transform-origin: top left;
+  transform-origin: top right;
   background: #222;
   content: "";
-  transition: all 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
 }
-
-@keyframes bgmove {
-  0% {
-    transform-origin: top left;
-  }
-  100% {
-    transform-origin: top right;
-  }
-}
-
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

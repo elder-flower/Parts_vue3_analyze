@@ -18,7 +18,7 @@ h2 {
 }
 main {
   p {
-    margin: 0 auto;
+    margin: 30px auto;
   }
 }
 /*== ボタン共通設定 */
@@ -31,8 +31,7 @@ $btnBorder: #333;
 
 .btn {
   position: relative;
-  display: block;
-  width: 200px;
+  display: inline-block;
   padding: 0.5em 2em;
   color: $btnColor;
   border: 1px solid $btnBorder;
@@ -46,9 +45,10 @@ $btnBorder: #333;
 }
 .bgleft {
   &:hover {
-    &::after {
-      //animation: bgmove 0.3s ease;
+    &::after {;
       transform: scale(1, 1);
+      transform-origin: top left;
+
     }
   }
   &::after {
@@ -60,17 +60,13 @@ $btnBorder: #333;
     height: 100%;
     background: $btnhoverBg;
     z-index: -1;
-    transition: all 0.3s ease;
-    transform-origin: top left;
-    transform: scale(0, 1);
-  }
-}
-@keyframes bgmove {
-  0% {
-    transform-origin: top left;
-  }
+    //transition: all 0.3s ease;
 
-  100% {
+    //「cubic-bezier(0.8, 0, 0.2, 1)」にしないと意図した動きにならない。
+    transition: transform .6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+
+    // 逆さまなのも注意。
     transform-origin: top right;
+    transform: scale(0, 1);
   }
 }
