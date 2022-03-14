@@ -46,7 +46,7 @@ $btnBorder: #333;
     z-index: 3;
   }
 }
-.bgcentery{
+.bgcenterout{
   &:hover {
     &::after {
       transform: scale(1, 1);
@@ -75,6 +75,6 @@ $btnBorder: #333;
 
     // 逆さまなのも注意。
     transform-origin: center center;
-    transform: scale(1, 0);
+    transform: scale(0, 0);
   }
 }
