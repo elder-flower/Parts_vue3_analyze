@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
@@ -25,38 +25,86 @@ main {
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
-$btnhoverColor: #ee8;
+$btnhoverColor: #eee;
 
-$btnBg: #222;
-$btnhoverBg: #aa7;
-$btnBorder: #333;
+$btnBg: #333;
+$btnhoverBg: #883;
+$btnBorder: #ee7;
 
-.btnripple {
-  position: relative;
-  display: inline-block;
-  padding: 0.5em 2em;
-  background: $btnBg;
-  border-radius: 10px;
-  color: $btnColor;
+$btnArrow: #eee;
 
-  overflow: hidden;
-  &:active {
-    &::after {
-      transform: scale(0, 0);
-      transition: 0s;
-      opacity: 0.3;
-    }
-  }
-  &::after {
-    content: "";
+.btnripple2{
+    /*波紋の基点とするためrelativeを指定*/
+    position: relative;
+    /*波紋の形状*/
+    display:inline-block;
+    background: $btnBg;
+    width:70px;
+    height:70px;
+    border-radius: 50%;
+    color: $btnColor;
+    outline: none;
+    /*アニメーションの設定*/
+    transition: all .3s;
+}
+
+/*hoverした際の背景色の設定*/
+.btnripple2:hover{
+    background: $btnhoverBg;
+}
+
+/*波形を2つ設定*/
+.btnripple2::after,
+.btnripple2::before {
+    content: '';
+    /*絶対配置で波形の位置を決める*/
     position: absolute;
+    left: -25%;
+    top: -25%;
+    /*波形の形状*/
+    border: 1px solid $btnBorder;
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    /*はじめは不透明*/
+    opacity: 1;
+    /*ループするアニメーションの設定*/
+    animation:1s circleanime linear infinite;
+}
+
+/*波形の2つ目は0.5秒遅らせてアニメーション*/
+.btnripple2::before {
+    animation-delay:.5s;
+}
+
+/*波形のアニメーション*/
+@keyframes circleanime{
+    0%{
+      transform: scale(0.68);
+    }
+    100%{
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/*中央矢印*/
+.btnripple2 span::after {
+    content: '';
+    /*絶対配置で矢印の位置を決める*/
+    position: absolute;
+    top: 38%;
+    left: 45%;
+    /*矢印の形状*/
+    border: 14px solid transparent;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-color: $btnArrow;
+}
+
+/*========= レイアウトのためのCSS ===============*/
+p{
+    margin: 1rem;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: radial-gradient(circle, #fff 10%, transparent 10%) no-repeat 50%;
-    transform: scale(10, 10);
-    opacity: 0;
-    transition: transform 0.3s, opacity 1s;
-  }
+    text-align: center;
 }
