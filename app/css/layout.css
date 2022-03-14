@@ -113,7 +113,7 @@ main p {
 }
 .float1:hover {
   border: 1px solid transparent;
-  box-shadow: 0 6px 7px 0px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 7px 10px 0px rgba(255, 255, 255, 0.5);
 }
 @media (pointer: fine) {
   a:link {
