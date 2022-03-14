@@ -95,55 +95,51 @@ h2 {
   font-size: 36px;
 }
 
-main p {
-  margin: 30px auto;
-  text-align: center;
+/*== ボタン共通設定 */
+.btnripple {
+  display: inline-block;
+  /*波紋の基点とするためrelativeを指定*/
+  position: relative;
+  padding: 10px 20px;
+  /*はみ出す波紋を隠す*/
+  overflow: hidden;
+  border-radius: 25px;
+  outline: none;
+  background: #222;
+  color: #eee;
+  /*ボタンの形状*/
+  text-decoration: none;
 }
 
-/*== ボタン共通設定 */
-/*== ボタン共通設定 */
-.btn02 {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  max-width: 300px;
-  height: 50px;
-  outline: none;
-  color: #eee;
-  text-align: center;
-}
-.btn02 span {
-  display: block;
+.btnripple::after {
+  /*絶対配置で波紋位置を決める*/
   position: absolute;
-  width: 100%;
-  height: 100%;
-  /*
   top: 0;
   left: 0;
-  */
-  padding: 0.5em 2em;
-  transform-origin: 0 50% -25px;
-  transform-style: preserve-3d;
-  border: 1px solid #555;
-  transition: all 0.5s;
+  width: 100%;
+  height: 100%;
+  transform: scale(10, 10);
+  /*波紋の形状*/
+  background: radial-gradient(circle, #aa7 10%, transparent 10%) no-repeat 50%;
+  content: "";
+  /*はじめは透過0に*/
+  opacity: 0;
+  /*アニメーションの設定*/
+  transition: transform 0.3s, opacity 1s;
 }
-.btn02 span:nth-child(1) {
-  transform: rotateX(0deg);
-  background: #222;
-  /*はじめは回転なし*/
+
+/*クリックされたあとの形状の設定*/
+.btnripple:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
 }
-.btn02 span:nth-child(2) {
-  transform: rotateX(-90deg);
-  background: #532;
-  /*はじめはX軸に90度回転*/
-}
-.btn02:hover span:nth-child(1) {
-  transform: rotateX(90deg);
-  /* X軸に-90度回転 */
-}
-.btn02:hover span:nth-child(2) {
-  transform: rotateX(0deg);
-  /* X軸に0度回転 */
+
+/*========= レイアウトのためのCSS ===============*/
+p {
+  width: 100%;
+  margin: 1rem;
+  text-align: center;
 }
 @media (pointer: fine) {
   a:link {
