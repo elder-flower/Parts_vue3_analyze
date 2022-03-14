@@ -122,7 +122,7 @@ main p {
   left: 0;
   */
   padding: 0.5em 2em;
-  transform-origin: 0 50% 25px;
+  transform-origin: 0 50% -25px;
   transform-style: preserve-3d;
   border: 1px solid #555;
   transition: all 0.5s;
@@ -133,12 +133,12 @@ main p {
   /*はじめは回転なし*/
 }
 .btn02 span:nth-child(2) {
-  transform: rotateX(90deg);
+  transform: rotateX(-90deg);
   background: #532;
   /*はじめはX軸に90度回転*/
 }
 .btn02:hover span:nth-child(1) {
-  transform: rotateX(-90deg);
+  transform: rotateX(90deg);
   /* X軸に-90度回転 */
 }
 .btn02:hover span:nth-child(2) {
