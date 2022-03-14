@@ -29,72 +29,58 @@ $btnhoverColor: #eee;
 
 $btnBg: #333;
 $btnhoverBg: #883;
-$btnBorder: #ee7;
+$btnBorder: rgb(255, 255, 91);
 
 $btnArrow: #eee;
 
-/*波形のアニメーション*/
-@keyframes circleanime {
-  0% {
-    transform: scale(0.68);
+.btnripple3 {
+  /*波紋の基点とするためrelativeを指定*/
+  position: relative;
+  /*リンクの形状*/
+  display: inline-block;
+  text-decoration: none;
+  color: $btnColor;
+  outline: none;
+  &:hover {
+    &::before {
+      content: "";
+      /*絶対配置で波形の位置を決める*/
+      position: absolute;
+      left: 30%;
+      top: 0;
+      /*波形の形状*/
+      border: 1px solid $btnBorder;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      /*はじめは不透明*/
+      opacity: 1;
+      /*アニメーションの設定*/
+      animation: 1s circleanime2 forwards;
+    }
   }
-  100% {
-    transform: scale(1.2);
-    opacity: 0;
+  &::after{
+    content: '';
+    /*絶対配置で矢印の位置を決める*/
+    position: absolute;
+    top: 30%;
+    right: -20px;
+    /*矢印の形状*/
+    width: 5px;
+    height: 5px;
+    border-top: 1px solid $btnArrow;
+    border-right: 1px solid $btnArrow;
+    transform: rotate(45deg);
   }
 }
 
-.btnripple2 {
-  position: relative;
-  display: inline-block;
-  width: 70px;
-  height: 70px;
-  background: $btnBg;
-  border-radius: 50%;
-  &::before,
-  &::after {
-    content: "";
-
-    /*絶対配置で波形の位置を決める*/
-    position: absolute;
-    top: -25%;
-    left: -25%;
-
-    /*波形の形状*/
-    border: 1px solid $btnBorder;
-    border-radius: 50%;
-    width: 150%;
-    height: 150%;
-    opacity: 1;
-
-    /*ループするアニメーションの設定*/
-    animation: 1s circleanime linear infinite;
-  }
-  &::after {
-    animation-delay: .5s;
-  }
-  &:hover {
-    background: $btnhoverBg;
-  }
-  span {
-    &::after {
-      content: "";
-      display: block;
-      /*絶対配置で矢印の位置を決める*/
-      position: absolute;
-      /*
-      top: 38%;
-      left: 45%;
-      */
-      top: 50%;
-      left: 50%;
-      transform: translate(-20%, -50%);
-      /*矢印の形状*/
-      border: 14px solid transparent;
-      border-top-width: 10px;
-      border-bottom-width: 10px;
-      border-left-color: $btnArrow;
-    }
-  }
-  //border: 1px solid $btnBorder;
+/*波形が広がるアニメーション*/
+@keyframes circleanime2{
+	0%{
+	  transform: scale(0);
+	}
+	100%{
+		transform:scale(2);
+		opacity: 0;
+	}
 }
