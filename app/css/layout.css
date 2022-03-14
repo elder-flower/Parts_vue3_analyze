@@ -102,47 +102,31 @@ main p {
 
 /*== ボタン共通設定 */
 .pushcircle {
-  box-sizing: border-box;
-  /*天地中央にテキストを配置*/
-  display: flex;
-  /*周囲の線の起点とするためrelativeを指定*/
+  display: inline-flex;
   position: relative;
   align-items: center;
   justify-content: center;
-  /*円の形状*/
-  width: 100px;
-  height: 100px;
-  margin: 20px auto;
-  padding: 0 10px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  outline: none;
   background: #222;
   color: #eee;
-  text-align: center;
-  text-decoration: none;
 }
-
-/*内側の線*/
-.pushcircle:after {
-  /*絶対配置で線の位置を決める*/
+.pushcircle:hover::after {
+  transform: translate(-50%, -50%) scale(0.9);
+  border: 2px solid #ee7;
+}
+.pushcircle::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  /*線の形状*/
   width: 85%;
   height: 85%;
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1);
   border: 2px solid #aa7;
   border-radius: 50%;
   content: "";
-  /*アニメーションの指定*/
-  transition: 0.3s ease;
-}
-
-/*hoverをしたら枠線が小さくなる*/
-.pushcircle:hover:after {
-  transform: translate(-50%, -50%) scale(1);
-  border-color: #ee7;
+  transition: transform 0.3s;
 }
 @media (pointer: fine) {
   a:link {

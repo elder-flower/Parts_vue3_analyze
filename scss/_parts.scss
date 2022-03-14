@@ -30,46 +30,35 @@ $btnBg: #222;
 $btnBorder: #ee7;
 $btnBorder2: #aa7;
 
-.pushcircle {
-  /*周囲の線の起点とするためrelativeを指定*/
+.pushcircle{
   position: relative;
-  /*円の形状*/
-  width: 100px;
-  height: 100px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  margin: 20px auto;
-  text-align: center;
-  background: $btnBg;
-  border-radius: 50%;
-  color: $btnColor;
-  text-decoration: none;
-  outline: none;
-  /*天地中央にテキストを配置*/
-  display: flex;
-  align-items: center;
+  display: inline-flex;
   justify-content: center;
-}
+  align-items: center;
+  background: $btnBg;
+  color: $btnColor;
 
-/*内側の線*/
-.pushcircle:after {
-  content: "";
-  /*絶対配置で線の位置を決める*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /*線の形状*/
-  width: 85%;
-  height: 85%;
-  border: 2px solid $btnBorder2;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  transform: translate(-50%, -50%) scale(1.1);
-  /*アニメーションの指定*/
-  transition: 0.3s ease;
-}
+  &:hover{
+    &::after{
+      transform: translate( -50%, -50% ) scale(0.9);
+      border: 2px solid $btnBorder;
+    }
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% ) scale(1);
+    //transform-origin: center;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
 
-/*hoverをしたら枠線が小さくなる*/
-.pushcircle:hover:after {
-  transform: translate(-50%, -50%) scale(1);
-  border-color: $btnBorder;
+    border: 2px solid $btnBorder2;
+    transition: transform .3s;
+  }
 }
