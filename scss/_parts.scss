@@ -45,11 +45,11 @@ $btnBorder: #333;
     z-index: 3;
   }
 }
-.bgtop {
+.bgbottom {
   &:hover {
     &::after {
       transform: scale(1, 1);
-      //transform-origin: bottom left;
+      //transform-origin: top left;
 
     }
   }
@@ -73,7 +73,7 @@ $btnBorder: #333;
     //transition: transform .6s ease 0s;
 
     // 逆さまなのも注意。
-    transform-origin: top left;
+    transform-origin: bottom left;
     transform: scale(1, 0);
   }
 }
