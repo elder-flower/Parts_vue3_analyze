@@ -101,60 +101,49 @@ main p {
 }
 
 /*== ボタン共通設定 */
-.btnripple3 {
-  /*以下で矢印の位置を調整。*/
+.pushcircle {
+  box-sizing: border-box;
+  /*天地中央にテキストを配置*/
   display: flex;
-  /*波紋の基点とするためrelativeを指定*/
+  /*周囲の線の起点とするためrelativeを指定*/
   position: relative;
   align-items: center;
-  justify-content: space-between;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 0.5em 2em;
-  overflow: visible;
+  justify-content: center;
+  /*円の形状*/
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  padding: 0 10px;
+  border-radius: 50%;
+  outline: none;
+  background: #222;
   color: #eee;
+  text-align: center;
+  text-decoration: none;
 }
-.btnripple3::before {
-  /*絶対配置で波形の位置を決める*/
+
+/*内側の線*/
+.pushcircle:after {
+  /*絶対配置で線の位置を決める*/
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 60px;
-  height: 60px;
-  transform: translate(-50%, -50%);
-  /*波形の形状*/
-  border: 1px solid #ffff5b;
+  /*線の形状*/
+  width: 85%;
+  height: 85%;
+  transform: translate(-50%, -50%) scale(1.1);
+  border: 2px solid #aa7;
   border-radius: 50%;
   content: "";
-  opacity: 0;
-}
-.btnripple3::after {
-  width: 5px;
-  height: 5px;
-  transform: rotate(45deg);
-  border-top: 1px solid #eee;
-  border-right: 1px solid #eee;
-  content: "";
-}
-.btnripple3:hover::before {
-  animation: hover 0.6s forwards;
-  animation-iteration-count: 1;
+  /*アニメーションの指定*/
+  transition: 0.3s ease;
 }
 
-@keyframes hover {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
+/*hoverをしたら枠線が小さくなる*/
+.pushcircle:hover:after {
+  transform: translate(-50%, -50%) scale(1);
+  border-color: #ee7;
 }
-
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
