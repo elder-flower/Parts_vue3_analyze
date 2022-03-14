@@ -106,22 +106,15 @@ main p {
 /*ボタンの形状*/
 .float3 {
   display: inline-block;
-  position: relative;
-  top: 0;
-  padding: 10px 20px;
+  padding: 0.5em 2em;
   border: 1px solid #555;
-  outline: none;
   background: #222;
   color: #eee;
-  text-decoration: none;
-  /*アニメーションの設定*/
   transition: all 0.3s;
 }
-
-/*hoverをしたらボックスに影がつき、上に上がる*/
 .float3:hover {
-  top: -3px;
-  box-shadow: 0 2px 3px rgba(250, 250, 250, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 5px 0 rgba(250, 250, 250, 0.5);
 }
 @media (pointer: fine) {
   a:link {
