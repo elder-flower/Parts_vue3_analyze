@@ -1,4 +1,3 @@
-
 input,
 button,
 textarea,
@@ -17,7 +16,12 @@ h2 {
     font-size: 36px;
   }
 }
-
+main {
+  p {
+    margin: 30px auto;
+    text-align: center;
+  }
+}
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
@@ -27,50 +31,32 @@ $btnBg: #222;
 $btnhoverBg: #aa7;
 $btnBorder: #333;
 
+.btnripple {
+  position: relative;
+  display: inline-block;
+  padding: 0.5em 2em;
+  background: $btnBg;
+  border-radius: 10px;
+  color: $btnColor;
 
-.btnripple{
-    /*波紋の基点とするためrelativeを指定*/
-    position: relative;
-    /*はみ出す波紋を隠す*/
-    overflow: hidden;
-    /*ボタンの形状*/
-    text-decoration: none;
-    display:inline-block;
-    background: $btnBg;
-    color: $btnColor;
-    padding: 10px 20px;
-    border-radius: 25px;
-    outline: none;
-}
-
-.btnripple::after {
+  overflow: hidden;
+  &:active {
+    &::after {
+      transform: scale(0, 0);
+      transition: 0s;
+      opacity: 0.3;
+    }
+  }
+  &::after {
     content: "";
-    /*絶対配置で波紋位置を決める*/
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    /*波紋の形状*/
-    background: radial-gradient(circle, $btnhoverBg 10%, transparent 10%) no-repeat 50%;
+    background: radial-gradient(circle, #fff 10%, transparent 10%) no-repeat 50%;
     transform: scale(10, 10);
-    /*はじめは透過0に*/
     opacity: 0;
-    /*アニメーションの設定*/
     transition: transform 0.3s, opacity 1s;
-}
-
-/*クリックされたあとの形状の設定*/
-.btnripple:active::after {
-    transform: scale(0, 0);
-    transition: 0s;
-    opacity: 0.3;
-}
-
-
-/*========= レイアウトのためのCSS ===============*/
-p{
-    margin: 1rem;
-    width: 100%;
-    text-align: center;
+  }
 }
