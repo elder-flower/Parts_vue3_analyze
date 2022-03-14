@@ -66,7 +66,7 @@ $btnBorder: #333;
     //transition: all 0.3s ease;
 
     //「transition: all」だと意図した動き（hover時に左から現れて止まって、離れると右に流れる動作。）にならない。
-    transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+    transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
 
     //バリエーション
     //transition: transform .6s cubic-bezier(1, 0, 0.1, 1) 0s;
