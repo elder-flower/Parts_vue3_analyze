@@ -45,11 +45,11 @@ $btnBorder: #333;
     z-index: 3;
   }
 }
-.bgright {
+.bgtop {
   &:hover {
     &::after {
       transform: scale(1, 1);
-      transform-origin: top right;
+      //transform-origin: bottom left;
 
     }
   }
@@ -74,6 +74,6 @@ $btnBorder: #333;
 
     // 逆さまなのも注意。
     transform-origin: top left;
-    transform: scale(0, 1);
+    transform: scale(1, 0);
   }
 }

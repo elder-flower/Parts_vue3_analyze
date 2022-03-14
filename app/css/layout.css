@@ -117,18 +117,17 @@ main p {
   z-index: 3;
 }
 
-.bgright:hover::after {
+.bgtop:hover::after {
   transform: scale(1, 1);
-  transform-origin: top right;
 }
-.bgright::after {
+.bgtop::after {
   z-index: -1;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  transform: scale(0, 1);
+  transform: scale(1, 0);
   transform-origin: top left;
   background: #222;
   content: "";
