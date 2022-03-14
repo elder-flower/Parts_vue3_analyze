@@ -114,9 +114,13 @@ main p {
   padding: 0.5em 2em;
   border: 1px solid #111;
   color: #eee;
+}
+.btn04:hover span {
+  color: #ee5;
   transition: all 0.3s 0.4s;
 }
-.btn04::before {
+
+.bordertop::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -128,7 +132,7 @@ main p {
   content: "";
   transition: all 0.4s;
 }
-.btn04::after {
+.bordertop::after {
   z-index: -1;
   position: absolute;
   top: 0;
@@ -139,13 +143,10 @@ main p {
   content: "";
   transition: all 0.3s;
 }
-.btn04:hover span {
-  color: #ee5;
-}
-.btn04:hover::before {
+.bordertop:hover::before {
   transform: scale(1, 1);
 }
-.btn04:hover::after {
+.bordertop:hover::after {
   height: 100%;
   transition-delay: 0.4s;
 }

@@ -42,9 +42,16 @@ $btnBorder: #111;
     padding: 0.5em 2em;
     color: $btnColor;
     border: 1px solid $btnBorder;
-    transition: all 0.3s 0.4s;
     z-index: 3;
   }
+  &:hover {
+    span {
+      transition: all 0.3s 0.4s;
+      color: $btnAcColor;
+    }
+  }
+}
+.bordertop {
   &::before {
     content: "";
     position: absolute;
@@ -70,9 +77,6 @@ $btnBorder: #111;
     transition: all 0.3s;
   }
   &:hover {
-    span {
-      color: $btnAcColor;
-    }
     &::before {
       transform: scale(1, 1);
     }
