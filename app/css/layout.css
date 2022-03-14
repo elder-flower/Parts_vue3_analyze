@@ -95,71 +95,43 @@ h2 {
   font-size: 36px;
 }
 
+main p {
+  margin: 30px auto;
+}
+
 /*== ボタン共通設定 */
 /*== ボタン共通設定 */
 .btn02 {
-  /*ボタンの形状*/
   display: inline-block;
-  /*背景の基点とするためrelativeを指定*/
   position: relative;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   height: 50px;
-  outline: none;
-  line-height: 50px;
-  text-align: center;
+  color: #eee;
 }
 .btn02 span {
-  /*ボタン内側の設定*/
   display: block;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  /* 重なりを3Dで表示 */
+  padding: 0.5em 2em;
+  transform-origin: 0 0 25;
   transform-style: preserve-3d;
   border: 1px solid #333;
-  /* アニメーションの設定 数字が少なくなるほど早く回転 */
-  transition: 0.5s;
+  transition: all 0.3s;
 }
-
-/*== くるっと回転（手前に） */
-/* 回転前 */
-.rotatefront span:nth-child(1) {
-  transform: rotateX(0deg);
-  /*はじめは回転なし*/
-  transform-origin: 0 50% -25px;
-  background: #222;
-  color: #eee;
-  /* 回転する起点 */
+.btn02 span:nth-child(1) {
+  transform: rotateX(0);
 }
-
-/*hoverをした後の形状*/
-.rotatefront:hover span:nth-child(1) {
-  transform: rotateX(-90deg);
-  /* X軸に-90度回転 */
-}
-
-/* 回転後 */
-.rotatefront span:nth-child(2) {
+.btn02 span:nth-child(2) {
   transform: rotateX(90deg);
-  /*はじめはX軸に90度回転*/
-  transform-origin: 0 50% -25px;
-  background: #532;
-  color: #ee8;
-  /* 回転する起点 */
 }
-
-/*hoverをした後の形状*/
-.rotatefront:hover span:nth-child(2) {
+.btn02:hover span:nth-child(1) {
+  transform: rotateX(-90deg);
+}
+.btn02:hover span:nth-child(2) {
   transform: rotateX(0deg);
-  /* X軸に0度回転 */
-}
-
-/*========= レイアウトのためのCSS ===============*/
-p {
-  width: 100%;
-  margin: 1rem;
-  text-align: center;
 }
 @media (pointer: fine) {
   a:link {
