@@ -85,6 +85,7 @@ select {
 
 body {
   padding: 2rem;
+  background: #555;
 }
 
 h2 {
@@ -101,19 +102,25 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== 影がついて浮き上がる */
+/*== 影が拡がって浮き上がる */
 /*ボタンの形状*/
-.float1 {
+.float2 {
   display: inline-block;
-  padding: 0.5em 2em;
+  padding: 10px 20px;
   border: 1px solid #333;
-  background: #111;
+  outline: none;
+  background: #222;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(128, 128, 128, 0.1);
   color: #eee;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  /*アニメーションの設定*/
+  transition: all 0.3s;
 }
-.float1:hover {
-  border: 1px solid transparent;
-  box-shadow: 0 7px 10px 0px rgba(255, 255, 255, 0.5);
+
+/*hoverをしたらボックスの影が拡がり色が濃くなる*/
+.float2:hover {
+  border-color: transparent;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), 0 0 50px rgba(128, 128, 128, 0.1);
 }
 @media (pointer: fine) {
   a:link {

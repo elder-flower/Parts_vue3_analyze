@@ -6,6 +6,7 @@ select {
 }
 
 body {
+  background: #555;
   padding: 2rem;
 }
 h2 {
@@ -22,28 +23,37 @@ main {
     text-align: center;
   }
 }
+
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
 $btnColor2: #ee7;
-$btnBg: #111;
-$btnShadow: rgba(255, 255, 255, 0.5);
+$btnBg: #222;
+
+$btnBg2: rgba(0, 0, 0, 0.2);
+$btnBg2a: rgba(0, 0, 0, 0.4);
+$btnBg3: rgba(128, 128, 128, 0.1);
 
 $btnBorder: #333;
 
-/*== 影がついて浮き上がる */
+/*== 影が拡がって浮き上がる */
 
 /*ボタンの形状*/
-.float1{
-  display: inline-block;
-  padding: 0.5em 2em;
+.float2 {
   background: $btnBg;
-  color:$btnColor;
-  border:  1px solid $btnBorder;
+  border: 1px solid $btnBorder;
+  color: $btnColor;
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 1px 4px $btnBg2, 0 0 40px $btnBg3;
+  /*アニメーションの設定*/
+  transition: all 0.3s;
+}
 
-  transition: all .3s ease;
-  &:hover{
-    border:  1px solid transparent;
-    box-shadow: 0 7px 10px 0px $btnShadow;
-  }
+/*hoverをしたらボックスの影が拡がり色が濃くなる*/
+.float2:hover {
+  box-shadow: 0 1px 10px $btnBg2a, 0 0 50px $btnBg3;
+  border-color: transparent;
 }
