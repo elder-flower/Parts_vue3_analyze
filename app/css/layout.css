@@ -102,22 +102,26 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== 影がついて浮き上がる */
+/*== 上に移動し影がついて浮き上がる */
 /*ボタンの形状*/
-.float2 {
+.float3 {
   display: inline-block;
+  position: relative;
+  top: 0;
   padding: 10px 20px;
-  border: 1px solid #333;
+  border: 1px solid #555;
+  outline: none;
   background: #222;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(128, 128, 128, 0.1);
   color: #eee;
-  /*アニメーションの指定*/
+  text-decoration: none;
+  /*アニメーションの設定*/
   transition: all 0.3s;
-  /*hoverをしたらボックスの影が拡がり色が濃くなる*/
 }
-.float2:hover {
-  border-color: transparent;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), 0 0 50px rgba(128, 128, 128, 0.1);
+
+/*hoverをしたらボックスに影がつき、上に上がる*/
+.float3:hover {
+  top: -3px;
+  box-shadow: 0 2px 3px rgba(250, 250, 250, 0.5);
 }
 @media (pointer: fine) {
   a:link {

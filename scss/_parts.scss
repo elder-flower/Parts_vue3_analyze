@@ -1,3 +1,4 @@
+
 input,
 button,
 textarea,
@@ -6,8 +7,8 @@ select {
 }
 
 body {
-  background: #555;
   padding: 2rem;
+  background: #555;
 }
 h2 {
   margin: 2rem 0 2rem 0;
@@ -17,41 +18,39 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
 }
+
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
-$btnColor2: #ee7;
 $btnBg: #222;
+$btnBg2: rgba(250, 250, 250, 0.5);
+$btnBorder: #555;
 
-$btnBg2: rgba(0, 0, 0, 0.2);
-$btnBg2a: rgba(0, 0, 0, 0.4);
-$btnBg3: rgba(128, 128, 128, 0.1);
-
-
-$btnBorder: #333;
-
-/*== 影がついて浮き上がる */
+/*== 上に移動し影がついて浮き上がる */
 
 /*ボタンの形状*/
-.float2{
-  background: $btnBg;
-  border: 1px solid $btnBorder;
-  color: $btnColor;
-  padding:10px 20px;
-  display: inline-block;
-  box-shadow: 0 1px 4px $btnBg2, 0 0 40px $btnBg3;
-  /*アニメーションの指定*/
-  transition: all .3s;
+.float3{
+    position:relative;
+    top:0;
+    padding:10px 20px;
+    display: inline-block;
+    border: 1px solid $btnBorder;
+    color: $btnColor;
+    background: $btnBg;
+    text-decoration: none;
+    outline: none;
+    /*アニメーションの設定*/
+    transition: all .3s;
+}
 
-/*hoverをしたらボックスの影が拡がり色が濃くなる*/
-  &:hover{
-    box-shadow: 0 1px 10px $btnBg2a, 0 0 50px $btnBg3;
-    border-color: transparent;
-  }
+/*hoverをしたらボックスに影がつき、上に上がる*/
+.float3:hover {
+    top:-3px;
+    box-shadow: 0 2px 3px $btnBg2;
 }
