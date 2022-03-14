@@ -48,14 +48,14 @@ $btnBorder: #333;
     border: 1px solid transparent;
   }
 }
-.pushright {
+.pushleft {
   position: relative;
 
   &::before {
     content: "";
     position: absolute;
     top: 4px;
-    left: 4px;
+    left: -4px;
     width: 100%;
     height: 100%;
     z-index: -1;
@@ -72,7 +72,7 @@ $btnBorder: #333;
   &:hover {
     span{
       background: $btnBg3;
-      transform: translate(4px, 4px);
+      transform: translate(-4px, 4px);
     }
 
   }
