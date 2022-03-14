@@ -16,57 +16,73 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
-    margin: 30px auto;
-    display: flex;
-    justify-content: center;
-  }
-}
+
 /*== ボタン共通設定 */
 
 $btnColor: #eee;
 $btnhoverColor: #ee8;
 
-$btnhoverBg: #222;
+$btnBg: #222;
+$btnhoverBg: #532;
 $btnBorder: #333;
 
-.btn {
+/*== ボタン共通設定 */
+.btn02 {
+  /*背景の基点とするためrelativeを指定*/
   position: relative;
+  /*ボタンの形状*/
   display: inline-block;
-  padding: 0.5em 2em;
-  color: $btnColor;
-  border: 1px solid $btnBorder;
-  overflow: hidden;
-  transition: color .2s;
-  &:hover {
-    color: $btnhoverColor;
-  }
+  width: 100%;
+  max-width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  outline: none;
   span {
-    z-index: 3;
-  }
-}
-.bgskew{
-  &:hover {
-    &::after {
-      animation: skewanime .5s forwards;/*アニメーションの名前と速度を定義*/
-    }
-  }
-  &::after {
-    content: "";
+    /*ボタン内側の設定*/
+    display: block;
     position: absolute;
-    top: 0;
-    left: -130%;
-    width:120%;
+    width: 100%;
     height: 100%;
-    background: $btnhoverBg;
-    z-index: -1;
-
-    transform: skewX(-25deg);
+    border: 1px solid $btnBorder;
+    /* 重なりを3Dで表示 */
+    transform-style: preserve-3d;
+    /* アニメーションの設定 数字が少なくなるほど早く回転 */
+    transition: 0.5s;
   }
 }
-@keyframes skewanime {
-	100% {
-		left:-10%;/*画面の見えていない左から右へ移動する終了地点*/
-	}
+
+/*== くるっと回転（手前に） */
+
+/* 回転前 */
+.rotatefront span:nth-child(1) {
+  background: $btnBg;
+  color: $btnColor;
+  transform: rotateX(0deg); /*はじめは回転なし*/
+  transform-origin: 0 50% -25px; /* 回転する起点 */
+}
+
+/*hoverをした後の形状*/
+.rotatefront:hover span:nth-child(1) {
+  transform: rotateX(-90deg); /* X軸に-90度回転 */
+}
+
+/* 回転後 */
+.rotatefront span:nth-child(2) {
+  background: $btnhoverBg;
+  color: $btnhoverColor;
+  transform: rotateX(90deg); /*はじめはX軸に90度回転*/
+  transform-origin: 0 50% -25px; /* 回転する起点 */
+}
+
+/*hoverをした後の形状*/
+.rotatefront:hover span:nth-child(2) {
+  transform: rotateX(0deg); /* X軸に0度回転 */
+}
+
+/*========= レイアウトのためのCSS ===============*/
+p {
+  margin: 1rem;
+  width: 100%;
+  text-align: center;
 }
