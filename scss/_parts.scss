@@ -36,58 +36,42 @@ $btnBg: #322;
 
 /*== 外の線が伸びる */
 
-.btnlinestretches {
-  /*線の基点とするためrelativeを指定*/
+.btnlinestretches{
   position: relative;
-  /*ボタンの形状*/
+  display: inline-block;
+  padding: 0.5em 3em;
   color: $btnColor;
   border: 1px solid $btnBorderColor;
-  padding: 10px 30px;
-  display: inline-block;
-  text-decoration: none;
-  outline: none;
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-in-out;
-}
+  transition: all .3s ease;
 
-/*hoverした際の背景の形状*/
-.btnlinestretches:hover {
-  background: $btnBg;
-  color: $btnAcColor;
-  border-color: transparent;
-}
-
-/*線の設定*/
-.btnlinestretches::before,
-.btnlinestretches::after {
-  content: "";
-  /*絶対配置で線の位置を決める*/
-  position: absolute;
-  border: solid $btnBorderColor2;
-  width: 10px;
-  height: 10px;
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-in-out;
-}
-
-/*線の位置と形状*/
-.btnlinestretches::before {
-  top: -6px;
-  left: -6px;
-  border-width: 1px 0 0 1px;
-}
-
-/*線の位置と形状*/
-.btnlinestretches::after {
-  bottom: -6px;
-  right: -6px;
-  border-width: 0 1px 1px 0;
-}
-
-/*hoverした際の線の形状*/
-.btnlinestretches:hover::before,
-.btnlinestretches:hover::after {
-  width: calc(100% + 11px);
-  height: calc(100% + 11px);
-  border-color: $btnBorderColor3;
+  &::before,
+  &::after{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    transition: all .3s ease;
+  }
+  &::before{
+    top: -5px;
+    left: -5px;
+    border-top: 1px solid $btnBorderColor2;
+    border-left: 1px solid $btnBorderColor2;
+  }
+  &::after{
+    bottom: -5px;
+    right: -5px;
+    border-bottom: 1px solid $btnBorderColor2;
+    border-right: 1px solid $btnBorderColor2;
+  }
+  &:hover{
+    border-color: transparent;
+    background: $btnBg;
+    color: $btnAcColor;
+    &::before,
+    &::after{
+      width: calc( 100% + 10px );
+      height: calc( 100% + 10px );
+    }
+  }
 }
