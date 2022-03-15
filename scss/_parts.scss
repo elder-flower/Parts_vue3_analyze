@@ -16,13 +16,12 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
 }
-
 
 /*== ボタン共通設定 */
 
@@ -34,45 +33,33 @@ $btnBg: #fa6c9f;
 $btnBg2: #ffe140;
 $btnBg3: #ff357f;
 
-$btnShadow: rgba(250,108,159,0.9);
+$btnShadow: rgba(250, 108, 159, 0.9);
 
-
-.gradient4{
-  position:relative;
+.gradient4 {
   display: inline-block;
   padding: 1em 3em;
   border-radius: 30px;
   border: 1px solid $btnBorderColor;
   color: $btnColor;
 
-  transition: all 0.3s ease-out;
-  &::after{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  /*
+  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
+  background-size: 200% auto;
+  background-position: 0% 50%;
+  */
 
-    border-radius: 30px;
-    background: linear-gradient( 90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
-    background-size: 200%;
-    background-position: 0% 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: all 0.3s ease-out;
-  }
+  /*アニメーションの指定*/
+  transition: all 0.4s ease-out;
 
   /*hoverした際のスケールで全体を縮小*/
   &:hover {
-    &::after{
-      opacity: 1;
-      background-position: 99% 50%;
-    }
-
-    border: 1px solid transparent;
-
+    border-color: transparent;
     color: $btnAcColor;
-    box-shadow: 0 5px 15px $btnShadow;
+
+    background: linear-gradient(-90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
+    background-size: 200% auto;
+    background-position: right center;
+
+    box-shadow: 0 5px 10px $btnShadow;
   }
 }
