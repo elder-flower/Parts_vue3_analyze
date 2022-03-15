@@ -36,23 +36,20 @@ $btnShadow: rgba(253, 240, 82, 0.4);
 /*== グラデーションが拡大する */
 
 .gradient3 {
-  /*ボタンの形状*/
   display: inline-block;
-  color: $btnColor;
-
-  padding: 18px 60px;
+  padding: 1em 3em;
   border-radius: 30px;
-  text-decoration: none;
-  outline: none;
-  /*背景色*/
-  background: linear-gradient(to right, $btnBg 0%, $btnBg2 80%, $btnBg3 100%);
-  /*アニメーションの指定*/
+  color: $btnColor;
+  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 70%, $btnBg3 90%);
+
+  //background-size: 200%;
+  //background-position: 30% 50%;
   transition: all 0.3s ease-out;
+
+  /*hoverした際のスケールで全体を縮小*/
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 15px $btnShadow;
+  }
 }
 
-/*hoverした際のスケールで全体を拡大し影を付ける*/
-.gradient3:hover {
-  transform: scale(1.05);
-  /*ボックスの影*/
-  box-shadow: 0 15px 15px $btnShadow;
-}
