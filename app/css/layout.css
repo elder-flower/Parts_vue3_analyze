@@ -141,7 +141,7 @@ main p {
   height: 2px;
   background: #885;
   content: "";
-  transition: all 0.4s;
+  transition: all 0.3s ease-in-out;
 }
 .btnlinestretches4:hover span::after {
   right: 0.7em;

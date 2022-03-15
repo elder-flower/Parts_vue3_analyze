@@ -74,7 +74,7 @@ $btnBg2: #885;
     width: 0%;
     height: 2px;
     background: $btnBg2;
-    transition: all .4s;
+    transition:all 0.3s ease-in-out;
   }
   &:hover{
     span{
