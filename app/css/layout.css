@@ -104,63 +104,50 @@ main p {
 /*== 線の上を別の線が伸びる */
 .btnlinestretches4 {
   display: inline-block;
-  /*線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 10px 50px 10px 30px;
-  outline: none;
-  /*リンクの形状*/
-  color: #ee0;
-  text-decoration: none;
 }
-
-/*線の設定*/
-.btnlinestretches4::before,
-.btnlinestretches4::after {
-  z-index: 1;
-  /*絶対配置で線の位置を決める*/
+.btnlinestretches4 span {
+  display: block;
+  position: relative;
+  padding: 0.5em 2.5em 0.5em 2em;
+  color: #ee0;
+}
+.btnlinestretches4 span::after {
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  width: 5px;
+  height: 5px;
+  transform: rotate(135deg);
+  border: 1px solid #eee;
+  border-width: 1px 0 0 1px;
+  content: "";
+  transition: all 0.3s;
+}
+.btnlinestretches4::before {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 2px;
-  /*線の形状*/
   background: #333;
   content: "";
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-in-out;
 }
-
-/*hover時に伸びる線の形状*/
 .btnlinestretches4::after {
-  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
   background: #885;
+  content: "";
+  transition: all 0.4s;
 }
-
-/*hover時に100%に伸びる*/
+.btnlinestretches4:hover span::after {
+  right: 0.7em;
+}
 .btnlinestretches4:hover::after {
   width: 100%;
-}
-
-/*矢印の設定*/
-.btnlinestretches4 span::after {
-  /*絶対配置で矢印の位置を決める*/
-  position: absolute;
-  top: 1.3em;
-  right: 20px;
-  /*矢印の形状*/
-  width: 5px;
-  height: 5px;
-  transform: rotate(45deg);
-  border-top: 1px solid #eee;
-  border-right: 1px solid #eee;
-  content: "";
-  /*アニメーションの指定*/
-  transition: all 0.3s;
-}
-
-/*hover時に矢印が移動*/
-.btnlinestretches4:hover span::after {
-  right: 15px;
 }
 @media (pointer: fine) {
   a:link {
