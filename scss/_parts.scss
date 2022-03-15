@@ -16,40 +16,48 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
 }
 
+
 /*== ボタン共通設定 */
 
-$btnColor: #000;
+$btnColor: #eeee00;
+$btnAcColor: #111;
+$btnBorderColor: #eeee00;
 
-$btnBg: #fd52a0;
-$btnBg2: #e2fa00;
-$btnBg3: #fa7200;
+$btnBg: #fa6c9f;
+$btnBg2: #ffe140;
+$btnBg3: #ff357f;
 
-$btnShadow: rgba(253, 240, 82, 0.4);
+$btnShadow: rgba(250,108,159,0.9);
 
-/*== グラデーションが拡大する */
-
-.gradient3 {
-  display: inline-block;
-  padding: 1em 3em;
-  border-radius: 30px;
-  color: $btnColor;
-  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 70%, $btnBg3 90%);
-
-  //background-size: 200%;
-  //background-position: 30% 50%;
-  transition: all 0.3s ease-out;
-
-  /*hoverした際のスケールで全体を縮小*/
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 15px $btnShadow;
-  }
+.gradient4{
+    /*ボタンの形状*/
+    display: inline-block;
+    padding: 18px 60px;
+    border-radius:30px;
+    text-decoration: none;
+    border:1px solid $btnBorderColor;
+    color: $btnColor;
+    outline: none;
+    /*アニメーションの指定*/
+    transition: all 0.4s ease-out;
 }
 
+/*hoverした際、グラデーションと影を付ける*/
+.gradient4:hover{
+    /*ボタンの形状*/
+    border-color:transparent;
+    color: $btnAcColor;
+    /*背景の色と形状*/
+    background: linear-gradient(270deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
+    background-size: 200% auto;
+    background-position: right center;
+    /*ボックスの影*/   
+    box-shadow: 0 5px 10px $btnShadow;
+}
