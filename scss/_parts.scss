@@ -40,11 +40,11 @@ $btnBg4: #ff357f;
   display: inline-block;
   padding: 1em 3em;
   border-radius: 30px;
-  background: linear-gradient(270deg, $btnBg 0%, $btnBg2 20%, $btnBg3 30%, $btnBg4 100%);
-  background-size: 200%;
-  background-position: 30% 50%;
+  background: linear-gradient(270deg, $btnBg 0%, $btnBg2 25%, $btnBg3 51%, $btnBg4 100%);
+  background-size: 200% auto;
+  background-position: 1% 50%;
   transition: all .3s;
   &:hover{
-    background-position: 100% 50%;
+    background-position: 99% 50%;
   }
 }

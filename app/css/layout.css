@@ -106,13 +106,13 @@ main p {
   display: inline-block;
   padding: 1em 3em;
   border-radius: 30px;
-  background: linear-gradient(270deg, #3bade3 0%, #576fe6 20%, #9844b7 30%, #ff357f 100%);
-  background-position: 30% 50%;
-  background-size: 200%;
+  background: linear-gradient(270deg, #3bade3 0%, #576fe6 25%, #9844b7 51%, #ff357f 100%);
+  background-position: 1% 50%;
+  background-size: 200% auto;
   transition: all 0.3s;
 }
 .gradient1:hover {
-  background-position: 100% 50%;
+  background-position: 99% 50%;
 }
 @media (pointer: fine) {
   a:link {
