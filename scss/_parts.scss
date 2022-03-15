@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -27,7 +27,7 @@ main{
 
 $btnColor: #000;
 
-$btnBg: #FD52A0;
+$btnBg: #fd52a0;
 $btnBg2: #e2fa00;
 $btnBg3: #fa7200;
 
@@ -35,17 +35,19 @@ $btnShadow: rgba(253, 240, 82, 0.4);
 
 /*== グラデーションが縮小する */
 
-.gradient2{
+.gradient2 {
   display: inline-block;
   padding: 1em 3em;
   border-radius: 30px;
   color: $btnColor;
   background: linear-gradient(90deg, $btnBg 0%, $btnBg2 70%, $btnBg3 90%);
-  box-shadow: 0 15px 10px $btnShadow;
+  box-shadow: 0 15px 15px $btnShadow;
   //background-size: 200%;
   //background-position: 30% 50%;
-  transition: all .5s;
-  &:hover{
-    transform: scale( 0.95 );
+  transition: all 0.3s ease-out;
+
+  /*hoverした際のスケールで全体を縮小*/
+  &:hover {
+    transform: scale(0.95);
   }
 }
