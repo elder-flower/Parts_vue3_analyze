@@ -115,7 +115,7 @@ main p {
   padding: 0.5em 2em;
   color: #eee;
   transition: all 0.3s;
-  transition-delay: 1s;
+  transition-delay: 0.5s;
 }
 .btn05:hover span {
   background: #000;
@@ -137,19 +137,18 @@ main p {
   height: 0;
   background: #aaa;
   content: "";
-  transition: all 0.2s;
+  transition: all 0.4s ease-in-out;
 }
 .bordercircle3 span::after {
   z-index: 5;
   position: absolute;
+  right: 0;
   bottom: 0;
-  left: 0;
   width: 0;
   height: 1px;
   background: #aaa;
   content: "";
-  transition: all 0.2s;
-  transition-delay: 0.2s;
+  transition: all 0.4s ease-in-out;
 }
 .bordercircle3::before {
   z-index: 5;
@@ -160,24 +159,21 @@ main p {
   height: 0;
   background: #aaa;
   content: "";
-  transition: all 0.2s;
-  transition-delay: 0.4s;
+  transition: all 0.4s ease-in-out;
 }
 .bordercircle3::after {
   z-index: 5;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   width: 0;
   height: 1px;
   background: #aaa;
   content: "";
-  transition: all 0.2s;
-  transition-delay: 0.6s;
+  transition: all 0.4s ease-in-out;
 }
 .bordercircle3:hover {
   opacity: 1;
-  transition-delay: 0.6s;
 }
 .bordercircle3:hover span::before {
   height: 100%;
