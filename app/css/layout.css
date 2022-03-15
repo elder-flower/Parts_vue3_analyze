@@ -106,6 +106,13 @@ main p {
   display: inline-block;
   padding: 1em 3em;
   border-radius: 30px;
+  background: linear-gradient(90deg, #FD52A0 0%, #e2fa00 70%, #fa7200 90%);
+  box-shadow: 0 15px 10px rgba(253, 240, 82, 0.4);
+  color: #000;
+  transition: all 0.5s;
+}
+.gradient2:hover {
+  transform: scale(0.95);
 }
 @media (pointer: fine) {
   a:link {
