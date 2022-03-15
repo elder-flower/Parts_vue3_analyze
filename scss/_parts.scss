@@ -26,40 +26,68 @@ main {
 /*== ボタン共通設定 */
 
 $btnColor: #eeee00;
-$btnAcColor: #111;
+$btnAcColor: #eee;
 $btnBorderColor: #eeee00;
 
-$btnBg: #fa6c9f;
-$btnBg2: #ffe140;
-$btnBg3: #ff357f;
+$btnBorderColor2: #880;
+$btnBorderColor3: #880;
 
-$btnShadow: rgba(250, 108, 159, 0.9);
+$btnBg: #322;
 
-.gradient4 {
-  display: inline-block;
-  padding: 1em 3em;
-  border-radius: 30px;
-  border: 1px solid $btnBorderColor;
+/*== 外の線が伸びる */
+
+.btnlinestretches {
+  /*線の基点とするためrelativeを指定*/
+  position: relative;
+  /*ボタンの形状*/
   color: $btnColor;
-
-  /*
-  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
-  background-size: 200% auto;
-  background-position: 0% 50%;
-  */
-
+  border: 1px solid $btnBorderColor;
+  padding: 10px 30px;
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
   /*アニメーションの指定*/
-  transition: all 0.4s ease-out;
+  transition: all 0.3s ease-in-out;
+}
 
-  /*hoverした際のスケールで全体を縮小*/
-  &:hover {
-    border-color: transparent;
-    color: $btnAcColor;
+/*hoverした際の背景の形状*/
+.btnlinestretches:hover {
+  background: $btnBg;
+  color: $btnAcColor;
+  border-color: transparent;
+}
 
-    background: linear-gradient(-90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
-    background-size: 200% auto;
-    background-position: right center;
+/*線の設定*/
+.btnlinestretches::before,
+.btnlinestretches::after {
+  content: "";
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  border: solid $btnBorderColor2;
+  width: 10px;
+  height: 10px;
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-in-out;
+}
 
-    box-shadow: 0 5px 10px $btnShadow;
-  }
+/*線の位置と形状*/
+.btnlinestretches::before {
+  top: -6px;
+  left: -6px;
+  border-width: 1px 0 0 1px;
+}
+
+/*線の位置と形状*/
+.btnlinestretches::after {
+  bottom: -6px;
+  right: -6px;
+  border-width: 0 1px 1px 0;
+}
+
+/*hoverした際の線の形状*/
+.btnlinestretches:hover::before,
+.btnlinestretches:hover::after {
+  width: calc(100% + 11px);
+  height: calc(100% + 11px);
+  border-color: $btnBorderColor3;
 }

@@ -101,28 +101,61 @@ main p {
 }
 
 /*== ボタン共通設定 */
-.gradient4 {
+/*== 外の線が伸びる */
+.btnlinestretches {
   display: inline-block;
-  padding: 1em 3em;
+  /*線の基点とするためrelativeを指定*/
+  position: relative;
+  padding: 10px 30px;
   border: 1px solid #eeee00;
-  border-radius: 30px;
+  outline: none;
+  /*ボタンの形状*/
   color: #eeee00;
-  /*
-  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
-  background-size: 200% auto;
-  background-position: 0% 50%;
-  */
+  text-decoration: none;
   /*アニメーションの指定*/
-  transition: all 0.4s ease-out;
-  /*hoverした際のスケールで全体を縮小*/
+  transition: all 0.3s ease-in-out;
 }
-.gradient4:hover {
+
+/*hoverした際の背景の形状*/
+.btnlinestretches:hover {
   border-color: transparent;
-  background: linear-gradient(-90deg, #fa6c9f 0%, #ffe140 50%, #ff357f 100%);
-  background-position: right center;
-  background-size: 200% auto;
-  box-shadow: 0 5px 10px rgba(250, 108, 159, 0.9);
-  color: #111;
+  background: #322;
+  color: #eee;
+}
+
+/*線の設定*/
+.btnlinestretches::before,
+.btnlinestretches::after {
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: solid #880;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-in-out;
+}
+
+/*線の位置と形状*/
+.btnlinestretches::before {
+  top: -6px;
+  left: -6px;
+  border-width: 1px 0 0 1px;
+}
+
+/*線の位置と形状*/
+.btnlinestretches::after {
+  right: -6px;
+  bottom: -6px;
+  border-width: 0 1px 1px 0;
+}
+
+/*hoverした際の線の形状*/
+.btnlinestretches:hover::before,
+.btnlinestretches:hover::after {
+  width: calc(100% + 11px);
+  height: calc(100% + 11px);
+  border-color: #880;
 }
 @media (pointer: fine) {
   a:link {
