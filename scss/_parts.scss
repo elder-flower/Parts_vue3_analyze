@@ -16,65 +16,65 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
 }
 
+
 /*== ボタン共通設定 */
 
 $btnColor: #eeee00;
+
 $btnAcColor: #eee;
 $btnBorderColor: #ee0;
 $btnBorderColor2: #e50;
 
-/*== 少し出ていた線が伸びる */
+$btnBg: #222;
 
-.btnlinestretches2 {
-  /*線の基点とするためrelativeを指定*/
-  position: relative;
+/*== 下線が伸びて背景に変わる　*/
 
-  /*ボタンの形状*/
-  color: $btnColor;
-  padding: 0.5em 2em;
+.btnlinestretches3{
+    /*線の基点とするためrelativeを指定*/
+    position:relative;
+    /*ボタンの形状*/
+    color:$btnColor;
+    padding: 10px 30px;
+    display:inline-block;
+    text-decoration: none;
+    outline: none;
+}
 
-  display: inline-block;
+/*テキストの設定*/
+.btnlinestretches3 span{
+    /*テキストを前面に出すためz-indexの値を高く設定*/
+    position:relative;
+    z-index: 2;
+}
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    border: 2px solid $btnBorderColor;
-    width: 10px;
-    height: 10px;
+.btnlinestretches3:hover span{
+    color: $btnAcColor;
+}
 
+/*線の設定*/
+.btnlinestretches3::after{
+    content:'';
+    /*絶対配置で線の位置を決める*/
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    left:0;
+    /*線の形状*/
+    background:$btnBg;
+    width:100%;
+    height:3px;
     /*アニメーションの指定*/
-    transition: all 0.3s ease-in-out;
-  }
-  &::before {
-    /*事前に出現させる線の位置*/
-    top: 0;
-    left: 0;
-    /*事前に出現させる線の形状*/
-    border-width: 2px 0 0 2px;
-  }
+    transition:all 0.3s ease-in-out;
+}
 
-  &::after {
-    /*事前に出現させる線の位置*/
-    bottom: 0;
-    right: 0;
-    /*事前に出現させる線の形状*/
-    border-width: 0 2px 2px 0;
-  }
-
-  &:hover {
-    &::before,
-    &::after {
-      width: 100%;
-      height: 100%;
-      border-color: $btnBorderColor2;
-    }
-  }
+/*線が伸びて背景に*/
+.btnlinestretches3:hover::after {
+    height:100%;
 }
