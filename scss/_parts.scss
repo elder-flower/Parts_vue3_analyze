@@ -23,67 +23,74 @@ main{
   }
 }
 
+
 /*== ボタン共通設定 */
 
-$btnColor: #ee0;
+$btnColor: #eee;
 $btnAcColor: #eee;
 
 $btnArrow: #eee;
 
-$btnBg: #333;
-$btnBg2: #885;
+$btnBg: #888;
 
 
-/*== 線の上を別の線が伸びる */
+/*== 矢印の線がループして伸縮 */
 
-.btnlinestretches4{
-  position: relative;
-  display: inline-block;
-  span{
-    position: relative;
-    display: block;
-    padding: 0.5em 2.5em 0.5em 2em;
-    color: $btnColor;
-    &::after{
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: 1em;
-      border: 1px solid $btnArrow;
-      border-width: 1px 0 0 1px;
-      width: 5px;
-      height: 5px;
-      transform: rotate( 135deg );
-      transition: all .3s;
-    }
-  }
-  &::before{
-    content:'';
+.btnlinestretches5{
+    /*線の基点とするためrelativeを指定*/
+    position:relative;
+    /*リンクの形状*/
+    color:$btnColor;
+    padding: 10px 0;
+    display:inline-block;
+    text-decoration: none;
+    outline: none;
+}
+
+/*線の設定*/
+.btnlinestretches5::before {
+    content: "";
+    /*絶対配置で線の位置を決める*/
     position: absolute;
     bottom: 0;
-    left: 0;
+    /*線の形状*/
     width: 100%;
-    height: 2px;
+    height: 1px;
     background: $btnBg;
-  }
-  &::after{
-    content:'';
+}
+
+/*矢印の設定*/
+.btnlinestretches5::after {
+    content: "";
+    /*絶対配置で線の位置を決める*/
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: $btnBg2;
-    transition:all 0.3s ease-in-out;
-  }
-  &:hover{
-    span{
-      &::after{
-        right: 0.7em;
-      }
-    }
-    &::after{
-      width: 100%;
-    }
-  }
+    bottom:-4px;
+    /*矢印の形状*/
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid $btnArrow;
+    border-right: 1px solid $btnArrow;
+    transform: rotate(45deg);
+}
+
+/*線と矢印を繰り返しアニメーション*/
+.btnlinestretches5::before {
+    animation: arrowlong01 2s ease infinite;
+}
+.btnlinestretches5::after {
+    animation: arrowlong02 2s ease infinite;
+}
+
+@keyframes arrowlong01{
+    0%{width:0;opacity:0}
+    20%{width:0;opacity:1}
+    80%{width:105%;opacity:1}
+    100%{width:105%;opacity:0}
+}
+
+@keyframes arrowlong02{
+    0%{left:0;opacity:0}
+    20%{left:0;opacity:1}
+    80%{left:103%;opacity:1}
+    100%{left:103%;opacity:0}
 }
