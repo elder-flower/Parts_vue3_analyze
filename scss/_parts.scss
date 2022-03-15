@@ -33,21 +33,26 @@ $btnBg3: #fa7200;
 
 $btnShadow: rgba(253, 240, 82, 0.4);
 
-/*== グラデーションが縮小する */
+/*== グラデーションが拡大する */
 
-.gradient2 {
+.gradient3 {
+  /*ボタンの形状*/
   display: inline-block;
-  padding: 1em 3em;
-  border-radius: 30px;
   color: $btnColor;
-  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 70%, $btnBg3 90%);
-  box-shadow: 0 15px 15px $btnShadow;
-  //background-size: 200%;
-  //background-position: 30% 50%;
-  transition: all 0.3s ease-out;
 
-  /*hoverした際のスケールで全体を縮小*/
-  &:hover {
-    transform: scale(0.95);
-  }
+  padding: 18px 60px;
+  border-radius: 30px;
+  text-decoration: none;
+  outline: none;
+  /*背景色*/
+  background: linear-gradient(to right, $btnBg 0%, $btnBg2 80%, $btnBg3 100%);
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-out;
+}
+
+/*hoverした際のスケールで全体を拡大し影を付ける*/
+.gradient3:hover {
+  transform: scale(1.05);
+  /*ボックスの影*/
+  box-shadow: 0 15px 15px $btnShadow;
 }

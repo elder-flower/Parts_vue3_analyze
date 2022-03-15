@@ -101,19 +101,26 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== グラデーションが縮小する */
-.gradient2 {
+/*== グラデーションが拡大する */
+.gradient3 {
+  /*ボタンの形状*/
   display: inline-block;
-  padding: 1em 3em;
+  padding: 18px 60px;
   border-radius: 30px;
-  background: linear-gradient(90deg, #fd52a0 0%, #e2fa00 70%, #fa7200 90%);
-  box-shadow: 0 15px 15px rgba(253, 240, 82, 0.4);
+  outline: none;
+  /*背景色*/
+  background: linear-gradient(to right, #fd52a0 0%, #e2fa00 80%, #fa7200 100%);
   color: #000;
+  text-decoration: none;
+  /*アニメーションの指定*/
   transition: all 0.3s ease-out;
-  /*hoverした際のスケールで全体を縮小*/
 }
-.gradient2:hover {
-  transform: scale(0.95);
+
+/*hoverした際のスケールで全体を拡大し影を付ける*/
+.gradient3:hover {
+  transform: scale(1.05);
+  /*ボックスの影*/
+  box-shadow: 0 15px 15px rgba(253, 240, 82, 0.4);
 }
 @media (pointer: fine) {
   a:link {
