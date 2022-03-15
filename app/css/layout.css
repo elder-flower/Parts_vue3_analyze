@@ -101,51 +101,86 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== 矢印の線がループして伸縮 */
-.btnlinestretches5 {
+/*塗りから線に変わる*/
+.btnchangeline {
   display: inline-block;
+  /*線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 0.5em 0.5em;
-}
-.btnlinestretches5::before, .btnlinestretches5::after {
-  position: absolute;
-  bottom: 0;
-  content: "";
-}
-.btnlinestretches5::before {
-  left: 0;
-  width: 8px;
-  height: 8px;
-  transform: translate(-7px, 3px) rotate(135deg);
-  border-top: 1px solid #888;
-  border-left: 1px solid #888;
-  animation: ani001 2s;
-  animation-iteration-count: infinite;
-}
-.btnlinestretches5::after {
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #888;
-  animation: ani002 2s;
-  animation-iteration-count: infinite;
+  padding: 10px 30px;
+  outline: none;
+  /*ボタンの形状*/
+  color: #ee0;
+  text-decoration: none;
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-in-out;
 }
 
-@keyframes ani001 {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: 100%;
-  }
+/*線の設定*/
+.btnchangeline::before {
+  z-index: 1;
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /*線の形状*/
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  content: "";
+  /*はじめは透過0に*/
+  opacity: 0;
+  /*アニメーションの指定*/
+  transition: all 0.3s;
 }
-@keyframes ani002 {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
+
+/*背景の設定*/
+.btnchangeline::after {
+  z-index: 1;
+  /*絶対配置で背景の位置を決める*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /*背景の形状*/
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+}
+
+/*hoverした際の背景と線の形状*/
+.btnchangeline:hover::before {
+  /*不透明に*/
+  transform: scale(1, 1);
+  opacity: 1;
+  /*X方向に線を伸ばす*/
+}
+
+.btnchangeline:hover::after {
+  /*透過0に*/
+  transform: scale(0, 1);
+  opacity: 0;
+  /*X方向に背景を縮小*/
+}
+
+/*テキストの設定*/
+.btnchangeline span {
+  z-index: 2;
+  /*テキストを前面に出すためz-indexの値を高く設定*/
+  position: relative;
+  /*テキストの形状*/
+  color: #ee0;
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+}
+
+/*hoverした際のテキストの形状*/
+.btnchangeline:hover span {
+  color: #eee;
+  letter-spacing: 2px;
 }
 @media (pointer: fine) {
   a:link {
