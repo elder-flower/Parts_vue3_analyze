@@ -36,42 +36,47 @@ $btnBg: #322;
 
 /*== 外の線が伸びる */
 
-.btnlinestretches{
+.btnlinestretches {
   position: relative;
-  display: inline-block;
-  padding: 0.5em 3em;
   color: $btnColor;
   border: 1px solid $btnBorderColor;
-  transition: all .3s ease;
+  padding: 0.5em 3em;
+  display: inline-block;
+
+  transition: all 0.3s ease;
 
   &::before,
-  &::after{
-    content: '';
+  &::after {
+    content: "";
+
+    /*絶対配置で線の位置を決める*/
     position: absolute;
     width: 10px;
     height: 10px;
-    transition: all .3s ease;
+
+    /*アニメーションの指定*/
+    transition: all 0.3s ease-in-out;
   }
-  &::before{
+  &::before {
     top: -5px;
     left: -5px;
     border-top: 1px solid $btnBorderColor2;
     border-left: 1px solid $btnBorderColor2;
   }
-  &::after{
+  &::after {
     bottom: -5px;
     right: -5px;
     border-bottom: 1px solid $btnBorderColor2;
     border-right: 1px solid $btnBorderColor2;
   }
-  &:hover{
-    border-color: transparent;
+  &:hover {
     background: $btnBg;
     color: $btnAcColor;
+    border-color: transparent;
     &::before,
-    &::after{
-      width: calc( 100% + 10px );
-      height: calc( 100% + 10px );
+    &::after {
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
     }
   }
 }

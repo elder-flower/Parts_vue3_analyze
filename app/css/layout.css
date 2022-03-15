@@ -111,11 +111,13 @@ main p {
   transition: all 0.3s ease;
 }
 .btnlinestretches::before, .btnlinestretches::after {
+  /*絶対配置で線の位置を決める*/
   position: absolute;
   width: 10px;
   height: 10px;
   content: "";
-  transition: all 0.3s ease;
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-in-out;
 }
 .btnlinestretches::before {
   top: -5px;
