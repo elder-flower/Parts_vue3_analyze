@@ -102,90 +102,27 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/* ボタン共通設定 */
-.btn05 {
+/*== グラデーションが流れる */
+.gradient1 {
+  /*ボタンの形状*/
   display: inline-block;
-  position: relative;
-  overflow: hidden;
-  background: #333;
-}
-.btn05 span {
-  display: block;
-  z-index: 3;
-  padding: 0.5em 2em;
+  padding: 18px 60px;
+  border-radius: 30px;
+  outline: none;
+  /*背景の色と形状*/
+  background: linear-gradient(270deg, #3bade3 0%, #576fe6 25%, #9844b7 51%, #ff357f 100%);
+  background-position: 1% 50%;
+  background-size: 200% auto;
   color: #eee;
-  transition: all 0.3s;
-  transition-delay: 0.5s;
-}
-.btn05:hover span {
-  background: #000;
-  color: #ee5;
+  text-decoration: none;
+  /*アニメーションの指定*/
+  transition: all 0.3s ease-out;
 }
 
-.bordercircle3 span {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.bordercircle3 span::before {
-  z-index: 5;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 0;
-  background: #aaa;
-  content: "";
-  transition: all 0.4s ease-in-out;
-}
-.bordercircle3 span::after {
-  z-index: 5;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: #aaa;
-  content: "";
-  transition: all 0.4s ease-in-out;
-}
-.bordercircle3::before {
-  z-index: 5;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 1px;
-  height: 0;
-  background: #aaa;
-  content: "";
-  transition: all 0.4s ease-in-out;
-}
-.bordercircle3::after {
-  z-index: 5;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #aaa;
-  content: "";
-  transition: all 0.4s ease-in-out;
-}
-.bordercircle3:hover {
-  opacity: 1;
-}
-.bordercircle3:hover span::before {
-  height: 100%;
-}
-.bordercircle3:hover span::after {
-  width: 100%;
-}
-.bordercircle3:hover::before {
-  height: 100%;
-}
-.bordercircle3:hover::after {
-  width: 100%;
+/*hoverした際の、背景の場所とテキスト色の変更*/
+.gradient1:hover {
+  background-position: 99% 50%;
+  color: #ee5;
 }
 @media (pointer: fine) {
   a:link {
