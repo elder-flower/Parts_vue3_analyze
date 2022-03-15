@@ -105,23 +105,31 @@ main p {
 .btnlinestretches3 {
   display: inline-block;
   position: relative;
+}
+.btnlinestretches3 span {
+  display: block;
+  z-index: 3;
+  position: relative;
   padding: 0.5em 2em;
   color: #eeee00;
+  transition: all 0.3s;
 }
 .btnlinestretches3::after {
-  z-index: -1;
+  z-index: 1;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background: #222;
   content: "";
   transition: all 0.3s;
 }
+.btnlinestretches3:hover span {
+  color: #eee;
+}
 .btnlinestretches3:hover::after {
   height: 100%;
-  color: #eee;
 }
 @media (pointer: fine) {
   a:link {
