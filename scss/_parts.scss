@@ -36,28 +36,27 @@ $btnBg3: #ff357f;
 
 $btnShadow: rgba(250,108,159,0.9);
 
-.gradient4{
-    /*ボタンの形状*/
-    display: inline-block;
-    padding: 18px 60px;
-    border-radius:30px;
-    text-decoration: none;
-    border:1px solid $btnBorderColor;
-    color: $btnColor;
-    outline: none;
-    /*アニメーションの指定*/
-    transition: all 0.4s ease-out;
-}
 
-/*hoverした際、グラデーションと影を付ける*/
-.gradient4:hover{
-    /*ボタンの形状*/
-    border-color:transparent;
+.gradient4{
+
+  display: inline-block;
+  padding: 1em 3em;
+  border-radius: 30px;
+  color: $btnColor;
+  border: 1px solid $btnBorderColor;
+
+  background: linear-gradient(90deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
+  background-size: 200%;
+  background-position: 0% 50%;
+  transition: all 0.6s ease-out;
+  
+
+  /*hoverした際のスケールで全体を縮小*/
+  &:hover {
+    border: 1px solid transparent;
+    background-position: 99% 50%;
+
     color: $btnAcColor;
-    /*背景の色と形状*/
-    background: linear-gradient(270deg, $btnBg 0%, $btnBg2 50%, $btnBg3 100%);
-    background-size: 200% auto;
-    background-position: right center;
-    /*ボックスの影*/   
-    box-shadow: 0 5px 10px $btnShadow;
+    box-shadow: 0 5px 15px $btnShadow;
+  }
 }
