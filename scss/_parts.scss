@@ -7,7 +7,6 @@ select {
 
 body {
   padding: 2rem;
-  background: #555;
 }
 h2 {
   margin: 2rem 0 2rem 0;
@@ -37,30 +36,15 @@ $btnBg4: #ff357f;
 
 /*== グラデーションが流れる */
 
-.gradient1 {
-  /*ボタンの形状*/
+.gradient1{
   display: inline-block;
-  color: $btnColor;
-  padding: 18px 60px;
+  padding: 1em 3em;
   border-radius: 30px;
-  text-decoration: none;
-  outline: none;
-  /*背景の色と形状*/
-  background: linear-gradient(
-    270deg,
-    $btnBg 0%,
-    $btnBg2 25%,
-    $btnBg3 51%,
-    $btnBg4 100%
-  );
-  background-position: 1% 50%;
-  background-size: 200% auto;
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-out;
-}
-
-/*hoverした際の、背景の場所とテキスト色の変更*/
-.gradient1:hover {
-  color: $btnAcColor;
-  background-position: 99% 50%;
+  background: linear-gradient(270deg, $btnBg 0%, $btnBg2 20%, $btnBg3 30%, $btnBg4 100%);
+  background-size: 200%;
+  background-position: 30% 50%;
+  transition: all .3s;
+  &:hover{
+    background-position: 100% 50%;
+  }
 }

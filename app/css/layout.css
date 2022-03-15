@@ -85,7 +85,6 @@ select {
 
 body {
   padding: 2rem;
-  background: #555;
 }
 
 h2 {
@@ -104,25 +103,16 @@ main p {
 /*== ボタン共通設定 */
 /*== グラデーションが流れる */
 .gradient1 {
-  /*ボタンの形状*/
   display: inline-block;
-  padding: 18px 60px;
+  padding: 1em 3em;
   border-radius: 30px;
-  outline: none;
-  /*背景の色と形状*/
-  background: linear-gradient(270deg, #3bade3 0%, #576fe6 25%, #9844b7 51%, #ff357f 100%);
-  background-position: 1% 50%;
-  background-size: 200% auto;
-  color: #eee;
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-out;
+  background: linear-gradient(270deg, #3bade3 0%, #576fe6 20%, #9844b7 30%, #ff357f 100%);
+  background-position: 30% 50%;
+  background-size: 200%;
+  transition: all 0.3s;
 }
-
-/*hoverした際の、背景の場所とテキスト色の変更*/
 .gradient1:hover {
-  background-position: 99% 50%;
-  color: #ee5;
+  background-position: 100% 50%;
 }
 @media (pointer: fine) {
   a:link {
