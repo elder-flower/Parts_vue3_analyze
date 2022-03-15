@@ -101,44 +101,54 @@ main p {
 }
 
 /*== ボタン共通設定 */
-/*== 外の線が伸びる */
-.btnlinestretches {
+/*== 少し出ていた線が伸びる */
+.btnlinestretches2 {
   display: inline-block;
+  /*線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 0.5em 3em;
-  border: 1px solid #eeee00;
+  padding: 10px 30px;
+  outline: none;
+  /*ボタンの形状*/
   color: #eeee00;
-  transition: all 0.3s ease;
+  text-decoration: none;
 }
-.btnlinestretches::before, .btnlinestretches::after {
+
+/*線の設定*/
+.btnlinestretches2::before,
+.btnlinestretches2::after {
   /*絶対配置で線の位置を決める*/
   position: absolute;
   width: 10px;
   height: 10px;
+  /*事前に出現させる線の形状*/
+  border: 1px solid #ee0;
   content: "";
   /*アニメーションの指定*/
   transition: all 0.3s ease-in-out;
 }
-.btnlinestretches::before {
-  top: -5px;
-  left: -5px;
-  border-top: 1px solid #880;
-  border-left: 1px solid #880;
+
+.btnlinestretches2::before {
+  /*事前に出現させる線の位置*/
+  top: 0;
+  left: 0;
+  /*事前に出現させる線の形状*/
+  border-width: 2px 0 0 2px;
 }
-.btnlinestretches::after {
-  right: -5px;
-  bottom: -5px;
-  border-right: 1px solid #880;
-  border-bottom: 1px solid #880;
+
+.btnlinestretches2::after {
+  right: 0;
+  /*事前に出現させる線の位置*/
+  bottom: 0;
+  /*事前に出現させる線の形状*/
+  border-width: 0 2px 2px 0;
 }
-.btnlinestretches:hover {
-  border-color: transparent;
-  background: #322;
-  color: #eee;
-}
-.btnlinestretches:hover::before, .btnlinestretches:hover::after {
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
+
+/*hoverした際の線の形状*/
+.btnlinestretches2:hover::before,
+.btnlinestretches2:hover::after {
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border-color: #e50;
 }
 @media (pointer: fine) {
   a:link {
