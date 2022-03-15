@@ -104,8 +104,10 @@ main p {
 /*== 少し出ていた線が伸びる */
 .btnlinestretches2 {
   display: inline-block;
+  /*線の基点とするためrelativeを指定*/
   position: relative;
   padding: 0.5em 2em;
+  /*ボタンの形状*/
   color: #eeee00;
 }
 .btnlinestretches2::before, .btnlinestretches2::after {
@@ -114,16 +116,21 @@ main p {
   height: 10px;
   border: 2px solid #ee0;
   content: "";
+  /*アニメーションの指定*/
   transition: all 0.3s ease-in-out;
 }
 .btnlinestretches2::before {
+  /*事前に出現させる線の位置*/
   top: 0;
   left: 0;
+  /*事前に出現させる線の形状*/
   border-width: 2px 0 0 2px;
 }
 .btnlinestretches2::after {
   right: 0;
+  /*事前に出現させる線の位置*/
   bottom: 0;
+  /*事前に出現させる線の形状*/
   border-width: 0 2px 2px 0;
 }
 .btnlinestretches2:hover::before, .btnlinestretches2:hover::after {
