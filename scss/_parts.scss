@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
@@ -25,26 +25,32 @@ main {
 
 /*== ボタン共通設定 */
 
-$btnColor: #eee;
-$btnAcColor: #ee5;
+$btnColor: #000;
 
-$btnBg: #3bade3;
-$btnBg2: #576fe6;
+$btnBg: #FD52A0;
+$btnBg2: #e2fa00;
+$btnBg3: #fa7200;
 
-$btnBg3: #9844b7;
-$btnBg4: #ff357f;
+$btnShadow: rgba(253, 240, 82, 0.4);
 
-/*== グラデーションが流れる */
+/*== グラデーションが縮小する */
 
-.gradient1{
-  display: inline-block;
-  padding: 1em 3em;
-  border-radius: 30px;
-  background: linear-gradient(270deg, $btnBg 0%, $btnBg2 25%, $btnBg3 51%, $btnBg4 100%);
-  background-size: 200% auto;
-  background-position: 1% 50%;
-  transition: all .3s;
-  &:hover{
-    background-position: 99% 50%;
-  }
+.gradient2 {
+    /*ボタンの形状*/
+    display: inline-block;
+    color: $btnColor;
+    padding: 18px 60px;
+    border-radius:30px;
+    text-decoration: none;
+    outline: none;
+    /*背景の色と形状*/
+    background: linear-gradient(to right, $btnBg 0%, $btnBg2 80%, $btnBg3 100%);
+    box-shadow: 0 15px 15px $btnShadow;
+    /*アニメーションの指定*/ 
+    transition: all 0.3s ease-out;
+}
+
+/*hoverした際のスケールで全体を縮小*/
+.gradient2:hover{
+    transform: scale(0.95);
 }
