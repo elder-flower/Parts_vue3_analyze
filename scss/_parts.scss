@@ -39,19 +39,23 @@ $btnArrow: #eee;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
 
     /*丸の形状*/
     width: 44px;
     height: 44px;
     background: $btnBg;
-    border-radius: 25px;
-    z-index: -1;
-    transition: all .3s;
+    
+    //@「%」で指定すると変化する形状が変わる。 
+    //border-radius: 50%;
+
+    border-radius: 22px;
+    transition: all .3s ease-out;
   }
   &::after{
     content:'';
     position: absolute;
-    top:50%;
+    top:45%;
     right: 1em;
     width: 5px;
     height: 5px;
@@ -62,7 +66,6 @@ $btnArrow: #eee;
   &:hover{
     &::before{
       width: 212px;
-      border-radius: 50%;
     }
   }
 }

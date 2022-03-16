@@ -115,14 +115,14 @@ main p {
   /*丸の形状*/
   width: 44px;
   height: 44px;
-  border-radius: 25px;
+  border-radius: 22px;
   background: #333;
   content: "";
-  transition: all 0.3s;
+  transition: all 0.3s ease-out;
 }
 .btntransform::after {
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 1em;
   width: 5px;
   height: 5px;
@@ -133,7 +133,6 @@ main p {
 }
 .btntransform:hover::before {
   width: 212px;
-  border-radius: 50%;
 }
 @media (pointer: fine) {
   a:link {
