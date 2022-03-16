@@ -100,45 +100,52 @@ main p {
   text-align: center;
 }
 
-/*きらっと光る*/
-.btnshine {
+/*丸がボタンに変形する*/
+.btntransform {
   /*ボタンの形状*/
   display: inline-block;
-  z-index: 1;
-  /*キラッと光る基点とするためrelativeを指定*/
+  /*丸の基点とするためrelativeを指定*/
   position: relative;
-  padding: 1em 2em;
-  overflow: hidden;
-  background: #222;
+  padding: 0 0 0 15px;
+  outline: none;
   color: #eee;
-  /*キラッと光る*/
+  line-height: 50px;
+  text-decoration: none;
 }
-.btnshine::after {
-  z-index: 3;
+
+/* 丸が動く */
+.btntransform::before {
+  z-index: -1;
+  /*絶対配置で丸の位置を決める*/
   position: absolute;
-  top: 0;
-  left: -75%;
-  /*キラッと光る形状*/
-  width: 50%;
-  height: 100%;
-  transform: skew(-25deg);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+  left: 0;
+  /*丸の形状*/
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background: #333;
+  content: "";
+  /*アニメーションの指定*/
+  transition: 0.3s ease-out;
+}
+
+/*hoverした際の形状*/
+.btntransform:hover::before {
+  width: 212px;
+}
+
+/* 矢印の形状 */
+.btntransform::after {
+  position: absolute;
+  top: 1.3em;
+  right: -15px;
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
   content: "";
 }
-.btnshine:hover::after {
-  animation: kira 0.7s;
-  animation-iteration-count: 1;
-}
-
-@keyframes kira {
-  0% {
-    left: -75%;
-  }
-  100% {
-    left: 125%;
-  }
-}
-
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
