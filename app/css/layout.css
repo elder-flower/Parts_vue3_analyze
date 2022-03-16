@@ -104,35 +104,15 @@ main p {
 .btnchangeradius {
   display: inline-block;
   position: relative;
-  padding: 1em 2em;
+  padding: 0.5em 1em;
+  border: 5px double #553;
+  background: #111;
   color: #eee;
   transition: all 0.3s;
-}
-.btnchangeradius::before, .btnchangeradius::after {
-  position: absolute;
-  content: "";
-  transition: all 0.3s;
-}
-.btnchangeradius::before {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #553;
-}
-.btnchangeradius::after {
-  top: 5px;
-  left: 5px;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
-  border: 1px solid #553;
 }
 .btnchangeradius:hover {
   border-radius: 20px;
   background: #222;
-}
-.btnchangeradius:hover::before, .btnchangeradius:hover::after {
-  border-radius: 20px;
 }
 @media (pointer: fine) {
   a:link {
