@@ -16,33 +16,57 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
 }
 
-
-/*角丸に変わる*/
+/*きらっと光る*/
 
 $btnColor: #eee;
-$btnBg: #111;
-$btnBg2: #222;
+$btnBg: #222;
+
+$btnBg2: rgba(255, 255, 255, 0);
+$btnBg3: rgba(255, 255, 255, 0.3);
+
 $btnBorder: #553;
 
-.btnchangeradius{
+.btnshine {
+  /*キラッと光る基点とするためrelativeを指定*/
   position: relative;
+  /*ボタンの形状*/
   display: inline-block;
-  padding: 0.5em 1em;
   background: $btnBg;
   color: $btnColor;
-  border: 5px double $btnBorder;
-  transition: all .3s;
+  padding: 10px 20px;
+  text-decoration: none;
+  outline: none;
+  overflow: hidden;
+}
 
-  &:hover{
-    border-radius: 20px;
-    background: $btnBg2;
+/*キラッと光る*/
+.btnshine::before {
+  content: "";
+  /*絶対配置でキラッと光るの位置を決める*/
+  position: absolute;
+  top: 0;
+  left: -75%;
+  /*キラッと光る形状*/
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, $btnBg2 0%, $btnBg3 100%);
+  transform: skewX(-25deg);
+}
 
+/*hoverした際の移動のアニメーション*/
+.btnshine:hover::before {
+  animation: shine 0.7s;
+}
+
+@keyframes shine {
+  100% {
+    left: 125%;
   }
 }

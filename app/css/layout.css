@@ -100,20 +100,45 @@ main p {
   text-align: center;
 }
 
-/*角丸に変わる*/
-.btnchangeradius {
+/*きらっと光る*/
+.btnshine {
+  /*ボタンの形状*/
   display: inline-block;
+  /*キラッと光る基点とするためrelativeを指定*/
   position: relative;
-  padding: 0.5em 1em;
-  border: 5px double #553;
-  background: #111;
-  color: #eee;
-  transition: all 0.3s;
-}
-.btnchangeradius:hover {
-  border-radius: 20px;
+  padding: 10px 20px;
+  overflow: hidden;
+  outline: none;
   background: #222;
+  color: #eee;
+  text-decoration: none;
 }
+
+/*キラッと光る*/
+.btnshine::before {
+  /*絶対配置でキラッと光るの位置を決める*/
+  position: absolute;
+  top: 0;
+  left: -75%;
+  /*キラッと光る形状*/
+  width: 50%;
+  height: 100%;
+  transform: skewX(-25deg);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+  content: "";
+}
+
+/*hoverした際の移動のアニメーション*/
+.btnshine:hover::before {
+  animation: shine 0.7s;
+}
+
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
