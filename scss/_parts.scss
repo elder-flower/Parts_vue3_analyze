@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: center;
   }
@@ -26,46 +26,60 @@ main {
 /*丸がボタンに変形する*/
 
 $btnColor: #eee;
-$btnBg: #333;
+$btnAcColor: #eee;
+$btnBg: #222;
+$btnBg2: #333;
 $btnArrow: #eee;
 
-.btntransform{
-  position: relative;
-  display: inline-block;
-  padding: 0.5em 2em 0.5em 1em;
-  color: $btnColor;
-  &::before{
-    content:'';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+$btnBorder: #333;
 
-    /*丸の形状*/
-    width: 44px;
-    height: 44px;
-    background: $btnBg;
-    
-    //@「%」で指定すると変化する形状が変わる。 
-    //border-radius: 50%;
+/*表示するテキストが切り替わる*/
+.btntextchange{
+    /*テキストの基点とするためrelativeを指定*/
+    position: relative;
+    /*ボタンの形状*/
+    border: 1px solid $btnBorder;
+    border-radius:25px;
+    min-width:210px;
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    color: $btnColor;
+    outline: none;
+    /*アニメーションの指定*/
+    transition: all .2s;
+}
 
-    border-radius: 22px;
-    transition: all .3s ease-out;
-  }
-  &::after{
-    content:'';
+/*hoverした際の変化*/
+.btntextchange:hover{
+  background:$btnBg2;
+  color:$btnAcColor;
+}
+
+.btntextchange span{
+    /*絶対配置でテキストの位置を決める*/
     position: absolute;
-    top:45%;
-    right: 1em;
-    width: 5px;
-    height: 5px;
-    border: 1px solid $btnArrow;
-    border-width: 1px 0 0 1px;
-    transform: rotate( 135deg );
-  }
-  &:hover{
-    &::before{
-      width: 212px;
-    }
-  }
+    left: 50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    /*アニメーションの指定*/
+    transition: all .5s;
+    /*ブロック要素にしてテキスト折り返しなし*/
+    display: block;
+    white-space: nowrap;
+}
+
+/*差し替わるテキストの設定*/
+.btntextchange span:nth-child(2){
+    opacity:0;/*透過0に*/
+}
+
+/*hoverするとテキストが入れ替わる設定*/
+.btntextchange:hover span:nth-child(1){
+    opacity:0;/*透過0に*/
+}
+
+.btntextchange:hover span:nth-child(2){
+    opacity:1;/*不透明に*/
 }
