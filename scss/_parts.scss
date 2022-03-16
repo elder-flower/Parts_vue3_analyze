@@ -33,40 +33,39 @@ $btnBg3: rgba(255, 255, 255, 0.3);
 
 $btnBorder: #553;
 
-.btnshine {
-  /*キラッと光る基点とするためrelativeを指定*/
+.btnshine{
   position: relative;
-  /*ボタンの形状*/
   display: inline-block;
   background: $btnBg;
   color: $btnColor;
-  padding: 10px 20px;
-  text-decoration: none;
-  outline: none;
+  padding: 1em 2em;
+  z-index: 1;
+
   overflow: hidden;
+  &::after{
+    content: '';
+    position: absolute;
+    top:0;
+    left: -70%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient( 90deg, $btnBg2, $btnBg3);
+    z-index: 3;
+    transform: skew( -20deg );
+  }
+  &:hover{
+    &::after{
+      animation: kira .5s;
+      animation-iteration-count: 1;                
+    }
+  }
 }
 
-/*キラッと光る*/
-.btnshine::before {
-  content: "";
-  /*絶対配置でキラッと光るの位置を決める*/
-  position: absolute;
-  top: 0;
-  left: -75%;
-  /*キラッと光る形状*/
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, $btnBg2 0%, $btnBg3 100%);
-  transform: skewX(-25deg);
-}
-
-/*hoverした際の移動のアニメーション*/
-.btnshine:hover::before {
-  animation: shine 0.7s;
-}
-
-@keyframes shine {
+@keyframes kira{
+  0%{
+    left: -70%;
+  }
   100% {
-    left: 125%;
+    left: 100%;
   }
 }

@@ -102,40 +102,36 @@ main p {
 
 /*きらっと光る*/
 .btnshine {
-  /*ボタンの形状*/
   display: inline-block;
-  /*キラッと光る基点とするためrelativeを指定*/
+  z-index: 1;
   position: relative;
-  padding: 10px 20px;
+  padding: 1em 2em;
   overflow: hidden;
-  outline: none;
   background: #222;
   color: #eee;
-  text-decoration: none;
 }
-
-/*キラッと光る*/
-.btnshine::before {
-  /*絶対配置でキラッと光るの位置を決める*/
+.btnshine::after {
+  z-index: 3;
   position: absolute;
   top: 0;
-  left: -75%;
-  /*キラッと光る形状*/
+  left: -70%;
   width: 50%;
   height: 100%;
-  transform: skewX(-25deg);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+  transform: skew(-20deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
   content: "";
 }
-
-/*hoverした際の移動のアニメーション*/
-.btnshine:hover::before {
-  animation: shine 0.7s;
+.btnshine:hover::after {
+  animation: kira 0.5s;
+  animation-iteration-count: 1;
 }
 
-@keyframes shine {
+@keyframes kira {
+  0% {
+    left: -70%;
+  }
   100% {
-    left: 125%;
+    left: 100%;
   }
 }
 
