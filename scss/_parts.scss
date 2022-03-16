@@ -29,24 +29,40 @@ main{
 $btnColor: #eee;
 $btnBg: #111;
 $btnBg2: #222;
-
 $btnBorder: #553;
 
 .btnchangeradius{
-    /*ボタンの形状*/
-    display:inline-block;
-    background: $btnBg;
-    color: $btnColor;
-    padding: 10px 20px;
-    border: 5px double $btnBorder;
-    text-decoration: none;
-    outline: none;
-    /*アニメーションの指定*/
-    transition:.3s ease-out;
-}
-
-/*hoverした際の角丸のアニメーション*/
-.btnchangeradius:hover{
-    background:$btnBg2;
-    border-radius:20px;
+  position: relative;
+  display: inline-block;
+  padding: 1em 2em;
+  color: $btnColor;
+  transition: all .3s;
+  &::before,
+  &::after{
+    content: '';
+    position: absolute;
+    transition: all .3s;
+  }
+  &::before{
+    border: 1px solid $btnBorder;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &::after{ 
+    border: 1px solid $btnBorder;
+    top: 5px;
+    left: 5px;
+    width: calc( 100% - 10px);
+    height: calc( 100% - 10px);
+  }
+  &:hover{
+    border-radius: 20px;
+    background: $btnBg2;
+    &::before,
+    &::after{
+      border-radius: 20px;
+    }
+  }
 }

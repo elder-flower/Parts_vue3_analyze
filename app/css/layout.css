@@ -102,22 +102,37 @@ main p {
 
 /*角丸に変わる*/
 .btnchangeradius {
-  /*ボタンの形状*/
   display: inline-block;
-  padding: 10px 20px;
-  border: 5px double #553;
-  outline: none;
-  background: #111;
+  position: relative;
+  padding: 1em 2em;
   color: #eee;
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: 0.3s ease-out;
+  transition: all 0.3s;
 }
-
-/*hoverした際の角丸のアニメーション*/
+.btnchangeradius::before, .btnchangeradius::after {
+  position: absolute;
+  content: "";
+  transition: all 0.3s;
+}
+.btnchangeradius::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #553;
+}
+.btnchangeradius::after {
+  top: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border: 1px solid #553;
+}
 .btnchangeradius:hover {
   border-radius: 20px;
   background: #222;
+}
+.btnchangeradius:hover::before, .btnchangeradius:hover::after {
+  border-radius: 20px;
 }
 @media (pointer: fine) {
   a:link {
