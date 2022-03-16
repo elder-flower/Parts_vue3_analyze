@@ -34,28 +34,33 @@ $btnBg3: rgba(255, 255, 255, 0.3);
 $btnBorder: #553;
 
 .btnshine{
+    /*キラッと光る基点とするためrelativeを指定*/
   position: relative;
+      /*ボタンの形状*/
   display: inline-block;
   background: $btnBg;
   color: $btnColor;
   padding: 1em 2em;
+  overflow: hidden;
   z-index: 1;
 
-  overflow: hidden;
+  /*キラッと光る*/
   &::after{
     content: '';
     position: absolute;
     top:0;
-    left: -70%;
+    left: -75%;
+
+    /*キラッと光る形状*/
     width: 50%;
     height: 100%;
-    background: linear-gradient( 90deg, $btnBg2, $btnBg3);
+    background: linear-gradient( 90deg, $btnBg2 0%, $btnBg3 100% );
     z-index: 3;
-    transform: skew( -20deg );
+    transform: skew( -25deg );
   }
   &:hover{
     &::after{
-      animation: kira .5s;
+      animation: kira .7s;
       animation-iteration-count: 1;                
     }
   }
@@ -63,9 +68,9 @@ $btnBorder: #553;
 
 @keyframes kira{
   0%{
-    left: -70%;
+    left: -75%;
   }
   100% {
-    left: 100%;
+    left: 125%;
   }
 }
