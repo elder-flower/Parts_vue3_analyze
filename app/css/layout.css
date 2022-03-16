@@ -102,49 +102,38 @@ main p {
 
 /*丸がボタンに変形する*/
 .btntransform {
-  /*ボタンの形状*/
   display: inline-block;
-  /*丸の基点とするためrelativeを指定*/
   position: relative;
-  padding: 0 0 0 15px;
-  outline: none;
+  padding: 0.5em 2em 0.5em 1em;
   color: #eee;
-  line-height: 50px;
-  text-decoration: none;
 }
-
-/* 丸が動く */
 .btntransform::before {
   z-index: -1;
-  /*絶対配置で丸の位置を決める*/
   position: absolute;
+  top: 0;
   left: 0;
   /*丸の形状*/
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 25px;
   background: #333;
   content: "";
-  /*アニメーションの指定*/
-  transition: 0.3s ease-out;
+  transition: all 0.3s;
 }
-
-/*hoverした際の形状*/
-.btntransform:hover::before {
-  width: 212px;
-}
-
-/* 矢印の形状 */
 .btntransform::after {
   position: absolute;
-  top: 1.3em;
-  right: -15px;
+  top: 50%;
+  right: 1em;
   width: 5px;
   height: 5px;
-  transform: rotate(45deg);
-  border-top: 1px solid #eee;
-  border-right: 1px solid #eee;
+  transform: rotate(135deg);
+  border: 1px solid #eee;
+  border-width: 1px 0 0 1px;
   content: "";
+}
+.btntransform:hover::before {
+  width: 212px;
+  border-radius: 50%;
 }
 @media (pointer: fine) {
   a:link {

@@ -29,48 +29,40 @@ $btnColor: #eee;
 $btnBg: #333;
 $btnArrow: #eee;
 
-.btntransform {
-  /*丸の基点とするためrelativeを指定*/
+.btntransform{
   position: relative;
-  /*ボタンの形状*/
   display: inline-block;
-  padding: 0 0 0 15px;
-  line-height: 50px;
+  padding: 0.5em 2em 0.5em 1em;
   color: $btnColor;
-  text-decoration: none;
-  outline: none;
-}
+  &::before{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
 
-/* 丸が動く */
-.btntransform::before {
-  content: "";
-  /*絶対配置で丸の位置を決める*/
-  position: absolute;
-  left: 0;
-  z-index: -1;
-  /*丸の形状*/
-  width: 50px;
-  height: 50px;
-  background: $btnBg;
-  border-radius: 25px;
-  /*アニメーションの指定*/
-  transition: 0.3s ease-out;
-}
-
-/*hoverした際の形状*/
-.btntransform:hover::before {
-  width: 212px;
-}
-
-/* 矢印の形状 */
-.btntransform::after {
-  position: absolute;
-  content: "";
-  top: 1.3em;
-  right: -15px;
-  width: 5px;
-  height: 5px;
-  border-top: 1px solid $btnArrow;
-  border-right: 1px solid $btnArrow;
-  transform: rotate(45deg);
+    /*丸の形状*/
+    width: 44px;
+    height: 44px;
+    background: $btnBg;
+    border-radius: 25px;
+    z-index: -1;
+    transition: all .3s;
+  }
+  &::after{
+    content:'';
+    position: absolute;
+    top:50%;
+    right: 1em;
+    width: 5px;
+    height: 5px;
+    border: 1px solid $btnArrow;
+    border-width: 1px 0 0 1px;
+    transform: rotate( 135deg );
+  }
+  &:hover{
+    &::before{
+      width: 212px;
+      border-radius: 50%;
+    }
+  }
 }
