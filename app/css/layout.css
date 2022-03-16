@@ -104,83 +104,34 @@ main p {
 /*塗りから線に変わる*/
 .btnchangeline {
   display: inline-block;
-  /*線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 10px 30px;
-  outline: none;
-  /*ボタンの形状*/
+  padding: 0.5em 2em;
+  background: #333;
   color: #ee0;
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: all 0.3s ease-in-out;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
 }
-
-/*線の設定*/
 .btnchangeline::before {
-  z-index: 1;
-  /*絶対配置で線の位置を決める*/
+  z-index: -1;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  /*線の形状*/
   width: 100%;
   height: 100%;
   transform: scale(0, 1);
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  transform-origin: center;
+  border: 1px solid #eee;
+  border-width: 1px 0 1px 0;
   content: "";
-  /*はじめは透過0に*/
-  opacity: 0;
-  /*アニメーションの指定*/
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
-
-/*背景の設定*/
-.btnchangeline::after {
-  z-index: 1;
-  /*絶対配置で背景の位置を決める*/
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  /*背景の形状*/
-  width: 100%;
-  height: 100%;
-  background-color: #333;
-  content: "";
-  /*アニメーションの指定*/
-  transition: all 0.3s;
-}
-
-/*hoverした際の背景と線の形状*/
-.btnchangeline:hover::before {
-  /*不透明に*/
-  transform: scale(1, 1);
-  opacity: 1;
-  /*X方向に線を伸ばす*/
-}
-
-.btnchangeline:hover::after {
-  /*透過0に*/
-  transform: scale(0, 1);
-  opacity: 0;
-  /*X方向に背景を縮小*/
-}
-
-/*テキストの設定*/
-.btnchangeline span {
-  z-index: 2;
-  /*テキストを前面に出すためz-indexの値を高く設定*/
-  position: relative;
-  /*テキストの形状*/
-  color: #ee0;
-  /*アニメーションの指定*/
-  transition: all 0.3s;
-}
-
-/*hoverした際のテキストの形状*/
-.btnchangeline:hover span {
+.btnchangeline:hover {
+  background: transparent;
   color: #eee;
-  letter-spacing: 2px;
+  letter-spacing: 0.3em;
+}
+.btnchangeline:hover::before {
+  transform: scale(1, 1);
 }
 @media (pointer: fine) {
   a:link {
