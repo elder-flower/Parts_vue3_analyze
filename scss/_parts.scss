@@ -26,69 +26,53 @@ main{
 /* ボタン共通設定 */
 
 $btnColor: #eee;
-$btnAcColor: #ee3;
-$btnBg: #eee;
-$btnBg2: #222;
+$btnAcColor: #ee3;;
+$btnBg: #222;
 
 $btnBorder: #444;
 
 /*矢印が右に移動して背景がつく*/
 
 .btnarrow5{
-    /*矢印の基点とするためrelativeを指定*/
     position: relative;
-    /*ボタンの形状*/
-    border: 1px solid $btnBorder;
-    padding: 8px 30px;
     display: inline-block;
-    text-align: center;
-    text-decoration: none;
+    padding: 0.5em 2em;
+    border: 1px solid $btnBorder;
     color: $btnColor;
-    outline: none;
-    /*アニメーションの指定*/
-    transition: all .2s linear;
-}
 
-.btnarrow5:hover{
-    background:$btnBg2;
-    color:$btnAcColor;
-}
+    transition: ease .3s;
 
-/*矢印と下線の形状*/
-.btnarrow5::before{
-    content:"";
-    /*絶対配置で下線の位置を決める*/
-    position: absolute;
-    top:50%;
-    right:-26px;
-    /*下線の形状*/
-    width:40px;
-    height:1px;
-    background:$btnBg;
-    /*アニメーションの指定*/
-    transition: all .2s linear;
-}
+    &::before,
+    &::after{
+        content: '';
+        position: absolute;
 
-.btnarrow5::after{
-    content:"";
-    /*絶対配置で矢印の位置を決める*/
-    position: absolute;
-    top: 25%;
-    right: -21px;
-    /*矢印の形状*/
-    width:1px;
-    height:12px;
-    background:$btnBg;
-    transform:skewX(45deg);
-    /*アニメーションの指定*/
-    transition: all .2s linear;
-}
-
-/*hoverした際の移動*/
-.btnarrow5:hover::before{
-    right:-30px;
-}
-
-.btnarrow5:hover::after{
-    right:-25px;
+    }
+    &::before{
+        top: 40%;
+        right: -22px;
+        width: 20px;
+        height: 1px;
+        background: $btnColor;
+        transform: translate( 0, -1px ) rotate(40deg);
+        transition: ease .3s;
+    }
+    &::after{
+        top: 50%;
+        right: -19px;
+        width: 34px;
+        height: 1px;
+        background: $btnColor;
+        transition: ease .3s;
+    }
+    &:hover{
+        background: $btnBg;
+        color: $btnAcColor;
+        &::before{
+            right: -27px;
+        }
+        &::after{
+            right: -24px;
+        }
+    }
 }
