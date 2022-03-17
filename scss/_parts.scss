@@ -16,8 +16,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -26,53 +26,53 @@ main{
 /* ボタン共通設定 */
 
 $btnColor: #eee;
-$btnAcColor: #ee3;;
+$btnAcColor: #ee3;
 $btnBg: #222;
 
 $btnBorder: #444;
 
 /*矢印が右に移動して背景がつく*/
 
-.btnarrow5{
-    position: relative;
-    display: inline-block;
-    padding: 0.5em 2em;
-    border: 1px solid $btnBorder;
-    color: $btnColor;
+.btnarrow5 {
+  position: relative;
+  border: 1px solid $btnBorder;
+  display: inline-block;
+  padding: 0.5em 2em;
+  text-align: center;
+  color: $btnColor;
+  
+  transition: all 0.2s linear;
 
-    transition: ease .3s;
-
-    &::before,
-    &::after{
-        content: '';
-        position: absolute;
-
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+  }
+  &::before {
+    top: 40%;
+    right: -22px;
+    width: 20px;
+    height: 1px;
+    background: $btnColor;
+    transform: translate(0, -1px) rotate(40deg);
+    transition: all 0.2s linear;
+  }
+  &::after {
+    top: 50%;
+    right: -19px;
+    width: 34px;
+    height: 1px;
+    background: $btnColor;
+    transition: all 0.2s linear;
+  }
+  &:hover {
+    background: $btnBg;
+    color: $btnAcColor;
+    &::before {
+      right: -27px;
     }
-    &::before{
-        top: 40%;
-        right: -22px;
-        width: 20px;
-        height: 1px;
-        background: $btnColor;
-        transform: translate( 0, -1px ) rotate(40deg);
-        transition: ease .3s;
+    &::after {
+      right: -24px;
     }
-    &::after{
-        top: 50%;
-        right: -19px;
-        width: 34px;
-        height: 1px;
-        background: $btnColor;
-        transition: ease .3s;
-    }
-    &:hover{
-        background: $btnBg;
-        color: $btnAcColor;
-        &::before{
-            right: -27px;
-        }
-        &::after{
-            right: -24px;
-        }
-    }
+  }
 }

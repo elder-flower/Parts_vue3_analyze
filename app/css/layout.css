@@ -108,7 +108,8 @@ main p {
   padding: 0.5em 2em;
   border: 1px solid #444;
   color: #eee;
-  transition: ease 0.3s;
+  text-align: center;
+  transition: all 0.2s linear;
 }
 .btnarrow5::before, .btnarrow5::after {
   position: absolute;
@@ -121,7 +122,7 @@ main p {
   height: 1px;
   transform: translate(0, -1px) rotate(40deg);
   background: #eee;
-  transition: ease 0.3s;
+  transition: all 0.2s linear;
 }
 .btnarrow5::after {
   top: 50%;
@@ -129,7 +130,7 @@ main p {
   width: 34px;
   height: 1px;
   background: #eee;
-  transition: ease 0.3s;
+  transition: all 0.2s linear;
 }
 .btnarrow5:hover {
   background: #222;
