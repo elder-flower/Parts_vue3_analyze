@@ -102,6 +102,95 @@ main p {
 
 /* ボタン共通設定 */
 /*========= 検索窓を開くための虫眼鏡ボタン設定 ===========*/
+.open-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #222 url("../img/icon_search.svg");
+  background-position: 15px 15px;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.close-btn {
+  z-index: 100;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.close-btn span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 2px;
+  background: #eee;
+  transition: all 0.3s;
+}
+.close-btn span:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.close-btn span:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#search-wrap {
+  display: flex;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+#search-wrap.panelactive {
+  z-index: 10;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.search-area {
+  width: 80%;
+}
+
+#search-text {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  border: 1px solid #555;
+  background: #333 url("../img/icon_search.svg");
+  background-position: 15px right;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  color: #eee;
+}
+#search-text:focus {
+  border: none;
+  background: #111;
+}
+#search-text:valid {
+  background: #333;
+}
+#search-text:invalid {
+  background: #e33;
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

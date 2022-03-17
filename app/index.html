@@ -20,11 +20,18 @@
         7-2-2 虫眼鏡マークをクリックすると全画面表示で検索窓が出現
       </h1>
 
-      <div class="open-btn"></div>
+      <button
+        type="button"
+        class="open-btn"
+        aria-pressed="false"
+        aria-controls="search-wrap"
+        tabindex="0"
+      >
+        <span></span><span></span>
+      </button>
 
       <div id="search-wrap">
         <div class="close-btn"><span></span><span></span></div>
-
         <div class="search-area">
           <form role="search" method="get" action="">
             <input
@@ -32,13 +39,14 @@
               value=""
               name=""
               id="search-text"
-              placeholder="search"
+              placeholder="このサイトを検索"
+              role="searchbox"
             />
             <input type="submit" id="searchsubmit" value="" />
           </form>
+
           <!--/search-area-->
         </div>
-
         <!--/search-wrap-->
       </div>
     </main>
