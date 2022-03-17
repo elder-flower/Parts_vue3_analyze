@@ -32,8 +32,8 @@ $btnBorder: #333;
 
 /*表示するテキストが切り替わる*/
 .btntextchange{
-  display: inline-block;
   position: relative;
+  display: inline-block;
   text-align: center;
   margin: 0 auto;
   span{
@@ -45,21 +45,21 @@ $btnBorder: #333;
     width: 200px;
     padding: 0.5em 0em;
     border: 1px solid $btnBorder;
-    border-radius: 30px;
+    border-radius: 25px;
     color: $btnColor;
 
-    transition: all .3s ease-in;
+    transition: all .5s;
     &:nth-child(1){
       opacity: 1;
     }
     &:nth-child(2){
-      background: $btnBg;
       opacity: 0;
     }
   }
   &:hover{
     span{
       color: $btnAcColor;
+      background: $btnBg;
       &:nth-child(1){
         opacity: 0;
       }

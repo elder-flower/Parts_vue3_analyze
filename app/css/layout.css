@@ -117,18 +117,18 @@ main p {
   padding: 0.5em 0em;
   transform: translate(-50%, -50%);
   border: 1px solid #333;
-  border-radius: 30px;
+  border-radius: 25px;
   color: #eee;
-  transition: all 0.3s ease-in;
+  transition: all 0.5s;
 }
 .btntextchange span:nth-child(1) {
   opacity: 1;
 }
 .btntextchange span:nth-child(2) {
-  background: #222;
   opacity: 0;
 }
 .btntextchange:hover span {
+  background: #222;
   color: #eee;
 }
 .btntextchange:hover span:nth-child(1) {
