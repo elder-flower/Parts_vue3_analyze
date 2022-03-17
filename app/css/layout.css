@@ -109,6 +109,7 @@ main p {
   background: #222;
   color: #eee;
   text-align: center;
+  transition: all 0.2s;
 }
 .btn06:after {
   position: absolute;
@@ -117,8 +118,8 @@ main p {
   width: 5px;
   height: 5px;
   transform: translate(0, -50%) rotate(135deg);
-  border: 1px solid #eee;
-  border-width: 2px 0 0 2px;
+  border-top: 2px solid #eee;
+  border-left: 2px solid #eee;
   content: "";
   transition: all 0.3s;
 }

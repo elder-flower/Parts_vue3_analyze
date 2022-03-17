@@ -34,11 +34,13 @@ $btnBorder: #333;
 .btn06{
   position: relative;
   display: inline-block;
-  padding: 0.5em 2.5em 0.5em 2em;
-  text-align: center;
   background: $btnBg;
-  border-radius: 25px;
   color: $btnColor;
+  padding: 0.5em 2.5em 0.5em 2em;
+  border-radius: 25px;
+  text-align: center;
+  transition: all .2s;
+  
   &:after{
     content: '';
     position: absolute;
@@ -46,10 +48,9 @@ $btnBorder: #333;
     right: 1.2em;
     width: 5px;
     height: 5px;
-    border: 1px solid $btnArrow;
-    border-width: 2px 0 0 2px;
+    border-top: 2px solid $btnArrow;
+    border-left: 2px solid $btnArrow;
     transform: translate( 0, -50% ) rotate( 135deg );
-
     transition: all .3s;
   }
   &:hover{
