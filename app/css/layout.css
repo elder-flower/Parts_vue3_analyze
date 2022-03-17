@@ -104,56 +104,59 @@ main p {
 /*表示するテキストが切り替わる*/
 .btntextchange {
   display: inline-block;
-  /*テキストの基点とするためrelativeを指定*/
   position: relative;
-  min-width: 210px;
-  padding: 20px;
-  /*ボタンの形状*/
-  border: 1px solid #333;
-  border-radius: 25px;
-  outline: none;
-  color: #eee;
+  margin: 0 auto;
   text-align: center;
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: all 0.2s;
 }
-
-/*hoverした際の変化*/
-.btntextchange:hover {
-  background: #333;
+.btntextchange span {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  padding: 0.5em 0em;
+  transform: translate(-50%, -50%);
+  border: 1px solid #333;
+  border-radius: 30px;
+  color: #eee;
+  transition: all 0.3s ease-in;
+}
+.btntextchange span:nth-child(1) {
+  opacity: 1;
+}
+.btntextchange span:nth-child(2) {
+  background: #222;
+  opacity: 0;
+}
+.btntextchange:hover span {
   color: #eee;
 }
-
-.btntextchange span {
-  /*ブロック要素にしてテキスト折り返しなし*/
-  display: block;
-  /*絶対配置でテキストの位置を決める*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-  /*アニメーションの指定*/
-  transition: all 0.5s;
-}
-
-/*差し替わるテキストの設定*/
-.btntextchange span:nth-child(2) {
-  opacity: 0;
-  /*透過0に*/
-}
-
-/*hoverするとテキストが入れ替わる設定*/
 .btntextchange:hover span:nth-child(1) {
   opacity: 0;
-  /*透過0に*/
 }
-
 .btntextchange:hover span:nth-child(2) {
   opacity: 1;
-  /*不透明に*/
 }
+
+/*
+
+中央に線を引いて位置を確認する。
+
+body{
+  &::before{
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #555;
+    width: 1;
+    height: 100%;
+    z-index: 10;
+  }
+}
+
+*/
 
 @media (pointer: fine) {
   a:link {
