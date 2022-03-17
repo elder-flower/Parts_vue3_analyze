@@ -104,39 +104,24 @@ main p {
 /*========= 検索窓のためのCSS ===============*/
 /* 検索窓のエリア Wrapper */
 #search-wrap {
-  /*絶対配置にして*/
-  z-index: 2;
   position: absolute;
-  /*最前面に設定。数字は変更可*/
-  top: 50px;
-  right: 50px;
+  top: 15px;
+  right: 15px;
 }
 
-/*テキスト入力input設定*/
-#search-text {
+[role=searchbox] {
   -webkit-appearance: none;
-  /*SafariやChromeのデフォルトの設定を無効*/
+          appearance: none;
   width: 60px;
-  /*テキスト入力エリアが伸びる前の横幅*/
   height: 60px;
-  padding: 20px;
-  border: none;
-  /*transitionを使ってスムースに伸ばす*/
-  outline: none;
-  background: #333 url("../img/icon_search.svg") no-repeat 17px center;
-  /*虫眼鏡アイコンを背景に表示*/
-  background-size: 25px 25px;
-  cursor: pointer;
-  transition: all 0.5s;
-  /*カーソルを指マークに*/
+  background: #333 url("../img/icon_search.svg");
+  background-position: 15px 15px;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  transition: all 0.3s;
 }
-
-/*テキスト入力inputにフォーカスした時の形状*/
-#search-text:focus {
+[role=searchbox]:focus {
   width: 300px;
-  /*テキスト入力エリアが伸びる後の横幅*/
-  padding: 20px 0 20px 60px;
-  box-shadow: 0 2px rgba(6, 0, 1, 0.26);
 }
 @media (pointer: fine) {
   a:link {

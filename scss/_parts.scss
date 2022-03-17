@@ -37,31 +37,21 @@ $SearchBoxShadow: rgba(6,0,1,.26);
 /*========= 検索窓のためのCSS ===============*/
 
 /* 検索窓のエリア Wrapper */
- #search-wrap {
-    position: absolute;/*絶対配置にして*/
-    z-index: 2;/*最前面に設定。数字は変更可*/
-    top:50px;
-    right:50px;
-}
-
-/*テキスト入力input設定*/
- #search-text{
-    -webkit-appearance:none;/*SafariやChromeのデフォルトの設定を無効*/
-    width: $SearchBoxWidth;/*テキスト入力エリアが伸びる前の横幅*/
+ #search-wrap{
+     position: absolute;
+     top: 15px;
+     right: 15px
+ }
+ [role='searchbox']{
+    appearance: none;
+    width: $SearchBoxWidth;
     height: $SearchBoxHeight;
-    padding: 20px;
-    border: none;
-    background:$SearchBoxBg url("../img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
-    background-size: 25px 25px;
-    transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
-    outline: none;
-    cursor: pointer;/*カーソルを指マークに*/
+    background: $SearchBoxBg url('../img/icon_search.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    transition: all .3s;
+    &:focus{
+        width: $SearchBoxAcWidth;
+    }
 }
-
-/*テキスト入力inputにフォーカスした時の形状*/
- #search-text:focus {
-    width: $SearchBoxAcWidth;/*テキスト入力エリアが伸びる後の横幅*/
-    padding: 20px 0 20px 60px;
-    box-shadow: 0 2px $SearchBoxShadow;
-}
-
