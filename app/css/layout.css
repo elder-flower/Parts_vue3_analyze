@@ -101,51 +101,42 @@ main p {
 }
 
 /* ボタン共通設定 */
-/*矢印が縮む*/
-.btnarrow6 {
-  display: inline-block;
-  position: relative;
-  padding: 0.5em 3em 0.5em 2em;
-  border: 2px solid transparent;
-  background: #000;
-  color: #eee;
-  text-align: center;
-  transition: ease 0.3s;
-}
-.btnarrow6::before, .btnarrow6::after {
+/*========= 検索窓のためのCSS ===============*/
+/* 検索窓のエリア Wrapper */
+#search-wrap {
+  /*絶対配置にして*/
+  z-index: 2;
   position: absolute;
-  content: "";
+  /*最前面に設定。数字は変更可*/
+  top: 50px;
+  right: 50px;
 }
-.btnarrow6::before {
-  top: 50%;
-  right: 0.8em;
-  width: 18px;
-  height: 1px;
-  background: #fff;
-  transition: ease 0.3s;
+
+/*テキスト入力input設定*/
+#search-text {
+  -webkit-appearance: none;
+  /*SafariやChromeのデフォルトの設定を無効*/
+  width: 60px;
+  /*テキスト入力エリアが伸びる前の横幅*/
+  height: 60px;
+  padding: 20px;
+  border: none;
+  /*transitionを使ってスムースに伸ばす*/
+  outline: none;
+  background: #333 url("../img/icon_search.svg") no-repeat 17px center;
+  /*虫眼鏡アイコンを背景に表示*/
+  background-size: 25px 25px;
+  cursor: pointer;
+  transition: all 0.5s;
+  /*カーソルを指マークに*/
 }
-.btnarrow6::after {
-  top: 50%;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  transform: translate(-5px, -4.7px) scale(0.8);
-  border: 7px solid #fff;
-  border-width: 5px 0 5px 5px;
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  transition: ease 0.3s;
-}
-.btnarrow6:hover {
-  border-color: #444;
-  background: #111;
-  color: #eee;
-}
-.btnarrow6:hover::before {
-  transform: translate(-10px, 0px);
-}
-.btnarrow6:hover::after {
-  transform: translate(-15px, -4.7px) scale(0.8);
+
+/*テキスト入力inputにフォーカスした時の形状*/
+#search-text:focus {
+  width: 300px;
+  /*テキスト入力エリアが伸びる後の横幅*/
+  padding: 20px 0 20px 60px;
+  box-shadow: 0 2px rgba(6, 0, 1, 0.26);
 }
 @media (pointer: fine) {
   a:link {

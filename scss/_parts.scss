@@ -23,64 +23,45 @@ main{
   }
 }
 
+
+
 /* ボタン共通設定 */
 
-$btnColor: #eee;
-$btnAcColor: #eee;
-$btnBg: #000;
-$btnBg2: #111;
+$SearchBoxWidth: 60px;
+$SearchBoxHeight: 60px;
+$SearchBoxAcWidth: 300px;
 
-$btnBorder: #444;
-$btnArrow:  #fff;
+$SearchBoxBg: #333;
+$SearchBoxShadow: rgba(6,0,1,.26);
 
-/*矢印が縮む*/
-.btnarrow6{
-    position: relative;
-    background: $btnBg;
-    padding: 0.5em 3em 0.5em 2em;
-    display: inline-block;
-    text-align: center;
-    transition: ease .3s;
-    color: $btnColor;
-    border: 2px solid transparent;
+/*========= 検索窓のためのCSS ===============*/
 
-    &::before,
-    &::after{
-        content: '';
-        position: absolute;
-    }
-    &::before{
-        top: 50%;
-        right: 0.8em;
-        width: 18px;
-        height: 1px;
-        background: $btnArrow;
-
-        transition: ease .3s;
-    }
-    &::after{
-        top: 50%;
-        right: 0;
-        width: 10px;
-        height: 10px;
-
-        border: 7px solid $btnArrow;
-        border-width: 5px 0 5px 5px;
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-
-        transform: translate( -5px, -4.7px ) scale( 0.8 );
-        transition: ease .3s;
-    }
-    &:hover{
-        background: $btnBg2;
-        color: $btnAcColor;
-        border-color:$btnBorder;
-        &::before{
-            transform: translate( -10px, -0px );
-        }
-        &::after{
-            transform: translate( -15px, -4.7px ) scale( 0.8 );
-        }
-    }
+/* 検索窓のエリア Wrapper */
+ #search-wrap {
+    position: absolute;/*絶対配置にして*/
+    z-index: 2;/*最前面に設定。数字は変更可*/
+    top:50px;
+    right:50px;
 }
+
+/*テキスト入力input設定*/
+ #search-text{
+    -webkit-appearance:none;/*SafariやChromeのデフォルトの設定を無効*/
+    width: $SearchBoxWidth;/*テキスト入力エリアが伸びる前の横幅*/
+    height: $SearchBoxHeight;
+    padding: 20px;
+    border: none;
+    background:$SearchBoxBg url("../img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
+    background-size: 25px 25px;
+    transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
+    outline: none;
+    cursor: pointer;/*カーソルを指マークに*/
+}
+
+/*テキスト入力inputにフォーカスした時の形状*/
+ #search-text:focus {
+    width: $SearchBoxAcWidth;/*テキスト入力エリアが伸びる後の横幅*/
+    padding: 20px 0 20px 60px;
+    box-shadow: 0 2px $SearchBoxShadow;
+}
+
