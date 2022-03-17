@@ -100,64 +100,48 @@ main p {
   text-align: center;
 }
 
-/*丸がボタンに変形する*/
-/*表示するテキストが切り替わる*/
-.btntextchange {
+/* ボタン共通設定 */
+.btn06 {
   display: inline-block;
+  /*矢印の基点とするためrelativeを指定*/
   position: relative;
-  margin: 0 auto;
-  text-align: center;
-}
-.btntextchange span {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
-  padding: 0.5em 0em;
-  transform: translate(-50%, -50%);
-  border: 1px solid #333;
+  padding: 10px 40px 10px 30px;
   border-radius: 25px;
-  color: #eee;
-  transition: all 0.5s;
-}
-.btntextchange span:nth-child(1) {
-  opacity: 1;
-}
-.btntextchange span:nth-child(2) {
-  opacity: 0;
-}
-.btntextchange:hover span {
+  outline: none;
   background: #222;
   color: #eee;
-}
-.btntextchange:hover span:nth-child(1) {
-  opacity: 0;
-}
-.btntextchange:hover span:nth-child(2) {
-  opacity: 1;
-}
-
-/*
-
-中央に線を引いて位置を確認する。
-
-body{
-  &::before{
-    content: '';
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 50%;
-    border-left: 1px solid #555;
-    width: 1;
-    height: 100%;
-    z-index: 10;
-  }
+  text-align: center;
+  /*ボタンの形状*/
+  text-decoration: none;
+  /*アニメーションの指定*/
+  transition: ease 0.2s;
 }
 
-*/
+.btn06:hover {
+  background: #333;
+}
 
+/* 矢印が右に移動 */
+.btnarrow1::after {
+  /*絶対配置で矢印の位置を決める*/
+  position: absolute;
+  top: 42%;
+  right: 13px;
+  /*矢印の形状*/
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  border-top: 2px solid #eee;
+  border-right: 2px solid #eee;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+}
+
+/*hoverした際の移動*/
+.btnarrow1:hover::after {
+  right: 11px;
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

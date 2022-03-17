@@ -23,72 +23,55 @@ main{
   }
 }
 
-/*丸がボタンに変形する*/
+
+/* ボタン共通設定 */
 
 $btnColor: #eee;
-$btnAcColor: #eee;
 $btnBg: #222;
+$btnBg2: #333;
+$btnArrow: #eee;
+
 $btnBorder: #333;
 
-/*表示するテキストが切り替わる*/
-.btntextchange{
-  position: relative;
-  display: inline-block;
-  text-align: center;
-  margin: 0 auto;
-  span{
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate( -50%, -50% );
-    display: block;
-    width: 200px;
-    padding: 0.5em 0em;
-    border: 1px solid $btnBorder;
-    border-radius: 25px;
-    color: $btnColor;
-
-    transition: all .5s;
-    &:nth-child(1){
-      opacity: 1;
-    }
-    &:nth-child(2){
-      opacity: 0;
-    }
-  }
-  &:hover{
-    span{
-      color: $btnAcColor;
-      background: $btnBg;
-      &:nth-child(1){
-        opacity: 0;
-      }
-      &:nth-child(2){
-        opacity: 1;
-      }
-    }
-  }
+.btn06{
+    /*矢印の基点とするためrelativeを指定*/
+    position: relative;
+    /*ボタンの形状*/
+    text-decoration: none;
+    display: inline-block;
+    background:$btnBg;
+    color:$btnColor;
+    padding: 10px 40px 10px 30px;
+    border-radius:25px;
+    text-align: center;
+    outline: none;
+    /*アニメーションの指定*/
+    transition: ease .2s;
 }
 
+.btn06:hover{
+    background:$btnBg2;
+}
 
+/* 矢印が右に移動 */
 
-
-/*
-
-中央に線を引いて位置を確認する。
-
-body{
-  &::before{
+.btnarrow1::after{
     content: '';
+    /*絶対配置で矢印の位置を決める*/
     position: absolute;
-    display: block;
-    top: 0;
-    left: 50%;
-    border-left: 1px solid #555;
-    width: 1;
-    height: 100%;
-    z-index: 10;
-  }
+    top:42%;
+    right: 13px;
+    /*矢印の形状*/
+    width: 5px;
+    height: 5px;
+    border-top: 2px solid $btnArrow;
+    border-right: 2px solid $btnArrow;
+    transform: rotate(45deg);
+    /*アニメーションの指定*/
+    transition: all .3s;
 }
 
-*/
+/*hoverした際の移動*/
+.btnarrow1:hover::after{
+    right: 11px;
+}
