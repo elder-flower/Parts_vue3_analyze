@@ -137,7 +137,7 @@ main p {
   transition: ease 0.3s;
 }
 .btnarrow6:hover {
-  border: 2px solid #444;
+  border-color: #444;
   background: #111;
   color: #eee;
 }

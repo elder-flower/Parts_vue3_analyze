@@ -36,14 +36,13 @@ $btnArrow:  #fff;
 /*矢印が縮む*/
 .btnarrow6{
     position: relative;
-    display: inline-block;
-    padding: 0.5em 3em 0.5em 2em;
     background: $btnBg;
-    color: $btnColor;
+    padding: 0.5em 3em 0.5em 2em;
+    display: inline-block;
     text-align: center;
-    border: 2px solid transparent;
-
     transition: ease .3s;
+    color: $btnColor;
+    border: 2px solid transparent;
 
     &::before,
     &::after{
@@ -76,7 +75,7 @@ $btnArrow:  #fff;
     &:hover{
         background: $btnBg2;
         color: $btnAcColor;
-        border: 2px solid $btnBorder;
+        border-color:$btnBorder;
         &::before{
             transform: translate( -10px, -0px );
         }
