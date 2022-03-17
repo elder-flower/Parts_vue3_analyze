@@ -103,50 +103,42 @@ main p {
 /* ボタン共通設定 */
 .btn06 {
   display: inline-block;
-  /*矢印の基点とするためrelativeを指定*/
   position: relative;
-  padding: 10px 40px 10px 30px;
+  padding: 0.5em 2.5em 0.5em 2em;
   border-radius: 25px;
-  outline: none;
   background: #222;
   color: #eee;
   text-align: center;
-  /*ボタンの形状*/
-  text-decoration: none;
-  /*アニメーションの指定*/
-  transition: ease 0.2s;
+  transition: all 0.2s;
 }
-
+.btn06:after {
+  position: absolute;
+  top: 50%;
+  right: 1.2em;
+  width: 5px;
+  height: 5px;
+  transform: translate(0, -50%) rotate(135deg);
+  border-top: 2px solid #eee;
+  border-left: 2px solid #eee;
+  content: "";
+}
 .btn06:hover {
   background: #333;
 }
-
-/* 矢印が右に移動して現在地に戻る */
-.btnarrow2::after {
-  /*絶対配置で矢印の位置を決める*/
-  position: absolute;
-  top: 42%;
-  right: 13px;
-  /*矢印の形状*/
-  width: 5px;
-  height: 5px;
-  transform: rotate(45deg);
-  border-top: 2px solid #eee;
-  border-right: 2px solid #eee;
-  content: "";
+.btn06:hover:after {
+  animation: move 0.5s;
+  animation-iteration-count: 1;
 }
 
-/*hoverした際のアニメーション*/
-.btnarrow2:hover::after {
-  animation: arrow 0.5s;
-}
-
-@keyframes arrow {
+@keyframes move {
+  0% {
+    right: 1.2em;
+  }
   50% {
-    right: 10px;
+    right: 1em;
   }
   100% {
-    right: 13px;
+    right: 1.2em;
   }
 }
 
