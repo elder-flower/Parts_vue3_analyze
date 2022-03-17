@@ -101,42 +101,55 @@ main p {
 }
 
 /* ボタン共通設定 */
-.btn06 {
+/*矢印が右に移動する*/
+.btnarrow4 {
+  /*形状*/
   display: inline-block;
+  /*矢印と下線の基点とするためrelativeを指定*/
   position: relative;
-  padding: 0.5em 2.5em 0.5em 2em;
-  border-radius: 25px;
-  background: #222;
+  padding: 0 20px;
+  outline: none;
   color: #eee;
-  text-align: center;
-  transition: ease 0.2s;
-}
-.btn06:after {
-  position: absolute;
-  top: 50%;
-  right: 1.2em;
-  width: 5px;
-  height: 5px;
-  transform: translate(0, -50%) rotate(135deg);
-  border-top: 2px solid #eee;
-  border-left: 2px solid #eee;
-  content: "";
-}
-.btn06:hover {
-  background: #333;
-}
-.btn06:hover:after {
-  animation: move 0.3s;
-  animation-iteration-count: 1;
+  text-decoration: none;
 }
 
-@keyframes move {
-  0% {
-    transform: translate(0, -50%) rotate(135deg);
-  }
-  100% {
-    transform: translate(0, -50%) rotate(495deg);
-  }
+/*矢印と下線の形状*/
+.btnarrow4::before {
+  /*絶対配置で下線の位置を決める*/
+  position: absolute;
+  bottom: -8px;
+  left: 15%;
+  /*下線の形状*/
+  width: 85%;
+  height: 1px;
+  background: #eee;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+}
+
+.btnarrow4::after {
+  /*絶対配置で矢印の位置を決める*/
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  /*矢印の形状*/
+  width: 15px;
+  height: 1px;
+  transform: rotate(35deg);
+  background: #eee;
+  content: "";
+  /*アニメーションの指定*/
+  transition: all 0.3s;
+}
+
+/*hoverした際の移動*/
+.btnarrow4:hover::before {
+  left: 20%;
+}
+
+.btnarrow4:hover::after {
+  right: -5%;
 }
 
 @media (pointer: fine) {
