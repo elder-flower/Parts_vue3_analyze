@@ -109,7 +109,7 @@ main p {
   background: #222;
   color: #eee;
   text-align: center;
-  transition: all 0.2s;
+  transition: ease 0.2s;
 }
 .btn06:after {
   position: absolute;

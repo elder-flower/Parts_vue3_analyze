@@ -39,7 +39,7 @@ $btnBorder: #333;
   padding: 0.5em 2.5em 0.5em 2em;
   border-radius: 25px;
   text-align: center;
-  transition: all .2s;
+  transition: ease .2s;
   
   &:after{
     content: '';
