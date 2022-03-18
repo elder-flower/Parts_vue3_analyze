@@ -75,81 +75,6 @@ img {
   vertical-align: bottom;
 }
 
-/*========= ページトップのためのCSS ===============*/
-.start-point {
-  z-index: 10;
-  position: absolute;
-  top: 400px;
-  left: 0;
-  width: 100px;
-  height: 100px;
-}
-
-/*リンクを右下に固定*/
-#page-top {
-  z-index: 2;
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  transform: translateY(100px);
-  /*はじめは非表示*/
-  opacity: 0;
-}
-#page-top a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  background: #942d2f;
-  color: #fff;
-  font-size: 0.6rem;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  /*
-      &:link,
-      &:visited{
-          background:#942D2F;
-      }
-      &:hover,
-      &:active{
-          background: #777;
-      }
-      */
-}
-/*　上に上がる動き　*/
-#page-top.UpMove {
-  animation: UpAnime 0.5s forwards;
-}
-
-@keyframes UpAnime {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-/*　下に下がる動き　*/
-#page-top.DownMove {
-  animation: DownAnime 0.5s forwards;
-}
-
-@keyframes DownAnime {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100px);
-    opacity: 1;
-  }
-}
 /*========= レイアウトのためのCSS ===============*/
 h1 {
   font-size: 1.2rem;
@@ -181,16 +106,82 @@ small {
 }
 
 section {
-  padding: 200px 30px;
+  padding: 100px 30px;
 }
 
 section:nth-child(2n) {
-  background: #222;
+  background: #000;
 }
 
 #footer {
   z-index: 2;
   position: relative;
+}
+
+/* ボタン共通設定 */
+/*========= ページトップのためのCSS ===============*/
+/*リンクを右下に固定*/
+#page-top {
+  z-index: 5;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transform: translateY(100px);
+  /*はじめは非表示*/
+  opacity: 0;
+}
+#page-top a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background: #942d2f;
+  color: #eee;
+  font-size: 0.6rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.UpMove {
+  animation: up_motion 0.5s forwards;
+  /*
+  animation: up_motion 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  */
+}
+
+@keyframes up_motion {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.DownMove {
+  animation: down_motion 0.5s forwards;
+  /*
+  animation: down_motion 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  */
+}
+
+@keyframes down_motion {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
 }
 
 @media (pointer: fine) {
@@ -208,11 +199,5 @@ section:nth-child(2n) {
 
   a:active {
     text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  #page-top a:hover {
-    background: #942d2f;
   }
 }
