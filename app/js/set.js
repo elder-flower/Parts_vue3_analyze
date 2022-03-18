@@ -12,7 +12,7 @@ $(window).on("load", function () {
   //=====ここまでローディングエリア（splashエリア）を1.5秒でフェードアウトした後に動かしたいJSをまとめる
 
   //=====ここから背景が伸びた後に動かしたいJSをまとめたい場合は
-  $(".splashbg").on("animationend", function () {
+  $(".splashbg1").on("animationend", function () {
     //この中に動かしたいJSを記載
   });
   //=====ここまで背景が伸びた後に動かしたいJSをまとめる
