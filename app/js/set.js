@@ -1,47 +1,48 @@
 var doc = document;
-
-var togo = doc.querySelector(".js-scroll a");
-var totop = doc.querySelector(".js-pagetop a");
-
+var totop = doc.querySelector("#page-top a");
 var $win = $(window);
-var $js_scroll = $(".js-scroll");
-var $js_ptop = $(".js-pagetop");
-var $bdy = $("body,html");
+var $ptop = $("#page-top");
 
 //スクロールした際の動きを関数でまとめる
-function PageTopCheck() {
-  var winScrollTop = $win.scrollTop();
-  var secondTop = $("#area-2").offset().top - 150; //#area-2の上から150pxの位置まで来たら
-
-  if (winScrollTop >= secondTop) {
-    $js_scroll.removeClass("scroll-view"); //.js-scrollからscroll-viewというクラス名を除去
-    $js_ptop.addClass("scroll-view"); //.js-pagetopにscroll-viewというクラス名を付与
+function PageTopAnime() {
+  var scroll = $win.scrollTop();
+  if (scroll >= 100) {
+    //上から100pxスクロールしたら
+    $ptop.removeClass("DownMove"); //#page-topについているDownMoveというクラス名を除く
+    $ptop.addClass("UpMove"); //#page-topについているUpMoveというクラス名を付与
   } else {
-    //元に戻ったら
-    $js_scroll.addClass("scroll-view"); //.js-scrollからscroll-viewというクラス名を付与
-    $js_ptop.removeClass("scroll-view"); //.js-pagetopからscroll-viewというクラス名を除去
+    if ($ptop.hasClass("UpMove")) {
+      //すでに#page-topにUpMoveというクラス名がついていたら
+      $ptop.removeClass("UpMove"); //UpMoveというクラス名を除き
+      $ptop.addClass("DownMove"); //DownMoveというクラス名を#page-topに付与
+    }
   }
 }
-
 function Set() {
-  togo.addEventListener("click", goto, false);
-
-  totop.addEventListener("click", topto, false);
+  totop.addEventListener("click", goto, false);
 
   function goto(e) {
     var tar = e.target;
+    var $tar = $(tar);
 
-    var elmHash = tar.getAttribute("data-href"); //hrefの内容を取得
+    var scroll = $win.scrollTop(); //スクロール値を取得
 
-    var pos = $(elmHash).offset().top;
-    $bdy.animate({ scrollTop: pos }, pos); //#area-2にスクロール
-  }
-  function topto() {
-    $bdy.animate({ scrollTop: 0 }, 500); //それ以外はトップへスクロール。数字が大きくなるほどゆっくりスクロール
+    if (scroll > 0) {
+      $tar.addClass("floatAnime"); //クリックしたらfloatAnimeというクラス名が付与
+      $("body,html").animate(
+        {
+          scrollTop: 0,
+        },
+        800,
+        function () {
+          //スクロールの速さ。数字が大きくなるほど遅くなる
+          $tar.removeClass("floatAnime"); //上までスクロールしたらfloatAnimeというクラス名を除く
+        }
+      );
+    }
   }
 }
 function sanitize() {
-  sanitize_core(togo);
   sanitize_core(totop);
 
   function sanitize_core(elems) {
@@ -71,8 +72,8 @@ function sanitize() {
 }
 function Init() {
   sanitize();
-  PageTopCheck();
+  PageTopAnime(); /* スクロールした際の動きの関数を呼ぶ*/
   Set();
 }
-$win[0].addEventListener("scroll", PageTopCheck, false);
+$win[0].addEventListener("scroll", PageTopAnime, false);
 $win[0].addEventListener("DOMContentLoaded", Init, false);
