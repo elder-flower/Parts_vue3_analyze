@@ -8,6 +8,7 @@ select {
 body {
   padding: 2rem;
 }
+h1,
 h2 {
   margin: 2rem 0 2rem 0;
 }
@@ -22,9 +23,7 @@ main{
     text-align: center;
   }
 }
-
-
-
+/*========= 検索窓を開くためのボタン設定 ===========*/
 
 /* ボタン共通設定 */
 $InputForcus: #111;
@@ -34,106 +33,117 @@ $InputColor: #eee;
 $SearchBoxBg: #222;
 $InputValid: #111;
 $InputInValid: #e33;
-$SearchPannelBg: #111;
+$SearchPannelBg: #333;
 
+.open-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 
+  background: $SearchBoxBg url("../img/icon_search.svg");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
 
-/*========= 検索窓を開くためのボタン設定 ===========*/
-button{
-    appearance:none;
-}
-.open-btn{
-    position: absolute;
-    top:10px;
-    right:10px;
-    background:$SearchBoxBg url("../img/icon_search.svg") no-repeat 15px center;/*虫眼鏡アイコンを背景に表示*/
-    background-size: 20px 20px;
-    width:50px;
-    height:50px;
-    cursor: pointer;/*カーソルを指マークに*/
-    
-    /*クリック後、JSでボタンに btnactive クラスが付与された後の見た目*/
-    &.btnactive{
-        background:url("../img/icon_close.svg") no-repeat 15px center;/*閉じるアイコンを背景に表示*/
-        background-size: 18px 18px;
+  width: 50px;
+  height: 50px;
+
+  cursor: pointer;
+  &.btnactive{
+    background: none;
+
+    &::before,
+    &::after{
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 60%;
+      height: 2px;
+      background: #eee;
     }
+    &::before{
+      transform: translate( -50%, -50% ) rotate( 45deg);
+    }
+    &::after{
+      transform: translate( -50%, -50% ) rotate( -45deg);
+    }
+  }
 }
-
-/*========= 検索窓の設定 ===============*/
-
-/*==検索窓背景のエリア*/
 
 #search-wrap{
-    position:absolute;/*絶対配置にして*/
-    top:150px;
-    right:20px;
-    z-index: -1;/*最背面に設定*/
-    opacity: 0;/*透過を0に*/
-    width:0;/*横幅は0に*/
-    transition: all 0.4s;/*transitionを使ってスムースに現れる*/
-    border-radius: 5px;
+  position: fixed;
+  top: 80px;
+  right: 30px;
+  background: $SearchPannelBg;
+  padding: 20px;
+  border-radius: 6px;
 
-    /*ボタンクリック後、JSで#search-wrapに panelactive クラスが付与された後の見た目*/
-    &.panelactive{
-        opacity: 1;/*不透明に変更*/
-        z-index: 3;/*全面に出現*/
-        width:280px;
-        padding:20px;
-        top:60px;
-        background:$InputBg;
+  transform: translate( 10px , 10px ) scale( 0, 0 );
+  transform-origin: right bottom;
+  z-index: -1;
+  opacity: 0;
+
+  transition: all .3s;
+  form{
+    position: relative;
+    display: none;
+  }
+  &.panelactive {
+    transform: translate( 0 , 0 ) scale( 1, 1 );
+    z-index: 10;
+    opacity: 1;
+    form{
+      display: block;
     }
-}
-
-/*==検索窓*/
-#search-wrap #searchform{
-    display: none;/*検索窓は、はじめ非表示*/
-}
-
-/*ボタンクリック後、JSで#search-wrapに panelactive クラスが付与された後*/
-#search-wrap.panelactive #searchform{
-    display: block;/*検索窓を表示*/
-}
-
-/*==検索フォームの設定*/
-
-/*==テキスト入力とボタンinput共通設定*/
-#search-wrap input{
-    -webkit-appearance:none;/*SafariやChromeのデフォルトの設定を無効*/
-    outline: none;
-    cursor: pointer;/*カーソルを指マークに*/
-    color: $InputColor;
-}
-
-/*テキスト入力input設定*/
- #search-wrap input[type="text"] {
-    width: 100%;
-    border: none;
-    border-bottom:2px solid $InputBorder;
-    transition: all 0.5s;
-    letter-spacing: 0.05em;
-    height:46px;
-    padding: 10px;
-    background:$SearchPannelBg;
-}
-
-/*テキスト入力inputにフォーカスされたら*/
-#search-wrap input[type="text"]:focus {
-    background: $InputForcus;/*背景色を付ける*/
-}
-#search-wrap input[type="text"]:valid{
-    background:$InputValid;
-}
-#search-wrap input[type="text"]:invalid{
-    background:$InputInValid;
-}
-
-/*ボタンinput設定*/
- #search-wrap input[type="submit"]{
+  }
+  input[type="submit"]{
     position: absolute;
-    top:10px;
-    right:30px;
-    background:url("../img/icon_search.svg") no-repeat right;/*虫眼鏡アイコンを背景に表示*/
+    top:0;
+    right:0px;
+    background:url("../img/icon_search.svg") no-repeat 10px center;/*虫眼鏡アイコンを背景に表示*/
     background-size: 20px 20px;
-    width:30px;
-    height: 60px;
+    width:40px;
+    height: 40px;
+  }
+}
+#search-text {
+  appearance: none;
+  
+  //赤いborderを消せる。
+  outline: none;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+
+  border: none;
+  border-bottom:1px solid #666;
+  transition: all 0.5s;
+  letter-spacing: 0.05em;
+
+  background: $InputBg url('../img/icon_search.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 15px right;
+  color: $InputColor;
+
+  border: 1px solid $InputBorder;
+
+
+  &:focus {
+    background: $InputForcus;
+    border: none;
+    border-bottom:1px solid #666;
+  }
+  &:valid {
+    background: $InputValid;
+    border: none;
+    border-bottom:1px solid #666;
+  }
+  &:invalid {
+    background: $InputInValid;
+    border: none;
+    border-bottom:1px solid #666;
+  }
 }

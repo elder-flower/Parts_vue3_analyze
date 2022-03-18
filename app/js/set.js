@@ -1,29 +1,46 @@
+var win = window;
+var doc = document;
 
-var $win = $(window);
-var obtn = '.open-btn';
-var pac = 'panelactive';
-var ac = 'btnactive';
-var cls = '#search-wrap';
+var obtns = doc.getElementsByClassName("open-btn");
+var obtns_len = obtns.length;
 
+function Set() {
+  for (var aa = obtns_len; aa--; ) {
+    var obtn = obtns[aa];
+    obtn.addEventListener("click", exe, false);
+  }
+}
 
-function Set(){
+var pac = "panelactive";
+var bac = "btnactive";
+var swrap = doc.getElementById("search-wrap");
+var stext = doc.getElementById("search-text");
 
-    var type = 'click';
-    $obtn = $( obtn );
+function exe() {
+  //.open-btnは、クリックごとにbtnactiveクラスを付与＆除去。1回目のクリック時は付与
+  for (var bb = obtns_len; bb--; ) {
+    var obtn = obtns[bb];
+    obtn.classList.toggle(bac);
 
-    //開閉ボタンを押した時には
-    $obtn.on( type, function(){
+    var cls_lists = [...obtn.classList];
+    //console.log( cls_lists );
 
-        $obtn.toggleClass( ac );//.open-btnは、クリックごとにbtnactiveクラスを付与＆除去。1回目のクリック時は付与
-        $( cls ).toggleClass(pac);//#search-wrapへpanelactiveクラスを付与
-        $('#search-text').focus();//テキスト入力のinputにフォーカス
+    var flag = cls_lists.find((elm) => elm === bac);
+    //console.log( flag );
 
-        var flag = $obtn.hasClass( ac );
-        $obtn[0].setAttribute('aria-pressed', flag);
+    if (flag === bac) {
+      obtn.setAttribute("aria-pressed", true);
+    }else{
+      obtn.setAttribute("aria-pressed", false);
+    }
+  }
 
-    });
+  //#search-wrapへpanelactiveクラスを付与
+  swrap.classList.toggle(pac);
 
+  //テキスト入力のinputにフォーカス
+  stext.focus();
 }
 
 // ページが読み込まれたらすぐに動かしたい場合の記述
-$win[0].addEventListener( 'DOMContentLoaded', Set, false );
+win.addEventListener("DOMContentLoaded", Set, false);
