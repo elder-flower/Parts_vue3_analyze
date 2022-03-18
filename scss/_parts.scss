@@ -29,6 +29,17 @@ main {
 }
 
 /*========= ローディング画面のためのCSS ===============*/
+
+body{
+  background:#000;
+  color: #eee;
+}
+body.appear{
+  //background:#222;/*画面を開いた後の背景色を指定*/
+}
+
+/*画面遷移アニメーション*/
+
 #splash {
   position: fixed;
   top: 0;
@@ -47,8 +58,6 @@ main {
   text-align: center;
   color: #fff;
 }
-
-/*========= 画面遷移のためのCSS ===============*/
 
 /*========= 画面遷移のためのCSS ===============*/
 
