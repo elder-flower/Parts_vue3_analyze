@@ -81,6 +81,7 @@ img {
 
 /*スクロールリンクの形状*/
 .scroll-top {
+  z-index: 5;
   position: fixed;
   right: 0px;
   bottom: 40px;
@@ -98,7 +99,7 @@ img {
   display: block;
   position: relative;
   padding: 5px 10px;
-  animation: mov 1s;
+  animation: mov 1s ease-in-out;
   animation-iteration-count: infinite;
 }
 .js-scroll a::before, .js-scroll a::after {
@@ -129,7 +130,7 @@ img {
   display: block;
   position: relative;
   padding: 5px 10px;
-  animation: mov2 1s;
+  animation: mov2 1s ease-in-out;
   animation-iteration-count: infinite;
 }
 .js-pagetop a::before, .js-pagetop a::after {

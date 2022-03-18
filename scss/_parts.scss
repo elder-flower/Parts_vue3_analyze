@@ -10,6 +10,7 @@ $fcolor: #fff;
   margin: 0;
   bottom: 40px;
   right: 0px;
+  z-index: 5;
   transform: rotate( 90deg );
   text-transform: uppercase;
   transition: all .5s;
@@ -22,7 +23,7 @@ $fcolor: #fff;
     display: block;
     padding: 5px 10px;
 
-    animation: mov 1s;
+    animation: mov 1s ease-in-out;
     animation-iteration-count: infinite;
     &::before,
     &::after{
@@ -58,7 +59,7 @@ $fcolor: #fff;
     display: block;
     padding: 5px 10px;
 
-    animation: mov2 1s;
+    animation: mov2 1s ease-in-out;
     animation-iteration-count: infinite;
     &::before,
     &::after{
