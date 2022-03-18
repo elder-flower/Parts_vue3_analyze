@@ -133,62 +133,49 @@ body {
 .splashbg1,
 .splashbg2 {
   display: none;
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #333;
 }
 
-/*bodyにappearクラスがついたら出現*/
-body.appear .splashbg1,
-body.appear .splashbg2 {
+.splashbg1 {
+  top: 50%;
+}
+
+.splashbg2 {
+  top: 0;
+}
+
+.appear .splashbg1,
+.appear .splashbg2 {
   display: block;
 }
-
-/*上に消えるエリア*/
-body.appear .splashbg1 {
-  z-index: 999;
-  position: fixed;
-  bottom: 50%;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  transform: scaleY(1);
-  background-color: #333;
-  content: "";
-  animation-duration: 1.4s;
+.appear .splashbg1 {
+  animation: ani000 1.2s;
   animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-name: PageAnime;
-  /*伸びる背景色の設定*/
+}
+.appear .splashbg2 {
+  animation: ani001 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.appear #container {
+  animation: ani002 1s ease-in-out 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
-@keyframes PageAnime {
+@keyframes ani000 {
   0% {
-    transform: scaleY(1);
     transform-origin: top;
   }
-  100% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-}
-/*下に消えるエリア*/
-body.appear .splashbg2 {
-  z-index: 999;
-  position: fixed;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  transform: scaleY(1);
-  background-color: #333;
-  content: "";
-  animation-duration: 1.4s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-  animation-name: PageAnime2;
-  /*伸びる背景色の設定*/
-}
-
-@keyframes PageAnime2 {
-  0% {
+  50% {
     transform: scaleY(1);
     transform-origin: bottom;
   }
@@ -197,22 +184,20 @@ body.appear .splashbg2 {
     transform-origin: bottom;
   }
 }
-/*画面遷移の後現れるコンテンツ設定*/
-#container {
-  opacity: 0;
-  /*はじめは透過0に*/
+@keyframes ani001 {
+  0% {
+    transform-origin: bottom;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
 }
-
-/*bodyにappearクラスがついたら出現*/
-body.appear #container {
-  animation-duration: 1s;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
-  animation-name: PageAnimeAppear;
-  opacity: 0;
-}
-
-@keyframes PageAnimeAppear {
+@keyframes ani002 {
   0% {
     opacity: 0;
   }
@@ -220,7 +205,6 @@ body.appear #container {
     opacity: 1;
   }
 }
-
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
