@@ -1,7 +1,23 @@
 var doc = document;
 var totop = doc.querySelector("#page-top a");
 var $win = $(window);
+var $ptop = $("#page-top");
 
+//スクロールした際の動きを関数でまとめる
+function PageTopAnime() {
+  var scroll = $win.scrollTop();
+  if (scroll >= 200) {
+    //上から200pxスクロールしたら
+    $ptop.removeClass("DownMove"); //#page-topについているDownMoveというクラス名を除く
+    $ptop.addClass("UpMove"); //#page-topについているUpMoveというクラス名を付与
+  } else {
+    if ($ptop.hasClass("UpMove")) {
+      //すでに#page-topにUpMoveというクラス名がついていたら
+      $ptop.removeClass("UpMove"); //UpMoveというクラス名を除き
+      $ptop.addClass("DownMove"); //DownMoveというクラス名を#page-topに付与
+    }
+  }
+}
 function Set() {
   totop.addEventListener("click", goto, false);
 
@@ -42,9 +58,10 @@ function sanitize() {
     }
   }
 }
-
 function Init() {
   sanitize();
   Set();
+  PageTopAnime();
 }
+$win[0].addEventListener("scroll", PageTopAnime, false);
 $win[0].addEventListener("load", Init, false);
