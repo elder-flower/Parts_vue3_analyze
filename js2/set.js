@@ -2,51 +2,37 @@ var doc = document;
 var totop = doc.querySelector("#page-top a");
 var $win = $(window);
 var $ptop = $("#page-top");
-var $hbtn = $(".hide-btn");
+var $footer = $("#footer");
 
 //スクロールした際の動きを関数でまとめる
-function setFadeElement() {
-  var windowH = $win.height(); //ウィンドウの高さを取得
+function PageTopAnime() {
   var scroll = $win.scrollTop(); //スクロール値を取得
+  if (scroll >= 200) {
+    //200pxスクロールしたら
+    $ptop.removeClass("DownMove"); // DownMoveというクラス名を除去して
+    $ptop.addClass("UpMove"); // UpMoveというクラス名を追加して出現
+  } else {
+    //それ以外は
+    if ($ptop.hasClass("UpMove")) {
+      //UpMoveというクラス名が既に付与されていたら
+      $ptop.removeClass("UpMove"); //  UpMoveというクラス名を除去し
+      $ptop.addClass("DownMove"); // DownMoveというクラス名を追加して非表示
+    }
+  }
 
-  //出現範囲の指定
-  var contentsTop = Math.round($("#area-3").offset().top); //要素までの高さを四捨五入した値で取得
-  var contentsH = $("#area-3").outerHeight(true); //要素の高さを取得
-
-  //2つ目の出現範囲の指定※任意
-  //var contentsTop2 = Math.round($('#area-5').offset().top);	//要素までの高さを取得
-  //var contentsH2 = $('#area-5').outerHeight(true);//要素の高さを取得
-
-  //出現範囲内に入ったかどうかをチェック
-  if (
-    scroll + windowH >= contentsTop &&
-    scroll + windowH <= contentsTop + contentsH
-  ) {
-    //入っていたらLeftMoveをクラス追加
-    $ptop.addClass("LeftMove");
-
-    //RightMoveを削除
-    $ptop.removeClass("RightMove");
-
-    //hide-btnを削除
-    $hbtn.removeClass("hide-btn");
-  } //2つ目の出現範囲に入ったかどうかをチェック※任意
-  //else if(scroll+windowH >= contentsTop2 && scroll+windowH <= contentsTop2+contentsH2){
-  //$ptop.addClass("LeftMove");    //入っていたらLeftMoveをクラス追加
-  //$ptop.removeClass("RightMove");   //RightMoveを削除
-  //}//それ以外は
-  else {
-    //サイト表示時にRightMoveクラスを一瞬付与させないためのクラス付け。hide-btnがなければ下記の動作を行う
-    if (!$hbtn.length) {
-      //RightMoveをクラス追加
-      $ptop.addClass("RightMove");
-
-      //LeftMoveを削除
-      $ptop.removeClass("LeftMove");
+  var wH = window.innerHeight; //画面の高さを取得
+  var footerPos = $footer.offset().top; //footerの位置を取得
+  if (scroll + wH >= footerPos + 10) {
+    var pos = scroll + wH - footerPos + 10; //スクロールの値＋画面の高さからfooterの位置＋10pxを引いた場所を取得し
+    $ptop.css("bottom", pos); //#page-topに上記の値をCSSのbottomに直接指定してフッター手前で止まるようにする
+  } else {
+    //それ以外は
+    if ($ptop.hasClass("UpMove")) {
+      //UpMoveというクラス名がついていたら
+      $ptop.css("bottom", "10px"); // 下から10pxの位置にページリンクを指定
     }
   }
 }
-
 function Set() {
   totop.addEventListener("click", goto, false);
 
@@ -89,8 +75,8 @@ function sanitize() {
 }
 function Init() {
   sanitize();
-  setFadeElement();
+  PageTopAnime();
   Set();
 }
-$win[0].addEventListener("scroll", setFadeElement, false);
+$win[0].addEventListener("scroll", PageTopAnime, false);
 $win[0].addEventListener("DOMContentLoaded", Init, false);

@@ -7,16 +7,36 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>ページの指定の範囲内で出現（右から左）</title>
+    <title>ページの指定の高さを超えたら出現しFooter手前で止まる</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <link rel="stylesheet" type="text/css" href="css/ress.css" media="all" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../css/reset.css"
+      media="all"
+    />
     <link rel="stylesheet" type="text/css" href="css/layout.css" media="all" />
-    <style type="text/css"></style>
+
+    <style type="text/css">
+      body {
+        background: #111;
+        padding: 0rem;
+      }
+      h1 {
+        margin: 2rem 0 2rem 0;
+      }
+      a {
+        color: #111;
+      }
+    </style>
   </head>
   <body id="top">
     <header id="header">
-      <h1 class="tit">8-1-5 ページの指定の範囲内で出現（右から左）</h1>
+      <h1 class="tit">
+        8-1-6　ページの指定の高さを超えたら出現しFooter手前で止まる
+      </h1>
     </header>
 
     <main id="main">
@@ -87,7 +107,7 @@
       <!--/main-->
     </main>
 
-    <footer id="footer">
+    <footer id="footer" class="scroll-point">
       <p id="page-top">
         <a href="#">Page Top</a>
       </p>
