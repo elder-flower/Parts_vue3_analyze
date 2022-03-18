@@ -122,10 +122,13 @@ section:nth-child(2n) {
 /*========= ページトップのためのCSS ===============*/
 /*リンクを右下に固定*/
 #page-top {
+  z-index: 5;
   position: fixed;
   right: 10px;
   bottom: 10px;
   transform: translateY(100px);
+  /*はじめは非表示*/
+  opacity: 0;
 }
 #page-top a {
   display: flex;
@@ -136,38 +139,51 @@ section:nth-child(2n) {
   border-radius: 5px;
   background: #942d2f;
   color: #eee;
-  font-size: 10px;
+  font-size: 0.6rem;
+  text-align: center;
   text-transform: uppercase;
+  transition: all 0.3s;
 }
 
 .UpMove {
+  animation: up_motion 0.5s forwards;
+  /*
   animation: up_motion 0.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-}
-
-.DownMove {
-  animation: down_motion 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  */
 }
 
 @keyframes up_motion {
   0% {
     transform: translateY(100px);
+    opacity: 0;
   }
   100% {
     transform: translateY(0px);
+    opacity: 1;
   }
 }
+.DownMove {
+  animation: down_motion 0.5s forwards;
+  /*
+  animation: down_motion 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  */
+}
+
 @keyframes down_motion {
   0% {
     transform: translateY(0px);
+    opacity: 1;
   }
   100% {
     transform: translateY(100px);
+    opacity: 0;
   }
 }
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

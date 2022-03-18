@@ -48,49 +48,62 @@ section:nth-child(2n) {
 /*リンクを右下に固定*/
 #page-top {
   position: fixed;
-  bottom: 10px;
   right: 10px;
-  transform: translateY( 100px);
+  bottom: 10px;
+  z-index: 5;
+  /*はじめは非表示*/
+  opacity: 0;
+  transform: translateY(100px);
   a {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #942d2f;
     width: 60px;
     height: 60px;
-
-    background: #942d2f;
-    border-radius: 5px;
-    font-size: 10px;
-    text-transform: uppercase;
     color: #eee;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 5px;
+    //font-size: 10px;
+    font-size: 0.6rem;
+    transition: all 0.3s;
   }
 }
 
 .UpMove {
+  animation: up_motion 0.5s forwards;
+  /*
   animation: up_motion 0.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  */
 }
-
+@keyframes up_motion {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
 .DownMove {
+  animation: down_motion 0.5s forwards;
+  /*
   animation: down_motion 0.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-}
-
-@keyframes up_motion {
-  0% {
-    transform: translateY( 100px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  */
 }
 @keyframes down_motion {
   0% {
+    opacity: 1;
     transform: translateY(0px);
   }
   100% {
-    transform: translateY( 100px);
+    opacity: 0;
+    transform: translateY(100px);
   }
 }
