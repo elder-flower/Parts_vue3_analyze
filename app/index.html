@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>7-2-2 虫眼鏡マークをクリックすると全画面表示で検索窓が出現</title>
+    <title>虫眼鏡マークをクリックすると下からふわっと検索窓が出現</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <link rel="stylesheet" type="text/css" href="css/ress.css" media="all" />
@@ -15,9 +15,10 @@
     <style type="text/css"></style>
   </head>
   <body id="top">
+    
     <main id="main">
       <h1 class="tit">
-        7-2-2 虫眼鏡マークをクリックすると全画面表示で検索窓が出現
+        7-2-3 虫眼鏡マークをクリックすると下からふわっと検索窓が出現
       </h1>
 
       <button
@@ -26,27 +27,21 @@
         aria-pressed="false"
         aria-controls="search-wrap"
         tabindex="0"
-      >
-        <span></span><span></span>
-      </button>
+      ></button>
 
       <div id="search-wrap">
-        <div class="close-btn"><span></span><span></span></div>
-        <div class="search-area">
-          <form role="search" method="get" action="">
-            <input
-              type="text"
-              value=""
-              name=""
-              id="search-text"
-              placeholder="このサイトを検索"
-              role="searchbox"
-            />
-            <input type="submit" id="searchsubmit" value="" />
-          </form>
+        <form role="search" method="get" id="searchform" action="">
+          <input
+            type="text"
+            value=""
+            name=""
+            id="search-text"
+            placeholder="このサイトを検索"
+            role="searchbox"
+          />
+          <input type="submit" id="searchsubmit" value="" />
+        </form>
 
-          <!--/search-area-->
-        </div>
         <!--/search-wrap-->
       </div>
     </main>

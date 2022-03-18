@@ -75,139 +75,120 @@ img {
   vertical-align: bottom;
 }
 
-input,
-button,
-textarea,
-select {
+/* ボタン共通設定 */
+/*========= 検索窓を開くためのボタン設定 ===========*/
+button {
   -webkit-appearance: none;
           appearance: none;
 }
 
-body {
-  padding: 2rem;
-}
-
-h2 {
-  margin: 2rem 0 2rem 0;
-}
-
-.header h1 {
-  font-size: 36px;
-}
-
-main p {
-  margin: 30px auto;
-  text-align: center;
-}
-
-/* ボタン共通設定 */
-/*========= 検索窓を開くための虫眼鏡ボタン設定 ===========*/
 .open-btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #222 url("../img/icon_search.svg");
-  background-position: center center;
-  background-size: 30px;
-  background-repeat: no-repeat;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  background: #222 url("../img/icon_search.svg") no-repeat 15px center;
+  /*虫眼鏡アイコンを背景に表示*/
+  background-size: 20px 20px;
   cursor: pointer;
+  /*カーソルを指マークに*/
+  /*クリック後、JSでボタンに btnactive クラスが付与された後の見た目*/
+}
+.open-btn.btnactive {
+  background: url("../img/icon_close.svg") no-repeat 15px center;
+  /*閉じるアイコンを背景に表示*/
+  background-size: 18px 18px;
 }
 
-.close-btn {
-  z-index: 100;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.close-btn span {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60%;
-  height: 2px;
-  background: #eee;
-  transition: all 0.3s;
-}
-.close-btn span:nth-child(1) {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.close-btn span:nth-child(2) {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
+/*========= 検索窓の設定 ===============*/
+/*==検索窓背景のエリア*/
 #search-wrap {
-  display: flex;
   z-index: -1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: #111;
+  position: absolute;
+  /*絶対配置にして*/
+  top: 150px;
+  right: 20px;
+  /*透過を0に*/
+  width: 0;
+  /*transitionを使ってスムースに現れる*/
+  border-radius: 5px;
+  /*最背面に設定*/
   opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s;
+  /*横幅は0に*/
+  transition: all 0.4s;
+  /*ボタンクリック後、JSで#search-wrapに panelactive クラスが付与された後の見た目*/
 }
 #search-wrap.panelactive {
-  z-index: 10;
-  opacity: 1;
-  pointer-events: all;
-}
-#search-wrap input[type=submit] {
-  position: absolute;
-  top: 0;
-  right: 10px;
-  width: 60px;
-  height: 60px;
-  background: url("../img/icon_search.svg") no-repeat 15px center;
-  /*虫眼鏡アイコンを背景に表示*/
-  background-size: 25px 25px;
-}
-
-.search-area {
-  width: 80%;
-}
-.search-area form {
-  position: relative;
-}
-
-#search-text {
-  -webkit-appearance: none;
-          appearance: none;
-  width: 100%;
-  height: 66px;
+  /*不透明に変更*/
+  z-index: 3;
+  top: 60px;
+  /*全面に出現*/
+  width: 280px;
   padding: 20px;
-  border: none;
-  border: 1px solid #555;
-  border-bottom: 2px solid #666;
+  background: #333;
+  opacity: 1;
+}
+
+/*==検索窓*/
+#search-wrap #searchform {
+  display: none;
+  /*検索窓は、はじめ非表示*/
+}
+
+/*ボタンクリック後、JSで#search-wrapに panelactive クラスが付与された後*/
+#search-wrap.panelactive #searchform {
+  display: block;
+  /*検索窓を表示*/
+}
+
+/*==検索フォームの設定*/
+/*==テキスト入力とボタンinput共通設定*/
+#search-wrap input {
+  -webkit-appearance: none;
+  /*SafariやChromeのデフォルトの設定を無効*/
   outline: none;
-  background: #333 url("../img/icon_search.svg");
-  background-position: 15px right;
-  background-size: 30px;
-  background-repeat: no-repeat;
+  /*カーソルを指マークに*/
   color: #eee;
+  cursor: pointer;
+}
+
+/*テキスト入力input設定*/
+#search-wrap input[type=text] {
+  width: 100%;
+  height: 46px;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #555;
+  background: #111;
   letter-spacing: 0.05em;
   transition: all 0.5s;
 }
-#search-text:focus {
-  border: none;
+
+/*テキスト入力inputにフォーカスされたら*/
+#search-wrap input[type=text]:focus {
+  background: #111;
+  /*背景色を付ける*/
+}
+
+#search-wrap input[type=text]:valid {
   background: #111;
 }
-#search-text:valid {
-  background: #333;
-}
-#search-text:invalid {
+
+#search-wrap input[type=text]:invalid {
   background: #e33;
+}
+
+/*ボタンinput設定*/
+#search-wrap input[type=submit] {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  width: 30px;
+  height: 60px;
+  background: url("../img/icon_search.svg") no-repeat right;
+  /*虫眼鏡アイコンを背景に表示*/
+  background-size: 20px 20px;
 }
 @media (pointer: fine) {
   a:link {
