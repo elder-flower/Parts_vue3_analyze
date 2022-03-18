@@ -34,7 +34,7 @@ body{
   color: #eee;
 }
 body.appear{
-  //background:#222;/*画面を開いた後の背景色を指定*/
+  background:#111;/*画面を開いた後の背景色を指定*/
 }
 
 /*画面遷移アニメーション*/
@@ -70,6 +70,7 @@ body.appear{
   height: 50%;
   background: #333;
   z-index: 999;
+  transform: scaleY(1);
 }
 .splashbg1{
   top: 50%;
@@ -103,10 +104,6 @@ body.appear{
 
 @keyframes ani000 {
   0% {
-    transform-origin: top;
-
-  }
-  50% {
     transform-origin: bottom;
     transform: scaleY(1);
   }
@@ -117,9 +114,6 @@ body.appear{
 }
 @keyframes ani001 {
   0% {
-    transform-origin: bottom;
-  }
-  50% {
     transform-origin: top;
     transform: scaleY(1);
   }

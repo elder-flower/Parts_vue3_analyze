@@ -108,6 +108,11 @@ body {
   color: #eee;
 }
 
+body.appear {
+  background: #111;
+  /*画面を開いた後の背景色を指定*/
+}
+
 /*画面遷移アニメーション*/
 #splash {
   z-index: 9999999;
@@ -138,6 +143,7 @@ body {
   left: 0;
   width: 100%;
   height: 50%;
+  transform: scaleY(1);
   background: #333;
 }
 
@@ -173,9 +179,6 @@ body {
 
 @keyframes ani000 {
   0% {
-    transform-origin: top;
-  }
-  50% {
     transform: scaleY(1);
     transform-origin: bottom;
   }
@@ -186,9 +189,6 @@ body {
 }
 @keyframes ani001 {
   0% {
-    transform-origin: bottom;
-  }
-  50% {
     transform: scaleY(1);
     transform-origin: top;
   }
