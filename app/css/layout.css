@@ -154,19 +154,19 @@ body {
   display: block;
 }
 .appear .splashbg1 {
-  animation: ani000 0.8s;
+  animation: ani000 1.2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
 .appear .splashbg2 {
-  animation: ani001 0.8s;
+  animation: ani001 1.2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
 .appear #container {
-  animation: ani002 0.8s ease-in-out 0.3s;
+  animation: ani002 1s ease-in-out 0.2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }

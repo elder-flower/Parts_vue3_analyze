@@ -84,29 +84,28 @@ body.appear{
     display:block;
   }
   .splashbg1{
-    animation: ani000 0.8s;
+    animation: ani000 1.2s;
     animation-iteration-count: 1;
     animation-timing-function:ease-in-out;
     animation-fill-mode:forwards;
   }
   .splashbg2{
-    animation: ani001 0.8s;
+    animation: ani001 1.2s;
     animation-iteration-count: 1;
     animation-timing-function:ease-in-out;
     animation-fill-mode:forwards;
   }
   #container {
-    animation: ani002 0.8s ease-in-out .3s;
+    animation: ani002 1s ease-in-out .2s;
     animation-iteration-count: 1;
     animation-fill-mode:forwards;
   }
 }
 
-
-
 @keyframes ani000 {
   0% {
     transform-origin: top left;
+
   }
   50% {
     transform-origin: top right;
