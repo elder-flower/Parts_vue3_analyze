@@ -160,13 +160,13 @@ body.appear {
   display: block;
 }
 .appear .splashbg1 {
-  animation: ani000 1.2s;
+  animation: ani000 1s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
 .appear .splashbg2 {
-  animation: ani001 1.2s;
+  animation: ani001 1s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
