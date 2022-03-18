@@ -83,11 +83,6 @@ select {
           appearance: none;
 }
 
-#container {
-  padding: 2rem;
-  opacity: 0;
-}
-
 h1,
 h2 {
   margin: 2rem 0 2rem 0;
@@ -103,17 +98,6 @@ main p {
 }
 
 /*========= ローディング画面のためのCSS ===============*/
-body {
-  background: #000;
-  color: #eee;
-}
-
-body.appear {
-  background: #111;
-  /*画面を開いた後の背景色を指定*/
-}
-
-/*画面遷移アニメーション*/
 #splash {
   z-index: 9999999;
   position: fixed;
@@ -137,58 +121,45 @@ body.appear {
 /*画面遷移アニメーション*/
 .splashbg {
   display: none;
-}
-
-body {
-  background: #000;
-  color: #eee;
-}
-
-/*bodyにappearクラスがついたら出現*/
-body.appear .splashbg {
-  display: block;
   z-index: 999;
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   width: 50%;
-  height: 100vh;
-  transform: translateX(-300%) skewX(-45deg);
-  background-color: #333;
-  content: "";
-  animation-duration: 1.2s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-  animation-name: PageAnime;
-  /*伸びる背景色の設定*/
+  height: 100%;
+  background: #333;
 }
 
-@keyframes PageAnime {
+#container {
+  padding: 2rem;
+  opacity: 0;
+}
+
+.appear .splashbg {
+  display: block;
+  animation: ani000 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.appear #container {
+  animation: ani001 1s ease-in-out 0.6s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani000 {
   0% {
-    transform: translateX(-300%) skewX(-45deg);
-    transform-origin: left;
+    transform: translateX(-500px) skew(-45deg);
   }
   100% {
-    transform: translateX(500%) skewX(-45deg);
-    transform-origin: left;
+    display: none;
+    transform: translateX(1400px) skew(-45deg);
   }
 }
-/*画面遷移の後現れるコンテンツ設定*/
-#container {
-  opacity: 0;
-  /*はじめは透過0に*/
-}
-
-/*bodyにappearクラスがついたら出現*/
-body.appear #container {
-  animation-duration: 1s;
-  animation-delay: 0.6s;
-  animation-fill-mode: forwards;
-  animation-name: PageAnimeAppear;
-  opacity: 0;
-}
-
-@keyframes PageAnimeAppear {
+@keyframes ani001 {
   0% {
     opacity: 0;
   }
@@ -196,7 +167,6 @@ body.appear #container {
     opacity: 1;
   }
 }
-
 @media (pointer: fine) {
   a:link {
     text-decoration: none;

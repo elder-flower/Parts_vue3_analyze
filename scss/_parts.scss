@@ -7,10 +7,6 @@ select {
 
 body {
 }
-#container {
-  padding: 2rem;
-  opacity: 0;
-}
 h1,
 h2 {
   margin: 2rem 0 2rem 0;
@@ -28,17 +24,6 @@ main {
 }
 
 /*========= ローディング画面のためのCSS ===============*/
-
-body {
-  background: #000;
-  color: #eee;
-}
-body.appear {
-  background: #111; /*画面を開いた後の背景色を指定*/
-}
-
-/*画面遷移アニメーション*/
-
 #splash {
   position: fixed;
   top: 0;
@@ -46,7 +31,7 @@ body.appear {
   width: 100%;
   height: 100%;
   background: #222;
-  z-index: 9999999;
+	z-index: 9999999;
 }
 
 #splash-logo {
@@ -54,7 +39,7 @@ body.appear {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
+  text-align:center;
   color: #fff;
 }
 
@@ -63,55 +48,49 @@ body.appear {
 /*画面遷移アニメーション*/
 .splashbg {
   display: none;
-}
-body {
-  background: #000;
-  color: #eee;
-}
-/*bodyにappearクラスがついたら出現*/
-body.appear .splashbg {
-  display: block;
-  animation-name: PageAnime;
-  animation-duration: 1.2s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-  content: "";
+
   position: fixed;
-  z-index: 999;
-  width: 50%;
-  height: 100vh;
   top: 0;
   left: 0;
-  transform: translateX(-300%) skewX(-45deg);
-  background-color: #333; /*伸びる背景色の設定*/
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 999;
+  background: #333;
+
+  //transform: translateX( -400px ) skew( -45deg );
 }
 
-@keyframes PageAnime {
-  0% {
-    transform-origin: left;
-    transform: translateX(-300%) skewX(-45deg);
-  }
-  100% {
-    transform-origin: left;
-    transform: translateX(500%) skewX(-45deg);
-  }
-}
-
-/*画面遷移の後現れるコンテンツ設定*/
 #container {
-  opacity: 0; /*はじめは透過0に*/
-}
-
-/*bodyにappearクラスがついたら出現*/
-body.appear #container {
-  animation-name: PageAnimeAppear;
-  animation-duration: 1s;
-  animation-delay: 0.6s;
-  animation-fill-mode: forwards;
+  padding: 2rem;
   opacity: 0;
 }
 
-@keyframes PageAnimeAppear {
+.appear {
+  .splashbg {
+    display: block;
+    animation: ani000 .5s;
+    animation-iteration-count: 1;
+    animation-timing-function:ease-in-out;
+    animation-fill-mode:forwards;
+  }
+  #container{
+    animation: ani001 1s ease-in-out .6s;
+    animation-iteration-count: 1;
+    animation-fill-mode:forwards;
+  }
+}
+@keyframes ani000 {
+  0% {
+    transform: translateX( -500px ) skew( -45deg );
+  }
+  100% {
+    transform: translateX( 1400px ) skew( -45deg );
+    display: none;
+  }
+}
+@keyframes ani001{
   0% {
     opacity: 0;
   }
