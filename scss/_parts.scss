@@ -46,15 +46,6 @@ main {
 /*========= 画面遷移のためのCSS ===============*/
 
 /*画面遷移アニメーション*/
-
-body {
-  background: #000;
-  color: #eee;
-}
-body.appear {
-  background: #000; /*画面を開いた後の背景色を指定*/
-}
-
 .splashbg {
   position: fixed;
   top: 0;
@@ -67,35 +58,31 @@ body.appear {
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
-
-@keyframes backBoxAnime {
-  99.9% {
-    /*アニメーション終了ぎりぎりまで*/
-    z-index: 2; /*最前面に*/
-    border-width: 0px; /*開始はボーダーの太さは0*/
-  }
-  100% {
-    z-index: -1; /*最背面に*/
-    border-width: 0px; /*終了はボーダーの太さは0*/
-  }
+@keyframes backBoxAnime{
+	99.9% {/*アニメーション終了ぎりぎりまで*/
+        z-index: 2;/*最前面に*/
+		border-width: 0px;/*開始はボーダーの太さは0*/
+	}
+    100%{
+       z-index: -1; /*最背面に*/
+        border-width: 0px;/*終了はボーダーの太さは0*/
+    }
 }
 
-/*画面遷移の後現れるコンテンツ設定*/
 #container {
   position: relative;
-  opacity: 0; /*はじめは透過0に*/
-}
-
-/*bodyにappearクラスがついたら出現*/
-body.appear #container {
-  animation-name: PageAnimeAppear;
-  animation-duration: 1s;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
+  padding: 2rem;
   opacity: 0;
 }
+.appear {
+  #container {
+    animation: ani001 1s ease-in-out 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
 
-@keyframes PageAnimeAppear {
+@keyframes ani001 {
   0% {
     opacity: 0;
   }
