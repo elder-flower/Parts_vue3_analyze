@@ -75,6 +75,113 @@ img {
   vertical-align: bottom;
 }
 
+:root {
+  font-size: 14px;
+}
+
+/*スクロールリンクの形状*/
+.scroll-top {
+  /*それぞれに0.5秒の変化のアニメーション*/
+  /*縦書き*/
+  -ms-writing-mode: tb-rl;
+  visibility: hidden;
+  z-index: 2;
+  /*表示位置*/
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  /*改行禁止*/
+  white-space: nowrap;
+  /*矢印の動き*/
+  animation: arrowmove 1s ease-in-out infinite;
+  /*はじめは非表示*/
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+  writing-mode: vertical-rl;
+}
+
+@keyframes arrowmove {
+  0% {
+    bottom: 20px;
+  }
+  50% {
+    bottom: 25px;
+  }
+  100% {
+    bottom: 20px;
+  }
+}
+/*.scroll-viewクラスがついたら出現*/
+.scroll-top.scroll-view {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*リンク全体の aタグの形状*/
+.scroll-top a {
+  display: block;
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/*スクロールリンクの形状*/
+.js-scroll a::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 50px;
+  background: #fff;
+  content: "";
+}
+
+.js-scroll a::before {
+  position: absolute;
+  top: 30px;
+  right: -6px;
+  width: 1px;
+  height: 20px;
+  transform: skewX(-31deg);
+  background: #fff;
+  content: "";
+}
+
+/*Edge IE11 hack*/
+:-ms-lang(x),
+.js-scroll a::before {
+  right: -11px;
+}
+
+/*ページトップリンクの形状*/
+.js-pagetop a::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 50px;
+  background: #fff;
+  content: "";
+}
+
+.js-pagetop a::before {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 1px;
+  height: 20px;
+  transform: skewX(31deg);
+  background: #fff;
+  content: "";
+}
+
+/*Edge IE11 hack*/
+:-ms-lang(x),
+.js-pagetop a::before {
+  right: 0;
+}
+
 /*========= レイアウトのためのCSS ===============*/
 h1 {
   font-size: 1.2rem;
@@ -92,7 +199,6 @@ p {
 
 small {
   display: block;
-  padding: 20px;
   color: #fff;
   text-align: center;
 }
@@ -108,81 +214,19 @@ section {
   padding: 100px 30px;
 }
 
+section:nth-child(1) {
+  min-height: 100vh;
+}
+
 section:nth-child(2n) {
-  background: #000;
+  background: #333;
 }
 
 #footer {
   z-index: 2;
   position: relative;
-  height: 150px;
+  padding: 100px 20px;
   background: #333;
-}
-
-/* ボタン共通設定 */
-/*========= ページトップのためのCSS ===============*/
-/*リンクを右下に固定*/
-#page-top {
-  z-index: 5;
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  transform: translateY(100px);
-  /*はじめは非表示*/
-  opacity: 0;
-}
-#page-top a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  background: #942d2f;
-  color: #eee;
-  font-size: 0.6rem;
-  text-align: center;
-  text-transform: uppercase;
-  transition: all 0.3s;
-}
-
-.UpMove {
-  animation: up_motion 0.5s forwards;
-  /*
-  animation: up_motion 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  */
-}
-
-@keyframes up_motion {
-  0% {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-}
-.DownMove {
-  animation: down_motion 0.5s forwards;
-  /*
-  animation: down_motion 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  */
-}
-
-@keyframes down_motion {
-  0% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100px);
-    opacity: 0;
-  }
 }
 
 @media (pointer: fine) {
