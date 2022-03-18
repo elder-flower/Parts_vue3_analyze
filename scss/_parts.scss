@@ -6,110 +6,109 @@ $fcolor: #fff;
 
 /*スクロールリンクの形状*/
 .scroll-top {
-  /*表示位置*/
   position: fixed;
-  right: 20px;
-  bottom: 10px;
-  z-index: 2;
-  /*はじめは非表示*/
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s, visibility 0.5s; /*それぞれに0.5秒の変化のアニメーション*/
-  /*縦書き*/
-  -webkit-writing-mode: vertical-rl;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
-  /*改行禁止*/
-  white-space: nowrap;
-  /*矢印の動き*/
-  animation: arrowmove 1s ease-in-out infinite;
+  margin: 0;
+  bottom: 40px;
+  right: 0px;
+  transform: rotate( 90deg );
+  text-transform: uppercase;
+  transition: all .5s;
 }
+.js-scroll{
+  visibility: none;
+  opacity: 0;
+  a{
+    position: relative;
+    display: block;
+    padding: 5px 10px;
 
-@keyframes arrowmove {
-  0% {
-    bottom: 20px;
+    animation: mov 1s;
+    animation-iteration-count: infinite;
+    &::before,
+    &::after{
+      content: '';
+      position: absolute;
+    }
+    &::before{
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: #eee;
+    }
+    &::after{
+      top: -5px;
+      right: 7px;
+      width: 20px;
+      height: 1px;
+      background: #eee;
+      transform: rotate( 30deg );
+    }
   }
-  50% {
-    bottom: 25px;
+
+
+}
+.js-pagetop {
+  
+  visibility: none;
+  opacity: 0;
+  
+  a{
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+
+    animation: mov2 1s;
+    animation-iteration-count: infinite;
+    &::before,
+    &::after{
+      content: '';
+      position: absolute;
+
+    }
+    &::before{
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: #eee;
+    }
+    &::after{
+      top: -5px;
+      left: 7px;
+      width: 20px;
+      height: 1px;
+      background: #eee;
+      transform: rotate( -30deg );
+    }
+  }
+}
+.scroll-view{
+  visibility: visible;
+  opacity: 1;
+}
+@keyframes mov {
+  0% {
+    transform: translateX( 0 );
+  }
+  50%{
+    transform: translateX( 5px );
   }
   100% {
-    bottom: 20px;
+    transform: translateX( 0 );
   }
 }
-
-/*.scroll-viewクラスがついたら出現*/
-.scroll-top.scroll-view {
-  opacity: 1;
-  visibility: visible;
+@keyframes mov2 {
+  0% {
+    transform: translate( 0, -7px);
+  }
+  50%{
+    transform: translate( 5px, -7px );
+  }
+  100% {
+    transform: translate( 0, -7px );
+  }
 }
-
-/*リンク全体の aタグの形状*/
-.scroll-top a {
-  text-decoration: none;
-  color: $fcolor;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  display: block;
-}
-
-/*スクロールリンクの形状*/
-
-.js-scroll a::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 50px;
-  background: $fcolor;
-}
-
-.js-scroll a::before {
-  content: "";
-  position: absolute;
-  top: 30px;
-  right: -6px;
-  width: 1px;
-  height: 20px;
-  background: $fcolor;
-  transform: skewX(-31deg);
-}
-
-/*Edge IE11 hack*/
-:-ms-lang(x),
-.js-scroll a::before {
-  right: -11px;
-}
-
-/*ページトップリンクの形状*/
-
-.js-pagetop a::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 50px;
-  background: $fcolor;
-}
-
-.js-pagetop a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -6px;
-  width: 1px;
-  height: 20px;
-  background: $fcolor;
-  transform: skewX(31deg);
-}
-
-/*Edge IE11 hack*/
-:-ms-lang(x),
-.js-pagetop a::before {
-  right: 0;
-}
-
 /*========= レイアウトのためのCSS ===============*/
 
 h1 {
