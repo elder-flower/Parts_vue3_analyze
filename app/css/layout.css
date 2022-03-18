@@ -75,82 +75,6 @@ img {
   vertical-align: bottom;
 }
 
-/*========= ページトップのためのCSS ===============*/
-.start-point {
-  z-index: 10;
-  position: absolute;
-  top: 400px;
-  left: 0;
-  width: 100px;
-  height: 100px;
-}
-
-/*リンクを右下に固定*/
-#page-top {
-  z-index: 2;
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  transform: translateX(100px);
-  /*はじめは非表示*/
-  opacity: 0;
-}
-#page-top a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  background: #942d2f;
-  color: #fff;
-  font-size: 0.6rem;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  /*
-      &:link,
-      &:visited{
-          background:#942D2F;
-      }
-      &:hover,
-      &:active{
-          background: #777;
-      }
-      */
-}
-
-/*　左の動き　*/
-#page-top.LeftMove {
-  animation: LeftAnime 0.5s forwards;
-}
-
-@keyframes LeftAnime {
-  from {
-    transform: translateX(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-/*　右の動き　*/
-#page-top.RightMove {
-  animation: RightAnime 0.5s forwards;
-}
-
-@keyframes RightAnime {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100px);
-    opacity: 1;
-  }
-}
 /*========= レイアウトのためのCSS ===============*/
 h1 {
   font-size: 1.2rem;
@@ -186,12 +110,68 @@ section {
 }
 
 section:nth-child(2n) {
-  background: #222;
+  background: #000;
 }
 
 #footer {
   z-index: 2;
   position: relative;
+}
+
+/* ボタン共通設定 */
+/*========= ページトップのためのCSS ===============*/
+/*リンクを右下に固定*/
+#page-top {
+  z-index: 5;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transform: translateX(100px);
+  /*はじめは非表示*/
+  opacity: 0;
+}
+#page-top a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background: #942d2f;
+  color: #eee;
+  font-size: 0.6rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.LeftMove {
+  animation: left_motion 0.5s forwards;
+}
+
+@keyframes left_motion {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+.RightMove {
+  animation: right_motion 0.5s forwards;
+}
+
+@keyframes right_motion {
+  0% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
 }
 
 @media (pointer: fine) {
