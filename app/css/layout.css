@@ -121,15 +121,6 @@ main p {
 /*画面遷移アニメーション*/
 .splashbg {
   display: none;
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: #333;
 }
 
 #container {
@@ -139,7 +130,15 @@ main p {
 
 .appear .splashbg {
   display: block;
-  animation: ani000 0.5s;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transform: translateX(-300%) skewX(-45deg);
+  background: #333;
+  animation: ani000 1.2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -152,11 +151,13 @@ main p {
 
 @keyframes ani000 {
   0% {
-    transform: translateX(-500px) skew(-45deg);
+    display: block;
+    transform: translateX(-300%) skewX(-45deg);
+    transform-origin: left;
   }
   100% {
-    display: none;
-    transform: translateX(1400px) skew(-45deg);
+    transform: translateX(500%) skewX(-45deg);
+    transform-origin: left;
   }
 }
 @keyframes ani001 {
