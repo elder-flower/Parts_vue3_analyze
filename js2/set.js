@@ -1,46 +1,19 @@
-var win = window;
-var doc = document;
+$(window).on("load", function () {
+  $("#splash-logo").delay(1200).fadeOut("slow"); //ロゴを1.2秒でフェードアウトする記述
 
-var obtns = doc.getElementsByClassName("open-btn");
-var obtns_len = obtns.length;
+  //=====ここからローディングエリア（splashエリア）を1.5秒でフェードアウトした後に動かしたいJSをまとめる
+  $("#splash")
+    .delay(1500)
+    .fadeOut("slow", function () {
+      //ローディングエリア（splashエリア）を1.5秒でフェードアウトする記述
 
-function Set() {
-  for (var aa = obtns_len; aa--; ) {
-    var obtn = obtns[aa];
-    obtn.addEventListener("click", exe, false);
-  }
-}
+      $("body").addClass("appear"); //フェードアウト後bodyにappearクラス付与
+    });
+  //=====ここまでローディングエリア（splashエリア）を1.5秒でフェードアウトした後に動かしたいJSをまとめる
 
-var pac = "panelactive";
-var bac = "btnactive";
-var swrap = doc.getElementById("search-wrap");
-var stext = doc.getElementById("search-text");
-
-function exe() {
-  //.open-btnは、クリックごとにbtnactiveクラスを付与＆除去。1回目のクリック時は付与
-  for (var bb = obtns_len; bb--; ) {
-    var obtn = obtns[bb];
-    obtn.classList.toggle(bac);
-
-    var cls_lists = [...obtn.classList];
-    //console.log( cls_lists );
-
-    var flag = cls_lists.find((elm) => elm === bac);
-    //console.log( flag );
-
-    if (flag === bac) {
-      obtn.setAttribute("aria-pressed", true);
-    }else{
-      obtn.setAttribute("aria-pressed", false);
-    }
-  }
-
-  //#search-wrapへpanelactiveクラスを付与
-  swrap.classList.toggle(pac);
-
-  //テキスト入力のinputにフォーカス
-  stext.focus();
-}
-
-// ページが読み込まれたらすぐに動かしたい場合の記述
-win.addEventListener("DOMContentLoaded", Set, false);
+  //=====ここから背景が伸びた後に動かしたいJSをまとめたい場合は
+  $(".splashbg").on("animationend", function () {
+    //この中に動かしたいJSを記載
+  });
+  //=====ここまで背景が伸びた後に動かしたいJSをまとめる
+});

@@ -83,7 +83,7 @@ select {
           appearance: none;
 }
 
-body {
+#container {
   padding: 2rem;
 }
 
@@ -101,103 +101,90 @@ main p {
   text-align: center;
 }
 
-/*========= 検索窓を開くためのボタン設定 ===========*/
-/* ボタン共通設定 */
-.open-btn {
+/*========= ローディング画面のためのCSS ===============*/
+#splash {
+  z-index: 9999999;
   position: fixed;
-  top: 15px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-  background: #222 url("../img/icon_search.svg");
-  background-position: center center;
-  background-size: 20px;
-  background-repeat: no-repeat;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  color: #fff;
+  text-align: center;
 }
-.open-btn.btnactive {
-  background: none;
-}
-.open-btn.btnactive::before, .open-btn.btnactive::after {
-  display: block;
+
+#splash-logo {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 60%;
-  height: 2px;
-  background: #eee;
-  content: "";
-}
-.open-btn.btnactive::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.open-btn.btnactive::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(-50%, -50%);
 }
 
-#search-wrap {
-  z-index: -1;
-  position: fixed;
-  top: 80px;
-  right: 30px;
-  width: 0;
-  padding: 20px;
-  transform: translate(10px, 10px) scale(0, 0);
-  transform-origin: right bottom;
-  border-radius: 6px;
-  background: #333;
-  opacity: 0;
-  transition: all 0.3s;
-}
-#search-wrap form {
+/*========= 画面遷移のためのCSS ===============*/
+/*画面遷移アニメーション*/
+.splashbg {
   display: none;
-  position: relative;
-}
-#search-wrap.panelactive {
-  z-index: 10;
-  width: auto;
-  transform: translate(0, 0) scale(1, 1);
-  opacity: 1;
-}
-#search-wrap.panelactive form {
-  display: block;
-}
-#search-wrap input[type=submit] {
-  position: absolute;
-  top: 0;
-  right: 0px;
-  width: 40px;
-  height: 40px;
-  background: url("../img/icon_search.svg") no-repeat 10px center;
-  /*虫眼鏡アイコンを背景に表示*/
-  background-size: 20px 20px;
 }
 
-#search-text {
-  /*SafariやChromeのデフォルトの設定を無効*/
-  -webkit-appearance: none;
-          appearance: none;
+/*bodyにappearクラスがついたら出現*/
+body.appear .splashbg {
+  display: block;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 46px;
-  padding: 10px;
-  border: none;
-  border-bottom: 1px solid #666;
-  outline: none;
-  background: #333;
-  color: #eee;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.5s;
+  height: 100vh;
+  transform: scaleY(0);
+  background-color: #333;
+  content: "";
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  /*伸びる背景色の設定*/
+  animation-name: PageAnime;
 }
-#search-text:focus {
-  background: #111;
+
+@keyframes PageAnime {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.001% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
 }
-#search-text:valid {
-  background: #111;
+/*画面遷移の後現れるコンテンツ設定*/
+#container {
+  opacity: 0;
+  /*はじめは透過0に*/
 }
-#search-text:invalid {
-  background: #e33;
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #container {
+  animation-duration: 1s;
+  animation-delay: 0.8s;
+  animation-fill-mode: forwards;
+  animation-name: PageAnimeAppear;
+  opacity: 0;
 }
+
+@keyframes PageAnimeAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
