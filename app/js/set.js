@@ -10,7 +10,7 @@ function setFadeElement() {
   var scroll = $win.scrollTop(); //スクロール値を取得
 
   //出現範囲の指定
-  var contentsTop = Math.round($("#area-2").offset().top); //要素までの高さを四捨五入した値で取得
+  var contentsTop = Math.round($("#area-3").offset().top); //要素までの高さを四捨五入した値で取得
   var contentsH = $("#area-3").outerHeight(true); //要素の高さを取得
 
   //2つ目の出現範囲の指定※任意
@@ -22,25 +22,31 @@ function setFadeElement() {
     scroll + windowH >= contentsTop &&
     scroll + windowH <= contentsTop + contentsH
   ) {
-    $ptop.addClass("UpMove"); //入っていたらUpMoveをクラス追加
-    $ptop.removeClass("DownMove"); //DownMoveを削除
-    $hbtn.removeClass("hide-btn"); //hide-btnを削除
+    //入っていたらLeftMoveをクラス追加
+    $ptop.addClass("LeftMove");
+
+    //RightMoveを削除
+    $ptop.removeClass("RightMove");
+
+    //hide-btnを削除
+    $hbtn.removeClass("hide-btn");
   } //2つ目の出現範囲に入ったかどうかをチェック※任意
-  // else if(scroll+windowH >= contentsTop2 && scroll+windowH <= contentsTop2+contentsH2){
-  //$ptop.addClass("UpMove");    //入っていたらUpMoveをクラス追加
-  //$ptop.removeClass("DownMove");   //DownMoveを削除
+  //else if(scroll+windowH >= contentsTop2 && scroll+windowH <= contentsTop2+contentsH2){
+  //$ptop.addClass("LeftMove");    //入っていたらLeftMoveをクラス追加
+  //$ptop.removeClass("RightMove");   //RightMoveを削除
   //}//それ以外は
   else {
-    //サイト表示時にDownMoveクラスを一瞬付与させないためのクラス付け。hide-btnがなければ下記の動作を行う
+    //サイト表示時にRightMoveクラスを一瞬付与させないためのクラス付け。hide-btnがなければ下記の動作を行う
     if (!$hbtn.length) {
-      //DownMoveをクラス追加
-      $ptop.addClass("DownMove");
+      //RightMoveをクラス追加
+      $ptop.addClass("RightMove");
 
-      //UpMoveを削除
-      $ptop.removeClass("UpMove");
+      //LeftMoveを削除
+      $ptop.removeClass("LeftMove");
     }
   }
 }
+
 function Set() {
   totop.addEventListener("click", goto, false);
 
