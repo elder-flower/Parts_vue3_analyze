@@ -8,16 +8,17 @@ function PageTopAnime() {
   var scroll = $win.scrollTop();
   if (scroll >= 200) {
     //上から200pxスクロールしたら
-    $ptop.removeClass("DownMove"); //#page-topについているDownMoveというクラス名を除く
-    $ptop.addClass("UpMove"); //#page-topについているUpMoveというクラス名を付与
+    $ptop.removeClass("RightMove"); //#page-topについているRightMoveというクラス名を除く
+    $ptop.addClass("LeftMove"); //#page-topについているLeftMoveというクラス名を付与
   } else {
-    if ($ptop.hasClass("UpMove")) {
-      //すでに#page-topにUpMoveというクラス名がついていたら
-      $ptop.removeClass("UpMove"); //UpMoveというクラス名を除き
-      $ptop.addClass("DownMove"); //DownMoveというクラス名を#page-topに付与
+    if ($ptop.hasClass("LeftMove")) {
+      //すでに#page-topにLeftMoveというクラス名がついていたら
+      $ptop.removeClass("LeftMove"); //LeftMoveというクラス名を除き
+      $ptop.addClass("RightMove"); //RightMoveというクラス名を#page-topに付与
     }
   }
 }
+
 function Set() {
   totop.addEventListener("click", goto, false);
 
@@ -60,8 +61,8 @@ function sanitize() {
 }
 function Init() {
   sanitize();
-  Set();
   PageTopAnime();
+  Set();
 }
 $win[0].addEventListener("scroll", PageTopAnime, false);
-$win[0].addEventListener("load", Init, false);
+$win[0].addEventListener("DOMContentLoaded", Init, false);
