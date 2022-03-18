@@ -17,8 +17,8 @@ h2 {
     font-size: 36px;
   }
 }
-main{
-  p{
+main {
+  p {
     margin: 30px auto;
     text-align: center;
   }
@@ -36,7 +36,7 @@ $InputInValid: #e33;
 $SearchPannelBg: #333;
 
 .open-btn {
-  position: absolute;
+  position: fixed;
   top: 15px;
   right: 15px;
 
@@ -49,12 +49,12 @@ $SearchPannelBg: #333;
   height: 50px;
 
   cursor: pointer;
-  &.btnactive{
+  &.btnactive {
     background: none;
 
     &::before,
-    &::after{
-      content: '';
+    &::after {
+      content: "";
       position: absolute;
       top: 50%;
       left: 50%;
@@ -63,87 +63,83 @@ $SearchPannelBg: #333;
       height: 2px;
       background: #eee;
     }
-    &::before{
-      transform: translate( -50%, -50% ) rotate( 45deg);
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
     }
-    &::after{
-      transform: translate( -50%, -50% ) rotate( -45deg);
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
   }
 }
 
-#search-wrap{
+#search-wrap {
   position: fixed;
   top: 80px;
   right: 30px;
-  background: $SearchPannelBg;
-  padding: 20px;
-  border-radius: 6px;
-
-  transform: translate( 10px , 10px ) scale( 0, 0 );
-  transform-origin: right bottom;
   z-index: -1;
   opacity: 0;
+  width: 0;
+  transition: all 0.3s;
+  border-radius: 6px;
 
-  transition: all .3s;
-  form{
+  background: $SearchPannelBg;
+  padding: 20px;
+
+  transform: translate(10px, 10px) scale(0, 0);
+  transform-origin: right bottom;
+
+  form {
     position: relative;
     display: none;
   }
   &.panelactive {
-    transform: translate( 0 , 0 ) scale( 1, 1 );
     z-index: 10;
     opacity: 1;
-    form{
+    width: auto;
+    transform: translate(0, 0) scale(1, 1);
+
+    form {
       display: block;
     }
   }
-  input[type="submit"]{
+  input[type="submit"] {
     position: absolute;
-    top:0;
-    right:0px;
-    background:url("../img/icon_search.svg") no-repeat 10px center;/*虫眼鏡アイコンを背景に表示*/
+    top: 0;
+    right: 0px;
+    background: url("../img/icon_search.svg") no-repeat 10px center; /*虫眼鏡アイコンを背景に表示*/
     background-size: 20px 20px;
-    width:40px;
+    width: 40px;
     height: 40px;
   }
 }
 #search-text {
+
+  /*SafariやChromeのデフォルトの設定を無効*/
   appearance: none;
-  
+
   //赤いborderを消せる。
   outline: none;
-  width: 100%;
-  height: auto;
-  padding: 10px;
-
-  border: none;
-  border-bottom:1px solid #666;
-  transition: all 0.5s;
-  letter-spacing: 0.05em;
-
-  background: $InputBg url('../img/icon_search.svg');
-  background-size: 30px;
-  background-repeat: no-repeat;
-  background-position: 15px right;
+  cursor: pointer;
   color: $InputColor;
 
-  border: 1px solid $InputBorder;
-
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #666;
+  transition: all 0.5s;
+  letter-spacing: 0.05em;
+  height:46px;
+  padding: 10px;
+  background: $InputBg;
 
   &:focus {
     background: $InputForcus;
-    border: none;
-    border-bottom:1px solid #666;
+
   }
   &:valid {
     background: $InputValid;
-    border: none;
-    border-bottom:1px solid #666;
+
   }
   &:invalid {
     background: $InputInValid;
-    border: none;
-    border-bottom:1px solid #666;
   }
 }
