@@ -1,3 +1,90 @@
+/*========= ページトップのためのCSS ===============*/
+
+//「IntersectionObserver」を使う場合の目印。
+.start-point {
+  position: absolute;
+  z-index: 10;
+  top: 400px;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  //background: #444;
+}
+
+/*リンクを右下に固定*/
+#page-top {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  /*はじめは非表示*/
+  opacity: 0;
+  transform: translateY(100px);
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #942d2f;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 0.6rem;
+    transition: all 0.3s;
+    /*
+        &:link,
+        &:visited{
+            background:#942D2F;
+        }
+        &:hover,
+        &:active{
+            background: #777;
+        }
+        */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #page-top a:hover {
+    background: #942d2f;
+  }
+}
+
+/*　上に上がる動き　*/
+
+#page-top.UpMove {
+  animation: UpAnime 0.5s forwards;
+}
+@keyframes UpAnime {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*　下に下がる動き　*/
+
+#page-top.DownMove {
+  animation: DownAnime 0.5s forwards;
+}
+@keyframes DownAnime {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(100px);
+  }
+}
+
 /*========= レイアウトのためのCSS ===============*/
 
 h1 {
@@ -30,70 +117,14 @@ small {
 }
 
 section {
-  padding: 100px 30px;
+  padding: 200px 30px;
 }
 
 section:nth-child(2n) {
-  background: #000;
+  background: #222;
 }
 
 #footer {
   position: relative;
   z-index: 2;
-}
-
-/* ボタン共通設定 */
-/*========= ページトップのためのCSS ===============*/
-
-/*リンクを右下に固定*/
-#page-top {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  z-index: 5;
-  /*はじめは非表示*/
-  opacity: 0;
-  transform: translateX(100px);
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #942d2f;
-    width: 60px;
-    height: 60px;
-    color: #eee;
-    text-align: center;
-    text-transform: uppercase;
-    border-radius: 5px;
-    //font-size: 10px;
-    font-size: 0.6rem;
-    transition: all 0.3s;
-  }
-}
-
-.LeftMove{
-  animation: left_motion 0.5s forwards;
-}
-@keyframes left_motion {
-  0% {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-.RightMove {
-  animation: right_motion 0.5s forwards;
-}
-@keyframes right_motion {
-  0% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(100px);
-  }
 }
