@@ -29,11 +29,11 @@ main {
 
 /*========= ローディング画面のためのCSS ===============*/
 
-body{
-  background:#000;
+body {
+  background: #000;
   color: #eee;
 }
-body.appear{
+body.appear {
   //background:#222;/*画面を開いた後の背景色を指定*/
 }
 
@@ -64,72 +64,86 @@ body.appear{
 .splashbg1,
 .splashbg2 {
   display: none;
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear .splashbg1,
+body.appear .splashbg2 {
+  display: block;
+}
+
+/*上に消えるエリア*/
+body.appear .splashbg1 {
+  animation-name: PageAnime;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  content: "";
   position: fixed;
-  top: 0;
-
-  width: 50%;
-  height: 100%;
-  background: #333;
   z-index: 999;
+  width: 100%;
+  height: 100vh;
+  bottom: 50%;
+  left: 0;
+  transform: scaleY(1);
+  background-color: #333; /*伸びる背景色の設定*/
 }
-.splashbg1{
-  left: 50%;
-}
-.splashbg2{
-  left: 0%;
-}
-.appear{
-  .splashbg1,
-  .splashbg2 {
-    display:block;
+
+@keyframes PageAnime {
+  0% {
+    transform-origin: top;
+    transform: scaleY(1);
   }
-  .splashbg1{
-    animation: ani000 1.2s;
-    animation-iteration-count: 1;
-    animation-timing-function:ease-in-out;
-    animation-fill-mode:forwards;
-  }
-  .splashbg2{
-    animation: ani001 1.2s;
-    animation-iteration-count: 1;
-    animation-timing-function:ease-in-out;
-    animation-fill-mode:forwards;
-  }
-  #container {
-    animation: ani002 1s ease-in-out .2s;
-    animation-iteration-count: 1;
-    animation-fill-mode:forwards;
+
+  100% {
+    transform-origin: top;
+    transform: scaleY(0);
   }
 }
 
-@keyframes ani000 {
-  0% {
-    transform-origin: top left;
+/*下に消えるエリア*/
+body.appear .splashbg2 {
+  animation-name: PageAnime2;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  content: "";
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  top: 50%;
+  left: 0;
+  transform: scaleY(1);
+  background-color: #333; /*伸びる背景色の設定*/
+}
 
-  }
-  50% {
-    transform-origin: top right;
-    transform: scaleX(1);
-  }
-  100% {
-    transform-origin: top right;
-    transform: scaleX(0);
-  }
-}
-@keyframes ani001 {
+@keyframes PageAnime2 {
   0% {
-    transform-origin: top right;
-  }
-  50% {
-    transform-origin: top left;
-    transform: scaleX(1);
+    transform-origin: bottom;
+    transform: scaleY(1);
   }
   100% {
-    transform-origin: top left;
-    transform: scaleX(0);
+    transform-origin: bottom;
+    transform: scaleY(0);
   }
 }
-@keyframes ani002{
+
+/*画面遷移の後現れるコンテンツ設定*/
+#container {
+  opacity: 0; /*はじめは透過0に*/
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #container {
+  animation-name: PageAnimeAppear;
+  animation-duration: 1s;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes PageAnimeAppear {
   0% {
     opacity: 0;
   }
