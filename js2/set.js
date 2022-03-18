@@ -1,14 +1,50 @@
-$(window).on("load", function () {
-  $("#splash")
-    .delay(1500)
-    .fadeOut("slow", function () {
-      //ローディングエリア（splashエリア）を1.5秒でフェードアウトする記述
-      $("body").addClass("appear"); //フェードアウト後bodyにappearクラス付与
-      var h = $(window).height(); //ブラウザの高さを取得
-      $(".splashbg").css({
-        "border-width": h, //ボーダーの太さにブラウザの高さを代入
-        "animation-name": "backBoxAnime", //animation-nameを定義
-      });
-    });
-  $("#splash-logo").delay(1200).fadeOut("slow"); //ロゴを1.2秒でフェードアウトする記述
-});
+var doc = document;
+var totop = doc.querySelector("#page-top a");
+var $win = $(window);
+
+function Set() {
+  totop.addEventListener("click", goto, false);
+
+  function goto() {
+    $("body,html").animate(
+      {
+        scrollTop: 0,
+      },
+      500
+    );
+  }
+}
+function sanitize() {
+  sanitize_core(totop);
+
+  function sanitize_core(elems) {
+    if (elems == null) {
+      return;
+    }
+
+    var len = elems.length;
+
+    if (len) {
+      for (var zz = 0; zz < len; zz++) {
+        var elem = elems[zz];
+        if (elem.hasAttribute("href")) {
+          var link = elem.getAttribute("href");
+          elem.removeAttribute("href");
+          elem.setAttribute("data-href", link);
+        }
+      }
+    } else {
+      if (elems.hasAttribute("href")) {
+        var link = elems.getAttribute("href");
+        elems.removeAttribute("href");
+        elems.setAttribute("data-href", link);
+      }
+    }
+  }
+}
+
+function Init() {
+  sanitize();
+  Set();
+}
+$win[0].addEventListener("load", Init, false);

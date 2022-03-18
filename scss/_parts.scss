@@ -6,8 +6,8 @@ select {
 }
 
 body {
+  padding: 2rem;
 }
-h1,
 h2 {
   margin: 2rem 0 2rem 0;
 }
@@ -16,77 +16,87 @@ h2 {
     font-size: 36px;
   }
 }
-main {
-  p {
+main{
+  p{
     margin: 30px auto;
     text-align: left;
   }
 }
 
-/*========= ローディング画面のためのCSS ===============*/
-#splash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #222;
-  z-index: 9999999;
-}
+/* ボタン共通設定 */
+/*========= ページトップのためのCSS ===============*/
+#page-top{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    a{
 
-#splash-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: #fff;
-}
+        display: block;
+        width: 100%;
 
-/*========= 画面遷移のためのCSS ===============*/
-
-/*画面遷移アニメーション*/
-.splashbg {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-width: 0px; /*開始はボーダーの太さは0*/
-  border-style: solid;
-  border-color: #666; /*拡大する四角の色*/
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-@keyframes backBoxAnime{
-	99.9% {/*アニメーション終了ぎりぎりまで*/
-        z-index: 2;/*最前面に*/
-		border-width: 0px;/*開始はボーダーの太さは0*/
-	}
-    100%{
-       z-index: -1; /*最背面に*/
-        border-width: 0px;/*終了はボーダーの太さは0*/
+        background:#942D2F;
+        color:#fff;
+        text-align: center;
+        text-decoration: none;
+        font-size: clamp( 13px, 2.1vw, 15px);
+        padding: 1.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+ 
+        transition: all 0.3s;
+        &:link,
+        &:visited{
+            background:#942D2F;
+        }
+        &:hover,
+        &:active{
+            background: #744;
+        }
     }
 }
 
-#container {
-  position: relative;
-  padding: 2rem;
-  opacity: 0;
-}
-.appear {
-  #container {
-    animation: ani001 1s ease-in-out 0.2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
+/*========= レイアウトのためのCSS ===============*/
+
+h1{
+    font-size:1.2rem;
 }
 
-@keyframes ani001 {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+h2{
+    font-size:1.2rem;
+    text-align: center;
+    margin: 0 0 30px 0;
 }
+
+p{
+    margin-top:20px;
+}
+
+small{
+    background:#333;
+    color:#fff;
+    display: block;
+    text-align: center;
+    padding:20px;
+}
+
+#header{
+    background:#333;
+    color:#fff;
+    text-align: center;
+    padding: 20px;
+}
+
+section{
+    padding:100px 30px;
+}
+
+section:nth-child(2n){
+    background:#222;
+}
+
+#footer{
+    position: relative;
+    z-index: 2;
+}
+
