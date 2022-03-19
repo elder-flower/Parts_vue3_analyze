@@ -1,124 +1,135 @@
-a:link{
-    text-decoration: none;
+input,
+button,
+textarea,
+select {
+  appearance: none;
 }
-a:visited{
-    text-decoration: none;
+h2 {
+  margin: 2rem 0 2rem 0;
 }
-a:hover{
-    text-decoration: none;
+.header {
+  h1 {
+    font-size: 36px;
+  }
 }
-a:active{
-    text-decoration: none;
+main {
+  p {
+    margin: 30px auto;
+    text-align: left;
+  }
 }
+
 /*========= スクロールダウンのためのCSS ===============*/
 
-
-/*=== 9-1-4 矢印が動いてスクロールを促す  ====*/
+/*====== 9-1-1 縦線が動いてスクロールを促す =======*/
 
 /*スクロールダウン全体の場所*/
-.scrolldown4{
-    /*描画位置※位置は適宜調整してください*/
-    position:absolute;
-    bottom:1%;
-    right:50%;
-    /*矢印の動き1秒かけて永遠にループ*/
-    animation: arrowmove 1s ease-in-out infinite;
-}
+.scrolldown4 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 50px;
 
-/*下からの距離が変化して全体が下→上→下に動く*/
-@keyframes arrowmove{
-      0%{bottom:1%;}
-      50%{bottom:3%;}
-     100%{bottom:1%;}
- }
-
-/*Scrollテキストの描写*/
-.scrolldown4 span{
-    /*描画位置*/
-    position: absolute;
-    left:-20px;
-    bottom:10px;
-    /*テキストの形状*/
-    color: #eee;
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    /*縦書き設定*/
-    -ms-writing-mode: tb-rl;
-    -webkit-writing-mode: vertical-rl;
-    writing-mode: vertical-rl;
-}
-
-/* 矢印の描写 */
-.scrolldown4:before {
+  animation: ani000 1s ease-in-out;
+  animation-iteration-count: infinite;
+  &::before,
+  &::after{
     content: "";
     /*描画位置*/
     position: absolute;
-    bottom: 0;
-    right: -6px;
-    /*矢印の形状*/
+  }
+  &::before{
+    bottom: 12px;
+    left: 50%;
+    background: #eee;
     width: 1px;
     height: 20px;
-    background: #eee;
-    transform: skewX(-31deg);
-}
-
-.scrolldown4:after{
-    content:"";
-    /*描画位置*/
-    position: absolute;
-    bottom:0;
-    right:0;
-    /*矢印の形状*/
-    width:1px;
-    height: 50px;
-    background:#eee;
-}
-
-/*========= レイアウトのためのCSS ===============*/
-
-h1{
-    position: fixed;
-    top: 50%;
+    transform: translate( 4px , 0 ) rotate( 30deg);
+  }
+  &::after {
+    top: -10px;
     left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    color:#eee;
-    text-shadow: 0 0 15px #666;
-    text-align: center;
+    transform: translate(-50%, 0);
+    background: #eee;
+    width: 1px;
+    height: 45px;
+  }
+  span {
+    position: absolute;
+    left: -20px;
+    top: -0px;
+    font-size: 12px;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+
+    -ms-writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+  }
 }
 
-#header{
-    width:100%;
-    height: 100vh;
-    position: relative;
-} 
+@keyframes ani000 {
+  0% {
+    bottom: 10px;
+  }
+  50% {
+    bottom: -2px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
 
-#header:before{
+#header {
+  width: 100%;
+  height: 100vh;
+  /*
+  //チェック用の中央線。
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid #fc1;
+  }
+  */
+  &::after{
     content: '';
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-    width:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    /*背景画像設定*/
-    background:url("../img/01.jpg") no-repeat center;
-    background-size:cover;
-}
+    background: url("../img/01.jpg");
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+  }
 
-#container{
-    position: relative;
-    z-index:1;
-    background:#111;
-    padding:600px 0;
-    text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
     color: #eee;
+
+    /* offset-x | offset-y | blur-radius | color */
+    //text-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  }
 }
+#container {
+  position: relative;
+  width: 100%;
+  height: 800px;
+  background: #111;
+  z-index: 2;
+  //margin: 100vh 0 0 0;
 
-@media screen and (max-width:768px){
-
-    #header,
-    #header:before{
-        height: 90vh;
-    }
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
