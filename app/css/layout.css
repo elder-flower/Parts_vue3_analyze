@@ -75,115 +75,6 @@ img {
   vertical-align: bottom;
 }
 
-/*========= ページトップのためのCSS ===============*/
-/*
-.start-point {
-  position: absolute;
-  z-index: 10;
-  top: 400px;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  //background: #444;
-}
-*/
-body {
-  background: #555;
-}
-
-/*リンクを右下に固定*/
-#page-top {
-  z-index: 2;
-  position: fixed;
-  right: 10px;
-  bottom: 30px;
-  transform: translateY(150px);
-  /*はじめは非表示*/
-  opacity: 0;
-}
-
-/*　上に上がる動き　*/
-#page-top.UpMove {
-  animation: UpAnime 0.5s forwards;
-}
-
-@keyframes UpAnime {
-  from {
-    transform: translateY(150px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-/*　下に下がる動き　*/
-#page-top.DownMove {
-  animation: DownAnime 0.5s forwards;
-}
-
-@keyframes DownAnime {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(150px);
-    opacity: 1;
-  }
-}
-/*画像の切り替えと動き*/
-#page-top a {
-  /*aタグの形状*/
-  display: block;
-  width: 100px;
-  height: 100px;
-  /*背景画像の指定*/
-  background: url("../img/pagetop_1.png") no-repeat center;
-  background-size: contain;
-  color: #333;
-  font-size: 0.6rem;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-#page-top a.floatAnime {
-  width: 100px;
-  height: 130px;
-  /*背景画像の指定*/
-  background: url("../img/pagetop_2.png") no-repeat center;
-  background-size: contain;
-  /*アニメーションの指定*/
-  animation: floatAnime 2s linear infinite;
-  opacity: 0;
-}
-
-@keyframes floatAnime {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  25% {
-    transform: translateX(-6px);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(6px);
-    opacity: 1;
-  }
-}
-/*Page Topと書かれたテキストの位置*/
-#page-top span {
-  position: absolute;
-  right: 20px;
-  bottom: -20px;
-  color: #666;
-}
-
 /*========= レイアウトのためのCSS ===============*/
 h1 {
   font-size: 1.2rem;
@@ -201,6 +92,8 @@ p {
 
 small {
   display: block;
+  padding: 20px;
+  background: #333;
   color: #fff;
   text-align: center;
 }
@@ -217,14 +110,95 @@ section {
 }
 
 section:nth-child(2n) {
-  background: #333;
+  background: #000;
 }
 
 #footer {
   z-index: 2;
   position: relative;
-  padding: 100px 20px;
-  background: #333;
+}
+
+/* ボタン共通設定 */
+/*========= ページトップのためのCSS ===============*/
+/*リンクを右下に固定*/
+#page-top {
+  z-index: 5;
+  position: fixed;
+  right: 10px;
+  bottom: 30px;
+  transform: translateY(100px);
+  /*はじめは非表示*/
+  opacity: 0;
+}
+#page-top a {
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 90px;
+  background: url("../img/pagetop_1.png");
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #eee;
+  font-size: 0.6rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+#page-top a span {
+  display: block;
+  position: absolute;
+  bottom: -22px;
+  left: 25%;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+#page-top a.floatAnime {
+  background: url("../img/pagetop_2.png");
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#page-top a.floatAnime span {
+  opacity: 0;
+}
+
+.UpMove {
+  animation: up_motion 0.5s forwards;
+  /*
+  animation: up_motion 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  */
+}
+
+@keyframes up_motion {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.DownMove {
+  animation: down_motion 0.5s forwards;
+  /*
+  animation: down_motion 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  */
+}
+
+@keyframes down_motion {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
 }
 
 @media (pointer: fine) {
