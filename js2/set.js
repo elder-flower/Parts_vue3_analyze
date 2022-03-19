@@ -1,45 +1,19 @@
 var doc = document;
 var totop = doc.querySelector("#page-top a");
 var $win = $(window);
-var $ptop = $("#page-top");
 
-//スクロールした際の動きを関数でまとめる
-function PageTopAnime() {
-  var scroll = $win.scrollTop();
-  if (scroll >= 100) {
-    //上から100pxスクロールしたら
-    $ptop.removeClass("DownMove"); //#page-topについているDownMoveというクラス名を除く
-    $ptop.addClass("UpMove"); //#page-topについているUpMoveというクラス名を付与
-  } else {
-    if ($ptop.hasClass("UpMove")) {
-      //すでに#page-topにUpMoveというクラス名がついていたら
-      $ptop.removeClass("UpMove"); //UpMoveというクラス名を除き
-      $ptop.addClass("DownMove"); //DownMoveというクラス名を#page-topに付与
-    }
-  }
-}
 function Set() {
   totop.addEventListener("click", goto, false);
 
-  function goto(e) {
-    var tar = e.target;
-    var $tar = $(tar);
-
-    var scroll = $win.scrollTop(); //スクロール値を取得
-
-    if (scroll > 0) {
-      $tar.addClass("floatAnime"); //クリックしたらfloatAnimeというクラス名が付与
-      $("body,html").animate(
-        {
-          scrollTop: 0,
-        },
-        800,
-        function () {
-          //スクロールの速さ。数字が大きくなるほど遅くなる
-          $tar.removeClass("floatAnime"); //上までスクロールしたらfloatAnimeというクラス名を除く
-        }
-      );
-    }
+  function goto() {
+    $("body,html").animate(
+      {
+        scrollTop: 0, //ページトップまでスクロール
+      },
+      1500,
+      "easeInOutQuint"
+    ); //ページトップスクロールの速さ※数字が大きいほど遅くなる, easingプラグインでアニメーション速度に変化
+    //linear、swing、jswing、easeInQuad、easeOutQuad、easeInOutQuad、easeInCubic、easeOutCubic、easeInOutCubic、easeInQuart、easeOutQuart、easeInOutQuart、easeInQuint、easeOutQuint、easeInOutQuint、easeInSine、easeOutSine、easeInOutSine、easeInExpo、easeOutExpo、easeInOutExpo、easeInCirc、easeOutCirc、easeInOutCirc、easeInElastic、easeOutElastic、easeInOutElastic、easeInBack、easeOutBack、easeInOutBack、easeInBounce、easeOutBounce、easeInOutBounceなどから選択可能
   }
 }
 function sanitize() {
@@ -72,8 +46,6 @@ function sanitize() {
 }
 function Init() {
   sanitize();
-  PageTopAnime(); /* スクロールした際の動きの関数を呼ぶ*/
   Set();
 }
-$win[0].addEventListener("scroll", PageTopAnime, false);
 $win[0].addEventListener("DOMContentLoaded", Init, false);

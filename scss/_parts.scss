@@ -1,3 +1,26 @@
+/*========= ページトップのためのCSS ===============*/
+
+/*リンクの形状*/
+#page-top a {
+  background: #942d2f;
+  display: block;
+  padding: 20px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  &:link,
+  &:visited {
+    background: #942d2f;
+  }
+  &:hover,
+  &:active {
+    background: #777;
+  }
+}
 /*========= レイアウトのためのCSS ===============*/
 
 h1 {
@@ -34,119 +57,10 @@ section {
 }
 
 section:nth-child(2n) {
-  background: #000;
+  background: #333;
 }
 
 #footer {
   position: relative;
   z-index: 2;
-}
-
-body {
-  //background: #555;
-}
-/* ボタン共通設定 */
-/*========= ページトップのためのCSS ===============*/
-
-/*リンクを右下に固定*/
-#page-top {
-  position: fixed;
-  right: 10px;
-  bottom: 30px;
-  z-index: 5;
-  /*はじめは非表示*/
-  opacity: 0;
-  transform: translateY(100px);
-  a {
-    position: relative;
-    display: block;
-    background: url("../img/pagetop_1.png");
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: contain;
-    width: 80px;
-    height: 90px;
-    color: #eee;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 0.6rem;
-    span {
-      display: block;
-      position: absolute;
-      bottom: -22px;
-      left: 25%;
-      transition: opacity 0.3s;
-      opacity: 1;
-    }
-    &.floatAnime {
-      background: url("../img/pagetop_2.png");
-      background-repeat: no-repeat;
-      background-position: top center;
-      background-size: contain;
-      width: 90px;
-      height: 117px;
-
-      animation: floatAnime 2s linear infinite;
-      opacity: 0;
-
-      span {
-        opacity: 0;
-      }
-    }
-  }
-}
-
-@keyframes floatAnime {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  25% {
-    transform: translateX(-6px);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(6px);
-    opacity: 1;
-  }
-}
-
-.UpMove {
-  animation: up_motion 0.5s forwards;
-  /*
-  animation: up_motion 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  */
-}
-@keyframes up_motion {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
-.DownMove {
-  animation: down_motion 0.5s forwards;
-  /*
-  animation: down_motion 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  */
-}
-@keyframes down_motion {
-  0% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
 }
