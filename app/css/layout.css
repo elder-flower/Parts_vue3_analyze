@@ -76,13 +76,19 @@ img {
 }
 
 /*========= ページトップのためのCSS ===============*/
+/*
 .start-point {
-  z-index: 10;
   position: absolute;
+  z-index: 10;
   top: 400px;
   left: 0;
   width: 100px;
   height: 100px;
+  //background: #444;
+}
+*/
+body {
+  background: #555;
 }
 
 /*リンクを右下に固定*/

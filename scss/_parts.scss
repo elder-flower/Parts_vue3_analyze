@@ -1,6 +1,7 @@
 /*========= ページトップのためのCSS ===============*/
 
 //「IntersectionObserver」を使う場合の目印。
+/*
 .start-point {
   position: absolute;
   z-index: 10;
@@ -10,6 +11,12 @@
   height: 100px;
   //background: #444;
 }
+*/
+
+body{
+  background: #555;
+}
+
 
 /*リンクを右下に固定*/
 #page-top {
