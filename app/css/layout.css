@@ -75,137 +75,124 @@ img {
   vertical-align: bottom;
 }
 
-input,
-button,
-textarea,
-select {
-  -webkit-appearance: none;
-          appearance: none;
+a:link {
+  text-decoration: none;
 }
 
-h2 {
-  margin: 2rem 0 2rem 0;
+a:visited {
+  text-decoration: none;
 }
 
-.header h1 {
-  font-size: 36px;
+a:hover {
+  text-decoration: none;
 }
 
-main p {
-  margin: 30px auto;
-  text-align: left;
+a:active {
+  text-decoration: none;
 }
 
 /*========= スクロールダウンのためのCSS ===============*/
-/*====== 9-1-1 縦線が動いてスクロールを促す =======*/
+/*=== 9-1-4 矢印が動いてスクロールを促す  ====*/
 /*スクロールダウン全体の場所*/
-.scrolldown3 {
+.scrolldown4 {
+  /*描画位置※位置は適宜調整してください*/
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  height: 48px;
-  transform: translate(-50%, 0);
-  animation: ani000 1.4s linear;
-  animation-iteration-count: infinite;
-}
-.scrolldown3::before {
-  z-index: 2;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  transform: translate(-50%, 0);
-  border: 1px solid #eee;
-  border-radius: 50%;
-  content: "";
-}
-.scrolldown3::after {
-  z-index: 1;
-  /*描画位置*/
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  width: 22px;
-  height: 33px;
-  transform: translate(-50%, 0);
-  border: 1px solid #eee;
-  border-radius: 10px;
-  content: "";
-}
-.scrolldown3 span {
-  position: absolute;
-  top: -20px;
-  left: -15px;
-  color: #eee;
-  font-size: 0.6rem;
-  letter-spacing: 0.05em;
+  right: 50%;
+  bottom: 1%;
+  /*矢印の動き1秒かけて永遠にループ*/
+  animation: arrowmove 1s ease-in-out infinite;
 }
 
-@keyframes ani000 {
+/*下からの距離が変化して全体が下→上→下に動く*/
+@keyframes arrowmove {
   0% {
-    bottom: 0;
+    bottom: 1%;
   }
-  30% {
-    bottom: -3px;
+  50% {
+    bottom: 3%;
   }
   100% {
-    bottom: 0;
+    bottom: 1%;
   }
 }
+/*Scrollテキストの描写*/
+.scrolldown4 span {
+  /*縦書き設定*/
+  -ms-writing-mode: tb-rl;
+  /*描画位置*/
+  position: absolute;
+  bottom: 10px;
+  left: -20px;
+  /*テキストの形状*/
+  color: #eee;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  writing-mode: vertical-rl;
+}
+
+/* 矢印の描写 */
+.scrolldown4:before {
+  /*描画位置*/
+  position: absolute;
+  right: -6px;
+  bottom: 0;
+  /*矢印の形状*/
+  width: 1px;
+  height: 20px;
+  transform: skewX(-31deg);
+  background: #eee;
+  content: "";
+}
+
+.scrolldown4:after {
+  /*描画位置*/
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /*矢印の形状*/
+  width: 1px;
+  height: 50px;
+  background: #eee;
+  content: "";
+}
+
+/*========= レイアウトのためのCSS ===============*/
+h1 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  color: #eee;
+  text-align: center;
+  text-shadow: 0 0 15px #666;
+}
+
 #header {
-  /*
-  //チェック用の中央線。
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    border-right: 1px solid #fc1;
-  }
-  */
-  display: flex;
   position: relative;
-  align-items: flex-end;
-  justify-content: center;
   width: 100%;
   height: 100vh;
 }
-#header::after {
+
+#header:before {
   z-index: -1;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: url("../img/01.jpg");
-  background-position: center center;
+  height: 100vh;
+  /*背景画像設定*/
+  background: url("../img/01.jpg") no-repeat center;
   background-size: cover;
   content: "";
 }
-#header h1 {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #eee;
-  text-align: center;
-  /* offset-x | offset-y | blur-radius | color */
-  text-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
-}
 
 #container {
-  display: flex;
-  z-index: 2;
+  z-index: 1;
   position: relative;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 800px;
-  background: #222;
+  padding: 600px 0;
+  background: #111;
+  color: #eee;
+  text-align: center;
 }
 
 @media (pointer: fine) {
@@ -223,5 +210,12 @@ main p {
 
   a:active {
     text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #header,
+#header:before {
+    height: 90vh;
   }
 }
