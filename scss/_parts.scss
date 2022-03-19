@@ -1,109 +1,73 @@
-a:link{
-    text-decoration: none;
+input,
+button,
+textarea,
+select {
+  appearance: none;
 }
-a:visited{
-    text-decoration: none;
+
+body {
+  background: #111;
+  padding: 5rem 0 0 0;
 }
-a:hover{
-    text-decoration: none;
+h2 {
+  margin: 2rem 0 2rem 0;
 }
-a:active{
-    text-decoration: none;
+.header {
+  h1 {
+    font-size: 36px;
+  }
+}
+main {
+  p {
+    margin: 30px auto;
+    text-align: left;
+  }
+}
+:root {
+  font-size: 14px;
 }
 /*========= バー表示のためのCSS ===============*/
 
 /*タイムライン全体の設定*/
-.timeline{
-	max-width: 400px;
-	width:100%;
-	margin:50px auto;
-	padding:0 30px;
-}
-
-.timeline li{
-    /*線の起点とするためrelativeを設定*/
+.timeline {
+  max-width: 600px;
+  width: 100%;
+  margin: 50px auto;
+  padding: 0 30px;
+  li {
     position: relative;
-	list-style: none;
-	padding:0 0 20px 0;
-}
-
-.timeline dl{
-	margin:0 0 20px 3em;
-}
-
-.timeline dd strong{
-	display: block;
-	padding:10px 0;
-}
-
-/*絶対配置で線を設定*/
-.border-line {
-    /*線の位置*/
-	position: absolute;
-	left:0.2em;
-	top:0;
-	width:2px;/*線の太さ*/
-	height:0;/*はじめは高さを0に*/
-	background: #ccc;
-}
-
-/*タイムラインの見出し横の丸の位置と形状*/
-.timeline li::after{
-	content:'';
-	position: absolute;
-	top:0;
-	left:0;
-	width:10px;
-	height: 10px;
-	background:#666;
-	border-radius: 50%;
-}
-
-
-/*========= レイアウトのためのCSS ===============*/
-
-header{
-	background: #333;
-}
-
-h1{
-	font-size:1.5rem;
-	text-align: center;
-	text-transform: uppercase;
-	padding: 20px;
-	color: #fff;
-}
-
-h2{
-	font-size:1.2rem;
-	text-align: center;
-	margin: 0 0 30px 0;
-}
-
-p,ul{
-	margin-top:20px;
-}
-
-a{
-	color:#333;
-}
-
-small{
-	background:#333;
-	color:#fff;
-	display: block;
-	text-align: center;
-	padding:20px;
-}
-
-
-section{
-	padding:30px;
-}
-section:first-child{
-	padding:30px 30px 0px;
-}
-
-section:nth-child(2n){
-	background:#111;
+    margin: 10px 0;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2%;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #555;
+	  z-index:3;
+    }
+  }
+  .border-line {
+    position: absolute;
+    top: 16px;
+    left: 4px;
+    background: #eee;
+    width: 2px;
+    height: 0;
+	z-index:1;
+  }
+  dl {
+    margin: 0 0 0 30px;
+  }
+  dt {
+    margin: 0 0 10px 0;
+  }
+  dd {
+    strong {
+      display: block;
+      margin: 0 0 10px 0;
+    }
+  }
 }
