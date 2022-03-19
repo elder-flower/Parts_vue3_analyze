@@ -1,82 +1,128 @@
-/*========= ヘッダー追従のためのCSS ===============*/
+input,
+button,
+textarea,
+select {
+  appearance: none;
+}
+h2 {
+  margin: 2rem 0 2rem 0;
+}
+.header {
+  h1 {
+    font-size: 36px;
+  }
+}
+main{
+  p{
+    margin: 30px auto;
+    text-align: left;
+  }
+}
 
-#header {
-  position: fixed; /*追従ナビのためpositionをfixedにする*/
-  top: 0; /*ポジション設定topを0*/
-  //height: 70px;/*headerの高さを指定*/
-  width: 100%; /*position:fixed;にしたため、横幅100%を設定*/
-  background: #222;
-  color: #fff;
-  text-align: center;
-  //padding: 20px;
+
+/*========= スクロールダウンのためのCSS ===============*/
+
+/*====== 9-1-1 縦線が動いてスクロールを促す =======*/
+
+/*スクロールダウン全体の場所*/
+.scrolldown1{
+    /*描画位置※位置は適宜調整してください*/
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    /*全体の高さ*/
+    height:50px;
+}
+
+/*Scrollテキストの描写*/
+.scrolldown1 span{
+    /*描画位置*/
+    position: absolute;
+    left:-15px;
+    top: -15px;
+    /*テキストの形状*/
+    color: #fff;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+}
+
+/* 線の描写 */
+.scrolldown1::after{
+    content: "";
+    /*描画位置*/
+    position: absolute;
+    top: 0;
+    /*線の形状*/
+    width: 1px;
+    height: 30px;
+    background: #fff;
+    /*線の動き1.4秒かけて動く。永遠にループ*/
+    animation: pathmove 1.4s ease-in-out infinite;
+    opacity:0;
+}
+
+/*高さ・位置・透過が変化して線が上から下に動く*/
+@keyframes pathmove{
+    0%{
+        height:0;
+        top:0;
+        opacity: 0;
+    }
+    30%{
+        height:30px;
+        opacity: 1;
+    }
+    100%{
+        height:0;
+        top:50px;
+        opacity: 0;
+    }
 }
 
 /*========= レイアウトのためのCSS ===============*/
 
-h1 {
-  font-size: 1.2rem;
-  margin: 2rem 0 2rem 0;
+h1{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    color: #eee;
+    text-shadow: 0 0 15px #666;
+    text-align: center;
 }
 
-h2 {
-  font-size: 1.2rem;
-  text-align: center;
-  margin: 0 0 30px 0;
+#header{
+    width:100%;
+    height: 100vh;
+    position: relative;
+} 
+
+#header:before{
+    content: '';
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    width:100%;
+    height: 100vh;
+    /*背景画像設定*/
+    background:url("../img/01.jpg") no-repeat center;
+    background-size:cover;
 }
 
-p {
-  margin-top: 20px;
+#container{
+    position: relative;
+    z-index:1;
+    background:#333;
+    padding:600px 0;
+    text-align: center;
 }
 
-small {
-  background: #333;
-  color: #fff;
-  display: block;
-  text-align: center;
-  padding: 20px;
-}
+@media screen and (max-width:768px){
 
-#main-vidual {
-  margin-top: 70px; /*上部にheader分の高さの余白を持たせる*/
-}
-
-#main-vidual img {
-  width: 100%;
-}
-
-section {
-  padding: 30px;
-}
-
-section:nth-child(2n) {
-  background: #333;
-}
-
-#main {
-  margin: 100px 0 0 0;
-}
-
-#page-link {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  li {
-    list-style: none;
-    a {
-      color: #eee;
-      padding: 0 20px;
-      text-decoration: none;
-      &::before {
-        content: "▼";
-        font-size: 0.8rem;
-        padding: 0 10px 0 0;
-        color: #ccc;
-      }
+    #header,
+    #header:before{
+        height: 90vh;
     }
-  }
-}
 
-#footer {
-  position: relative;
-  z-index: 2;
 }
