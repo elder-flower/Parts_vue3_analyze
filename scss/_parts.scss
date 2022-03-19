@@ -42,7 +42,7 @@ section:nth-child(2n) {
   z-index: 2;
 }
 
-body{
+body {
   //background: #555;
 }
 /* ボタン共通設定 */
@@ -75,7 +75,7 @@ body{
       position: absolute;
       bottom: -22px;
       left: 25%;
-      transition: opacity .3s;
+      transition: opacity 0.3s;
       opacity: 1;
     }
     &.floatAnime {
@@ -83,10 +83,34 @@ body{
       background-repeat: no-repeat;
       background-position: top center;
       background-size: contain;
-      span{
+      width: 90px;
+      height: 117px;
+
+      animation: floatAnime 2s linear infinite;
+      opacity: 0;
+
+      span {
         opacity: 0;
       }
     }
+  }
+}
+
+@keyframes floatAnime {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: translateX(-6px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(6px);
+    opacity: 1;
   }
 }
 

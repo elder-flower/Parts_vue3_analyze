@@ -153,15 +153,36 @@ section:nth-child(2n) {
   transition: opacity 0.3s;
 }
 #page-top a.floatAnime {
+  width: 90px;
+  height: 117px;
   background: url("../img/pagetop_2.png");
   background-position: top center;
   background-size: contain;
   background-repeat: no-repeat;
+  animation: floatAnime 2s linear infinite;
+  opacity: 0;
 }
 #page-top a.floatAnime span {
   opacity: 0;
 }
 
+@keyframes floatAnime {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: translateX(-6px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(6px);
+    opacity: 1;
+  }
+}
 .UpMove {
   animation: up_motion 0.5s forwards;
   /*
