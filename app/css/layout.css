@@ -92,24 +92,80 @@ a:active {
 }
 
 /*========= バー表示のためのCSS ===============*/
-.scrollgress {
-  z-index: 3;
-  /*他のposition指定しているエリアより前に出すためz-indexの数字を大きく*/
-  top: 70px !important;
-  /* fixedで設置しているheaderの高さよりも下にバーを出す*/
+/*タイムライン全体の設定*/
+.timeline {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 0 30px;
+}
+
+.timeline li {
+  /*線の起点とするためrelativeを設定*/
+  position: relative;
+  padding: 0 0 20px 0;
+  list-style: none;
+}
+
+.timeline dl {
+  margin: 0 0 20px 3em;
+}
+
+.timeline dd strong {
+  display: block;
+  padding: 10px 0;
+}
+
+/*絶対配置で線を設定*/
+.border-line {
+  /*線の位置*/
+  position: absolute;
+  top: 0;
+  left: 0.2em;
+  width: 2px;
+  /*線の太さ*/
+  height: 0;
+  /*はじめは高さを0に*/
+  background: #ccc;
+}
+
+/*タイムラインの見出し横の丸の位置と形状*/
+.timeline li::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #666;
+  content: "";
 }
 
 /*========= レイアウトのためのCSS ===============*/
+header {
+  background: #333;
+}
+
 h1 {
-  font-size: 1.2rem;
+  padding: 20px;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-#container h2 {
+h2 {
+  margin: 0 0 30px 0;
   font-size: 1.2rem;
+  text-align: center;
 }
 
-#container p {
+p, ul {
   margin-top: 20px;
+}
+
+a {
+  color: #333;
 }
 
 small {
@@ -120,55 +176,17 @@ small {
   text-align: center;
 }
 
-#header {
-  display: flex;
-  /*高さ指定*/
-  z-index: 2;
-  position: fixed;
-  /*Header固定*/
-  top: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 70px;
-  /*装飾のためのCSS*/
-  background: #333;
-  color: #fff;
-  text-align: center;
-}
-
-#container {
-  position: relative;
-}
-
 section {
-  padding: 100px 30px;
-  background: #222;
+  padding: 30px;
 }
 
-section:nth-of-type(2n) {
-  min-height: auto;
-  padding: 300px 30px;
-  color: #fff;
-  text-align: center;
+section:first-child {
+  padding: 30px 30px 0px;
 }
 
-section:nth-of-type(2) {
-  background: url("../img/01.jpg") no-repeat center;
-  background-size: cover;
+section:nth-child(2n) {
+  background: #111;
 }
-
-section:nth-of-type(4) {
-  background: url("../img/02.jpg") no-repeat center;
-  background-size: cover;
-}
-
-#footer {
-  z-index: 2;
-  position: relative;
-}
-
-/*＝＝＝＝＝＝＝＝＝＝＝タブレット以下の見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
 
 @media (pointer: fine) {
   a:link {
@@ -185,11 +203,5 @@ section:nth-of-type(4) {
 
   a:active {
     text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  section {
-    padding: 30px;
   }
 }
