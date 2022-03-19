@@ -155,6 +155,18 @@ main p {
   }
 }
 #header {
+  /*
+  //チェック用の中央線。
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid #fc1;
+  }
+  */
   display: flex;
   position: relative;
   align-items: flex-end;
@@ -180,6 +192,7 @@ main p {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #eee;
+  text-align: center;
   /* offset-x | offset-y | blur-radius | color */
   text-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
 }
