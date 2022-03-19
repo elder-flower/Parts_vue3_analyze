@@ -1,135 +1,93 @@
-input,
-button,
-textarea,
-select {
-  appearance: none;
+a:link {
+  text-decoration: none;
 }
-h2 {
-  margin: 2rem 0 2rem 0;
+a:visited {
+  text-decoration: none;
 }
-.header {
-  h1 {
-    font-size: 36px;
-  }
+a:hover {
+  text-decoration: none;
 }
-main {
-  p {
-    margin: 30px auto;
-    text-align: left;
-  }
+a:active {
+  text-decoration: none;
+}
+/*========= バー表示のためのCSS ===============*/
+
+.scrollgress {
+  z-index: 3; /*他のposition指定しているエリアより前に出すためz-indexの数字を大きく*/
+  top: 70px !important; /* fixedで設置しているheaderの高さよりも下にバーを出す*/
 }
 
-/*========= スクロールダウンのためのCSS ===============*/
+/*========= レイアウトのためのCSS ===============*/
 
-/*====== 9-1-1 縦線が動いてスクロールを促す =======*/
-
-/*スクロールダウン全体の場所*/
-.scrolldown4 {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  height: 50px;
-
-  animation: ani000 1s ease-in-out;
-  animation-iteration-count: infinite;
-  &::before,
-  &::after{
-    content: "";
-    /*描画位置*/
-    position: absolute;
-  }
-  &::before{
-    bottom: 12px;
-    left: 50%;
-    background: #eee;
-    width: 1px;
-    height: 20px;
-    transform: translate( 4px , 0 ) rotate( 30deg);
-  }
-  &::after {
-    top: -10px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background: #eee;
-    width: 1px;
-    height: 45px;
-  }
-  span {
-    position: absolute;
-    left: -20px;
-    top: -0px;
-    font-size: 12px;
-    font-size: 0.6rem;
-    letter-spacing: 0.05em;
-
-    -ms-writing-mode: tb-rl;
-    -webkit-writing-mode: vertical-rl;
-    writing-mode: vertical-rl;
-  }
+h1 {
+  font-size: 1.2rem;
 }
 
-@keyframes ani000 {
-  0% {
-    bottom: 10px;
-  }
-  50% {
-    bottom: -2px;
-  }
-  100% {
-    bottom: 10px;
-  }
+#container h2 {
+  font-size: 1.2rem;
+}
+
+#container p {
+  margin-top: 20px;
+}
+
+small {
+  background: #333;
+  color: #fff;
+  display: block;
+  text-align: center;
+  padding: 20px;
 }
 
 #header {
+  position: fixed; /*Header固定*/
+  top: 0;
+  height: 70px; /*高さ指定*/
+  z-index: 2;
   width: 100%;
-  height: 100vh;
-  /*
-  //チェック用の中央線。
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    border-right: 1px solid #fc1;
-  }
-  */
-  &::after{
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url("../img/01.jpg");
-    background-position: center center;
-    background-size: cover;
-    z-index: -1;
-  }
-
-
+  /*装飾のためのCSS*/
+  background: #333;
+  color: #fff;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  h1 {
-    color: #eee;
-
-    /* offset-x | offset-y | blur-radius | color */
-    //text-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  }
 }
+
 #container {
   position: relative;
-  width: 100%;
-  height: 800px;
-  background: #111;
-  z-index: 2;
-  //margin: 100vh 0 0 0;
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+section {
+  background: #222;
+  padding: 100px 30px;
+}
+
+section:nth-of-type(2n) {
+  color: #fff;
+  text-align: center;
+  padding: 300px 30px;
+  min-height: auto;
+}
+section:nth-of-type(2) {
+  background: url("../img/01.jpg") no-repeat center;
+  background-size: cover;
+}
+
+section:nth-of-type(4) {
+  background: url("../img/02.jpg") no-repeat center;
+  background-size: cover;
+}
+
+#footer {
+  position: relative;
+  z-index: 2;
+}
+
+/*＝＝＝＝＝＝＝＝＝＝＝タブレット以下の見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
+
+@media screen and (max-width: 768px) {
+  section {
+    padding: 30px;
+  }
 }
