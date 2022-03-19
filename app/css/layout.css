@@ -75,105 +75,136 @@ img {
   vertical-align: bottom;
 }
 
-input,
-button,
-textarea,
-select {
-  -webkit-appearance: none;
-          appearance: none;
+a:link {
+  text-decoration: none;
 }
 
-h2 {
-  margin: 2rem 0 2rem 0;
+a:visited {
+  text-decoration: none;
 }
 
-.header h1 {
-  font-size: 36px;
+a:hover {
+  text-decoration: none;
 }
 
-main p {
-  margin: 30px auto;
-  text-align: left;
+a:active {
+  text-decoration: none;
 }
 
 /*========= スクロールダウンのためのCSS ===============*/
-/*====== 9-1-1 縦線が動いてスクロールを促す =======*/
+/*=== 9-1-2 丸が動いてスクロールを促す ====*/
 /*スクロールダウン全体の場所*/
-.scrolldown1 {
+.scrolldown2 {
+  /*描画位置※位置は適宜調整してください*/
   position: absolute;
   bottom: 10px;
   left: 50%;
-  height: 50px;
-  transform: translate(-50%, 0);
-}
-.scrolldown1::after {
-  /*描画位置*/
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 30px;
-  transform: translate(-50%, 0);
-  background: #eee;
-  content: "";
-  animation: ani000 1.4s ease-in-out;
-  animation-iteration-count: infinite;
-}
-.scrolldown1 span {
-  position: absolute;
-  top: -15px;
-  left: -15px;
-  font-size: 12px;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
 }
 
-@keyframes ani000 {
+/*Scrollテキストの描写*/
+.scrolldown2 span {
+  /*縦書き設定*/
+  -ms-writing-mode: tb-rl;
+  /*描画位置*/
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  /*テキストの形状*/
+  color: #eee;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  writing-mode: vertical-rl;
+}
+
+/* 丸の描写 */
+.scrolldown2:before {
+  /*描画位置*/
+  position: absolute;
+  bottom: 0;
+  left: -4px;
+  /*丸の形状*/
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #eee;
+  content: "";
+  /*丸の動き1.6秒かけて透過し、永遠にループ*/
+  animation: circlemove 1.6s ease-in-out infinite, cirlemovehide 1.6s ease-out infinite;
+}
+
+/*下からの距離が変化して丸の全体が上から下に動く*/
+@keyframes circlemove {
   0% {
-    top: 0;
-    height: 0;
-    opacity: 0;
-  }
-  30% {
-    height: 30px;
-    opacity: 1;
+    bottom: 45px;
   }
   100% {
-    top: 50px;
-    height: 0;
+    bottom: -5px;
+  }
+}
+/*上から下にかけて丸が透過→不透明→透過する*/
+@keyframes cirlemovehide {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
     opacity: 0;
   }
 }
+/* 線の描写 */
+.scrolldown2:after {
+  /*描画位置*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /*線の形状*/
+  width: 2px;
+  height: 50px;
+  background: #eee;
+  content: "";
+}
+
+/*========= レイアウトのためのCSS ===============*/
+h1 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  color: #eee;
+  text-align: center;
+  text-shadow: 0 0 15px #333;
+}
+
 #header {
-  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+#header:before {
   z-index: -1;
   position: fixed;
   top: 0;
   left: 0;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100vh;
-  background: url("../img/01.jpg");
-  background-position: center center;
+  /*背景画像設定*/
+  background: url("../img/01.jpg") no-repeat center;
   background-size: cover;
-}
-#header h1 {
-  color: #eee;
-  /* offset-x | offset-y | blur-radius | color */
-  text-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+  content: "";
 }
 
 #container {
-  display: flex;
-  z-index: 2;
+  z-index: 1;
   position: relative;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 800px;
-  margin: 100vh 0 0 0;
-  background: #333;
+  padding: 600px 0;
+  background: #111;
+  text-align: center;
 }
 
 @media (pointer: fine) {
@@ -191,5 +222,12 @@ main p {
 
   a:active {
     text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #header,
+#header:before {
+    height: 90vh;
   }
 }
