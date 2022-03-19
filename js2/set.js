@@ -1,23 +1,26 @@
 var doc = document;
-var totop = doc.querySelector("#page-top a");
+var glinks = doc.querySelectorAll('#page-link a[href*="#"]');
 var $win = $(window);
 
 function Set() {
-  totop.addEventListener("click", goto, false);
+  var offset = 122;
 
-  function goto() {
-    $("body,html").animate(
-      {
-        scrollTop: 0, //ページトップまでスクロール
-      },
-      1500,
-      "easeInOutQuint"
-    ); //ページトップスクロールの速さ※数字が大きいほど遅くなる, easingプラグインでアニメーション速度に変化
-    //linear、swing、jswing、easeInQuad、easeOutQuad、easeInOutQuad、easeInCubic、easeOutCubic、easeInOutCubic、easeInQuart、easeOutQuart、easeInOutQuart、easeInQuint、easeOutQuint、easeInOutQuint、easeInSine、easeOutSine、easeInOutSine、easeInExpo、easeOutExpo、easeInOutExpo、easeInCirc、easeOutCirc、easeInOutCirc、easeInElastic、easeOutElastic、easeInOutElastic、easeInBack、easeOutBack、easeInOutBack、easeInBounce、easeOutBounce、easeInOutBounceなどから選択可能
+  for (var aa = 0; aa < glinks.length; aa++) {
+    var glink = glinks[aa];
+    glink.addEventListener("click", goto, {
+      passive: true,
+    });
+  }
+
+  function goto(e) {
+    var tar = e.target;
+    var elmHash = tar.getAttribute("data-href"); //ページ内リンクのHTMLタグhrefから、リンクされているエリアidの値を取得
+    var pos = $(elmHash).offset().top - offset; //idの上部の距離からHeaderの高さを引いた値を取得
+    $("body,html").animate({ scrollTop: pos }, 500); //取得した位置にスクロール。500の数値が大きくなるほどゆっくりスクロール
   }
 }
 function sanitize() {
-  sanitize_core(totop);
+  sanitize_core(glinks);
 
   function sanitize_core(elems) {
     if (elems == null) {

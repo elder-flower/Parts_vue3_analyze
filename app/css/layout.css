@@ -75,25 +75,17 @@ img {
   vertical-align: bottom;
 }
 
-/*========= ページトップのためのCSS ===============*/
-/*リンクの形状*/
-#page-top a {
-  display: block;
+/*========= ヘッダー追従のためのCSS ===============*/
+#header {
+  position: fixed;
+  /*追従ナビのためpositionをfixedにする*/
+  top: 0;
+  /*ポジション設定topを0*/
   width: 100%;
-  padding: 20px;
-  background: #942d2f;
+  /*position:fixed;にしたため、横幅100%を設定*/
+  background: #222;
   color: #fff;
-  font-size: 0.8rem;
   text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.3s;
-}
-#page-top a:link, #page-top a:visited {
-  background: #942d2f;
-}
-#page-top a:hover, #page-top a:active {
-  background: #777;
 }
 
 /*========= レイアウトのためのCSS ===============*/
@@ -119,19 +111,45 @@ small {
   text-align: center;
 }
 
-#header {
-  padding: 20px;
-  background: #333;
-  color: #fff;
-  text-align: center;
+#main-vidual {
+  margin-top: 70px;
+  /*上部にheader分の高さの余白を持たせる*/
+}
+
+#main-vidual img {
+  width: 100%;
 }
 
 section {
-  padding: 100px 30px;
+  padding: 30px;
 }
 
 section:nth-child(2n) {
   background: #333;
+}
+
+#main {
+  margin: 100px 0 0 0;
+}
+
+#page-link {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+#page-link li {
+  list-style: none;
+}
+#page-link li a {
+  padding: 0 20px;
+  color: #eee;
+  text-decoration: none;
+}
+#page-link li a::before {
+  padding: 0 10px 0 0;
+  content: "▼";
+  color: #ccc;
+  font-size: 0.8rem;
 }
 
 #footer {
