@@ -110,67 +110,48 @@ main p {
   text-align: center;
 }
 
-/* 回転Z軸1
-   ----------------------------- */
+/* 背景が下から出現＋テキスト */
+.flipZ1 {
+  max-width: 500px;
+  margin: 0 auto;
+}
 .flipZ1 a {
   display: block;
-  /*テキストの基点となる位置を定義*/
   position: relative;
 }
-
-.flipZ1 img {
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
+.flipZ1 a img {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  transition: all 0.35s ease;
-  /*三次元になった際に裏面を可視化させない*/
+  opacity: 1;
+  transition: all 0.3s ease;
 }
-
+.flipZ1 a .cap {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
+  transform: rotate3d(1, -1, 0, 100deg);
+  background: #222;
+  color: #fff;
+  /*奥行きをもたせて回転*/
+  opacity: 0;
+  transition: all 0.35s ease;
+}
 .flipZ1 a:hover img {
-  /*hoverした時の変化*/
   transform: rotate3d(-1, 1, 0, 100deg);
   /*奥行きをもたせて回転*/
   opacity: 0;
 }
-
-.flipZ1 span.cap {
-  /*テキストの色を変えたい場合はここを修正*/
-  /*ここからテキスト中央寄せの指定*/
-  display: flex;
-  /*ここからエリアの絶対配置の指定*/
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-  transform: rotate3d(1, -1, 0, 100deg);
-  background: #333;
-  /*背景色*/
-  color: #fff;
-  /*奥行きをもたせて回転*/
-  opacity: 0;
-  /*ここまでエリアの絶対配置の指定*/
-  transition: all 0.35s ease;
-  /*ここまでテキスト中央寄せの指定*/
-}
-
-.flipZ1 a:hover span.cap {
-  /*hoverした時の変化*/
-  transform: rotate3d(0, 0, 0, 0deg);
-  /*奥行きをもたせて回転*/
+.flipZ1 a:hover .cap {
+  transform: rotateZ(0);
   opacity: 1;
   transition-delay: 0.15s;
   /*移り変わる速さを変更したい場合はこの数値を変更*/
-}
-
-/* 横幅　*/
-.flipZ1 {
-  width: 70%;
-  margin: 0 auto;
-  /*中央揃え*/
 }
 @media (pointer: fine) {
   a:link {
