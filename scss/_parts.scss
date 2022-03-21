@@ -31,46 +31,47 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-
-.circle span.mask{
-	position: relative;/*波紋の基点となる位置を定義*/
+/*　画像の拡大　*/
+.circle {
+  margin: 0 auto;
+  max-width: 500px;
+  .mask {
+    position: relative;
+    // blockにしないとマスクされない。
     display: block;
-    line-height: 0;/*行の高さを0にする*/
-    overflow: hidden;/*拡大してはみ出る要素を隠す*/
-}
+    line-height: 0;
+    overflow: hidden;
+    &::before {
+      position: absolute;
+      content: "";
+      transform: scale(0);
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      z-index: 2;
+    }
 
-.circle span.mask::before {
-	position: absolute;
-	content:"";
-	transform: scale(0);/*円の大きさ初期値は0*/
-	opacity: 0;/*透過0*/
-	width:100%;/*円のサイズ指定*/
-	height:100%;/*円のサイズ指定*/
-	border-radius:50%;/*円の角丸指定*/
-	background: rgba(255,255,255,0.4);/*円の背景色*/
-}
-
-.circle span.mask:hover::before {/*hoverした時の変化*/
-	animation: circle 0.75s;/*アニメーションの名前と速度を定義*/
+    /*hoverした時の変化*/
+    &:hover {
+      &::before {
+        animation: circle 0.75s; /*アニメーションの名前と速度を定義*/
+        animation-iteration-count: 1;
+      }
+    }
+  }
 }
 
 @keyframes circle {
   0% {
-  transform: scale(0);
-  opacity: 1;/*透過なし*/
+    transform: scale(0);
+    opacity: 1; /*透過なし*/
   }
   30% {
     opacity: 1;
   }
   100% {
-  transform: scale(2);/*アニメーションで大きくなった2倍の円の指定*/
+    transform: scale(2); /*アニメーションで大きくなった2倍の円の指定*/
   }
-}
-
-
-/* 横幅 */
-
-.circle{
-  width:70%;
-  margin: 0 auto;/*中央揃え*/
 }
