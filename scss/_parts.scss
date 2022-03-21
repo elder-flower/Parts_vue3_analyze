@@ -32,20 +32,32 @@ main {
   margin: 0 0 1em 0;
 }
 
+
 /*　モノクロからカラーへ　*/
+.grayscale {
+  margin: 0 auto;
+  max-width: 500px;
+  .mask {
+    // blockにしないとマスクされない。
+    display: block;
 
-.grayscale img{
-  filter: grayscale(100%);/*モノクロ具合を変更したい場合はこの数値を変更*/
-  transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-}
+    /*行の高さを0にする*/
+    line-height: 0;
 
-.grayscale a:hover img{/*hoverした時の変化*/
-  filter:grayscale(0);
-}
+    /*拡大してはみ出る要素を隠す*/
+    overflow: hidden;
+    img {
+      //width: 70%;
+      transition: 0.3s ease-in-out;
 
-/*　横幅　*/
+      filter: grayscale(100%);
+    }
 
-.grayscale{
-  width:70%;
-  margin: 0 auto;/*中央揃え*/
+    /*hoverした時の変化*/
+    &:hover {
+      img {
+        filter: grayscale(0%);
+      }
+    }
+  }
 }
