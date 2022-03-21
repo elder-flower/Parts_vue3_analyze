@@ -55,17 +55,17 @@ main {
       justify-content: center;
       align-items: center;
       transition: all 0.35s ease;/*移り変わる速さを変更したい場合はこの数値を変更*/
-      transform: rotate3d(-1, -1, 0, 100deg);/*奥行きをもたせて回転*/
+      transform: rotate3d(1, 1, 0, 100deg);/*奥行きをもたせて回転*/
       opacity: 0;
     }
     &:hover {
       img{
         // rotate3d(〚回転軸のX成分〛,〚回転軸のY成分〛,〚回転軸のZ成分〛,〚回転する角度〛)
-        transform: rotate3d(1, 1, 0, 100deg);/*奥行きをもたせて回転*/
+        transform: rotate3d(-1, -1, 0, 100deg);/*奥行きをもたせて回転*/
         opacity: 0;
       }
       .cap{
-        transform: rotateZ( 0 );
+        transform: rotate3d(0, 0, 0, 0deg);/*奥行きをもたせて回転*/
         opacity: 1;
         transition-delay: 0.15s;/*移り変わる速さを変更したい場合はこの数値を変更*/
       }
