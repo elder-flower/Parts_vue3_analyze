@@ -31,55 +31,45 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-
-/* 回転Y軸
-   ----------------------------- */
-
-   .flipY a{/*テキストの基点となる位置を定義*/
+/* 背景が下から出現＋テキスト */
+.flipY {
+  margin: 0 auto;
+  max-width: 500px;
+  a{
     position: relative;
     display: block;
+    img{
+      transition: all .3s ease;
+      transform: rotateY( 0 );
+      backface-visibility: hidden;
+      opacity: 1;
+    }
+    .cap{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all .3s ease;
+      transform: rotateY( 90deg );
+      transform-origin: 0, 50%;
+      opacity: 0;
+    }
+    &:hover {
+      img{
+        transform: rotateY( -180deg );
+        opacity: 0;
+      }
+      .cap{
+        transform: rotateY( 0 );
+        opacity: 1;
+        transition-delay: 0.15s;/*移り変わる速さを変更したい場合はこの数値を変更*/
+      }
+    }
   }
-  
-  .flipY img {
-    transition: all 0.35s ease;/*移り変わる速さを変更したい場合はこの数値を変更*/
-    backface-visibility: hidden;/*三次元になった際に裏面を可視化させない*/
-  }
-  
-  .flipY a:hover img {/*hoverした時の変化*/
-    transform: rotateY(-180deg);
-    opacity: 0;
-  }
-  
-  .flipY span.cap {
-  /*ここからエリアの絶対配置の指定*/
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  /*ここまでエリアの絶対配置の指定*/
-    transition: all 0.35s ease;/*移り変わる速さを変更したい場合はこの数値を変更*/
-    transform: rotateY(90deg);/*横軸に回転*/
-    transform-origin: 50% 0%;/*回転する基点*/
-    opacity: 0;
-    background:#333;/*背景色*/
-    color: #fff;/*テキストの色を変えたい場合はここを修正*/
-   /*ここからテキスト中央寄せの指定*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   /*ここまでテキスト中央寄せの指定*/
-  }
-  
-  .flipY a:hover span.cap {/*hoverした時の変化*/
-    transform: rotateY(0);/*横軸に回転*/
-    opacity: 1;
-    transition-delay: 0.15s;/*移り変わる速さを変更したい場合はこの数値を変更*/
-  }
-
-  /*横幅*/
-
-.flipY{
-	width: 70%;
-    margin: 0 auto;/*中央揃え*/
 }
