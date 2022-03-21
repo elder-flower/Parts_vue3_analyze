@@ -32,46 +32,50 @@ main {
   margin: 0 0 1em 0;
 }
 /*　画像の拡大　*/
-.circle {
+.bgDU {
   margin: 0 auto;
   max-width: 500px;
   .mask {
-    position: relative;
     // blockにしないとマスクされない。
     display: block;
     line-height: 0;
     overflow: hidden;
-    &::before {
+
+    position: relative;
+    &::before{
       position: absolute;
-      content: "";
-      transform: scale(0);
-      opacity: 0;
+      content: '';
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
+      background: #222;
       z-index: 2;
+      transition: .3s ease;
+      transform: translate( 0, 100% );
+      opacity: 0;
     }
-
-    /*hoverした時の変化*/
+    .cap{
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: .5s ease;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+      opacity: 0;
+    }
     &:hover {
-      &::before {
-        animation: circle 0.75s; /*アニメーションの名前と速度を定義*/
-        animation-iteration-count: 1;
+      &::before{
+        transform: translate( 0, 0 );
+        opacity: 1;
+      }
+      .cap{
+        opacity: 1;
       }
     }
-  }
-}
-
-@keyframes circle {
-  0% {
-    transform: scale(0);
-    opacity: 1; /*透過なし*/
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2); /*アニメーションで大きくなった2倍の円の指定*/
   }
 }
