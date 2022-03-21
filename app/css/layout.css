@@ -110,26 +110,24 @@ main p {
   text-align: center;
 }
 
-/*　モノクロからカラーへ　*/
-.grayscale {
-  max-width: 500px;
-  margin: 0 auto;
-}
-.grayscale .mask {
-  display: block;
-  /*拡大してはみ出る要素を隠す*/
-  overflow: hidden;
-  /*行の高さを0にする*/
-  line-height: 0;
-  /*hoverした時の変化*/
-}
-.grayscale .mask img {
-  /*モノクロ具合を変更したい場合はこの数値を変更*/
-  filter: grayscale(100%);
+/* セピアからカラーへ */
+.sepia img {
+  filter: sepia(100%);
+  /*セピア具合を変更したい場合はこの数値を変更*/
   transition: 0.3s ease-in-out;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
 }
-.grayscale .mask:hover img {
-  filter: grayscale(0%);
+
+.sepia a:hover img {
+  /*hoverした時の変化*/
+  filter: sepia(0);
+}
+
+/* 横幅 */
+.sepia {
+  width: 70%;
+  margin: 0 auto;
+  /*中央揃え*/
 }
 @media (pointer: fine) {
   a:link {
