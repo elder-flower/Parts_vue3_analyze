@@ -110,78 +110,47 @@ main p {
   text-align: center;
 }
 
-/*　画像の拡大＋テキスト出現　*/
-.zoomInText {
-  /*テキストの基点となる位置を定義*/
-  position: relative;
+/* 背景が下から出現＋テキスト */
+.flipX {
+  max-width: 500px;
+  margin: 0 auto;
 }
-
-.zoomInText span.mask {
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
+.flipX a {
   display: block;
   position: relative;
-  /*行の高さを0にする*/
-  overflow: hidden;
-  /*画像をくくるspanタグをブロック要素にする*/
-  line-height: 0;
-  transition: 0.3s ease-in-out;
-  /*拡大してはみ出る要素を隠す*/
 }
-
-.zoomInText:hover span.mask::before {
-  z-index: 2;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-  background: rgba(0, 0, 0, 0.5);
-  /*hoverした時の変化*/
-  content: "";
-  /*背景色*/
-}
-
-.zoomInText img {
-  transform: scale(1);
-  filter: blur(0);
-  transition: 0.3s ease-in-out;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-}
-
-.zoomInText:hover img {
-  /*hoverした時の変化*/
-  transform: scale(1.2);
-  /*拡大の値を変更したい場合はこの数値を変更*/
-  filter: blur(2px);
-  /*ぼかし具合を変更したい場合はこの数値を変更*/
-}
-
-.zoomInText span.cap {
-  z-index: 3;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-  position: absolute;
-  /*テキストを前面に出す*/
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  /*テキストの色を変えたい場合はここを修正*/
-  line-height: 1.5;
-  opacity: 0;
-  transition: 0.5s ease-in-out;
-  /*行の高さを1.5にする*/
-}
-
-.zoomInText:hover span.cap {
-  /*hoverした時の変化*/
+.flipX a img {
+  -webkit-backface-visibility: hidden;
+  transform: rotateX(0);
+          backface-visibility: hidden;
   opacity: 1;
+  transition: all 0.3s ease;
 }
-
-/*横幅*/
-.zoomInText {
-  width: 70%;
-  margin: 0 auto;
-  /*中央揃え*/
+.flipX a .cap {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform: rotateX(90deg);
+  transform-origin: 0, 50%;
+  background: #222;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.flipX a:hover img {
+  transform: rotateX(-180deg);
+  opacity: 0;
+}
+.flipX a:hover .cap {
+  transform: rotateX(0);
+  opacity: 1;
+  transition-delay: 0.15s;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
 }
 @media (pointer: fine) {
   a:link {
