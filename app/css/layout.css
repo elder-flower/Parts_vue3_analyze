@@ -132,7 +132,7 @@ main p {
   transform: scale(100%, 0);
   background: #222;
   content: "";
-  transition: 0.2s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
 }
 .bgCH .mask .cap {
   display: flex;

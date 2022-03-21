@@ -47,7 +47,7 @@ main {
       z-index: 2;
       top: 0;
       left: 0;
-      transition: .2s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+      transition: transform .3s cubic-bezier(0.8, 0, 0.2, 1) 0s;/*移り変わる速さを変更したい場合はこの数値を変更*/
       transform: scale( 100%, 0 );
       background: #222;
       width: 100%;
