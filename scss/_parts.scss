@@ -50,6 +50,7 @@ main {
       //width: 70%;
       transition: 0.3s ease-in-out;
 
+      /*モノクロ具合を変更したい場合はこの数値を変更*/
       filter: grayscale(100%);
     }
 
