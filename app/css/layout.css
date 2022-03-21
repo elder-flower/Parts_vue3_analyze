@@ -110,78 +110,40 @@ main p {
   text-align: center;
 }
 
-/*　画像の縮小＋テキスト出現　*/
+/*　画像の拡大　*/
 .zoomOutText {
-  /*背景色とテキストの基点となる位置を定義*/
-  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
 }
-
-.zoomOutText span.mask {
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
+.zoomOutText .mask {
   display: block;
   position: relative;
-  /*行の高さを0にする*/
   overflow: hidden;
-  /*画像をくくるspanタグをブロック要素にする*/
   line-height: 0;
-  transition: 0.3s ease-in-out;
-  /*拡大してはみ出る要素を隠す*/
 }
-
-.zoomOutText:hover span.mask::before {
-  z-index: 2;
+.zoomOutText .mask img {
+  transform: scale(1);
+  transition: all 0.3s;
+}
+.zoomOutText .mask .cap {
+  display: flex;
   position: absolute;
   top: 10px;
   left: 10px;
+  align-items: center;
+  justify-content: center;
   width: calc(100% - 20px);
   height: calc(100% - 20px);
-  background: rgba(0, 0, 0, 0.5);
-  /*hoverした時の変化*/
-  content: "";
-  /*背景色*/
-}
-
-.zoomOutText img {
-  transform: scale(1.2);
-  filter: blur(0);
-  transition: 0.3s ease-in-out;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-}
-
-.zoomOutText:hover img {
-  /*hoverした時の変化*/
-  transform: scale(1);
-  /*縮小の値を変更したい場合はこの数値を変更*/
-  filter: blur(2px);
-  /*ぼかし具合を変更したい場合はこの数値を変更*/
-}
-
-.zoomOutText span.cap {
-  z-index: 3;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-  position: absolute;
-  /*テキストを前面に出す*/
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  /*テキストの色を変えたい場合はここを修正*/
-  line-height: 1.5;
+  background: rgba(10, 10, 10, 0.6);
   opacity: 0;
-  transition: 0.5s ease-in-out;
-  /*行の高さを1.5にする*/
+  transition: all 0.3s;
 }
-
-.zoomOutText:hover span.cap {
-  /*hoverした時の変化*/
+.zoomOutText .mask:hover img {
+  transform: scale(1.2);
+  filter: blur(3px);
+}
+.zoomOutText .mask:hover .cap {
   opacity: 1;
-}
-
-/* 横幅 */
-.zoomOutText {
-  width: 70%;
-  margin: 0 auto;
-  /*中央揃え*/
 }
 @media (pointer: fine) {
   a:link {
