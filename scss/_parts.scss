@@ -31,52 +31,56 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-/* 背景が下から出現＋テキスト */
-.bgLR {
-  margin: 0 auto;
-  max-width: 500px;
-  .mask {
-    position: relative;
-    display: block;
-    line-height: 0;
-    overflow: hidden;
 
-    &::before{
-      content: '';
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-      transform: translate( -100%, 0 );
-      background: #222;
-      width: 100%;
-      height: 100%;
-    }
-    .cap{
-      position: absolute;
-      opacity: 0;
-      transition: .5s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-      z-index: 3;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;/*テキストの色を変えたい場合はここを修正*/
-      line-height: 1.5;/*行の高さを1.5にする*/
-    }
-    &:hover {
-      &::before{
-        transform: translate( 0, 0 );
-        opacity: 1;
-      }
-      .cap{
-        opacity: 1;
-      }
-    }
-  }
+/* 背景が右から出現＋テキスト */
+.bgRL{
+  position:relative;/*テキストの基点となる位置を定義*/
+}
+
+.bgRL span.mask{
+  position:relative;/*背景色の基点となる位置を定義*/
+  display: block;
+  line-height: 0;/*行の高さを0にする*/
+  overflow: hidden;/*拡大してはみ出る要素を隠す*/
+}
+
+.bgRL span.mask::before{
+  content:"";
+  position: absolute;
+  z-index: 2;
+  left:0;
+  top:0;
+  opacity:0;
+  transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+  transform: translateX(100%);
+  background:#333;/*背景色*/
+  width:100%;
+  height: 100%;
+}
+
+.bgRL:hover span.mask::before{/*hoverした時の変化*/
+  opacity:1;
+  transform: translateX(0);
+}
+
+.bgRL span.cap{
+  position: absolute;
+  opacity:0;
+  transition: .5s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+  z-index:3;/*テキストを前面に出す*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff;/*テキストの色を変えたい場合はここを修正*/
+  line-height: 1.5;/*行の高さを1.5にする*/
+}
+
+.bgRL:hover span.cap{/*hoverした時の変化*/
+  opacity:1;
+}
+
+/* 横幅 */
+.bgRL{
+  width:70%;
+  margin: 0 auto;/*中央揃え*/
 }
