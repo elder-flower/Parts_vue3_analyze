@@ -125,8 +125,9 @@ main p {
 }
 .zoomOut .mask img {
   /*移り変わる速さを変更したい場合はこの数値を変更*/
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
   transform: scale(1.1);
-  transition: all 0.3s;
+  transition: 0.3s ease-in-out;
 }
 .zoomOut .mask:hover img {
   /*拡大の値を変更したい場合はこの数値を変更*/
