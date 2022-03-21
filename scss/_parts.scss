@@ -31,66 +31,39 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-/*　画像の透過+グラデーション＋テキスト出現　*/
-
+/*　画像の拡大　*/
 .opacityText {
-  /*テキストの基点となる位置を定義*/
-  position: relative;
-}
-
-.opacityText span.mask {
-  position: relative; /*グラデーションの基点となる位置を定義*/
-  transition: 0.3s ease-in-out; /*移り変わる速さを変更したい場合はこの数値を変更*/
-  display: block; /*画像をくくるspanタグをブロック要素にする*/
-  line-height: 0; /*行の高さを0にする*/
-}
-
-.opacityText:hover span.mask::before {
-  /*hoverした時の変化*/
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    45deg,
-    rgba(88, 182, 211, 0.6),
-    rgba(229, 93, 135, 0.6)
-  ); /*背景色（グラデーション）*/
-}
-
-.opacityText img {
-  opacity: 1;
-  transition: 0.3s ease-in-out; /*移り変わる速さを変更したい場合はこの数値を変更*/
-}
-
-.opacityText:hover img {
-  /*hoverした時の変化*/
-  opacity: 0.6; /*透過具合を変更したい場合はこの数値を変更*/
-}
-
-.opacityText span.cap {
-  opacity: 0;
-  transition: 0.5s ease-in-out; /*移り変わる速さを変更したい場合はこの数値を変更*/
-  position: absolute;
-  z-index: 3; /*テキストを前面に出す*/
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff; /*テキストの色を変えたい場合はここを修正*/
-  line-height: 1.5; /*行の高さを1.5にする*/
-}
-
-.opacityText:hover span.cap {
-  /*hoverした時の変化*/
-  opacity: 1;
-}
-
-/*横幅*/
-
-.opacityText {
-  width: 70%;
-  margin: 0 auto; /*中央揃え*/
+  margin: 0 auto;
+  max-width: 500px;
+  .mask {
+    position: relative;
+    display: block;
+    line-height: 0;
+    overflow: hidden;
+    img {
+      transition: all 0.3s;
+      opacity: 1;
+    }
+    .cap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg,rgba(88,182,211,.6),rgba(229,93,135,.6));/*背景色（グラデーション）*/
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    &:hover {
+      img {
+        opacity: 0.6;
+      }
+      .cap {
+        opacity: 1;
+      }
+    }
+  }
 }
