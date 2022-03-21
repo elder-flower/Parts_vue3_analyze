@@ -31,32 +31,17 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-/*　画像の拡大　*/
-.blur {
-  margin: 0 auto;
-  max-width: 500px;
-  .mask {
-    // blockにしないとマスクされない。
-    display: block;
+.opacity img {
+  opacity: 1;
+  transition: 0.3s ease-in-out; /*移り変わる速さを変更したい場合はこの数値を変更*/
+}
 
-    /*行の高さを0にする*/
-    line-height: 0;
+.opacity a:hover img {
+  /*hoverした時の変化*/
+  opacity: 0.8; /*透過具合を変更したい場合はこの数値を変更*/
+}
 
-    /*拡大してはみ出る要素を隠す*/
-    overflow: hidden;
-    img {
-      filter: blur(0);
-      transition: 0.3s ease-in-out;
-      transform: scale( 1.1 );
-    }
-
-    /*hoverした時の変化*/
-    &:hover {
-      img {
-
-        /*ぼかし具合を変更したい場合はこの数値を変更*/
-        filter: blur(3px);
-      }
-    }
-  }
+.opacity {
+  width: 70%;
+  margin: 0 auto; /*中央揃え*/
 }
