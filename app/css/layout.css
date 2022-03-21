@@ -110,40 +110,85 @@ main p {
   text-align: center;
 }
 
-/*　画像の拡大　*/
-.opacityText {
-  max-width: 500px;
-  margin: 0 auto;
+/*　枠線＋テキストが出現 　*/
+.lineText {
+  position: relative;
+  /*テキストの基点となる位置を定義*/
 }
-.opacityText .mask {
+
+/*線の設定*/
+.lineText span.mask {
   display: block;
   position: relative;
-  overflow: hidden;
+  /*画像をくくるspanタグをブロック要素にする*/
   line-height: 0;
+  /*行の高さを0にする*/
 }
-.opacityText .mask img {
-  opacity: 1;
-  transition: all 0.3s;
-}
-.opacityText .mask .cap {
-  display: flex;
-  /*背景色（グラデーション）*/
+
+.lineText span.mask::before,
+.lineText span.mask::after {
+  z-index: 3;
   position: absolute;
-  top: 0;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, rgba(88, 182, 211, 0.6), rgba(229, 93, 135, 0.6));
+  top: 4%;
+  right: 2.5%;
+  bottom: 4%;
+  left: 2.5%;
+  content: "";
   opacity: 0;
-  transition: all 0.3s;
+  transition: 0.3s ease-in-out;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
 }
-.opacityText .mask:hover img {
-  opacity: 0.6;
+
+.lineText span.mask::before {
+  /*枠線の色と太さを変更したい場合はこの数値を変更*/
+  transform: scale(0, 1);
+  border-top: 1px solid #fff;
+  /*枠線の色と太さを変更したい場合はこの数値を変更*/
+  border-bottom: 1px solid #fff;
 }
-.opacityText .mask:hover .cap {
+
+.lineText span.mask::after {
+  /*枠線の色と太さを変更したい場合はこの数値を変更*/
+  transform: scale(1, 0);
+  border-right: 1px solid #fff;
+  /*枠線の色と太さを変更したい場合はこの数値を変更*/
+  border-left: 1px solid #fff;
+}
+
+.lineText:hover span.mask::before,
+.lineText:hover span.mask::after {
+  transform: scale(1);
+  /*hoverした時の変化*/
   opacity: 1;
+}
+
+/*中央テキスト*/
+.lineText span.cap {
+  z-index: 3;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
+  position: absolute;
+  /*テキストを前面に出す*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  /*テキストの色を変えたい場合はここを修正*/
+  line-height: 1.5;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  /*行の高さを1.5にする*/
+}
+
+.lineText:hover span.cap {
+  /*hoverした時の変化*/
+  opacity: 1;
+}
+
+/* 横幅*/
+.lineText {
+  width: 70%;
+  margin: 0 auto;
+  /*中央揃え*/
 }
 @media (pointer: fine) {
   a:link {
