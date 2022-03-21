@@ -110,51 +110,41 @@ main p {
   text-align: center;
 }
 
-/* 背景が中央から横に出現＋テキスト */
+/* 背景が下から出現＋テキスト */
 .bgCW {
-  position: relative;
-  /*テキストの基点となる位置を定義*/
+  max-width: 500px;
+  margin: 0 auto;
 }
-
-.bgCW span.mask {
-  /*背景色の基点となる位置を定義*/
+.bgCW .mask {
   display: block;
   position: relative;
-  /*行の高さを0にする*/
   overflow: hidden;
   line-height: 0;
-  /*拡大してはみ出る要素を隠す*/
 }
-
-.bgCW span.mask::before {
+.bgCW .mask::before {
   z-index: 2;
   position: absolute;
-  /*背景色*/
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   /*移り変わる速さを変更したい場合はこの数値を変更*/
   transform: scale(0, 1);
-  transform-origin: center;
-  background: #333;
+  background: #222;
   content: "";
-  transition: transform 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  transition: 0.3s ease-in-out;
 }
-
-.bgCW span.mask:hover::before {
-  /*hoverした時の変化*/
-  transform: scale(1, 1);
-}
-
-.bgCW span.cap {
-  z-index: 3;
+.bgCW .mask .cap {
+  display: flex;
   /*移り変わる速さを変更したい場合はこの数値を変更*/
+  z-index: 3;
   position: absolute;
-  /*テキストを前面に出す*/
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   color: #fff;
   /*テキストの色を変えたい場合はここを修正*/
   line-height: 1.5;
@@ -162,17 +152,11 @@ main p {
   transition: 0.5s ease-in-out;
   /*行の高さを1.5にする*/
 }
-
-.bgCW a:hover span.cap {
-  /*hoverした時の変化*/
-  opacity: 1;
+.bgCW .mask:hover::before {
+  transform: scale(1, 1);
 }
-
-/* 横幅 */
-.bgCW {
-  width: 70%;
-  margin: 0 auto;
-  /*中央揃え*/
+.bgCW .mask:hover .cap {
+  opacity: 1;
 }
 @media (pointer: fine) {
   a:link {
