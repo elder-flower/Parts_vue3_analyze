@@ -110,52 +110,42 @@ main p {
   text-align: center;
 }
 
-/* 背景が右から出現＋テキスト */
+/* 背景が下から出現＋テキスト */
 .bgRL {
-  position: relative;
-  /*テキストの基点となる位置を定義*/
+  max-width: 500px;
+  margin: 0 auto;
 }
-
-.bgRL span.mask {
-  /*背景色の基点となる位置を定義*/
+.bgRL .mask {
   display: block;
   position: relative;
-  /*行の高さを0にする*/
   overflow: hidden;
   line-height: 0;
-  /*拡大してはみ出る要素を隠す*/
 }
-
-.bgRL span.mask::before {
+.bgRL .mask::before {
   z-index: 2;
   position: absolute;
   top: 0;
   left: 0;
-  /*背景色*/
   width: 100%;
   height: 100%;
   /*移り変わる速さを変更したい場合はこの数値を変更*/
-  transform: translateX(100%);
-  background: #333;
+  transform: translate(100%, 0);
+  background: #222;
   content: "";
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
-
-.bgRL:hover span.mask::before {
-  transform: translateX(0);
-  /*hoverした時の変化*/
-  opacity: 1;
-}
-
-.bgRL span.cap {
+.bgRL .mask .cap {
+  display: flex;
   /*移り変わる速さを変更したい場合はこの数値を変更*/
   z-index: 3;
   position: absolute;
-  /*テキストを前面に出す*/
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   color: #fff;
   /*テキストの色を変えたい場合はここを修正*/
   line-height: 1.5;
@@ -163,17 +153,12 @@ main p {
   transition: 0.5s ease-in-out;
   /*行の高さを1.5にする*/
 }
-
-.bgRL:hover span.cap {
-  /*hoverした時の変化*/
+.bgRL .mask:hover::before {
+  transform: translate(0, 0);
   opacity: 1;
 }
-
-/* 横幅 */
-.bgRL {
-  width: 70%;
-  margin: 0 auto;
-  /*中央揃え*/
+.bgRL .mask:hover .cap {
+  opacity: 1;
 }
 @media (pointer: fine) {
   a:link {
