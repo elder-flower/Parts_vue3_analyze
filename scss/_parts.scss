@@ -26,48 +26,49 @@ main {
 :root {
   font-size: 14px;
 }
-/*========= バー表示のためのCSS ===============*/
 
-/*タイムライン全体の設定*/
-.timeline {
-  max-width: 600px;
-  width: 100%;
-  margin: 50px auto;
-  padding: 0 30px;
-  li {
-    position: relative;
-    margin: 10px 0;
-    &::before {
-      content: "";
-      position: absolute;
-      top: 2%;
-      left: 0;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #555;
-	  z-index:3;
-    }
-  }
-  .border-line {
-    position: absolute;
-    top: 16px;
-    left: 4px;
-    background: #eee;
-    width: 2px;
-    height: 0;
-	z-index:1;
-  }
-  dl {
-    margin: 0 0 0 30px;
-  }
-  dt {
-    margin: 0 0 10px 0;
-  }
-  dd {
-    strong {
-      display: block;
-      margin: 0 0 10px 0;
-    }
-  }
+/*　画像の拡大　*/
+
+.zoomIn img{
+  transform: scale(1);
+  transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+}
+
+.zoomIn a:hover img{/*hoverした時の変化*/
+transform: scale(1.2);/*拡大の値を変更したい場合はこの数値を変更*/
+}
+
+/*　画像のマスク　*/
+
+.mask{
+  display: block;
+  line-height: 0;/*行の高さを0にする*/
+  overflow: hidden;/*拡大してはみ出る要素を隠す*/
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+a{
+color: #333;
+text-decoration: none;
+}
+
+.lead{
+text-align: center;
+padding: 50px 20px;
+}
+
+/*画像のレスポンシブ*/
+
+img{
+width:100%;
+height: auto;
+}
+
+/*　横幅　*/
+
+.zoomIn{
+  width:70%;
+  margin: 0 auto;/*中央揃え*/
 }
