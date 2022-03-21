@@ -32,47 +32,45 @@ main {
   margin: 0 0 1em 0;
 }
 
-/* キラッ */
-.shine {
-  max-width: 500px;
-  margin: 0 auto;
-  a {
-    position: relative;
+.circle span.mask{
+	position: relative;/*波紋の基点となる位置を定義*/
     display: block;
-    overflow: hidden;
+    line-height: 0;/*行の高さを0にする*/
+    overflow: hidden;/*拡大してはみ出る要素を隠す*/
+}
 
-    &::before{
-      position: absolute;
-      content: '';
+.circle span.mask::before {
+	position: absolute;
+	content:"";
+	transform: scale(0);/*円の大きさ初期値は0*/
+	opacity: 0;/*透過0*/
+	width:100%;/*円のサイズ指定*/
+	height:100%;/*円のサイズ指定*/
+	border-radius:50%;/*円の角丸指定*/
+	background: rgba(255,255,255,0.4);/*円の背景色*/
+}
 
-      /*.shine .maskのトップ0を基点*/
-      top: 0;
+.circle span.mask:hover::before {/*hoverした時の変化*/
+	animation: circle 0.75s;/*アニメーションの名前と速度を定義*/
+}
 
-      /*画面の見えていない左から右へ移動するスタート地点*/
-      left: -85%;
-
-      /*キラッの横幅*/
-      width: 50%;
-
-      /*キラッの縦幅*/
-      height: 100%;
-
-      background: linear-gradient( 90deg,rgba( 255, 255, 255 ,0) 0%, rgba( 255, 255, 255 ,0.3) 100%);
-      transform: scale( 1.7 ) rotate( 20deg);
-      z-index: 2;
-    }
-    &:hover {
-      &::before{
-        animation: shine 0.7s;/*アニメーションの名前と速度を定義*/
-      }
-    }
+@keyframes circle {
+  0% {
+  transform: scale(0);
+  opacity: 1;/*透過なし*/
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+  transform: scale(2);/*アニメーションで大きくなった2倍の円の指定*/
   }
 }
-@keyframes shine {
-	0% {
-    left: -85%;
-	}
-	100% {
-		left: 125%;/*画面の見えていない左から右へ移動する終了地点*/
-	}
+
+
+/* 横幅 */
+
+.circle{
+  width:70%;
+  margin: 0 auto;/*中央揃え*/
 }
