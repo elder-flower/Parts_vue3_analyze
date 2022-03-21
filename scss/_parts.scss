@@ -27,48 +27,37 @@ main {
   font-size: 14px;
 }
 
+.lead {
+  text-align: center;
+  margin: 0 0 1em 0;
+}
 /*　画像の拡大　*/
+.zoomIn {
+  margin: 0 auto;
+  max-width: 500px;
+  .mask {
+    // blockにしないとマスクされない。
+    display: block;
 
-.zoomIn img{
-  transform: scale(1);
-  transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-}
+    /*行の高さを0にする*/
+    line-height: 0;
 
-.zoomIn a:hover img{/*hoverした時の変化*/
-transform: scale(1.2);/*拡大の値を変更したい場合はこの数値を変更*/
-}
+    /*拡大してはみ出る要素を隠す*/
+    overflow: hidden;
+    img {
+      //width: 70%;
+      transition: all 0.3s;
 
-/*　画像のマスク　*/
+      /*移り変わる速さを変更したい場合はこの数値を変更*/
+      transform: scale(1);
+    }
 
-.mask{
-  display: block;
-  line-height: 0;/*行の高さを0にする*/
-  overflow: hidden;/*拡大してはみ出る要素を隠す*/
-}
-
-
-/*========= レイアウトのためのCSS ===============*/
-
-a{
-color: #333;
-text-decoration: none;
-}
-
-.lead{
-text-align: center;
-padding: 50px 20px;
-}
-
-/*画像のレスポンシブ*/
-
-img{
-width:100%;
-height: auto;
-}
-
-/*　横幅　*/
-
-.zoomIn{
-  width:70%;
-  margin: 0 auto;/*中央揃え*/
+    /*hoverした時の変化*/
+    &:hover {
+      img {
+        /*拡大の値を変更したい場合はこの数値を変更*/
+        transform: scale(1.2);
+      }
+    }
+  }
 }
