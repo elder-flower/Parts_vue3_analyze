@@ -31,42 +31,43 @@ main {
   text-align: center;
   margin: 0 0 1em 0;
 }
-/*　画像の拡大　*/
+/* 背景が下から出現＋テキスト */
 .bgDU {
   margin: 0 auto;
   max-width: 500px;
   .mask {
-    // blockにしないとマスクされない。
+    position: relative;
     display: block;
     line-height: 0;
     overflow: hidden;
 
-    position: relative;
     &::before{
-      position: absolute;
       content: '';
+      position: absolute;
+      z-index: 2;
       top: 0;
       left: 0;
+      opacity: 0;
+      transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+      transform: translate( 0, 100% );
+      background: #222;
       width: 100%;
       height: 100%;
-      background: #222;
-      z-index: 2;
-      transition: .3s ease;
-      transform: translate( 0, 100% );
-      opacity: 0;
     }
     .cap{
       position: absolute;
+      opacity: 0;
+      transition: .5s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
+      z-index: 3;
       top: 0;
       left: 0;
-      transition: .5s ease;
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 4;
-      opacity: 0;
+      color: #fff;/*テキストの色を変えたい場合はここを修正*/
+      line-height: 1.5;/*行の高さを1.5にする*/
     }
     &:hover {
       &::before{

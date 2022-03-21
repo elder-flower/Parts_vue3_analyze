@@ -110,7 +110,7 @@ main p {
   text-align: center;
 }
 
-/*　画像の拡大　*/
+/* 背景が下から出現＋テキスト */
 .bgDU {
   max-width: 500px;
   margin: 0 auto;
@@ -128,15 +128,17 @@ main p {
   left: 0;
   width: 100%;
   height: 100%;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
   transform: translate(0, 100%);
   background: #222;
   content: "";
   opacity: 0;
-  transition: 0.3s ease;
+  transition: 0.3s ease-in-out;
 }
 .bgDU .mask .cap {
   display: flex;
-  z-index: 4;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
+  z-index: 3;
   position: absolute;
   top: 0;
   left: 0;
@@ -144,8 +146,12 @@ main p {
   justify-content: center;
   width: 100%;
   height: 100%;
+  color: #fff;
+  /*テキストの色を変えたい場合はここを修正*/
+  line-height: 1.5;
   opacity: 0;
-  transition: 0.5s ease;
+  transition: 0.5s ease-in-out;
+  /*行の高さを1.5にする*/
 }
 .bgDU .mask:hover::before {
   transform: translate(0, 0);
