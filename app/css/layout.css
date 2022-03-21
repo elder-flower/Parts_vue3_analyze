@@ -110,34 +110,28 @@ main p {
   text-align: center;
 }
 
-/*　画像の縮小　*/
-.zoomOut img {
-  transform: scale(1.1);
-  transition: 0.3s ease-in-out;
-  /*移り変わる速さを変更したい場合はこの数値を変更*/
-}
-
-.zoomOut a:hover img {
-  /*hoverした時の変化*/
-  transform: scale(1);
-  /*拡大の値を変更したい場合はこの数値を変更*/
-}
-
-/*　画像のマスク　*/
-.mask {
-  display: block;
-  /*行の高さを0にする*/
-  overflow: hidden;
-  line-height: 0;
-  /*拡大してはみ出る要素を隠す*/
-}
-
+/*　画像の拡大　*/
 .zoomOut {
-  width: 70%;
+  max-width: 500px;
   margin: 0 auto;
-  /*中央揃え*/
 }
-
+.zoomOut .mask {
+  display: block;
+  /*拡大してはみ出る要素を隠す*/
+  overflow: hidden;
+  /*行の高さを0にする*/
+  line-height: 0;
+  /*hoverした時の変化*/
+}
+.zoomOut .mask img {
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+.zoomOut .mask:hover img {
+  /*拡大の値を変更したい場合はこの数値を変更*/
+  transform: scale(1);
+}
 @media (pointer: fine) {
   a:link {
     text-decoration: none;
