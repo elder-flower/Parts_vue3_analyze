@@ -32,39 +32,47 @@ main {
   margin: 0 0 1em 0;
 }
 
-/*　キラッ　*/
-
-.shine span.mask{
-	position: relative;/*キラッの基点となる位置を定義*/
+/* キラッ */
+.shine {
+  max-width: 500px;
+  margin: 0 auto;
+  a {
+    position: relative;
     display: block;
-    line-height: 0;/*行の高さを0にする*/
-    overflow: hidden;/*拡大してはみ出る要素を隠す*/
-}
+    overflow: hidden;
 
-.shine span.mask::before {
-	position: absolute;
-	content:"";
-	width: 50%;/*キラッの横幅*/
-	height: 100%;/*キラッの縦幅*/
-	top: 0;/*.shine span.maskのトップ0を基点*/
-	left: -75%;/*画面の見えていない左から右へ移動するスタート地点*/
-	background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
-	transform: skewX(-25deg);/*背景白透過を斜めに*/
-}
+    &::before{
+      position: absolute;
+      content: '';
 
-.shine span.mask:hover::before {/*hoverした時の変化*/
-	animation: shine 0.7s;/*アニメーションの名前と速度を定義*/
-}
+      /*.shine .maskのトップ0を基点*/
+      top: 0;
 
+      /*画面の見えていない左から右へ移動するスタート地点*/
+      left: -85%;
+
+      /*キラッの横幅*/
+      width: 50%;
+
+      /*キラッの縦幅*/
+      height: 100%;
+
+      background: linear-gradient( 90deg,rgba( 255, 255, 255 ,0) 0%, rgba( 255, 255, 255 ,0.3) 100%);
+      transform: scale( 1.7 ) rotate( 20deg);
+      z-index: 2;
+    }
+    &:hover {
+      &::before{
+        animation: shine 0.7s;/*アニメーションの名前と速度を定義*/
+      }
+    }
+  }
+}
 @keyframes shine {
+	0% {
+    left: -85%;
+	}
 	100% {
 		left: 125%;/*画面の見えていない左から右へ移動する終了地点*/
 	}
-}
-
-/*　横幅　*/
-
-.shine {
-  width: 70%;
-  margin: 0 auto; /*中央揃え*/
 }
