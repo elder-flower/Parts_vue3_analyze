@@ -45,7 +45,7 @@ main {
     /*拡大してはみ出る要素を隠す*/
     overflow: hidden;
     img {
-      //width: 70%;
+      filter: blur(0);
       transition: 0.3s ease-in-out;
       transform: scale( 1.1 );
     }
@@ -53,6 +53,8 @@ main {
     /*hoverした時の変化*/
     &:hover {
       img {
+
+        /*ぼかし具合を変更したい場合はこの数値を変更*/
         filter: blur(3px);
       }
     }

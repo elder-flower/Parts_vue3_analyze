@@ -125,9 +125,11 @@ main p {
 }
 .blur .mask img {
   transform: scale(1.1);
+  filter: blur(0);
   transition: 0.3s ease-in-out;
 }
 .blur .mask:hover img {
+  /*ぼかし具合を変更したい場合はこの数値を変更*/
   filter: blur(3px);
 }
 @media (pointer: fine) {
