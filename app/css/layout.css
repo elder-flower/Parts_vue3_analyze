@@ -125,12 +125,14 @@ main p {
 }
 .zoomInRotate .mask img {
   /*移り変わる速さを変更したい場合はこの数値を変更*/
-  transform: scale(1.6);
-  transition: all 0.3s;
+  /*移り変わる速さを変更したい場合はこの数値を変更*/
+  transform: scale(1);
+  transition: 0.3s ease-in-out;
 }
 .zoomInRotate .mask:hover img {
   /*拡大の値を変更したい場合はこの数値を変更*/
-  transform: scale(1.8) rotate(10deg);
+  transform: rotate(5deg) scale(1.2);
+  /*拡大、回転の値を変更したい場合はこの数値を変更*/
 }
 @media (pointer: fine) {
   a:link {

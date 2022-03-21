@@ -46,17 +46,17 @@ main {
     overflow: hidden;
     img {
       //width: 70%;
-      transition: all 0.3s;
+      transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
 
       /*移り変わる速さを変更したい場合はこの数値を変更*/
-      transform: scale(1.6);
+      transform: scale(1);
     }
 
     /*hoverした時の変化*/
     &:hover {
       img {
         /*拡大の値を変更したい場合はこの数値を変更*/
-        transform: scale(1.8) rotate(10deg);
+        transform:rotate(5deg) scale(1.2);/*拡大、回転の値を変更したい場合はこの数値を変更*/
       }
     }
   }
