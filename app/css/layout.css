@@ -106,88 +106,97 @@ main p {
 }
 
 /*==================================================
-ふわっ
+パタッ
 ===================================*/
-/* その場で */
-.fadeIn {
-  animation: fadeInAnime 1s;
+/* 下へ */
+.flipDown {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
+  animation-name: flipDownAnime;
   opacity: 0;
 }
 
-@keyframes fadeInAnime {
-  0% {
+@keyframes flipDownAnime {
+  from {
+    transform: perspective(2500px) rotateX(100deg);
     opacity: 0;
   }
-  100% {
+  to {
+    transform: perspective(2500px) rotateX(0);
     opacity: 1;
   }
 }
-/* 下から */
-.fadeUp {
-  animation: fadeUpAnime 0.5s;
+/* 左へ */
+.flipLeft {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
+  animation-name: flipLeftAnime;
   opacity: 0;
+  perspective-origin: left center;
 }
 
-@keyframes fadeUpAnime {
-  0% {
-    transform: translate(0, 100px);
+@keyframes flipLeftAnime {
+  from {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
     opacity: 0;
   }
-  100% {
-    transform: translate(0, 0);
+  to {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
     opacity: 1;
   }
 }
-/* 上から */
-.fadeDown {
-  animation: fadeDownAnime 0.5s;
+/* 左上へ */
+.flipLeftTop {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
+  animation-name: flipLeftTopAnime;
   opacity: 0;
 }
 
-@keyframes fadeDownAnime {
-  0% {
-    transform: translate(0, -100px);
+@keyframes flipLeftTopAnime {
+  from {
+    transform: translate(-20px, 80px) rotate(-15deg);
     opacity: 0;
   }
-  100% {
-    transform: translate(0, 0);
+  to {
+    transform: translate(0, 0) rotate(0deg);
     opacity: 1;
   }
 }
-/* 左から */
-.fadeLeft {
-  animation: fadeLeftAnime 0.5s;
+/* 右へ */
+.flipRight {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
+  animation-name: flipRightAnime;
   opacity: 0;
+  perspective-origin: right center;
 }
 
-@keyframes fadeLeftAnime {
-  0% {
-    transform: translate(-100px, 0);
+@keyframes flipRightAnime {
+  from {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(-30deg);
     opacity: 0;
   }
-  100% {
-    transform: translate(0, 0);
+  to {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
     opacity: 1;
   }
 }
-/* 右から */
-.fadeRight {
-  animation: fadeRightAnime 0.5s;
+/* 右上へ */
+.flipRightTop {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
+  animation-name: flipRightTopAnime;
   opacity: 0;
 }
 
-@keyframes fadeRightAnime {
-  0% {
-    transform: translate(100px, 0);
+@keyframes flipRightTopAnime {
+  from {
+    transform: translate(-20px, 80px) rotate(25deg);
     opacity: 0;
   }
-  100% {
-    transform: translate(0, 0);
+  to {
+    transform: translate(0, 1) rotate(0deg);
     opacity: 1;
   }
 }
