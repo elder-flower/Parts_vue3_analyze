@@ -31,23 +31,18 @@ main {
 ボンッ
 ===================================*/
 
-/* 拡大 */
-.zoomIn {
-  animation-name: zoomInAnime;
-  animation-duration: 0.5s;
+.zoomIn{
+  animation: zoomInnime 0.5s;
   animation-fill-mode: forwards;
 }
-
-@keyframes zoomInAnime {
-  from {
-    transform: scale(0.6);
+@keyframes zoomInnime {
+  0% {
+    transform: scale( 0.6 );
   }
-
-  to {
-    transform: scale(1);
+  100% {
+    transform: scale( 1 );
   }
 }
-
 /*========= レイアウトのためのCSS ===============*/
 
 p {
