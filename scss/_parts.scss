@@ -32,19 +32,16 @@ main {
 ===================================*/
 
 /* 縮小 */
-.zoomOut {
-  animation-name: zoomOutAnime;
-  animation-duration: 0.5s;
+.zoomOut{
+  animation: zoomOutAnime 0.5s;
   animation-fill-mode: forwards;
 }
-
 @keyframes zoomOutAnime {
-  from {
-    transform: scale(1.2);
+  0% {
+    transform: scale( 1.2 );
   }
-
-  to {
-    transform: scale(1);
+  100% {
+    transform: scale( 1 );
   }
 }
 

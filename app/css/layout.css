@@ -110,16 +110,15 @@ main p {
 ===================================*/
 /* 縮小 */
 .zoomOut {
-  animation-duration: 0.5s;
+  animation: zoomOutAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: zoomOutAnime;
 }
 
 @keyframes zoomOutAnime {
-  from {
+  0% {
     transform: scale(1.2);
   }
-  to {
+  100% {
     transform: scale(1);
   }
 }
