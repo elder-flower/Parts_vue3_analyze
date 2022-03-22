@@ -27,68 +27,127 @@ main {
   font-size: 14px;
 }
 
-.lead {
-  text-align: center;
-  margin: 0 0 1em 0;
+/*==================================================
+ふわっ
+===================================*/
+
+/* その場で */
+.fadeIn {
+  animation-name: fadeInAnime;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
-/*　画像の拡大　*/
-.lineText {
-  margin: 0 auto;
-  max-width: 500px;
-  .mask {
-    position: relative;
-    display: block;
-    line-height: 0;
-    overflow: hidden;
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: calc(100% - 10px * 2);
-      height: calc(100% - 10px * 2);
-      border: 0px solid #fff;
-      opacity: 0;
-      transition: .3s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-    }
-    &::before {
-      border-width: 0 1px 0 1px;
-      transform: scale(1, 0);
-      transform-origin: center;
-    }
-    &::after {
-      border-width: 1px 0 1px 0;
-      transform: scale(0, 1);
-      transform-origin: center;
-    }
-
-    .cap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: calc(100% - 10px * 2);
-      height: calc(100% - 10px * 2);
-      opacity: 0;
-      transition: .5s ease-in-out;/*移り変わる速さを変更したい場合はこの数値を変更*/
-
-    }
-    &:hover {
-      &::before {
-        opacity: 1;
-        transform: scale(1, 1);
-      }
-      &::after {
-        opacity: 1;
-        transform: scale(1, 1);
-      }
-      .cap {
-        opacity: 1;
-      }
-    }
+@keyframes fadeInAnime {
+  from {
+    opacity: 0;
   }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* 下から */
+
+.fadeUp {
+  animation-name: fadeUpAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUpAnime {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 上から */
+
+.fadeDown {
+  animation-name: fadeDownAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeDownAnime {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 左から */
+
+.fadeLeft {
+  animation-name: fadeLeftAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeLeftAnime {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 右から */
+
+.fadeRight {
+  animation-name: fadeRightAnime;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeRightAnime {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+p {
+  margin: 50px 0;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 220px;
+  padding: 20px;
+  margin: 0 20px 20px 20px;
+  background: #666;
+  color: #fff;
 }
