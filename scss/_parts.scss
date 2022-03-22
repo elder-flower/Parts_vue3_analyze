@@ -33,65 +33,66 @@ main {
 
 /* X 軸（縦へ） */
 .rotateX {
-  animation-name: rotateXAnime;
-  animation-duration: 1s;
+  animation: rotateXAnime 1s;
   animation-fill-mode: forwards;
+  transform-origin: 0 50%;
 }
 
 @keyframes rotateXAnime {
-  from {
-    transform: rotateX(0);
+  0% {
+    transform: rotateX( 360deg );
   }
-  to {
-    transform: rotateX(-360deg);
+  100% {
+    transform: rotateX( 0deg );
   }
 }
 
 /* 　Y 軸（横へ） */
 .rotateY {
-  animation-name: rotateYAnime;
-  animation-duration: 1s;
+  animation: rotateYAnime 1s;
   animation-fill-mode: forwards;
+  transform-origin: 50% 0;
 }
 
 @keyframes rotateYAnime {
-  from {
-    transform: rotateY(0);
+  0% {
+    transform: rotateY( 360deg );
   }
-  to {
-    transform: rotateY(-360deg);
+  100% {
+    transform: rotateY( 0deg );
   }
 }
 
 /* Z 軸（左へ） */
 .rotateLeftZ {
-  animation-name: rotateLeftZAnime;
-  animation-duration: 1s;
+  animation: rotateLeftZAnime 1s;
   animation-fill-mode: forwards;
+  transform-origin: 50% 50%;
 }
 
 @keyframes rotateLeftZAnime {
-  from {
-    transform: rotateZ(0);
+  0% {
+    transform: rotateZ( 360deg );
   }
-  to {
-    transform: rotateZ(-360deg);
+  100% {
+    transform: rotateZ( 0deg );
   }
 }
 
 /* Z 軸（右へ） */
+
 .rotateRightZ {
-  animation-name: rotateRightZAnime;
-  animation-duration: 1s;
+  animation: rotateRightZAnime 1s;
   animation-fill-mode: forwards;
+  transform-origin: 50% 50%;
 }
 
 @keyframes rotateRightZAnime {
-  from {
-    transform: rotateZ(0);
+  0% {
+    transform: rotateZ( -360deg );
   }
-  to {
-    transform: rotateZ(360deg);
+  100% {
+    transform: rotateZ( 0deg );
   }
 }
 
