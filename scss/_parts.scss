@@ -67,7 +67,7 @@ main {
 .rotateLeftZ {
   animation: rotateLeftZAnime 1s;
   animation-fill-mode: forwards;
-  transform-origin: 50% 50%;
+  //transform-origin: 50% 50%;
 }
 
 @keyframes rotateLeftZAnime {
@@ -84,7 +84,7 @@ main {
 .rotateRightZ {
   animation: rotateRightZAnime 1s;
   animation-fill-mode: forwards;
-  transform-origin: 50% 50%;
+  //transform-origin: 50% 50%;
 }
 
 @keyframes rotateRightZAnime {

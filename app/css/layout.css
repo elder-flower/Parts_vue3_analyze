@@ -140,7 +140,6 @@ main p {
 }
 /* Z 軸（左へ） */
 .rotateLeftZ {
-  transform-origin: 50% 50%;
   animation: rotateLeftZAnime 1s;
   animation-fill-mode: forwards;
 }
@@ -155,7 +154,6 @@ main p {
 }
 /* Z 軸（右へ） */
 .rotateRightZ {
-  transform-origin: 50% 50%;
   animation: rotateRightZAnime 1s;
   animation-fill-mode: forwards;
 }
