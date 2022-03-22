@@ -106,18 +106,20 @@ main p {
 }
 
 /*==================================================
-ボンッ
+ヒュッ
 ===================================*/
-.zoomIn {
-  animation: zoomInnime 0.5s;
+/* 縮小 */
+.zoomOut {
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
+  animation-name: zoomOutAnime;
 }
 
-@keyframes zoomInnime {
-  0% {
-    transform: scale(0.6);
+@keyframes zoomOutAnime {
+  from {
+    transform: scale(1.2);
   }
-  100% {
+  to {
     transform: scale(1);
   }
 }

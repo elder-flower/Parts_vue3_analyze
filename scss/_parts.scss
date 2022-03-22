@@ -28,21 +28,26 @@ main {
 }
 
 /*==================================================
-ボンッ
+ヒュッ
 ===================================*/
 
-.zoomIn{
-  animation: zoomInnime 0.5s;
+/* 縮小 */
+.zoomOut {
+  animation-name: zoomOutAnime;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
-@keyframes zoomInnime {
-  0% {
-    transform: scale( 0.6 );
+
+@keyframes zoomOutAnime {
+  from {
+    transform: scale(1.2);
   }
-  100% {
-    transform: scale( 1 );
+
+  to {
+    transform: scale(1);
   }
 }
+
 /*========= レイアウトのためのCSS ===============*/
 
 p {
