@@ -106,64 +106,21 @@ main p {
 }
 
 /*==================================================
-くるっ
+ボンッ
 ===================================*/
-/* X 軸（縦へ） */
-.rotateX {
-  transform-origin: 0 50%;
-  animation: rotateXAnime 1s;
+/* 拡大 */
+.zoomIn {
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
+  animation-name: zoomInAnime;
 }
 
-@keyframes rotateXAnime {
-  0% {
-    transform: rotateX(360deg);
+@keyframes zoomInAnime {
+  from {
+    transform: scale(0.6);
   }
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-/* 　Y 軸（横へ） */
-.rotateY {
-  transform-origin: 50% 0;
-  animation: rotateYAnime 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes rotateYAnime {
-  0% {
-    transform: rotateY(360deg);
-  }
-  100% {
-    transform: rotateY(0deg);
-  }
-}
-/* Z 軸（左へ） */
-.rotateLeftZ {
-  animation: rotateLeftZAnime 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes rotateLeftZAnime {
-  0% {
-    transform: rotateZ(360deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
-  }
-}
-/* Z 軸（右へ） */
-.rotateRightZ {
-  animation: rotateRightZAnime 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes rotateRightZAnime {
-  0% {
-    transform: rotateZ(-360deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
+  to {
+    transform: scale(1);
   }
 }
 /*========= レイアウトのためのCSS ===============*/
@@ -171,16 +128,10 @@ p {
   margin: 50px 0;
 }
 
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .box {
   width: 220px;
-  margin: 0 20px 20px 20px;
   padding: 20px;
-  background: #333;
+  background: #666;
   color: #fff;
 }
 
