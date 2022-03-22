@@ -110,93 +110,93 @@ main p {
 ===================================*/
 /* 下へ */
 .flipDown {
-  animation-duration: 1s;
+  -webkit-backface-visibility: hidden;
+  transform-origin: 0 50%;
+          backface-visibility: hidden;
+  animation: flipDownAnime 3s;
   animation-fill-mode: forwards;
-  animation-name: flipDownAnime;
   opacity: 0;
 }
 
 @keyframes flipDownAnime {
-  from {
+  0% {
     transform: perspective(2500px) rotateX(100deg);
-    opacity: 0;
+    opacity: 1;
   }
-  to {
+  100% {
     transform: perspective(2500px) rotateX(0);
     opacity: 1;
   }
 }
 /* 左へ */
 .flipLeft {
-  animation-duration: 1s;
+  animation: flipLeftAnime 3s;
   animation-fill-mode: forwards;
-  animation-name: flipLeftAnime;
   opacity: 0;
   perspective-origin: left center;
 }
 
 @keyframes flipLeftAnime {
-  from {
+  0% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
-    opacity: 0;
+    opacity: 1;
   }
-  to {
+  100% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
     opacity: 1;
   }
 }
 /* 左上へ */
 .flipLeftTop {
-  animation-duration: 1s;
+  animation: flipLeftTopAnime 1s;
   animation-fill-mode: forwards;
-  animation-name: flipLeftTopAnime;
   opacity: 0;
 }
 
 @keyframes flipLeftTopAnime {
-  from {
+  0% {
     transform: translate(-20px, 80px) rotate(-15deg);
-    opacity: 0;
+    opacity: 1;
   }
-  to {
+  100% {
     transform: translate(0, 0) rotate(0deg);
     opacity: 1;
   }
 }
 /* 右へ */
 .flipRight {
-  animation-duration: 1s;
+  transform-origin: 50% 0;
+  animation: flipRightAnime 3s;
   animation-fill-mode: forwards;
-  animation-name: flipRightAnime;
   opacity: 0;
   perspective-origin: right center;
 }
 
 @keyframes flipRightAnime {
-  from {
+  0% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(-30deg);
-    opacity: 0;
+    opacity: 1;
   }
-  to {
+  100% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
     opacity: 1;
   }
 }
 /* 右上へ */
 .flipRightTop {
-  animation-duration: 1s;
+  animation: flipRightTopAnime 1s;
   animation-fill-mode: forwards;
-  animation-name: flipRightTopAnime;
   opacity: 0;
+  perspective-origin: right center;
 }
 
 @keyframes flipRightTopAnime {
-  from {
+  0% {
     transform: translate(-20px, 80px) rotate(25deg);
-    opacity: 0;
+    opacity: 1;
   }
-  to {
-    transform: translate(0, 1) rotate(0deg);
+  100% {
+    transform: translate(0, 0) rotate(0deg);
     opacity: 1;
   }
 }
@@ -214,7 +214,7 @@ p {
   width: 220px;
   margin: 0 20px 20px 20px;
   padding: 20px;
-  background: #222;
+  background: #333;
   color: #fff;
 }
 

@@ -33,81 +33,88 @@ main {
 
 /* 下へ */
 .flipDown {
-  animation-name: flipDownAnime;
-  animation-duration: 1s;
+  animation: flipDownAnime 3s;
   animation-fill-mode: forwards;
   opacity: 0;
+  transform-origin: 0 50%;
+  backface-visibility: hidden;
 }
 
 @keyframes flipDownAnime {
-  from {
-    transform: perspective(2500px) rotateX(100deg);
-    opacity: 0;
-  }
-
-  to {
-    transform: perspective(2500px) rotateX(0);
+  0% {
     opacity: 1;
+    transform: perspective(2500px) rotateX(100deg);
+    //transform: rotateX(100deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(2500px) rotateX(0);
+    //transform: rotateX(0);
   }
 }
 
 /* 左へ */
 .flipLeft {
-  animation-name: flipLeftAnime;
-  animation-duration: 1s;
+  animation: flipLeftAnime 3s;
   animation-fill-mode: forwards;
-  perspective-origin: left center;
   opacity: 0;
+
+  //z=0 の平面とユーザーとの間の距離を定めて三次元に配置された要素に遠近感を与えます。
+  //perspective: none;
+
+  // 閲覧者の視点の位置を決めます。perspective プロパティによって消失点として使われます。
+  perspective-origin:left center;
 }
 
 @keyframes flipLeftAnime {
-  from {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
-    opacity: 0;
-  }
-
-  to {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
+  0% {
     opacity: 1;
+    
+    // 視点からと平面の距離を「600px」離れて、3D空間に設定した上で、「rotateY」で回転。 
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
+    //transform:rotateY(30deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
+    //transform:rotateY(0deg);
   }
 }
 
 /* 左上へ */
 .flipLeftTop {
-  animation-name: flipLeftTopAnime;
-  animation-duration: 1s;
+  animation: flipLeftTopAnime 1s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
-
 @keyframes flipLeftTopAnime {
-  from {
-    transform: translate(-20px, 80px) rotate(-15deg);
-    opacity: 0;
-  }
-
-  to {
-    transform: translate(0, 0) rotate(0deg);
+  0% {
     opacity: 1;
+    transform: translate(-20px,80px) rotate(-15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0,0) rotate(0deg);
   }
 }
+
 
 /* 右へ */
 .flipRight {
-  animation-name: flipRightAnime;
-  animation-duration: 1s;
+  animation: flipRightAnime 3s;
   animation-fill-mode: forwards;
-  perspective-origin: right center;
+  perspective-origin:right center;
   opacity: 0;
+  transform-origin: 50% 0;
+  //backface-visibility: hidden;
 }
 
 @keyframes flipRightAnime {
-  from {
+  0% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(-30deg);
-    opacity: 0;
+    opacity: 1;
   }
-
-  to {
+  100% {
     transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
     opacity: 1;
   }
@@ -115,23 +122,24 @@ main {
 
 /* 右上へ */
 .flipRightTop {
-  animation-name: flipRightTopAnime;
-  animation-duration: 1s;
+  animation: flipRightTopAnime 1s;
   animation-fill-mode: forwards;
+
+  // ( X値, Y値 ）
+  perspective-origin:right center;
   opacity: 0;
 }
-
 @keyframes flipRightTopAnime {
-  from {
-    transform: translate(-20px, 80px) rotate(25deg);
-    opacity: 0;
+  0% {
+    transform: translate(-20px,80px) rotate(25deg);
+    opacity: 1;
   }
-
-  to {
-    transform: translate(0, 1) rotate(0deg);
+  100% {
+    transform: translate(0,0) rotate(0deg);
     opacity: 1;
   }
 }
+
 
 /*========= レイアウトのためのCSS ===============*/
 
@@ -148,6 +156,6 @@ p {
   width: 220px;
   padding: 20px;
   margin: 0 20px 20px 20px;
-  background: #222;
+  background: #333;
   color: #fff;
 }
