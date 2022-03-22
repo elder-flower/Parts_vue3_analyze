@@ -106,98 +106,66 @@ main p {
 }
 
 /*==================================================
-パタッ
+くるっ
 ===================================*/
-/* 下へ */
-.flipDown {
-  -webkit-backface-visibility: hidden;
-  transform-origin: 0 50%;
-          backface-visibility: hidden;
-  animation: flipDownAnime 3s;
+/* X 軸（縦へ） */
+.rotateX {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
-  opacity: 0;
+  animation-name: rotateXAnime;
 }
 
-@keyframes flipDownAnime {
-  0% {
-    transform: perspective(2500px) rotateX(100deg);
-    opacity: 1;
+@keyframes rotateXAnime {
+  from {
+    transform: rotateX(0);
   }
-  100% {
-    transform: perspective(2500px) rotateX(0);
-    opacity: 1;
+  to {
+    transform: rotateX(-360deg);
   }
 }
-/* 左へ */
-.flipLeft {
-  animation: flipLeftAnime 3s;
+/* 　Y 軸（横へ） */
+.rotateY {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
-  opacity: 0;
-  perspective-origin: left center;
+  animation-name: rotateYAnime;
 }
 
-@keyframes flipLeftAnime {
-  0% {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
-    opacity: 1;
+@keyframes rotateYAnime {
+  from {
+    transform: rotateY(0);
   }
-  100% {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
-    opacity: 1;
+  to {
+    transform: rotateY(-360deg);
   }
 }
-/* 左上へ */
-.flipLeftTop {
-  animation: flipLeftTopAnime 1s;
+/* Z 軸（左へ） */
+.rotateLeftZ {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
-  opacity: 0;
+  animation-name: rotateLeftZAnime;
 }
 
-@keyframes flipLeftTopAnime {
-  0% {
-    transform: translate(-20px, 80px) rotate(-15deg);
-    opacity: 1;
+@keyframes rotateLeftZAnime {
+  from {
+    transform: rotateZ(0);
   }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
+  to {
+    transform: rotateZ(-360deg);
   }
 }
-/* 右へ */
-.flipRight {
-  transform-origin: 50% 0;
-  animation: flipRightAnime 3s;
+/* Z 軸（右へ） */
+.rotateRightZ {
+  animation-duration: 1s;
   animation-fill-mode: forwards;
-  opacity: 0;
-  perspective-origin: right center;
+  animation-name: rotateRightZAnime;
 }
 
-@keyframes flipRightAnime {
-  0% {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(-30deg);
-    opacity: 1;
+@keyframes rotateRightZAnime {
+  from {
+    transform: rotateZ(0);
   }
-  100% {
-    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
-    opacity: 1;
-  }
-}
-/* 右上へ */
-.flipRightTop {
-  animation: flipRightTopAnime 1s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-  perspective-origin: right center;
-}
-
-@keyframes flipRightTopAnime {
-  0% {
-    transform: translate(-20px, 80px) rotate(25deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
+  to {
+    transform: rotateZ(360deg);
   }
 }
 /*========= レイアウトのためのCSS ===============*/
