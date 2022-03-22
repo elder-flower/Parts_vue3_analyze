@@ -84,7 +84,7 @@ select {
 }
 
 body {
-  padding: 5rem 0 0 0;
+  padding: 2em;
   background: #111;
 }
 
@@ -110,89 +110,84 @@ main p {
 ===================================*/
 /* その場で */
 .fadeIn {
-  animation-duration: 1s;
+  animation: fadeInAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeInAnime;
   opacity: 0;
 }
 
 @keyframes fadeInAnime {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  100% {
     opacity: 1;
   }
 }
 /* 下から */
 .fadeUp {
-  animation-duration: 0.5s;
+  animation: fadeUpAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeUpAnime;
   opacity: 0;
 }
 
 @keyframes fadeUpAnime {
-  from {
-    transform: translateY(100px);
+  0% {
+    transform: translate(0, 100px);
     opacity: 0;
   }
-  to {
-    transform: translateY(0);
+  100% {
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 /* 上から */
 .fadeDown {
-  animation-duration: 0.5s;
+  animation: fadeDownAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeDownAnime;
   opacity: 0;
 }
 
 @keyframes fadeDownAnime {
-  from {
-    transform: translateY(-100px);
+  0% {
+    transform: translate(0, -100px);
     opacity: 0;
   }
-  to {
-    transform: translateY(0);
+  100% {
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 /* 左から */
 .fadeLeft {
-  animation-duration: 0.5s;
+  animation: fadeLeftAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeLeftAnime;
   opacity: 0;
 }
 
 @keyframes fadeLeftAnime {
-  from {
-    transform: translateX(-100px);
+  0% {
+    transform: translate(-100px, 0);
     opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  100% {
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 /* 右から */
 .fadeRight {
-  animation-duration: 0.5s;
+  animation: fadeRightAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeRightAnime;
   opacity: 0;
 }
 
 @keyframes fadeRightAnime {
-  from {
-    transform: translateX(100px);
+  0% {
+    transform: translate(100px, 0);
     opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  100% {
+    transform: translate(0, 0);
     opacity: 1;
   }
 }

@@ -7,7 +7,7 @@ select {
 
 body {
   background: #111;
-  padding: 5rem 0 0 0;
+  padding: 2em;
 }
 h2 {
   margin: 2rem 0 2rem 0;
@@ -33,18 +33,15 @@ main {
 
 /* その場で */
 .fadeIn {
-  animation-name: fadeInAnime;
-  animation-duration: 1s;
+  animation: fadeInAnime 0.5s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
-
 @keyframes fadeInAnime {
-  from {
+  0% {
     opacity: 0;
   }
-
-  to {
+  100% {
     opacity: 1;
   }
 }
@@ -52,84 +49,76 @@ main {
 /* 下から */
 
 .fadeUp {
-  animation-name: fadeUpAnime;
-  animation-duration: 0.5s;
+  animation: fadeUpAnime 0.5s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
 
 @keyframes fadeUpAnime {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translate( 0, 100px );
   }
-
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate( 0, 0 );
   }
 }
 
 /* 上から */
 
 .fadeDown {
-  animation-name: fadeDownAnime;
-  animation-duration: 0.5s;
+  animation: fadeDownAnime 0.5s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
 
 @keyframes fadeDownAnime {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(-100px);
+    transform: translate( 0, -100px );
   }
-
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate( 0, 0 );
   }
 }
 
 /* 左から */
 
 .fadeLeft {
-  animation-name: fadeLeftAnime;
-  animation-duration: 0.5s;
+  animation: fadeLeftAnime 0.5s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
 
 @keyframes fadeLeftAnime {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translate( -100px, 0 );
   }
-
-  to {
+  100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate( 0, 0 );
   }
 }
 
 /* 右から */
 
 .fadeRight {
-  animation-name: fadeRightAnime;
-  animation-duration: 0.5s;
+  animation: fadeRightAnime 0.5s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
 
 @keyframes fadeRightAnime {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translate( 100px, 0 );
   }
-
-  to {
+  100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate( 0, 0 );
   }
 }
 
