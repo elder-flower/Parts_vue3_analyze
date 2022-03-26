@@ -116,19 +116,18 @@ body {
 ===================================*/
 /* fadeUp */
 .fadeUp {
-  animation-duration: 0.5s;
+  animation: fadeUpAnime 0.5s;
   animation-fill-mode: forwards;
-  animation-name: fadeUpAnime;
   opacity: 0;
 }
 
 @keyframes fadeUpAnime {
-  from {
-    transform: translateY(100px);
+  0% {
+    transform: translate(0, 100px);
     opacity: 0;
   }
-  to {
-    transform: translateY(0);
+  100% {
+    transform: translate(0, 0);
     opacity: 1;
   }
 }

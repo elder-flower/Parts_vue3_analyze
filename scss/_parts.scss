@@ -1,40 +1,40 @@
-body{
-    background: #111;
-    color: #eee;
+body {
+  background: #111;
+  color: #eee;
 }
 /*========= レイアウトのためのCSS ===============*/
 
-.hide_area{
-	background:#222;
-	padding:100px 20px;
+.hide_area {
+  background: #222;
+  padding: 100px 20px;
 }
 
 /*========= クリックしたら別のものが動く際の指定 ===============*/
 
 /*----ボタンの形状----*/
 
-.btn{
-	background:#333;
-	cursor: pointer;
-	padding: 10px 30px;
-	color: #fff;
-	text-align: center;
+.btn {
+  background: #333;
+  cursor: pointer;
+  padding: 10px 30px;
+  color: #fff;
+  text-align: center;
 }
 
 /*非表示エリアをはじめは隠す*/
- 	.hide_area{
-		display: none;
-	}
+.hide_area {
+  display: none;
+}
 
 /*クリックされたら fadeUpクラスを付与し、display:block;で表示させる*/
-	.hide_area.fadeUp {
-		display:block;
-	}
+.hide_area.fadeUp {
+  display: block;
+}
 
-/* ボタンがクリックされた後にボタン自体が非表示になる　*/	
-	.btn.disp_none{
-		display: none;
-	}
+/* ボタンがクリックされた後にボタン自体が非表示になる　*/
+.btn.disp_none {
+  display: none;
+}
 
 /*==================================================
 ふわっ
@@ -42,21 +42,19 @@ body{
 
 /* fadeUp */
 
-.fadeUp{
-animation-name: fadeUpAnime;
-animation-duration:0.5s;
-animation-fill-mode:forwards;
-opacity:0;
+.fadeUp {
+  animation: fadeUpAnime 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
 
-@keyframes fadeUpAnime{
-  from {
+@keyframes fadeUpAnime {
+  0% {
     opacity: 0;
-	transform: translateY(100px);
+    transform: translate(0, 100px);
   }
-
-  to {
+  100% {
     opacity: 1;
-	transform: translateY(0);
+    transform: translate(0, 0);
   }
 }
