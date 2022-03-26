@@ -1,42 +1,24 @@
 body{
-    background:#000;
-    color: #eee;
+  position: relative;
+  background:#111;
+  color: #eee;
 }
-
-/*========= LoadingのためのCSS ===============*/
-
-/* Loading背景画面設定　*/
-
-#splash {
-    /*fixedで全面に固定*/
-	position: fixed;
-	z-index: 999;
-	width: 100%;
-	height: 100%;
-	background:#222;
-	text-align:center;
-	color:#eee;
+#splash{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100vh;
+  background: #222;
+  z-index: 2;
 }
-
-
-/*========= レイアウトのためのCSS ===============*/
-
-
 #container{
-    width:100%;
-    height: 100vh;
-    background: #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-
-a{
-    color: #ee7;
-}
-
-a:hover{
-     text-decoration: none;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  a{
+    color: #ff6;
+  }
 }
