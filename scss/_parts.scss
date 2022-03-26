@@ -4,13 +4,14 @@ body{
   color: #eee;
 }
 #splash{
-  position: absolute;
+  position: fixed;
   top:0;
   left:0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: #222;
-  z-index: 2;
+  text-align: center;
+  z-index: 999;
 }
 #container{
   width: 100%;
@@ -18,6 +19,7 @@ body{
   display: flex;
   justify-content:center;
   align-items: center;
+  text-align: center;
   a{
     color: #ff6;
   }
