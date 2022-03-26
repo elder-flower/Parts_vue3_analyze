@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>4-5 最低限覚えておきたい現れ方 - ヒュッ</title>
+    <title>3-3-4　クリックすると、別の要素が動く場合</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -17,19 +17,20 @@
     <style type="text/css"></style>
   </head>
   <body id="top">
-    <p>
-      ※このサンプルは画面を開くとすぐ現れます。<br />スクロールをして動かす、といったきっかけを指定したい場合は、「
-      <a href="https://coco-factory.jp/ugokuweb/jscss/" target="_blank"
-        >jQuery とCSS を組み合わせて動かす</a
-      >」を参考にしてください。
-    </p>
+    <div class="wrapper">
+      <!--クリックしたら別のものが動く設定-->
+      <p class="btn">
+        ↓　ここをクリックしたら隠れているエリアが表示され、ボタン自体が消える　↓
+      </p>
+      <div class="hide_area">
+        <p>このエリアが出現します。</p>
+        <!--/hide_area-->
+      </div>
 
-    <!--ヒュッ-->
-    <div class="box zoomOut">ヒュッ（縮小）</div>
+      <!--/wrapper-->
+    </div>
 
-    <!--
     <script src="js/jquery-3.6.0.min.js" type="text/javascript"></script>
     <script src="js/set.js" type="text/javascript"></script>
-    -->
   </body>
 </html>
