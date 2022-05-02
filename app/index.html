@@ -18,7 +18,13 @@
   </head>
   <body id="top">
     <div id="splash">
-      <div id="splash_text"></div>
+      <div id="progress_set">
+        <div id="splash_text" for="loading_progress"><span>100</span>%</div>
+        <progress id="loading_progress" max="100" value="0">10%</progress>
+        <div id="progress"></div>
+        <div id="progress_bar"></div>
+      </div>
+
       <div class="loader_cover loader_cover-up"></div>
       <div class="loader_cover loader_cover-down"></div>
     </div>
@@ -36,8 +42,6 @@
       </div>
     </main>
 
-    <script src="js/jquery-3.6.0.min.js" type="text/javascript"></script>
-    <script src="js/progressbar/progressbar.min.js"></script>
-    <script src="js/set.js" type="text/javascript"></script>
+    <script src="js/set.js" type="module"></script>
   </body>
 </html>
