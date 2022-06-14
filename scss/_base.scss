@@ -1,0 +1,107 @@
+/*
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+*/
+
+/* 基本 */
+/*
+:root {
+  --v-space: clamp(90px, 9vw, 120px);
+}
+*/
+
+html {
+  //text-rendering: optimizeLegibility; SVG用の設定。
+}
+
+$bgColor: #111;
+$fontColor: #eee;
+
+body {
+  /*
+    -webkit-font-feature-settings: "palt" 1;
+          font-feature-settings: "palt" 1;
+    */
+
+  // font-smooth は CSS のプロパティで、フォントが描画されるときのアンチエイリアスの適用を制御します。
+  //-webkit-font-smoothing: antialiased;
+  //-moz-osx-font-smoothing: grayscale;
+  //スマホを横にしたときに文字が大きくないようにする
+  //-webkit-text-size-adjust: 100%;
+
+  /*
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    */
+
+  background: $bgColor;
+  font-family: sans-serif;
+  color: $fontColor;
+  //line-height: 1.62;
+  margin: 0;
+  padding: 0;
+
+  //bottom: calc(env(safe-area-inset-bottom) + 5%);
+}
+p {
+  line-height: 1.8;
+}
+a {
+  //overflow: hidden;
+  //outline: none;
+  //color: $fontColor;
+  color: inherit;
+  text-decoration: none;
+  //cursor: crosshair;
+  //-webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+/*IE11用ハック*/
+/*
+_:-ms-lang(x)::-ms-backdrop, a:link{
+    text-decoration: none;
+}
+_:-ms-lang(x)::-ms-backdrop, a:visited{
+    text-decoration: none;
+}
+_:-ms-lang(x)::-ms-backdrop, a:hover{
+    text-decoration: underline;
+}
+_:-ms-lang(x)::-ms-backdrop, a:active{
+    text-decoration: underline;
+}
+*/
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}

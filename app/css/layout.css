@@ -39,11 +39,22 @@ a {
   cursor: pointer;
 }
 
-/*
-@media (hover: hover){
-
+a:link {
+  text-decoration: none;
 }
-*/
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
 /*IE11用ハック*/
 /*
 _:-ms-lang(x)::-ms-backdrop, a:link{
@@ -76,8 +87,21 @@ img {
 }
 
 body {
-  background: #000;
+  position: relative;
+  background: #111;
   color: #eee;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+#container a {
+  color: #ff6;
 }
 
 /*========= LoadingのためのCSS ===============*/
@@ -116,15 +140,13 @@ body {
   background: #777;
 }
 #splash #progress_bar {
-  display: none;
-  z-index: 20;
   z-index: 10;
   position: absolute;
   top: 54%;
-  left: 50%;
-  width: 100%;
+  left: 0%;
+  width: 0%;
   height: 2px;
-  transform: translate(-50%, -50%) scale(0%, 100%);
+  transform: translate(0%, 0%);
   transform-origin: left center;
   background: #ee0;
 }
@@ -154,18 +176,6 @@ body {
 }
 #splash ::-moz-progress-value {
   background: #ee0;
-}
-
-#container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
-  text-align: center;
-}
-#container a {
-  color: #ff6;
 }
 
 .loader_cover {
@@ -203,23 +213,5 @@ body {
   }
   100% {
     opacity: 0;
-  }
-}
-
-@media (pointer: fine) {
-  a:link {
-    text-decoration: none;
-  }
-
-  a:visited {
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
-
-  a:active {
-    text-decoration: none;
   }
 }

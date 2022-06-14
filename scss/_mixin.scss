@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+// Sassのmin()関数
+@function _min($numbers...) {
+  @return min($numbers...);
+}
+// CSSのmin()関数
+@function min($values...) {
+  @return unquote('min(#{$values})');
+}
+
+// Sassのmax()関数
+@function _max($numbers...) {
+  @return max($numbers...);
+}
+// CSSのmax()関数
+@function max($values...) {
+  @return unquote('max(#{$values})');
+}
+
+//縦横中央揃え
+
+@mixin ce() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin ce1() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//designカンプで基準となる横幅。
+$viewportPC: 1366;
+$viewportSP: 375;
+
+@function pxtvw($px, $width: $viewportSP) {
+  @return (1vw * $px / $width * 100);
+}
+
+@function pxtvw2($px, $width: $viewportPC) {
+  @return (1vw * $px / $width * 100);
+}
+
+// font-size: pxtvw( 500 );
+
+// 行送り / fotsize = line-height
+@function lhgt($px, $base_fontSize: 16) {
+  @return (1 * calc($px / $base_fontSize));
+}
+
+// XDのAV値を元に「letter spacing」値を出す。
+@function lspc($av) {
+  @return (1em * calc($av / 1000));
+}
