@@ -16,8 +16,8 @@ function Counter_Set() {
       duration: 1000,
       endFunc: appear,
       easing: easeOutQuad,
-      //progressElem: progress_elem,
-      progressDiv: progress_bar,
+      progressElem: progress_elem,
+      //progressDiv: progress_bar,
       win: win,
     });
     Counter.counter();
