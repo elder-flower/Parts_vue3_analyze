@@ -9,7 +9,7 @@ export default {
   name: 'App',
   data: function () {
     return {
-      message: '皆さん、こんにちは！2',
+      message: '皆さん、こんにちは！5',
     };
   },
 };
