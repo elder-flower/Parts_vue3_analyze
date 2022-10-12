@@ -1,13 +1,13 @@
 <template>
-  <p><a v-bind:href="url">WINGSプロジェクト</a></p>
+  <p><input type="button" value="クリック" v-bind:disabled="flag" /></p>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 export default defineComponent({
   setup() {
-    const url = ref('https://wings.msn.to/');
-    return { url };
+    const flag = ref(true);
+    return { flag };
   },
 });
 </script>
