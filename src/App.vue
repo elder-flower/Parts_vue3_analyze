@@ -1,13 +1,13 @@
 <template>
-  <p><input type="button" value="クリック" v-bind:disabled="flag" /></p>
+  <p>{{ email.split('@')[0].toLowerCase() }}</p>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 export default defineComponent({
   setup() {
-    const flag = ref(true);
-    return { flag };
+    const email = ref('Y-Suzuki@example.com');
+    return { email };
   },
 });
 </script>
