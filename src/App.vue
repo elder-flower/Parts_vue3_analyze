@@ -2,17 +2,19 @@
   <p>{{ message }}</p>
 </template>
 
-<style scoped></style>
-
 <script>
-export default {
-  name: 'App',
-  data: function () {
-    return {
-      message: '皆さん、こんにちは！5',
-    };
+import { defineComponent, ref } from 'vue';
+export default defineComponent({
+  setup() {
+    const message = ref('皆さん、こんにちは！3');
+    return { message };
   },
-};
+});
 </script>
 
-<style></style>
+<style scoped>
+p {
+  margin: 20px;
+  text-align: center;
+}
+</style>
