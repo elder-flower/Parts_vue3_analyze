@@ -1,13 +1,17 @@
 <template>
-  <p>{{ email.split('@')[0].toLowerCase() }}</p>
+  <p>{{ localEmail }}</p>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 export default defineComponent({
   setup() {
     const email = ref('Y-Suzuki@example.com');
-    return { email };
+    //console.log(email);
+    const localEmail = computed(() => {
+      return email.value.split('@')[0].toLowerCase();
+    });
+    return { email, localEmail };
   },
 });
 </script>
