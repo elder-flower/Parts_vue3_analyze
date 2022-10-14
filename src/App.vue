@@ -4,7 +4,8 @@
 
 <script>
 import { defineComponent, ref, computed } from 'vue';
-export default defineComponent({
+export default {
+  name: 'App',
   setup() {
     const email = ref('Y-Suzuki@example.com');
     //console.log(email);
@@ -13,7 +14,7 @@ export default defineComponent({
     });
     return { email, localEmail };
   },
-});
+};
 </script>
 
 <style scoped>
