@@ -1,24 +1,41 @@
 <template>
-  <p>{{ localEmail }}</p>
+  <div>
+    <form>
+      <input type="button" value="クリック" v-on:click="onclick" />
+    </form>
+    <div>算出プロパティ：{{ randomc }}</div>
+    <div>メソッド：{{ randomm() }}</div>
+    <div>現在日時：{{ current }}</div>
+  </div>
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const email = ref('Y-Suzuki@example.com');
-    //console.log(email);
-    const localEmail = computed(() => {
-      return email.value.split('@')[1].toLowerCase();
+    let current = ref(new Date().toLocaleString());
+    //let current = new Date().toLocaleString();
+
+    const randomc = computed(() => {
+      return Math.random();
     });
-    return { email, localEmail };
+
+    const onclick = () => {
+      current.value = new Date().toLocaleString();
+    };
+
+    const randomm = () => {
+      return Math.random();
+    };
+
+    return { current, randomc, onclick, randomm };
   },
 };
 </script>
 
 <style scoped>
-p {
+div {
   margin: 20px;
   text-align: center;
 }
