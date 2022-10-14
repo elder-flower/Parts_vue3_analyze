@@ -9,7 +9,7 @@ export default defineComponent({
     const email = ref('Y-Suzuki@example.com');
     //console.log(email);
     const localEmail = computed(() => {
-      return email.value.split('@')[0].toLowerCase();
+      return email.value.split('@')[1].toLowerCase();
     });
     return { email, localEmail };
   },
