@@ -9,9 +9,8 @@
     </p>
     <label
       >名前：
-      <input type="text" v-model="name" />
+      <input type="text" v-model="author.name" />
     </label>
-    <p>入力された値：{{ upperName }}</p>
   </div>
 </template>
 
@@ -21,20 +20,33 @@ import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const name = ref('');
-    let upperName = ref('');
-
-    const getUpper = () => {
-      upperName.value = name.value.toUpperCase();
-    };
-
-    const delayFunc = _.debounce(getUpper, 200);
-
-    watch(name, () => {
-      delayFunc();
+    const author = ref({
+      name: '匿名',
+      age: '',
     });
 
-    return { name, upperName };
+    /*
+    エラー
+    watch('author.name', (newValue, oldValue) => {
+      console.log('newValue');
+      console.log(newValue.name);
+      console.log('oldValue');
+      console.log(oldValue.name);
+    });
+    */
+
+    watch(
+      author,
+      (newValue, oldValue) => {
+        console.log('newValue');
+        console.log(newValue.name);
+        console.log('oldValue');
+        console.log(oldValue.name);
+      },
+      { deep: true }
+    );
+
+    return { author };
   },
 };
 </script>
