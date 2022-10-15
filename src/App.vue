@@ -7,10 +7,18 @@
         >Vue 3 の Composition API における watch vs watchEffect</a
       >
     </p>
-    <label
-      >名前：
-      <input type="text" v-model="author.name" />
-    </label>
+    <div>
+      <label
+        >名前：
+        <input type="text" v-model="name" />
+      </label>
+      <br />
+      <label
+        >年齢：
+        <input type="number" v-model="age" />
+      </label>
+      <p>入力された値：{{ name }}</p>
+    </div>
   </div>
 </template>
 
@@ -20,33 +28,24 @@ import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const author = ref({
-      name: '匿名',
-      age: '',
-    });
+    const name = ref('匿名');
+    const age = ref(20);
 
-    /*
-    「watch」は正常に動作しない。
-    watch('author.name', (newValue, oldValue) => {
+    const nameChanged = () => {
+      console.log('name is changed.');
+    };
+
+    watch(name, () => {
+      nameChanged();
+    });
+    watch(age, (newValue, oldValue) => {
       console.log('newValue');
-      console.log(newValue.name);
+      console.log(newValue);
       console.log('oldValue');
-      console.log(oldValue.name);
+      console.log(oldValue);
     });
-    */
 
-    watch(
-      author,
-      (newValue, oldValue) => {
-        console.log('newValue');
-        console.log(newValue.name);
-        console.log('oldValue');
-        console.log(oldValue.name);
-      },
-      { deep: true }
-    );
-
-    return { author };
+    return { name, age };
   },
 };
 </script>
