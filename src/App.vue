@@ -1,24 +1,30 @@
 <template>
-  <div>
-    <button v-on:click="onclick('ようこそ！')">クリック</button>
-  </div>
+  <form>
+    <label for="name">氏名：</label>
+    <input type="text" id="name" v-model="myName" />
+  </form>
+  <div>こんにちは、{{ myName }} さん！</div>
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    onclick = (message) => {
-      console.log(message);
-    };
+    const myName = ref('');
 
-    return { onclick };
+    return { myName };
   },
 };
 </script>
 
 <style scoped>
+form {
+  margin: 50px auto;
+  width: 90%;
+}
 div {
   margin: 50px;
+  text-align: center;
 }
 </style>
