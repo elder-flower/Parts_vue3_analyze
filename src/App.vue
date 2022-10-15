@@ -1,23 +1,29 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="agree">同意する：</label>
-      <input type="checkbox" id="agree" v-model="agree" />
-      <!-- <input type="checkbox" id="agree" v-model="agree"
-      true-value="yes" false-value="no" /> -->
+      <div>お使いのOSは？</div>
+      <label for="windows">Windows</label>
+      <input type="checkbox" id="windows" value="Windows" v-model="os" />
+      <label for="linux">Linux</label>
+      <input type="checkbox" id="linux" value="Linux" v-model="os" />
+      <label for="mac">macOS</label>
+      <input type="checkbox" id="mac" value="macOS" v-model="os" />
     </form>
-    <div>回答：{{ agree }}</div>
+    <p>回答：{{ os_strs }}</p>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const agree = ref(true);
-
-    return { agree };
+    const os = ref(['Windows', 'macOS']);
+    const os_strs = computed(() => {
+      const os_str = os.value.join(' , ');
+      return os_str;
+    });
+    return { os, os_strs };
   },
 };
 </script>
@@ -28,6 +34,6 @@ export default {
   width: 50%;
 }
 input {
-  margin: 1em 0;
+  margin: 1em 2em 1em 1em;
 }
 </style>
