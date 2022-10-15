@@ -1,8 +1,12 @@
 <template>
   <div>
     <label
-      >名前：
-      <input type="text" v-model="author.name" />
+      >num1：
+      <input type="number" v-model="num1" />
+    </label>
+    <label
+      >num2：
+      <input type="number" v-model="num2" />
     </label>
   </div>
 </template>
@@ -13,23 +17,20 @@ import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const author = ref({
-      name: '匿名',
-      age: '',
-    });
+    const num1 = ref(0);
+    const num2 = ref(0);
+    console.log(num1.value + num2.value);
 
     watch(
-      author,
+      () => num1.value + num2.value,
       (newValue, oldValue) => {
-        console.log('newValue');
-        console.log(newValue.name);
-        console.log('oldValue');
-        console.log(oldValue.name);
+        console.log('watch');
+        console.log(num1.value + num2.value);
       },
       { deep: true }
     );
 
-    return { author };
+    return { num1, num2 };
   },
 };
 </script>
