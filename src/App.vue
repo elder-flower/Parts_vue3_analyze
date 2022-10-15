@@ -1,24 +1,14 @@
 <template>
   <div>
-    <p>
-      <a
-        target="_blank"
-        href="https://qiita.com/doz13189/items/d09cfc6e1ff38621c2cc"
-        >Vue 3 の Composition API における watch vs watchEffect</a
-      >
-    </p>
-    <div>
-      <label
-        >名前：
-        <input type="text" v-model="name" />
-      </label>
-      <br />
-      <label
-        >年齢：
-        <input type="number" v-model="age" />
-      </label>
-      <p>入力された値：{{ name }}</p>
-    </div>
+    <label
+      >名前：
+      <input type="text" v-model="author.name" />
+    </label>
+    <br />
+    <label
+      >年齢：
+      <input type="number" v-model="author.age" />
+    </label>
   </div>
 </template>
 
@@ -28,23 +18,26 @@ import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const name = ref('匿名');
-    const age = ref(20);
-
-    watch(name, (newValue, oldValue) => {
-      console.log('newValue');
-      console.log(newValue);
-      console.log('oldValue');
-      console.log(oldValue);
-    });
-    watch(age, (newValue, oldValue) => {
-      console.log('newValue');
-      console.log(newValue);
-      console.log('oldValue');
-      console.log(oldValue);
+    const author = ref({
+      name: '匿名',
+      age: '20',
     });
 
-    return { name, age };
+    watch(
+      author,
+      (newValue, oldValue) => {
+        console.log('newValue');
+        console.log(newValue.name);
+        console.log(newValue.age);
+        console.log('oldValue');
+        console.log(oldValue.name);
+        console.log(oldValue.age);
+      },
+      { deep: true },
+      { immediate: true }
+    );
+
+    return { author };
   },
 };
 </script>
