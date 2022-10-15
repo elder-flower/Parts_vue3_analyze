@@ -1,11 +1,15 @@
 <template>
   <div>
-    <img
-      v-bind:src="path"
-      alt="ロゴ画像"
-      v-on:mouseenter="onmouseenter"
-      v-on:mouseleave="onmouseleave"
-    />
+    <!--mouseenter／mouseleaveイベント-->
+    <div id="outer" v-on:mouseenter="onmousein" v-on:mouseleave="onmouseout">
+      <!--mouseover／mouseoutイベント-->
+      <!-- <div id="outer"
+    v-on:mouseover="onmousein" v-on:mouseout="onmouseout"> -->
+
+      外（outer）
+      <p id="inner">内（innner）</p>
+    </div>
+    <div v-html="result"></div>
   </div>
 </template>
 
@@ -14,21 +18,33 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup(props, context) {
-    let path = ref('https://www.web-deli.com/image/linkbanner_l.gif');
+    let result = ref('');
 
-    onmouseenter = () => {
-      path.value = 'https://www.web-deli.com/image/home_chara.gif';
+    const onmousein = (e) => {
+      result.value += `Enter:${e.target.id}<br />`;
     };
-    onmouseleave = () => {
-      path.value = 'https://www.web-deli.com/image/linkbanner_l.gif';
+    const onmouseout = (e) => {
+      result.value += `Leave:${e.target.id}<br />`;
     };
-    return { path, onmouseenter, onmouseleave };
+    return { result, onmousein, onmouseout };
   },
 };
 </script>
 
 <style scoped>
-div {
-  margin: 50px;
+#outer {
+  height: 200px;
+  width: 200px;
+  margin-left: 100px;
+  padding: 10px;
+  border: 1px solid blue;
+}
+
+#inner {
+  height: 100px;
+  width: 100px;
+  margin-left: 40px;
+  padding: 10px;
+  border: 1px solid red;
 }
 </style>
