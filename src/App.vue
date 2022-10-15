@@ -1,47 +1,46 @@
 <template>
-  <p>
-    <a target="_blank" v-bind:href="url"
-      >Vue Composition APIで$nextTick()を使う方法</a
-    >
-  </p>
-  <p>
-    <a target="_blank" v-bind:href="url2">【Vue.js】 DOMを直接操作 $el $ref</a>
-  </p>
-  <p ref="elem">{{ message }}</p>
+  <div>
+    <p>
+      <a
+        target="_blank"
+        href="https://qiita.com/doz13189/items/d09cfc6e1ff38621c2cc"
+        >Vue 3 の Composition API における watch vs watchEffect</a
+      >
+    </p>
+    <label
+      >名前：
+      <input type="text" v-model="name" />
+    </label>
+    <p>入力された値：{{ upperName }}</p>
+  </div>
 </template>
 
 <script>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, watch } from 'vue';
+import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const url = ref(
-      'https://qiita.com/engineerYodaka/items/48ba7b7a560e75dcc447'
-    );
-    const url2 = ref('https://qiita.com/smkhkc/items/fefe0c6060978846a2b4');
+    const name = ref('');
+    let upperName = ref('');
 
-    const elem = ref(null);
+    const getUpper = () => {
+      upperName.value = name.value.toUpperCase();
+    };
 
-    let message = ref('こんにちは、世界！');
+    const delayFunc = _.debounce(getUpper, 200);
 
-    onMounted(() => {
-      message.value = 'はじめまして、Vue.js！';
-
-      console.log(elem._value.textContent.includes(message.value));
-
-      nextTick(() => {
-        console.log(elem._value.textContent.includes(message.value));
-      });
+    watch(name, () => {
+      delayFunc();
     });
 
-    return { url, url2, elem, message };
+    return { name, upperName };
   },
 };
 </script>
 
 <style scoped>
-p {
-  margin: 20px;
-  text-align: center;
+div {
+  margin: 50px;
 }
 </style>
