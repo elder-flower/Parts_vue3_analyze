@@ -26,7 +26,7 @@ export default {
     });
 
     /*
-    エラー
+    「watch」は正常に動作しない。
     watch('author.name', (newValue, oldValue) => {
       console.log('newValue');
       console.log(newValue.name);
