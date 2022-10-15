@@ -1,15 +1,6 @@
 <template>
   <div>
-    <!--mouseenter／mouseleaveイベント-->
-    <div id="outer" v-on:mouseenter="onmousein" v-on:mouseleave="onmouseout">
-      <!--mouseover／mouseoutイベント-->
-      <!-- <div id="outer"
-    v-on:mouseover="onmousein" v-on:mouseout="onmouseout"> -->
-
-      外（outer）
-      <p id="inner">内（innner）</p>
-    </div>
-    <div v-html="result"></div>
+    <img v-bind:src="path" v-on:error="onerror" />
   </div>
 </template>
 
@@ -18,33 +9,14 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup(props, context) {
-    let result = ref('');
+    let path = ref('./images/wings.jpg');
 
-    const onmousein = (e) => {
-      result.value += `Enter:${e.target.id}<br />`;
+    onerror = () => {
+      path.value = './images/noimage.jpg';
     };
-    const onmouseout = (e) => {
-      result.value += `Leave:${e.target.id}<br />`;
-    };
-    return { result, onmousein, onmouseout };
+    return { path, onerror };
   },
 };
 </script>
 
-<style scoped>
-#outer {
-  height: 200px;
-  width: 200px;
-  margin-left: 100px;
-  padding: 10px;
-  border: 1px solid blue;
-}
-
-#inner {
-  height: 100px;
-  width: 100px;
-  margin-left: 40px;
-  padding: 10px;
-  border: 1px solid red;
-}
-</style>
+<style scoped></style>
