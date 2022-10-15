@@ -1,40 +1,46 @@
 <template>
-  <p>現在時刻：{{ current.toLocaleString() }}</p>
+  <p>
+    <a target="_blank" v-bind:href="url"
+      >Vue Composition APIで$nextTick()を使う方法</a
+    >
+  </p>
+  <p>
+    <a target="_blank" v-bind:href="url2">【Vue.js】 DOMを直接操作 $el $ref</a>
+  </p>
+  <p ref="elem">{{ message }}</p>
 </template>
 
 <script>
-import { ref, onBeforeUnmount, onRenderTracked, onRenderTriggered } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 export default {
   name: 'App',
-  setup() {
-    let current = ref(new Date());
+  setup(props, context) {
+    const url = ref(
+      'https://qiita.com/engineerYodaka/items/48ba7b7a560e75dcc447'
+    );
+    const url2 = ref('https://qiita.com/smkhkc/items/fefe0c6060978846a2b4');
 
-    const win = window;
-    const timer = win.setInterval(() => {
-      current.value = new Date();
-    }, 1000);
+    const elem = ref(null);
 
-    onBeforeUnmount(() => {
-      clearInterval(timer);
+    let message = ref('こんにちは、世界！');
+
+    onMounted(() => {
+      message.value = 'はじめまして、Vue.js！';
+
+      console.log(elem._value.textContent.includes(message.value));
+
+      nextTick(() => {
+        console.log(elem._value.textContent.includes(message.value));
+      });
     });
 
-    onRenderTracked((e) => {
-      console.log('onRenderTracked');
-      console.log(e);
-    });
-
-    onRenderTriggered((e) => {
-      console.log('onRenderTriggered');
-      console.log(e);
-    });
-
-    return { current };
+    return { url, url2, elem, message };
   },
 };
 </script>
 
 <style scoped>
-div {
+p {
   margin: 20px;
   text-align: center;
 }
