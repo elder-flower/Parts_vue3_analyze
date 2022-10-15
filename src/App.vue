@@ -1,25 +1,28 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="os">お使いのOSは？</label><br />
-      <select id="os" v-model="os">
-        <option value="">OSを選択してください</option>
+      <div>お使いのOSは？</div>
+      <select v-model="os" multiple size="3">
         <option>Windows</option>
         <option>Linux</option>
         <option>macOS</option>
       </select>
     </form>
-    <p>回答：{{ os }}</p>
+    <p>回答：{{ os_strs }}</p>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const os = ref('');
-    return { os };
+    const os = ref(['macOS']);
+    const os_strs = computed(() => {
+      const os_str = os.value.join(' , ');
+      return os_str;
+    });
+    return { os, os_strs };
   },
 };
 </script>
