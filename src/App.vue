@@ -2,13 +2,9 @@
   <div>
     <label
       >名前：
-      <input type="text" v-model="author.name" />
+      <input type="text" v-model="name" />
     </label>
-    <br />
-    <label
-      >年齢：
-      <input type="number" v-model="author.age" />
-    </label>
+    <p>入力された値：{{ upperName }}</p>
   </div>
 </template>
 
@@ -18,26 +14,20 @@ import _ from 'lodash';
 export default {
   name: 'App',
   setup(props, context) {
-    const author = ref({
-      name: '匿名',
-      age: '20',
+    const name = ref('');
+    let upperName = ref('');
+
+    const getUpper = () => {
+      upperName.value = name.value.toUpperCase();
+    };
+
+    const delayFunc = _.debounce(getUpper, 1000);
+
+    watch(name, () => {
+      delayFunc();
     });
 
-    watch(
-      author,
-      (newValue, oldValue) => {
-        console.log('newValue');
-        console.log(newValue.name);
-        console.log(newValue.age);
-        console.log('oldValue');
-        console.log(oldValue.name);
-        console.log(oldValue.age);
-      },
-      { deep: true },
-      { immediate: true }
-    );
-
-    return { author };
+    return { name, upperName };
   },
 };
 </script>
