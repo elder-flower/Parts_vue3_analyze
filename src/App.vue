@@ -1,29 +1,25 @@
 <template>
   <div id="wrapper">
     <form>
-      <div>お使いのOSは？</div>
-      <label for="windows">Windows</label>
-      <input type="checkbox" id="windows" value="Windows" v-model="os" />
-      <label for="linux">Linux</label>
-      <input type="checkbox" id="linux" value="Linux" v-model="os" />
-      <label for="mac">macOS</label>
-      <input type="checkbox" id="mac" value="macOS" v-model="os" />
+      <label for="os">お使いのOSは？</label><br />
+      <select id="os" v-model="os">
+        <option value="">OSを選択してください</option>
+        <option>Windows</option>
+        <option>Linux</option>
+        <option>macOS</option>
+      </select>
     </form>
-    <p>回答：{{ os_strs }}</p>
+    <p>回答：{{ os }}</p>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const os = ref(['Windows', 'macOS']);
-    const os_strs = computed(() => {
-      const os_str = os.value.join(' , ');
-      return os_str;
-    });
-    return { os, os_strs };
+    const os = ref('');
+    return { os };
   },
 };
 </script>
@@ -33,7 +29,7 @@ export default {
   margin: 50px auto;
   width: 50%;
 }
-input {
-  margin: 1em 2em 1em 1em;
+select {
+  margin: 1em 1em 1em 1em;
 }
 </style>
