@@ -1,10 +1,11 @@
 <template>
   <div>
-    <button v-on:click="onclick">クリック</button>
-    <!-- <button v-on:click="message= new Date().toLocaleString()">クリック</button> -->
-    <!-- <button v-on:click="onclick()">クリック</button> -->
-    <!-- <button @click="onclick">クリック</button> -->
-    <p>{{ message }}</p>
+    <img
+      v-bind:src="path"
+      alt="ロゴ画像"
+      v-on:mouseenter="onmouseenter"
+      v-on:mouseleave="onmouseleave"
+    />
   </div>
 </template>
 
@@ -13,13 +14,15 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup(props, context) {
-    let message = ref('');
+    let path = ref('https://www.web-deli.com/image/linkbanner_l.gif');
 
-    const onclick = () => {
-      message.value = new Date().toLocaleString();
+    onmouseenter = () => {
+      path.value = 'https://www.web-deli.com/image/home_chara.gif';
     };
-
-    return { message, onclick };
+    onmouseleave = () => {
+      path.value = 'https://www.web-deli.com/image/linkbanner_l.gif';
+    };
+    return { path, onmouseenter, onmouseleave };
   },
 };
 </script>
