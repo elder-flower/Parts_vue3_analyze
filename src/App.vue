@@ -1,17 +1,34 @@
 <template>
-  <p>{{ localEmail }}</p>
+  <p>現在時刻：{{ current.toLocaleString() }}</p>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, onBeforeUnmount, onRenderTracked, onRenderTriggered } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const email = ref('Y-Suzuki@example.com');
-    const localEmail = computed(() => {
-      return email.value.split('@')[0].toLowerCase();
+    let current = ref(new Date());
+
+    const win = window;
+    const timer = win.setInterval(() => {
+      current.value = new Date();
+    }, 1000);
+
+    onBeforeUnmount(() => {
+      clearInterval(timer);
     });
-    return { email, localEmail };
+
+    onRenderTracked((e) => {
+      console.log('onRenderTracked');
+      console.log(e);
+    });
+
+    onRenderTriggered((e) => {
+      console.log('onRenderTriggered');
+      console.log(e);
+    });
+
+    return { current };
   },
 };
 </script>
