@@ -31,7 +31,13 @@ export default {
     const name = ref('匿名');
     const age = ref(20);
 
-    watch([name, age], (newValue, oldValue) => {
+    watch(name, (newValue, oldValue) => {
+      console.log('newValue');
+      console.log(newValue);
+      console.log('oldValue');
+      console.log(oldValue);
+    });
+    watch(age, (newValue, oldValue) => {
       console.log('newValue');
       console.log(newValue);
       console.log('oldValue');
