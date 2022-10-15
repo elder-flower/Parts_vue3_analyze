@@ -1,16 +1,12 @@
 <template>
-  <div>
+  <div id="wrapper">
     <form>
-      <label for="dog">いぬ</label>
-      <input type="radio" id="dog" value="いぬ" v-model="pet" />
-      <br />
-      <label for="cat">ねこ</label>
-      <input type="radio" id="cat" value="ねこ" v-model="pet" />
-      <br />
-      <label for="other">その他</label>
-      <input type="radio" id="other" value="その他" v-model="pet" />
+      <label for="agree">同意する：</label>
+      <input type="checkbox" id="agree" v-model="agree" />
+      <!-- <input type="checkbox" id="agree" v-model="agree"
+      true-value="yes" false-value="no" /> -->
     </form>
-    <p>ペット：{{ pet }}</p>
+    <div>回答：{{ agree }}</div>
   </div>
 </template>
 
@@ -19,15 +15,15 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const pet = ref('いぬ');
+    const agree = ref(true);
 
-    return { pet };
+    return { agree };
   },
 };
 </script>
 
 <style scoped>
-div {
+#wrapper {
   margin: 50px auto;
   width: 50%;
 }
