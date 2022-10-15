@@ -1,36 +1,25 @@
 <template>
   <div>
-    <label
-      >num1：
-      <input type="number" v-model="num1" />
-    </label>
-    <label
-      >num2：
-      <input type="number" v-model="num2" />
-    </label>
+    <button v-on:click="onclick">クリック</button>
+    <!-- <button v-on:click="message= new Date().toLocaleString()">クリック</button> -->
+    <!-- <button v-on:click="onclick()">クリック</button> -->
+    <!-- <button @click="onclick">クリック</button> -->
+    <p>{{ message }}</p>
   </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue';
-import _ from 'lodash';
+import { ref } from 'vue';
 export default {
   name: 'App',
   setup(props, context) {
-    const num1 = ref(0);
-    const num2 = ref(0);
-    console.log(num1.value + num2.value);
+    let message = ref('');
 
-    watch(
-      () => num1.value + num2.value,
-      (newValue, oldValue) => {
-        console.log('watch');
-        console.log(num1.value + num2.value);
-      },
-      { deep: true }
-    );
+    const onclick = () => {
+      message.value = new Date().toLocaleString();
+    };
 
-    return { num1, num2 };
+    return { message, onclick };
   },
 };
 </script>
