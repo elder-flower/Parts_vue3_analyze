@@ -1,6 +1,8 @@
 <template>
   <div id="wrapper">
-    <p v-cloak>{{ message }}</p>
+    <div id="main" v-on:contextmenu.prevent>
+      この領域では、コンテキストメニューは表示されません。
+    </div>
   </div>
 </template>
 
@@ -8,12 +10,13 @@
 import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
-
+  /*
   setup() {
     const message = ref('皆さん、こんにちは！');
 
     return { message };
   },
+  */
 };
 </script>
 
@@ -23,7 +26,8 @@ export default {
   width: 90%;
   text-align: center;
 }
-[v-cloak] {
-  display: none;
+#main {
+  padding: 100px;
+  background: #000;
 }
 </style>
