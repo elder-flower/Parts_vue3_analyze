@@ -12,7 +12,7 @@ export default {
   name: 'App',
 
   setup() {
-    const url = reactive('https://wings.msn.to/');
+    const url = ref('https://wings.msn.to/');
     return { url };
   },
 };
