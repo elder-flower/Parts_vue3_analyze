@@ -1,8 +1,6 @@
 <template>
   <div id="wrapper">
-    <div class="small" v-bind:class="[colorClass, { frame: isChange }]">
-      皆さん、こんにちは！
-    </div>
+    <p v-cloak>{{ message }}</p>
   </div>
 </template>
 
@@ -12,10 +10,9 @@ export default {
   name: 'App',
 
   setup() {
-    const colorClass = ref('color');
-    const isChange = ref(true);
+    const message = ref('皆さん、こんにちは！');
 
-    return { colorClass, isChange };
+    return { message };
   },
 };
 </script>
@@ -26,10 +23,7 @@ export default {
   width: 90%;
   text-align: center;
 }
-.color {
-  color: #faa;
-}
-.frame {
-  margin: 1em 1em 1em 1em;
+[v-cloak] {
+  display: none;
 }
 </style>
