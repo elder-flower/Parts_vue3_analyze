@@ -1,11 +1,10 @@
 <template>
   <div id="wrapper">
-    <form>
-      <label for="name">氏名：</label>
-      <input type="text" id="name" v-model="name" />
-    </form>
-    <div v-once>はじめまして、{{ name }} さん。</div>
-    <div>はじめまして、{{ name }} さん。</div>
+    <div v-bind:style="{ backgroundColor: 'Black', fontSize: '1.5em' }">
+      <!-- <div :style="{ backgroundColor: 'Aqua', fontSize: '1.5em' }"></div> -->
+      <!-- <div v-bind:style="{ 'background-color': 'Aqua', 'font-size': '1.5em' }"> -->
+      皆さん、こんにちは！
+    </div>
   </div>
 </template>
 
@@ -13,11 +12,13 @@
 import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
+  /*
   setup() {
     const name = ref('匿名');
 
     return { name };
   },
+  */
 };
 </script>
 
