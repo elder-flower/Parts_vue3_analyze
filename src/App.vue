@@ -1,20 +1,28 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="name">氏名：</label>
-      <input type="text" id="name" v-model.lazy="myName" />
+      <label for="mail">メールアドレス：</label>
+      <textarea id="mail" v-model="mails"></textarea>
     </form>
-    <div>こんにちは、{{ myName }} さん！</div>
+    <ul>
+      <li v-for="mail in mails2">
+        {{ mail }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    let myName = ref('匿名');
-    return { myName };
+    const mails = ref('');
+    const mails2 = computed(() => {
+      const mails_arr = mails.value.split(';');
+      return mails_arr;
+    });
+    return { mails, mails2 };
   },
 };
 </script>
