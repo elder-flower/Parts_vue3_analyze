@@ -5,7 +5,7 @@
       <th>ISBN</th>
       <th>書名</th>
       <th>価格</th>
-      <tr v-for="(b, i) in books">
+      <tr v-for="(b, i) in books" v-bind:key="b.isbn">
         <td>{{ i + 1 }}</td>
         <td>{{ b.isbn }}</td>
         <td>{{ b.title }}</td>
