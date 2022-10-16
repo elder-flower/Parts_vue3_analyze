@@ -1,14 +1,9 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="temperature">サウナの温度：</label>
-      <input
-        type="text"
-        id="temperature"
-        v-model.number="temperature"
-        v-on:change="onchange"
-      />
-      <p>{{ temperature }}</p>
+      <label for="memo">メモ：</label>
+      <!-- ユーザの入力から空白を自動的に取り除きたいとき -->
+      <input type="text" id="memo" v-model.trim="memo" v-on:change="onchange" />
     </form>
   </div>
 </template>
@@ -18,13 +13,13 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    let temperature = ref('');
+    let memo = ref('');
 
     const onchange = () => {
-      console.log(temperature.value.toFixed(10));
+      console.log(`入力値は「${memo.value}」です。`);
     };
 
-    return { temperature, onchange };
+    return { memo, onchange };
   },
 };
 </script>
