@@ -1,42 +1,52 @@
 <template>
   <div id="wrapper">
-    <template v-for="s in songs" v-bind:key="s.title">
-      <header>{{ s.title }}</header>
-      <div>{{ s.lyrics }}</div>
-      <footer>{{ s.composer }} 作曲</footer>
-    </template>
+    <table class="table">
+      <th>ISBN</th>
+      <th>書名</th>
+      <th>価格</th>
+      <tr v-for="b in expensiveBooks" v-bind:key="b.isbn">
+        <!-- <tr v-for="b in books" v-if="b.price >= 2500"> -->
+        <td>{{ b.isbn }}</td>
+        <td>{{ b.title }}</td>
+        <td>{{ b.price }}円</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const songs = ref([
+    const books = ref([
       {
-        title: '赤とんぼ',
-        lyrics: '夕焼け小焼けの赤とんぼ...',
-        composer: '山田耕作',
+        isbn: '978-4-7981-5757-3',
+        title: 'JavaScript逆引きレシピ',
+        price: 2800,
       },
       {
-        title: '荒城の月',
-        lyrics: '春高楼の花の宴 巡る盃影さして...',
-        composer: '瀧廉太郎',
+        isbn: '978-4-8399-6644-7',
+        title: 'たのしいラズパイ電子工作ブック',
+        price: 1900,
       },
       {
-        title: 'どんぐりころころ',
-        lyrics: 'どんぐりころころ どんぶりこ...',
-        composer: '梁田貞',
+        isbn: '978-4-7741-9763-0',
+        title: '3ステップでしっかり学ぶ Python入門',
+        price: 2480,
       },
       {
-        title: '七つの子',
-        lyrics: '烏 なぜ啼くの 烏は山に...',
-        composer: '本居長世',
+        isbn: '978-4-7981-5382-7',
+        title: '独習C# 新版',
+        price: 3600,
       },
     ]);
 
-    return { songs };
+    const expensiveBooks = computed(() => {
+      return books.value.filter((b) => b.price >= 2500);
+    });
+
+    return { books, expensiveBooks };
   },
 };
 </script>
