@@ -1,14 +1,31 @@
 <template>
   <div id="wrapper">
     <form>
-      <div>お使いのOSは？</div>
-      <select v-model="os" multiple size="3">
-        <option>Windows</option>
-        <option>Linux</option>
-        <option>macOS</option>
-      </select>
+      <label for="million">百万：</label>
+      <input
+        type="radio"
+        id="million"
+        v-model="unit"
+        v-on:change="onchange"
+        v-bind:value="{ name: '百万', size: 1000000 }"
+      /><br />
+      <label for="billion">十億：</label>
+      <input
+        type="radio"
+        id="billion"
+        v-model="unit"
+        v-on:change="onchange"
+        v-bind:value="{ name: '十億', size: 1000000000 }"
+      /><br />
+      <label for="trillion">一兆：</label>
+      <input
+        type="radio"
+        id="trillion"
+        v-model="unit"
+        v-on:change="onchange"
+        v-bind:value="{ name: '一兆', size: 1000000000000 }"
+      />
     </form>
-    <p>回答：{{ os_strs }}</p>
   </div>
 </template>
 
@@ -17,12 +34,14 @@ import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const os = ref(['macOS']);
-    const os_strs = computed(() => {
-      const os_str = os.value.join(' , ');
-      return os_str;
+    const unit = ref({
+      name: '',
+      size: '',
     });
-    return { os, os_strs };
+    const onchange = () => {
+      console.log(`${unit.value.name}：${unit.value.size}`);
+    };
+    return { unit, onchange };
   },
 };
 </script>
@@ -30,9 +49,10 @@ export default {
 <style scoped>
 #wrapper {
   margin: 50px auto;
-  width: 50%;
+  width: 90%;
+  text-align: center;
 }
-select {
+input {
   margin: 1em 1em 1em 1em;
 }
 </style>
