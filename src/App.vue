@@ -1,14 +1,14 @@
 <template>
   <div id="wrapper">
-    <MyHello />
+    <MyParent />
   </div>
 </template>
 
 <script>
-import MyHello from './components/MyHello.vue';
+import MyParent from './components/MyParent.vue';
 export default {
   name: 'App',
-  components: { MyHello },
+  components: { MyParent },
   /*
   setup() {
     const name = ref('Vue.js');

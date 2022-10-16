@@ -5,13 +5,17 @@
 <script>
 import { ref } from 'vue';
 export default {
-  name: 'MyHello',
+  name: 'MyChild',
   setup() {
-    const name = ref('Vue2.js');
+    const name = ref('MyChild components');
 
     return { name };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  margin: 1em;
+}
+</style>
