@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <div class="small" v-bind:class="[colorClass, frameClass]">
+    <div class="small" v-bind:class="[colorClass, { frame: isChange }]">
       皆さん、こんにちは！
     </div>
   </div>
@@ -13,9 +13,9 @@ export default {
 
   setup() {
     const colorClass = ref('color');
-    const frameClass = ref('frame');
+    const isChange = ref(true);
 
-    return { colorClass, frameClass };
+    return { colorClass, isChange };
   },
 };
 </script>
