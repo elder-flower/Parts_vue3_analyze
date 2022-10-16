@@ -1,17 +1,8 @@
 <template>
   <div id="wrapper">
-    <table class="table">
-      <th>No</th>
-      <th>ISBN</th>
-      <th>書名</th>
-      <th>価格</th>
-      <tr v-for="(b, i) in books" v-bind:key="b.isbn">
-        <td>{{ i + 1 }}</td>
-        <td>{{ b.isbn }}</td>
-        <td>{{ b.title }}</td>
-        <td>{{ b.price }}円</td>
-      </tr>
-    </table>
+    <ul v-for="(value, key, i) in book">
+      <li>{{ key }} ：{{ value }}</li>
+    </ul>
   </div>
 </template>
 
@@ -20,30 +11,13 @@ import { ref, reactive } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const books = ref([
-      {
-        isbn: '978-4-7981-5757-3',
-        title: 'JavaScript逆引きレシピ',
-        price: 2800,
-      },
-      {
-        isbn: '978-4-8399-6644-7',
-        title: 'たのしいラズパイ電子工作ブック',
-        price: 1900,
-      },
-      {
-        isbn: '978-4-7741-9763-0',
-        title: '3ステップでしっかり学ぶ Python入門',
-        price: 2480,
-      },
-      {
-        isbn: '978-4-7981-5382-7',
-        title: '独習C# 新版',
-        price: 3600,
-      },
-    ]);
+    const book = ref({
+      isbn: '978-4-7981-5757-3',
+      title: 'JavaScript逆引きレシピ',
+      price: 2800,
+    });
 
-    return { books };
+    return { book };
   },
 };
 </script>
