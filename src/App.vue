@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <ul v-for="(value, key, i) in book">
+    <ul v-for="(value, key, i) in book" v-bind:key="book.isbn">
       <li>{{ key }} ：{{ value }}</li>
     </ul>
   </div>
