@@ -1,8 +1,8 @@
 <template>
   <div id="wrapper">
-    <a v-bind:style="{ 'tap-highlight-color': 'Aqua' }" v-bind:href="url">
-      {{ url }}
-    </a>
+    <div class="small" v-bind:class="[colorClass, frameClass]">
+      皆さん、こんにちは！
+    </div>
   </div>
 </template>
 
@@ -12,8 +12,10 @@ export default {
   name: 'App',
 
   setup() {
-    const url = ref('https://wings.msn.to/');
-    return { url };
+    const colorClass = ref('color');
+    const frameClass = ref('frame');
+
+    return { colorClass, frameClass };
   },
 };
 </script>
@@ -24,8 +26,10 @@ export default {
   width: 90%;
   text-align: center;
 }
-select,
-input {
+.color {
+  color: #faa;
+}
+.frame {
   margin: 1em 1em 1em 1em;
 }
 </style>
