@@ -1,43 +1,26 @@
 <template>
   <div id="wrapper">
-    <form>
-      <input ref="upfile" type="file" v-on:change="onchange" />
-    </form>
     <div>{{ message }}</div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 export default {
   name: 'App',
   setup() {
     let message = ref('');
-    const upfile = ref('');
 
-    const onchange = () => {
-      const fl = upfile.value.files[0];
-      console.log(fl);
-      const data = new FormData();
-      console.log(data);
+    const ROOT_URL = 'https://qiita.com/api/v2/tags/react/items?page=2';
 
-      data.append('upfile', fl, fl.name);
+    onMounted(async () => {
+      const result = await fetch(ROOT_URL);
+      const jsonData = await result.json();
 
-      const path = 'http://www.elder-flower.com/111/upload.php';
+      message.value = jsonData[0].rendered_body;
+    });
 
-      fetch(path, {
-        method: 'POST',
-        body: data,
-      })
-        .then((response) => response.text())
-        .then((text) => {
-          message = text;
-        })
-        .catch((error) => {
-          window.alert(`Error: ${error.message}`);
-        });
-    };
-    return { upfile, message, onchange };
+    return { message };
   },
 };
 </script>
