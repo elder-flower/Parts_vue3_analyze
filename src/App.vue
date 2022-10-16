@@ -20,7 +20,7 @@ import { ref, reactive } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const books = reactive([
+    const books = ref([
       {
         isbn: '978-4-7981-5757-3',
         title: 'JavaScript逆引きレシピ',
