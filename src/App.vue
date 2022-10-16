@@ -16,8 +16,8 @@ export default {
   setup() {
     const list = ref(['赤パジャマ', '青パジャマ', '黄パジャマ']);
     const onclick = () => {
-      list.value[1] = '茶パジャマ';
-      //list.value.splice(1, 1, '茶パジャマ');
+      //list.value[1] = '茶パジャマ';
+      list.value.splice(1, 1, '茶パジャマ');
     };
 
     return { list, onclick };
