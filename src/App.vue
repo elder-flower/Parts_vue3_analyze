@@ -1,7 +1,24 @@
 <template>
   <div id="wrapper">
-    <ul v-for="(value, key, i) in book" v-bind:key="book.isbn">
-      <li>{{ key }} ：{{ value }}</li>
+    <ul>
+      <li v-for="[key, value] in map" v-bind:key="key">
+        {{ key }}：{{ value }}
+      </li>
+
+      <!-- キーだけを列挙 -->
+      <!-- <li v-for="[key] in map">
+        {{key}}
+      </li> -->
+
+      <!-- 値だけを列挙 -->
+      <!-- <li v-for="[, value] in map">
+        {{value}}
+      </li> -->
+
+      <!-- 「v-for="key in map"」とした場合 -->
+      <!-- <li v-for="key in map">
+        {{key}}
+      </li> -->
     </ul>
   </div>
 </template>
@@ -11,13 +28,16 @@ import { ref, reactive } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const book = ref({
-      isbn: '978-4-7981-5757-3',
-      title: 'JavaScript逆引きレシピ',
-      price: 2800,
-    });
+    const map_obj = new Map([
+      ['PHP', 'PHP: Hypertext Preprocessor'],
+      ['JSP', 'Jakarta Server Pages'],
+      ['ASP', 'Active Server Pages'],
+    ]);
+    console.log(map_obj.get('PHP'));
+    //const map = ref(map_obj);
+    const map = reactive(map_obj);
 
-    return { book };
+    return { map };
   },
 };
 </script>
