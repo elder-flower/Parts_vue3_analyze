@@ -19,6 +19,7 @@ export default {
     onMounted(async () => {
       //const response = await fetch(ROOT_URL);
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
+      console.log(response);
       const arr = await response.data;
 
       /*
@@ -28,7 +29,7 @@ export default {
       }
       */
       for (const a of arr) {
-        //console.log(arr[a]);
+        //console.log(a);
         message.value += `<p>${a.title}</p>`;
       }
       /*
