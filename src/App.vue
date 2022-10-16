@@ -1,7 +1,11 @@
 <template>
   <div id="wrapper">
-    <!-- <p>{{ message }}</p> -->
-    <p v-html="message"></p>
+    <form>
+      <label for="name">氏名：</label>
+      <input type="text" id="name" v-model="name" />
+    </form>
+    <div v-once>はじめまして、{{ name }} さん。</div>
+    <div>はじめまして、{{ name }} さん。</div>
   </div>
 </template>
 
@@ -10,10 +14,9 @@ import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const message = ref(`<h3>WINGSプロジェクト</h3>
-      <img src="https://www.web-deli.com/image/linkbanner_l.gif" alt="ロゴ" />`);
+    const name = ref('匿名');
 
-    return { message };
+    return { name };
   },
 };
 </script>
