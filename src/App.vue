@@ -1,47 +1,42 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="million">百万：</label>
-      <input
-        type="radio"
-        id="million"
-        v-model="unit"
-        v-on:change="onchange"
-        v-bind:value="{ name: '百万', size: 1000000 }"
-      /><br />
-      <label for="billion">十億：</label>
-      <input
-        type="radio"
-        id="billion"
-        v-model="unit"
-        v-on:change="onchange"
-        v-bind:value="{ name: '十億', size: 1000000000 }"
-      /><br />
-      <label for="trillion">一兆：</label>
-      <input
-        type="radio"
-        id="trillion"
-        v-model="unit"
-        v-on:change="onchange"
-        v-bind:value="{ name: '一兆', size: 1000000000000 }"
-      />
+      <input ref="upfile" type="file" v-on:change="onchange" />
     </form>
+    <div>{{ message }}</div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const unit = ref({
-      name: '',
-      size: '',
-    });
+    const message = ref('');
+    const upfile = ref('');
+
     const onchange = () => {
-      console.log(`${unit.value.name}：${unit.value.size}`);
+      const fl = upfile.value.files[0];
+      console.log(fl);
+      const data = new FormData();
+      console.log(data);
+
+      data.append('upfile', fl, fl.name);
+
+      const path = 'http://www.elder-flower.com/111/upload.php';
+      fetch(path, {
+        method: 'POST',
+        body: data,
+      })
+        .then((response) => response.text())
+        .then((text) => {
+          message = text;
+        })
+        .catch((error) => {
+          window.alert(`Error: ${error.message}`);
+        });
     };
-    return { unit, onchange };
+    return { upfile, message, onchange };
   },
 };
 </script>
