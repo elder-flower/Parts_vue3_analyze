@@ -1,18 +1,26 @@
 <template>
   <div id="wrapper">
     <form>
-      <label for="show">表示／非表示</label>
-      <input type="checkbox" id="show" v-model="show" />
+      <label for="holiday">祝日：</label><br />
+      <select id="holiday" v-model="holiday">
+        <option value="">祝日を選択してください。</option>
+        <option value="new">元日</option>
+        <option value="child">こどもの日</option>
+        <option value="culture">文化の日</option>
+        <option value="labor">勤労感謝の日</option>
+      </select>
     </form>
-    <div id="panel" v-if="show">
-      <!-- <div id="panel" v-show="show"> -->
-      <h3>RSSフィードについて</h3>
-      <div>
-        WINGSでは、弊社執筆の書籍／雑誌／Web記事の最新50件をRSS形式で提供しています。<br />
-        RSSとはなにか、その使い方を含め、ご案内します。
-      </div>
+    <div v-if="holiday === 'new'">1月1日。年のはじめを祝う</div>
+    <div v-else-if="holiday === 'child'">
+      5月5日。こどもの人格を重んじ、こどもの幸福をはかるとともに、母に感謝する
     </div>
-    <!-- <div v-else>現在、非表示状態です。</div> -->
+    <div v-else-if="holiday === 'culture'">
+      11月3日。自由と平和を愛し、文化をすすめる
+    </div>
+    <div v-else-if="holiday === 'labor'">
+      11月23日。勤労をたつとび、生産を祝い、国民たがいに感謝しあう
+    </div>
+    <div v-else>なにも選択されていません。</div>
   </div>
 </template>
 
@@ -21,9 +29,9 @@ import { ref, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const show = ref(true);
+    const holiday = ref('');
 
-    return { show };
+    return { holiday };
   },
 };
 </script>
@@ -34,7 +42,7 @@ export default {
   width: 90%;
   text-align: center;
 }
-input {
+select {
   margin: 1em 1em 1em 1em;
 }
 </style>
