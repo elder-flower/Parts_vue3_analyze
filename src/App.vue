@@ -1,23 +1,42 @@
 <template>
   <div id="wrapper">
-    <div>{{ message }}</div>
+    <!--<div>{{ message }}</div> -->
+    <div v-html="message"></div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { ref, onMounted } from 'vue';
 export default {
   name: 'App',
   setup() {
     let message = ref('');
 
-    const ROOT_URL = 'https://qiita.com/api/v2/tags/react/items?page=2';
+    const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
+    const QUERYSTRING = '?token=token123';
 
     onMounted(async () => {
-      const result = await fetch(ROOT_URL);
-      const jsonData = await result.json();
+      //const response = await fetch(ROOT_URL);
+      const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
+      const arr = await response.data;
 
-      message.value = jsonData[0].rendered_body;
+      /*
+      for (const a in arr) {
+        //console.log(arr[a]);
+        message.value += `<p>${arr[a].title}</p>`;
+      }
+      */
+      for (const a of arr) {
+        //console.log(arr[a]);
+        message.value += `<p>${a.title}</p>`;
+      }
+      /*
+      arr.forEach((val) => {
+        console.log(val);
+        message.value += `<p>${val.title}</p>`;
+      });
+      */
     });
 
     return { message };
