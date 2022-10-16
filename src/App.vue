@@ -1,11 +1,7 @@
 <template>
   <div id="wrapper">
-    <select v-model="attr">
-      <option>height</option>
-      <option>width</option>
-    </select>
-    <input type="text" size="5" v-model="size" /><br />
-    <img src="https://wings.msn.to/image/wings.jpg" v-bind:[attr]="size" />
+    <!-- <p>{{ message }}</p> -->
+    <p v-html="message"></p>
   </div>
 </template>
 
@@ -14,10 +10,10 @@ import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const attr = ref('width');
-    const size = ref(100);
+    const message = ref(`<h3>WINGSプロジェクト</h3>
+      <img src="https://www.web-deli.com/image/linkbanner_l.gif" alt="ロゴ" />`);
 
-    return { attr, size };
+    return { message };
   },
 };
 </script>
