@@ -1,11 +1,11 @@
 <template>
   <div id="wrapper">
     <select v-model="attr">
-    <option value="height">高さ</opton>
-    <option value="width">幅</opton>
-  </select>：
-  <input type="text" size="5" v-model="size" /><br />
-  <img src="https://wings.msn.to/image/wings.jpg" v-bind:[attr]="size" />
+      <option>height</option>
+      <option>width</option>
+    </select>
+    <input type="text" size="5" v-model="size" /><br />
+    <img src="https://wings.msn.to/image/wings.jpg" v-bind:[attr]="size" />
   </div>
 </template>
 
@@ -28,8 +28,8 @@ export default {
   width: 90%;
   text-align: center;
 }
-th,
-td {
-  padding: 1em 1em 1em 1em;
+select,
+input {
+  margin: 1em 1em 1em 1em;
 }
 </style>
