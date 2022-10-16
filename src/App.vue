@@ -1,6 +1,8 @@
 <template>
   <div id="wrapper">
-    <div v-bind:style="[color, size]">皆さん、こんにちは！</div>
+    <a v-bind:style="{ 'tap-highlight-color': 'Aqua' }" v-bind:href="url">
+      {{ url }}
+    </a>
   </div>
 </template>
 
@@ -10,15 +12,8 @@ export default {
   name: 'App',
 
   setup() {
-    const color = reactive({
-      backgroundColor: 'Brown',
-      color: 'White',
-    });
-    const size = reactive({
-      fontSize: '1.5em',
-    });
-
-    return { color, size };
+    const url = reactive('https://wings.msn.to/');
+    return { url };
   },
 };
 </script>
