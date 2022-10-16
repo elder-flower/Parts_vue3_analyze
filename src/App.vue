@@ -1,37 +1,48 @@
 <template>
   <div id="wrapper">
-    <form>
-      <label for="holiday">祝日：</label><br />
-      <select id="holiday" v-model="holiday">
-        <option value="">祝日を選択してください。</option>
-        <option value="new">元日</option>
-        <option value="child">こどもの日</option>
-        <option value="culture">文化の日</option>
-        <option value="labor">勤労感謝の日</option>
-      </select>
-    </form>
-    <div v-if="holiday === 'new'">1月1日。年のはじめを祝う</div>
-    <div v-else-if="holiday === 'child'">
-      5月5日。こどもの人格を重んじ、こどもの幸福をはかるとともに、母に感謝する
-    </div>
-    <div v-else-if="holiday === 'culture'">
-      11月3日。自由と平和を愛し、文化をすすめる
-    </div>
-    <div v-else-if="holiday === 'labor'">
-      11月23日。勤労をたつとび、生産を祝い、国民たがいに感謝しあう
-    </div>
-    <div v-else>なにも選択されていません。</div>
+    <table class="table">
+      <th>ISBN</th>
+      <th>書名</th>
+      <th>価格</th>
+      <tr v-for="b in books">
+        <!-- <tr v-for="b of books"> -->
+        <td>{{ b.isbn }}</td>
+        <td>{{ b.title }}</td>
+        <td>{{ b.price }}円</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, reactive } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const holiday = ref('');
+    const books = reactive([
+      {
+        isbn: '978-4-7981-5757-3',
+        title: 'JavaScript逆引きレシピ',
+        price: 2800,
+      },
+      {
+        isbn: '978-4-8399-6644-7',
+        title: 'たのしいラズパイ電子工作ブック',
+        price: 1900,
+      },
+      {
+        isbn: '978-4-7741-9763-0',
+        title: '3ステップでしっかり学ぶ Python入門',
+        price: 2480,
+      },
+      {
+        isbn: '978-4-7981-5382-7',
+        title: '独習C# 新版',
+        price: 3600,
+      },
+    ]);
 
-    return { holiday };
+    return { books };
   },
 };
 </script>
@@ -42,7 +53,8 @@ export default {
   width: 90%;
   text-align: center;
 }
-select {
-  margin: 1em 1em 1em 1em;
+th,
+td {
+  padding: 1em 1em 1em 1em;
 }
 </style>
