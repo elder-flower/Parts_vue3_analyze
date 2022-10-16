@@ -1,22 +1,10 @@
 <template>
   <div id="wrapper">
-    <div id="parent" v-on:click="onParentClick">
-      <!-- <div id="parent" v-on:click.capture="onParentClick"> -->
-      親要素
-      <div id="my" v-on:click="onMyClick">
-        <!-- <div id="my" v-on:click.self="onMyClick"> -->
-        <!-- <div id="my" v-on:click.capture="onMyClick"> -->
-        <!-- <div id="my" v-on:click.stop.self="onMyClick"> -->
-        <!-- <div id="my" v-on:click.self.stop="onMyClick"> -->
-        現在要素
-        <div id="child" v-on:click="onChildClick">
-          <!-- <div id="child" v-on:click.stop="onChildClick"> -->
-          <!-- <div id="child" v-on:click.capture="onChildClick"> -->
-          <!-- <div id="child" v-on:click.capture.stop="onChildClick"> -->
-          子要素
-        </div>
-      </div>
-    </div>
+    <form>
+      <label for="name">氏名：</label>
+      <input type="text" id="name" v-on:keyup.escape="onclear" v-model="name" />
+      <!-- <input type="text" id="name" v-on:keyup.esc="onclear" v-model="name"/> -->
+    </form>
   </div>
 </template>
 
@@ -26,17 +14,12 @@ export default {
   name: 'App',
 
   setup() {
-    const onParentClick = () => {
-      console.log('#parent run...');
-    };
-    const onMyClick = () => {
-      console.log('#my run...');
-    };
-    const onChildClick = () => {
-      console.log('#child run...');
+    const name = ref('匿名');
+    const onclear = () => {
+      name.value = '';
     };
 
-    return { onParentClick, onMyClick, onChildClick };
+    return { name, onclear };
   },
 };
 </script>
