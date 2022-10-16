@@ -1,11 +1,11 @@
 <template>
   <div id="wrapper">
-    <form>
-      <input type="button" value="変更" v-on:click="onclick" />
-    </form>
-    <ul>
-      <li v-for="item in list" v-bind:key="item">{{ item }}</li>
-    </ul>
+    <select v-model="attr">
+    <option value="height">高さ</opton>
+    <option value="width">幅</opton>
+  </select>：
+  <input type="text" size="5" v-model="size" /><br />
+  <img src="https://wings.msn.to/image/wings.jpg" v-bind:[attr]="size" />
   </div>
 </template>
 
@@ -14,13 +14,10 @@ import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const list = ref(['赤パジャマ', '青パジャマ', '黄パジャマ']);
-    const onclick = () => {
-      //list.value[1] = '茶パジャマ';
-      list.value.splice(1, 1, '茶パジャマ');
-    };
+    const attr = ref('width');
+    const size = ref(100);
 
-    return { list, onclick };
+    return { attr, size };
   },
 };
 </script>
