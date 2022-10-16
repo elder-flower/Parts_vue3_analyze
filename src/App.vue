@@ -1,22 +1,10 @@
 <template>
   <div id="wrapper">
-    <div
-      id="main"
-      v-on:click.left="onleftclick"
-      v-on:click.right.prevent="onrightclick"
-    >
-      <!-- <div id="main"
-    v-on:click.left="onleftclick"
-    v-on:click.ctrl.exact.right.prevent="onrightclick"> -->
-      ボタンの右クリックでコンテキストメニューを表示します。
-    </div>
-    <ul class="cxt" v-bind:style="pos" v-show="show">
-      <li><a href="https://wings.msn.to/index.php/-/A-08/">ヘルプ</a></li>
-      <li><a href="https://wings.msn.to/index.php/-/B-14/">質問掲示板</a></li>
-      <li>
-        <a href="https://wings.msn.to/index.php/-/B-11/">よくある質問一覧</a>
-      </li>
-    </ul>
+    <form method="POST" v-on:submit="onsubmit">
+      <label for="email">メールアドレス：</label>
+      <input id="email" name="email" type="email" />
+      <input type="submit" value="送信" />
+    </form>
   </div>
 </template>
 
@@ -26,25 +14,14 @@ export default {
   name: 'App',
 
   setup() {
-    const pos = ref({
-      left: 0,
-      top: 0,
-    });
-    const show = ref(false);
-
-    const onleftclick = () => {
-      show.value = false;
-    };
-    const onrightclick = (e) => {
-      pos.value = {
-        top: e.pageY + 'px',
-        left: e.pageX + 'px',
-      };
-
-      show.value = true;
+    const onsubmit = (e) => {
+      if (!confirm('送信しても良いですか？')) {
+        e.preventDefault();
+        return;
+      }
     };
 
-    return { pos, show, onleftclick, onrightclick };
+    return { onsubmit };
   },
 };
 </script>
