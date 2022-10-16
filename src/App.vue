@@ -1,6 +1,7 @@
 <template>
   <div id="wrapper">
-    <MyParent />
+    <MyParent your-name="鈴木2"></MyParent>
+    <!-- <MyParent your-name="鈴木"></MyParent> -->
   </div>
 </template>
 

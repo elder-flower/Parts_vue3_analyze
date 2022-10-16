@@ -1,19 +1,19 @@
 <template>
-  <div>こんにちは、{{ name }}！</div>
-  <my-child />
+  <div>こんにちは、{{ yourName }}さん！</div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import MyChild from './MyChild.vue';
+//import { ref } from 'vue';
 export default {
   name: 'MyParent',
-  components: { MyChild },
+  props: ['yourName'],
+  /*
   setup() {
     const name = ref('MyParent components');
 
     return { name };
   },
+  */
 };
 </script>
 
