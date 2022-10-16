@@ -1,8 +1,7 @@
 <template>
   <div id="wrapper">
-    <div id="main" v-on:contextmenu.prevent>
-      この領域では、コンテキストメニューは表示されません。
-    </div>
+    <input type="button" value="結果表示" v-on:click.once="onclick" />
+    <p>今日の運勢は{{ result }}点です。</p>
   </div>
 </template>
 
@@ -10,13 +9,15 @@
 import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
-  /*
-  setup() {
-    const message = ref('皆さん、こんにちは！');
 
-    return { message };
+  setup() {
+    const result = ref('－');
+    const onclick = () => {
+      result.value = Math.floor(Math.random() * 100) + 1;
+    };
+
+    return { result, onclick };
   },
-  */
 };
 </script>
 
