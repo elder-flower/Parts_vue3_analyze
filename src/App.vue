@@ -1,11 +1,12 @@
 <template>
   <div id="wrapper">
     <table class="table">
+      <th>No</th>
       <th>ISBN</th>
       <th>書名</th>
       <th>価格</th>
-      <tr v-for="b in books">
-        <!-- <tr v-for="b of books"> -->
+      <tr v-for="(b, i) in books">
+        <td>{{ i + 1 }}</td>
         <td>{{ b.isbn }}</td>
         <td>{{ b.title }}</td>
         <td>{{ b.price }}円</td>
