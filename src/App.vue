@@ -12,7 +12,7 @@ import { ref } from 'vue';
 export default {
   name: 'App',
   setup() {
-    const message = ref('');
+    let message = ref('');
     const upfile = ref('');
 
     const onchange = () => {
@@ -24,6 +24,7 @@ export default {
       data.append('upfile', fl, fl.name);
 
       const path = 'http://www.elder-flower.com/111/upload.php';
+
       fetch(path, {
         method: 'POST',
         body: data,
