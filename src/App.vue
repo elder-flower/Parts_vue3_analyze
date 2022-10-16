@@ -1,10 +1,6 @@
 <template>
   <div id="wrapper">
-    <div v-bind:style="{ backgroundColor: 'Black', fontSize: '1.5em' }">
-      <!-- <div :style="{ backgroundColor: 'Aqua', fontSize: '1.5em' }"></div> -->
-      <!-- <div v-bind:style="{ 'background-color': 'Aqua', 'font-size': '1.5em' }"> -->
-      皆さん、こんにちは！
-    </div>
+    <div v-bind:style="[color, size]">皆さん、こんにちは！</div>
   </div>
 </template>
 
@@ -12,13 +8,18 @@
 import { ref, reactive, computed } from 'vue';
 export default {
   name: 'App',
-  /*
-  setup() {
-    const name = ref('匿名');
 
-    return { name };
+  setup() {
+    const color = reactive({
+      backgroundColor: 'Brown',
+      color: 'White',
+    });
+    const size = reactive({
+      fontSize: '1.5em',
+    });
+
+    return { color, size };
   },
-  */
 };
 </script>
 
