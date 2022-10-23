@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ title }}</label>
+      <label class="label" for="num">{{ data[0].title }}</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ token }}</span>
+        <span class="unit">{{ data[0].token }}</span>
       </div>
     </div>
   </section>
@@ -29,19 +29,16 @@ export default {
   name: 'NumberInput',
   props: ['data'],
 
+  /*
   setup(props) {
-    let reqData = ref(props.data);
-    let token = reqData.value[0].token;
-    let title = reqData.value[0].title;
+    console.log('NumberInput setup');
+    let reqData = reactive(props.data);
+    let token = reqData[0].token;
+    let title = reqData[0].title;
 
-    onBeforeUpdate(() => {
-      console.log('onBeforeUpdate');
-      reqData = ref(props.data);
-      token = reqData.value[0].token;
-      title = reqData.value[0].title;
-    });
     return { reqData, token, title };
   },
+  */
 };
 </script>
 
