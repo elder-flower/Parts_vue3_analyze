@@ -18,10 +18,12 @@ export default {
   components: { NumberInput },
 
   setup() {
-    let menuData = reactive({
-      token: 'point',
-      title: 'numer',
-    });
+    let menuData = reactive([
+      {
+        token: 'point',
+        title: 'numer',
+      },
+    ]);
 
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
@@ -31,11 +33,11 @@ export default {
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
       //console.log(response);
       const arr = await response.data;
-      //console.log(arr);
+      console.log(arr);
       menuData = reactive(arr);
     };
 
-    //get();
+    get();
 
     return { menuData };
   },

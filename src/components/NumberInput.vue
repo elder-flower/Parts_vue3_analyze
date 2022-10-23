@@ -24,16 +24,27 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, watch } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data'],
 
   setup(props) {
-    const token = ref(props.data.token);
-    const title = ref(props.data.title);
+    let reqData = ref(props.data);
+    let token = reqData.value[0].token;
+    let title = reqData.value[0].title;
 
-    return { token, title };
+    watch(
+      () => props.data,
+      (newV, oldV) => {
+        console.log('test');
+        reqData.value = newV;
+        token = reqData.value[0].token;
+        title = reqData.value[0].title;
+      }
+    );
+
+    return { reqData, token, title };
   },
 };
 </script>
