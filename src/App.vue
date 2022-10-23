@@ -8,12 +8,17 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import NumberInput from './components/NumberInput.vue';
+
+//https://www.google.com/search?q=firefox+webkit-inner-spin-button&lr=lang_ja&sa=X&ved=2ahUKEwjQjdT3_fX6AhX1gVYBHS-pAs4QuAF6BAgIEAE&biw=938&bih=793&dpr=2
+
+// https://qiita.com/mrpero/items/c562cf9c2493bbbfe431
+
 export default {
   name: 'App',
   components: { NumberInput },
 
   setup() {
-    let menuData = ref('');
+    let menuData;
 
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
@@ -23,21 +28,24 @@ export default {
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
       //console.log(response);
       const arr = await response.data;
-      //console.log(arr);
-      menuData.value = arr;
+      console.log(arr);
+      menuData = ref(arr);
     };
 
     get();
 
-    return { menuData };
+    return { menuData, onclick };
   },
 };
 </script>
 
 <style scoped>
 #wrapper {
-  margin: 50px auto;
-  width: 90%;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
