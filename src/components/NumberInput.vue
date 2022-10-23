@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ref, reactive, watch } from 'vue';
+import { ref, reactive, onBeforeUpdate } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data'],
@@ -34,16 +34,12 @@ export default {
     let token = reqData.value[0].token;
     let title = reqData.value[0].title;
 
-    watch(
-      () => props.data,
-      (newV, oldV) => {
-        console.log('test');
-        reqData.value = newV;
-        token = reqData.value[0].token;
-        title = reqData.value[0].title;
-      }
-    );
-
+    onBeforeUpdate(() => {
+      console.log('onBeforeUpdate');
+      reqData = ref(props.data);
+      token = reqData.value[0].token;
+      title = reqData.value[0].title;
+    });
     return { reqData, token, title };
   },
 };

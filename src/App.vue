@@ -25,6 +25,8 @@ export default {
       },
     ]);
 
+    //console.log(menuData);
+
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
 
@@ -33,8 +35,9 @@ export default {
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
       //console.log(response);
       const arr = await response.data;
-      console.log(arr);
+
       menuData = reactive(arr);
+      console.log(menuData[0]);
     };
 
     get();
