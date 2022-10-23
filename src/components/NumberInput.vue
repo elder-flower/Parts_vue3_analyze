@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">数値</label>
+      <label class="label" for="num">data.number</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ unit }}</span>
+        <span class="unit">{{ data.unit }}</span>
       </div>
     </div>
   </section>
@@ -30,12 +30,13 @@ export default {
   props: ['requestData'],
 
   setup(props) {
-    let data = reactive(props.requestData);
-    console.log(data);
+    let data = reactive({
+      unit: 'point',
+      tit: 'numer',
+    });
 
-    const unit = 'point';
-
-    return { data, unit };
+    //data.value = props.requestData;
+    return { data };
   },
 };
 </script>
