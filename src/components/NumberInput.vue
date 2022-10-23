@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">data.number</label>
+      <label class="label" for="num">{{ title }}</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ data.unit }}</span>
+        <span class="unit">{{ token }}</span>
       </div>
     </div>
   </section>
@@ -27,16 +27,13 @@
 import { ref, reactive } from 'vue';
 export default {
   name: 'NumberInput',
-  props: ['requestData'],
+  props: ['data'],
 
   setup(props) {
-    let data = reactive({
-      unit: 'point',
-      tit: 'numer',
-    });
+    const token = ref(props.data.token);
+    const title = ref(props.data.title);
 
-    //data.value = props.requestData;
-    return { data };
+    return { token, title };
   },
 };
 </script>

@@ -1,12 +1,12 @@
 <template>
   <div id="wrapper">
-    <NumberInput request_data="menuData"></NumberInput>
+    <NumberInput v-bind:data="menuData"></NumberInput>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import NumberInput from './components/NumberInput.vue';
 
 //https://www.google.com/search?q=firefox+webkit-inner-spin-button&lr=lang_ja&sa=X&ved=2ahUKEwjQjdT3_fX6AhX1gVYBHS-pAs4QuAF6BAgIEAE&biw=938&bih=793&dpr=2
@@ -18,7 +18,10 @@ export default {
   components: { NumberInput },
 
   setup() {
-    let menuData;
+    let menuData = reactive({
+      token: 'point',
+      title: 'numer',
+    });
 
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
@@ -28,13 +31,13 @@ export default {
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
       //console.log(response);
       const arr = await response.data;
-      console.log(arr);
-      menuData = ref(arr);
+      //console.log(arr);
+      menuData = reactive(arr);
     };
 
-    get();
+    //get();
 
-    return { menuData, onclick };
+    return { menuData };
   },
 };
 </script>
