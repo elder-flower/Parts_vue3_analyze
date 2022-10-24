@@ -6,7 +6,7 @@
 
 <script>
 import axios from 'axios';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import NumberInput from './components/NumberInput.vue';
 
 //https://www.google.com/search?q=firefox+webkit-inner-spin-button&lr=lang_ja&sa=X&ved=2ahUKEwjQjdT3_fX6AhX1gVYBHS-pAs4QuAF6BAgIEAE&biw=938&bih=793&dpr=2
@@ -19,6 +19,7 @@ export default {
   provide() {
     return {
       data: this.menuData,
+      //data: computed(() => this.menuData),
     };
   },
 
@@ -41,13 +42,14 @@ export default {
       //console.log(response);
       const arr = await response.data;
 
+      //console.log(menuData);
+
       menuData = reactive(arr);
-      console.log(menuData);
+
+      return { menuData };
     };
 
     get();
-
-    return { menuData };
   },
 };
 </script>
