@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ data }}</label>
+      <label class="label" for="num">{{ data[0].title }}</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ data }}</span>
+        <span class="unit">{{ data[0].token }}</span>
       </div>
     </div>
   </section>
@@ -30,10 +30,10 @@ export default {
   props: ['data'],
   //inject: ['data'],
 
+  /*
   setup(props) {
-    console.log(props.data);
-    return {};
   },
+  */
 };
 </script>
 
