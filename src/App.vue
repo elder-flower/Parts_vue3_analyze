@@ -16,6 +16,11 @@ import NumberInput from './components/NumberInput.vue';
 export default {
   name: 'App',
   components: { NumberInput },
+  provide() {
+    return {
+      data: this.menuData,
+    };
+  },
 
   setup() {
     let menuData = reactive([
@@ -37,7 +42,7 @@ export default {
       const arr = await response.data;
 
       menuData = reactive(arr);
-      console.log(menuData[0]);
+      console.log(menuData);
     };
 
     get();

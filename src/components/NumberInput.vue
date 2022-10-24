@@ -27,8 +27,8 @@
 import { ref, reactive, onBeforeUpdate } from 'vue';
 export default {
   name: 'NumberInput',
-  props: ['data'],
-
+  //props: ['data'],
+  inject: ['data'],
   /*
   setup(props) {
     console.log('NumberInput setup');
