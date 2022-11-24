@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ data[0].title }}</label>
+      <label class="label" for="num">{{ title }}</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ data[0].token }}</span>
+        <span class="unit">{{ token }}</span>
       </div>
     </div>
   </section>
@@ -28,12 +28,13 @@ import { ref, reactive } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data'],
-  //inject: ['data'],
 
-  /*
   setup(props) {
+    const token = ref(props.data.token);
+    const title = ref(props.data.title);
+
+    return { token, title };
   },
-  */
 };
 </script>
 
