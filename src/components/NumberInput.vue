@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ title }}</label>
+      <label class="label" for="num">{{ menuData.val[0] }}</label>
       <div class="input">
         <input
           type="number"
@@ -17,7 +17,7 @@
           value="0"
           step="1"
         />
-        <span class="unit">{{ token }}</span>
+        <span class="unit">{{ menuData.val.title }}</span>
       </div>
     </div>
   </section>
@@ -30,10 +30,11 @@ export default {
   props: ['data'],
 
   setup(props) {
-    const token = ref(props.data.token);
-    const title = ref(props.data.title);
+    let menuData = reactive({
+      val: props.data.val,
+    });
 
-    return { token, title };
+    return { menuData };
   },
 };
 </script>

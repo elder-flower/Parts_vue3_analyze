@@ -19,8 +19,12 @@ export default {
 
   setup() {
     let menuData = reactive({
-      token: 'point',
-      title: 'numer',
+      val: [
+        {
+          token: 'point',
+          title: 'numer',
+        },
+      ],
     });
 
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
@@ -31,11 +35,11 @@ export default {
       const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
       //console.log(response);
       const arr = await response.data;
-      //console.log(arr);
-      menuData = arr;
+      console.log(arr);
+      menuData.val = arr;
     };
 
-    //get();
+    get();
 
     return { menuData };
   },
