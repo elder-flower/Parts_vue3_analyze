@@ -23,17 +23,12 @@ export default {
 
   setup() {
     const menuData = reactive({
-      val: [
-        {
-          token: 'point',
-          title: 'numer',
-        },
-      ],
+      val: '',
     });
 
     const position = ref(0);
 
-    const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v22';
+    const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
 
     const get = async () => {

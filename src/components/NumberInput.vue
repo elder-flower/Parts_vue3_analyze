@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ menuData.val[position].title }}</label>
+      <label class="label" for="num">{{ data[position].title }}</label>
       <div class="input">
         <input
           type="text"
@@ -15,13 +15,13 @@
           min="1"
           max="100"
           step="1"
-          v-bind:value="menuData.val[position].updated_at"
+          v-bind:value="data[position].updated_at"
         />
 
-        <span class="unit">{{ menuData.val[position].token }}</span>
+        <span class="unit">{{ data[position].token }}</span>
       </div>
       <div class="status">
-        <p>{{ menuData.val[position].id }}</p>
+        <p>{{ data[position].id }}</p>
         <button v-on:click="onNextPos">btn</button>
       </div>
     </div>
@@ -43,25 +43,25 @@ export default {
     const data = computed(() => {
       let arr = [
         {
-          title: 'no data',
+          title: 'no data0',
           updated_at: 'no data',
           token: 'no data',
           id: 'no data',
         },
         {
-          title: 'no data',
+          title: 'no data1',
           updated_at: 'no data',
           token: 'no data',
           id: 'no data',
         },
         {
-          title: 'no data',
+          title: 'no data2',
           updated_at: 'no data',
           token: 'no data',
           id: 'no data',
         },
         {
-          title: 'no data',
+          title: 'no data3',
           updated_at: 'no data',
           token: 'no data',
           id: 'no data',
