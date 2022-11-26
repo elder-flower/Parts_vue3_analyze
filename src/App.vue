@@ -72,17 +72,61 @@ export default {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
 
+    // リクエスト後の処理。
+    axios.interceptors.response.use(
+      (response) => {
+        // 2xx の範囲内にあるステータス コードにより、この関数がトリガーされます
+        // 成功時の処理
+
+        //console.log(response.status);
+        return response;
+      },
+      (error) => {
+        console.log('error');
+        console.log(error);
+        if (axios.isCancel(error)) {
+          console.log('Request canceled', error.message);
+        }
+        // 2xx の範囲外のステータス コードにより、この関数がトリガーされます
+        // 失敗時の処理
+
+        //省略可能なプロパティ
+        // https://qiita.com/uhyo/items/e2fdef2d3236b9bfe74a#-%E7%9C%81%E7%95%A5%E5%8F%AF%E8%83%BD%E3%81%AA%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3
+        switch (error.response?.status) {
+          case 400:
+            console.log(error.message);
+            throw Error('INVALID_TOKEN');
+          case 401:
+            console.log(error.message);
+            throw Error('UNAUTHORIZED');
+          case 500:
+            console.log(error.message);
+            throw Error('INTERNAL_SERVER_ERROR');
+          case 502:
+            console.log(error.message);
+            throw Error('BAD_GATEWAY');
+          case 404:
+            console.log(error.message);
+            throw Error('NOT_FOUND');
+          default:
+            console.log(error.message);
+            throw Error('UNHANDLED_ERROR');
+          // 例外処理
+        }
+      }
+    );
+
     const get = async () => {
       //const response = await fetch(ROOT_URL);
-      const response = await axios
-        .get(
-          `${ROOT_URL}/events${QUERYSTRING}`,
-          { timeout: 5000 },
-          {
-            // キャンセルのトークン
-            cancelToken: source.token,
-          }
-        )
+      const response = await axios.get(
+        `${ROOT_URL}/events${QUERYSTRING}`,
+        { timeout: 5000 },
+        {
+          // キャンセルのトークン
+          cancelToken: source.token,
+        }
+      );
+      /*
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
@@ -90,6 +134,7 @@ export default {
             // handle error
           }
         });
+        */
       //console.log(response);
       const arr = await response.data;
       console.log(arr);
@@ -109,7 +154,7 @@ export default {
       source.cancel();
     };
     get();
-    onGetCancel();
+    //onGetCancel();
     return { menuData, menuData2, onPos, position, onGetCancel };
   },
 };
