@@ -33,7 +33,7 @@ import { ref, reactive, watch } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data', 'position'],
-  emits: ['plusMinus'],
+  emits: ['nextPos'],
   setup(props, context) {
     let menuData = reactive({
       val: props.data.val,
