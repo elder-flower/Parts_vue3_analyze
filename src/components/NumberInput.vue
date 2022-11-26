@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref, reactive, watch } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data', 'position'],
@@ -38,6 +38,39 @@ export default {
     let menuData = reactive({
       val: props.data.val,
       pos: props.position,
+    });
+
+    const data = computed(() => {
+      let arr = [
+        {
+          title: 'no data',
+          updated_at: 'no data',
+          token: 'no data',
+          id: 'no data',
+        },
+        {
+          title: 'no data',
+          updated_at: 'no data',
+          token: 'no data',
+          id: 'no data',
+        },
+        {
+          title: 'no data',
+          updated_at: 'no data',
+          token: 'no data',
+          id: 'no data',
+        },
+        {
+          title: 'no data',
+          updated_at: 'no data',
+          token: 'no data',
+          id: 'no data',
+        },
+      ];
+      if (Array.isArray(menuData.val)) {
+        arr = menuData.val;
+      }
+      return arr;
     });
 
     // 以下を追加しないと非同期で受信したデータを子コンポーネントで更新されない。
@@ -74,7 +107,7 @@ export default {
       context.emit('nextPos', Number(next));
     };
 
-    return { menuData, onNextPos };
+    return { menuData, onNextPos, data };
   },
 };
 </script>

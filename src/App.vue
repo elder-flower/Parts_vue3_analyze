@@ -33,7 +33,7 @@ export default {
 
     const position = ref(0);
 
-    const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
+    const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v22';
     const QUERYSTRING = '?token=token123';
 
     const get = async () => {
