@@ -1,6 +1,10 @@
 <template>
   <div id="wrapper">
-    <NumberInput v-bind:data="menuData"></NumberInput>
+    <NumberInput
+      v-bind:data="menuData"
+      v-bind:position="position"
+      v-on:next-pos="onPos"
+    ></NumberInput>
   </div>
 </template>
 
@@ -18,7 +22,7 @@ export default {
   components: { NumberInput },
 
   setup() {
-    let menuData = reactive({
+    const menuData = reactive({
       val: [
         {
           token: 'point',
@@ -26,6 +30,8 @@ export default {
         },
       ],
     });
+
+    const position = ref(0);
 
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
@@ -41,7 +47,14 @@ export default {
 
     get();
 
-    return { menuData };
+    const onPos = (num) => {
+      /*
+      console.log('onPos num');
+      console.log(num);
+      */
+      position.value = num;
+    };
+    return { menuData, onPos, position };
   },
 };
 </script>

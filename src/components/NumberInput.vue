@@ -3,21 +3,26 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ menuData.val[0].title }}</label>
+      <label class="label" for="num">{{ menuData.val[position].title }}</label>
       <div class="input">
         <input
-          type="number"
-          inputmode="numeric"
+          type="text"
+          inputmode="text"
           name="num"
           id="num"
           required
           size="10"
           min="1"
           max="100"
-          value="0"
           step="1"
+          v-bind:value="menuData.val[position].updated_at"
         />
-        <span class="unit">{{ menuData.val[0].token }}</span>
+
+        <span class="unit">{{ menuData.val[position].token }}</span>
+      </div>
+      <div class="status">
+        <p>{{ menuData.val[position].id }}</p>
+        <button v-on:click="onNextPos">btn</button>
       </div>
     </div>
   </section>
@@ -27,11 +32,12 @@
 import { ref, reactive, watch } from 'vue';
 export default {
   name: 'NumberInput',
-  props: ['data'],
-
-  setup(props) {
+  props: ['data', 'position'],
+  emits: ['plusMinus'],
+  setup(props, context) {
     let menuData = reactive({
       val: props.data.val,
+      pos: props.position,
     });
 
     // 以下を追加しないと非同期で受信したデータを子コンポーネントで更新されない。
@@ -39,6 +45,12 @@ export default {
       () => props.data.val,
       (newV) => {
         menuData.val = newV;
+      }
+    );
+    watch(
+      () => props.position,
+      (newV) => {
+        menuData.pos = newV;
       }
     );
 
@@ -51,8 +63,18 @@ export default {
       }
     );
     */
+    const onNextPos = () => {
+      const now = Number(menuData.pos);
+      let next;
+      if (now >= menuData.val.length - 1) {
+        next = 0;
+      } else {
+        next = now + 1;
+      }
+      context.emit('nextPos', Number(next));
+    };
 
-    return { menuData };
+    return { menuData, onNextPos };
   },
 };
 </script>
@@ -62,6 +84,14 @@ export default {
   width: 100%;
   padding: 30px;
   text-align: end;
+}
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.status button {
+  margin: 1em 0 1em auto;
+  display: block;
 }
 .wrap {
   text-align: start;
