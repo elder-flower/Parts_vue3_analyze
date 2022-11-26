@@ -40,6 +40,13 @@ export default {
       pos: props.position,
     });
 
+    /*
+    受け取った「props.data.val」を子コンポーネントで加工する場合に問題が発生している。「watch」後の処理とか、「onNextPos」関数の「menuData.val.length」とか。
+    親で加工してもらった方が安全。
+    */
+    /*
+    この「computed」はネットワーク受信前のデータで配列の値が1個しかないための初期データの加工処理を施そうとしたが、ref等の段階ですべき事だった。
+   */
     const data = computed(() => {
       let arr = [
         {
