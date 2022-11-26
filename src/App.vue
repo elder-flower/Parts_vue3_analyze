@@ -10,7 +10,7 @@
 
 <script>
 import axios from 'axios';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import NumberInput from './components/NumberInput.vue';
 
 //https://www.google.com/search?q=firefox+webkit-inner-spin-button&lr=lang_ja&sa=X&ved=2ahUKEwjQjdT3_fX6AhX1gVYBHS-pAs4QuAF6BAgIEAE&biw=938&bih=793&dpr=2
@@ -23,8 +23,37 @@ export default {
 
   setup() {
     const menuData = reactive({
-      val: '',
+      val: [
+        {
+          token: 'point',
+          title: 'numer',
+          updated_at: 0,
+          id: 0,
+        },
+        {
+          token: 'point',
+          title: 'numer',
+          updated_at: 0,
+          id: 1,
+        },
+        {
+          token: 'point',
+          title: 'numer',
+          updated_at: 0,
+          id: 2,
+        },
+      ],
     });
+
+    //「computed」より関数定義してget後に発動した方が管理しやすい。
+    const menuData2 = () => {
+      menuData.val.forEach((elem) => {
+        //console.log(elem);
+        elem.id += 'a';
+      });
+    };
+
+    menuData2();
 
     const position = ref(0);
 
@@ -38,6 +67,7 @@ export default {
       const arr = await response.data;
       console.log(arr);
       menuData.val = arr;
+      menuData2();
     };
 
     get();
@@ -49,7 +79,7 @@ export default {
       */
       position.value = num;
     };
-    return { menuData, onPos, position };
+    return { menuData, menuData2, onPos, position };
   },
 };
 </script>

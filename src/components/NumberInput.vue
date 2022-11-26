@@ -3,7 +3,7 @@
     <h1>数値</h1>
 
     <div class="wrap">
-      <label class="label" for="num">{{ data[position].title }}</label>
+      <label class="label" for="num">{{ menuData.val[position].title }}</label>
       <div class="input">
         <input
           type="text"
@@ -15,13 +15,13 @@
           min="1"
           max="100"
           step="1"
-          v-bind:value="data[position].updated_at"
+          v-bind:value="menuData.val[position].updated_at"
         />
 
-        <span class="unit">{{ data[position].token }}</span>
+        <span class="unit">{{ menuData.val[position].token }}</span>
       </div>
       <div class="status">
-        <p>{{ data[position].id }}</p>
+        <p>{{ menuData.val[position].id }}</p>
         <button v-on:click="onNextPos">btn</button>
       </div>
     </div>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, watch } from 'vue';
+import { ref, reactive, watch } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data', 'position'],
@@ -38,46 +38,6 @@ export default {
     let menuData = reactive({
       val: props.data.val,
       pos: props.position,
-    });
-
-    /*
-    受け取った「props.data.val」を子コンポーネントで加工する場合に問題が発生している。「watch」後の処理とか、「onNextPos」関数の「menuData.val.length」とか。
-    親で加工してもらった方が安全。
-    */
-    /*
-    この「computed」はネットワーク受信前のデータで配列の値が1個しかないための初期データの加工処理を施そうとしたが、ref等の段階ですべき事だった。
-   */
-    const data = computed(() => {
-      let arr = [
-        {
-          title: 'no data0',
-          updated_at: 'no data',
-          token: 'no data',
-          id: 'no data',
-        },
-        {
-          title: 'no data1',
-          updated_at: 'no data',
-          token: 'no data',
-          id: 'no data',
-        },
-        {
-          title: 'no data2',
-          updated_at: 'no data',
-          token: 'no data',
-          id: 'no data',
-        },
-        {
-          title: 'no data3',
-          updated_at: 'no data',
-          token: 'no data',
-          id: 'no data',
-        },
-      ];
-      if (Array.isArray(menuData.val)) {
-        arr = menuData.val;
-      }
-      return arr;
     });
 
     // 以下を追加しないと非同期で受信したデータを子コンポーネントで更新されない。
@@ -114,7 +74,7 @@ export default {
       context.emit('nextPos', Number(next));
     };
 
-    return { menuData, onNextPos, data };
+    return { menuData, onNextPos };
   },
 };
 </script>
