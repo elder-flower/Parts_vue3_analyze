@@ -23,6 +23,7 @@
       <div class="status">
         <p>{{ menuData.val[position].id }}</p>
         <button v-on:click="onNextPos">btn</button>
+        <button v-on:click="onGetCancel">btn</button>
       </div>
     </div>
   </section>
@@ -33,7 +34,7 @@ import { ref, reactive, watch } from 'vue';
 export default {
   name: 'NumberInput',
   props: ['data', 'position'],
-  emits: ['nextPos'],
+  emits: ['nextPos', 'getCancel'],
   setup(props, context) {
     let menuData = reactive({
       val: props.data.val,
@@ -73,8 +74,11 @@ export default {
       }
       context.emit('nextPos', Number(next));
     };
+    const onGetCancel = () => {
+      context.emit('getCancel', true);
+    };
 
-    return { menuData, onNextPos };
+    return { menuData, onNextPos, onGetCancel };
   },
 };
 </script>
@@ -87,7 +91,7 @@ export default {
 }
 .status {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .status button {
   margin: 1em 0 1em auto;

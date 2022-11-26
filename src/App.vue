@@ -4,6 +4,7 @@
       v-bind:data="menuData"
       v-bind:position="position"
       v-on:next-pos="onPos"
+      v-on:get-cancel="onGetCancel"
     ></NumberInput>
   </div>
 </template>
@@ -51,26 +52,50 @@ export default {
         //console.log(elem);
         elem.id += 'a';
       });
+
+      //受信したデータのパス変換はここでやった方がよさそう。
     };
 
     menuData2();
 
     const position = ref(0);
 
+    // axiosでリクエスト中の処理をキャンセルする
+    // https://www.suzu6.net/posts/315-axios-request-cancel/
+
+    // 意外と知られていないJavaScriptライブラリaxiosの7つの設定方法
+    // https://iwb.jp/javascript-library-axios-settings/#2_timeout
+
     const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
     const QUERYSTRING = '?token=token123';
 
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     const get = async () => {
       //const response = await fetch(ROOT_URL);
-      const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
+      const response = await axios
+        .get(
+          `${ROOT_URL}/events${QUERYSTRING}`,
+          { timeout: 5000 },
+          {
+            // キャンセルのトークン
+            cancelToken: source.token,
+          }
+        )
+        .catch((thrown) => {
+          if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+          } else {
+            // handle error
+          }
+        });
       //console.log(response);
       const arr = await response.data;
       console.log(arr);
       menuData.val = arr;
       menuData2();
     };
-
-    get();
 
     const onPos = (num) => {
       /*
@@ -79,7 +104,13 @@ export default {
       */
       position.value = num;
     };
-    return { menuData, menuData2, onPos, position };
+    const onGetCancel = () => {
+      console.log('onGetCancel');
+      source.cancel();
+    };
+    get();
+    onGetCancel();
+    return { menuData, menuData2, onPos, position, onGetCancel };
   },
 };
 </script>
