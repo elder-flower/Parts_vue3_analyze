@@ -146,7 +146,7 @@
   </main>
 
   <ModaL v-bind:is-modal="isModal" v-on:modal-close="onClose">
-    <section class="bg">
+    <section class="bg" v-on:click.stop="onStopClick">
       <h2>お知らせ1</h2>
       <p>
         おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。おしらせの内容が入ります。
@@ -163,7 +163,7 @@ export default {
   name: 'App',
   components: { ModaL },
 
-  setup(props, context) {
+  setup() {
     const isModal = ref(false);
 
     const onMmodalShow = () => {
@@ -180,6 +180,9 @@ export default {
       isModal.value = flag;
     };
 
+    // コンテンツ部分をクリックした時にイベントを伝播させないようにする。
+    const onStopClick = () => {};
+
     onBeforeUpdate(() => {
       //html要素に「overflow-y:hidden」を付ける。
       const html = document.documentElement;
@@ -190,7 +193,7 @@ export default {
       }
     });
 
-    return { isModal, onMmodalShow, onClose };
+    return { isModal, onMmodalShow, onClose, onStopClick };
   },
 };
 </script>
