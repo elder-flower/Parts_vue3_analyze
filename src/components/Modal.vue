@@ -1,6 +1,6 @@
 <template>
-  <div id="modal">
-    <div id="modal_inner"></div>
+  <div id="modal" v-show="isModal2">
+    <div id="modal_inner">test</div>
   </div>
 </template>
 
@@ -8,12 +8,13 @@
 import { ref, reactive, watch } from 'vue';
 export default {
   name: 'Modal',
-  //props: ['data',],
+  props: ['isModal'],
   //emits: ['nextPos'],
   setup(props, context) {
-    return {};
+    const isModal2 = ref(props.isModal);
+    return { isModal2 };
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

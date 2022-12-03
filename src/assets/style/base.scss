@@ -1,0 +1,119 @@
+$cursor: 'pointer';
+
+/*========= レイアウトのためのCSS ===============*/
+#form_login {
+  p {
+    margin: 2em 1em;
+  }
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    padding: 0.5em 1em;
+    background: #111;
+    color: #eee;
+    border-radius: 10px;
+    margin: 0 10px;
+    cursor: $cursor;
+  }
+}
+header {
+  background: #333;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 20px;
+  color: #fff;
+}
+
+h2 {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+ul {
+  list-style: none;
+}
+
+p,
+ul {
+  margin-top: 20px;
+}
+
+a {
+  color: #333;
+}
+
+small {
+  background: #333;
+  color: #fff;
+  display: block;
+  text-align: center;
+  padding: 20px;
+}
+
+section {
+  padding: 30px;
+}
+
+section:nth-child(2n) {
+  background: #000;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: #eee;
+}
+.info-list {
+  li {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+}
+// modal contents
+.bg {
+  border-radius: 20px;
+  background: #333;
+}
+.imgList {
+  border-radius: 20px;
+  background: #333;
+  padding: 20px 20px;
+  margin: 0 auto;
+  width: max-content;
+  max-width: 600px;
+  text-align: center;
+  img {
+    border: 5px solid #fff;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    vertical-align: bottom; /*画像の下にできる余白を削除*/
+    margin: 0 auto 0;
+    display: inline;
+  }
+  .caption {
+    display: block;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 768px) {
+  .imgList {
+    width: auto;
+  }
+}
+
+.hide-area {
+  display: none;
+}
