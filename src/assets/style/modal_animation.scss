@@ -1,0 +1,9 @@
+.modal_fade-enter-active,
+.modal_fade-leave-active {
+  transition: opacity 0.8s ease-in-out;
+}
+
+.modal_fade-enter-from,
+.modal_fade-leave-to {
+  opacity: 0;
+}
