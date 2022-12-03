@@ -155,30 +155,31 @@
       <!--/area1-->
     </section>
   </main>
-  <ModaL v-bind:is-modal="isModal"></ModaL>
+  <ModaL v-bind:is-modal="isModal">
+    <section>
+      <h2>お知らせ1</h2>
+      <p>おしらせの内容が入ります。</p>
+    </section></ModaL
+  >
 </template>
 
 <script>
 import { ref, reactive, computed } from 'vue';
 import ModaL from './components/Modal.vue';
 
-//https://www.google.com/search?q=firefox+webkit-inner-spin-button&lr=lang_ja&sa=X&ved=2ahUKEwjQjdT3_fX6AhX1gVYBHS-pAs4QuAF6BAgIEAE&biw=938&bih=793&dpr=2
-
-// https://qiita.com/mrpero/items/c562cf9c2493bbbfe431
-
 export default {
   name: 'App',
   components: { ModaL },
 
   setup() {
-    const isModal = ref(false);
+    const isModal = ref(true);
     return { isModal };
   },
 };
 </script>
-
 <style lang="scss" scoped>
 @import './assets/style/variables.scss';
 @import './assets/style/reset_btn.scss';
 @import './assets/style/base.scss';
+@import './assets/style/modal_contents.scss';
 </style>
