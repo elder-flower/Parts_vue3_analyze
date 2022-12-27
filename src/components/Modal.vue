@@ -13,6 +13,11 @@
           </div>
           <div id="b_margin"></div>
         </div>
+        <button
+          id="modal_close"
+          v-on:click="onModalClose"
+          v-if="isBtn2"
+        ></button>
         <div id="modal_loading"><div></div></div>
       </div>
     </transition>
@@ -23,15 +28,20 @@
 import { ref, watchEffect } from 'vue';
 export default {
   name: 'Modal',
-  props: ['isModal'],
+  props: ['isModal', 'isBtn'],
   emits: ['modalClose'],
   setup(props, context) {
+    // モーダルの表示非表示を管理する変数。
     const isModal2 = ref(props.isModal);
+
+    // 右上に表示される」「閉じるボタン」の表示非表示を管理する変数。
+    const isBtn2 = props.isBtn;
 
     watchEffect(() => {
       isModal2.value = props.isModal;
     });
 
+    //「閉じるボタン」等が押された時に親へ「emit」を送る関数。
     const onModalClose = () => {
       console.log('onModalClose2');
       context.emit('modalClose', false);
@@ -42,7 +52,7 @@ export default {
     // 「Event.stopPropagation()」=「v-on:click.stop」
     const onStopClick = () => {};
 
-    return { isModal2, onModalClose, onStopClick };
+    return { isModal2, onModalClose, onStopClick, isBtn2 };
   },
 };
 </script>

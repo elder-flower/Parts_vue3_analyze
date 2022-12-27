@@ -145,7 +145,19 @@
     </section>
   </main>
 
-  <ModaL v-bind:is-modal="isModal" v-on:modal-close="onModalClose">
+  <!-- NOTE:
+  使い方。
+  ・<template v-slot:contents>以下にコンテンツを配置する。
+    モーダルコンテンツ内で「閉じるボタン」を使用する場合は以下を設定する。
+
+    v-on:click="onModalClose(false)"
+
+  -->
+  <ModaL
+    v-bind:is-modal="isModal"
+    v-bind:is-btn="isTopRightBtn"
+    v-on:modal-close="onModalClose"
+  >
     <template v-slot:contents>
       <section class="bg">
         <h2>お知らせ1</h2>
@@ -169,8 +181,13 @@ export default {
   components: { ModaL },
 
   setup() {
+    // モーダルの表示非表示を管理する変数。
     const isModal = ref(false);
 
+    //「true」の場合はモーダルコンテンツ内の右上のボタンの表示をする。
+    const isTopRightBtn = false;
+
+    // クリックした時にモーダルを表示させる関数。
     const onMmodalShow = () => {
       console.log('onMmodalShow');
       if (isModal.value == false) {
@@ -180,11 +197,13 @@ export default {
       }
     };
 
-    const onModalClose = (flag) => {
+    // クリックした時にモーダルを閉じる関数。
+    const onModalClose = (flag = false) => {
       console.log('onModalClose1');
       isModal.value = flag;
     };
 
+    // モーダルを表示させた時に縦のスクロールバーを表示させない為の処理をする。
     onBeforeUpdate(() => {
       //html要素に「overflow-y:hidden」を付ける。
       const html = document.documentElement;
@@ -196,7 +215,7 @@ export default {
       }
     });
 
-    return { isModal, onMmodalShow, onModalClose };
+    return { isModal, onMmodalShow, onModalClose, isTopRightBtn };
   },
 };
 </script>
