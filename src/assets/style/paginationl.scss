@@ -1,0 +1,12 @@
+.nav_dot {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  button {
+    min-height: 30px;
+    padding: 10px 20px;
+    background: #552;
+  }
+}
