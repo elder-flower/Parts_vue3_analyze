@@ -1,6 +1,9 @@
 .nav_dot {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   overflow-x: hidden;
