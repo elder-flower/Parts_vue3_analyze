@@ -185,22 +185,18 @@ export default {
     const isModal = ref(false);
 
     //「true」の場合はモーダルコンテンツ内の右上のボタンの表示をする。
-    const isTopRightBtn = false;
+    const isTopRightBtn = true;
 
     // クリックした時にモーダルを表示させる関数。
     const onMmodalShow = () => {
       console.log('onMmodalShow');
-      if (isModal.value == false) {
-        isModal.value = true;
-      } else {
-        isModal.value = false;
-      }
+      isModal.value = true;
     };
 
     // クリックした時にモーダルを閉じる関数。
-    const onModalClose = (flag = false) => {
+    const onModalClose = () => {
       console.log('onModalClose1');
-      isModal.value = flag;
+      isModal.value = false;
     };
 
     // モーダルを表示させた時に縦のスクロールバーを表示させない為の処理をする。
