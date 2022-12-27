@@ -1,9 +1,12 @@
-.modal_fade-enter-active,
-.modal_fade-leave-active {
-  transition: opacity 0.8s ease-in-out;
-}
+#modal {
+  &.modal_fade-enter-active,
+  &.modal_fade-leave-active {
+    transition: opacity 0.8s ease-in-out;
+    z-index: 10;
+  }
 
-.modal_fade-enter-from,
-.modal_fade-leave-to {
-  opacity: 0;
+  &.modal_fade-enter-from,
+  &.modal_fade-leave-to {
+    opacity: 0;
+  }
 }

@@ -78,37 +78,3 @@ a {
     }
   }
 }
-// modal contents
-.bg {
-  border-radius: 20px;
-  background: #333;
-}
-.imgList {
-  border-radius: 20px;
-  background: #333;
-  padding: 20px 20px;
-  margin: 0 auto;
-  width: max-content;
-  max-width: 600px;
-  text-align: center;
-  img {
-    border: 5px solid #fff;
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    vertical-align: bottom; /*画像の下にできる余白を削除*/
-    margin: 0 auto 0;
-    display: inline;
-  }
-  .caption {
-    display: block;
-    padding: 10px 0;
-    color: #fff;
-    text-align: center;
-  }
-}
-@media screen and (max-width: 768px) {
-  .imgList {
-    width: auto;
-  }
-}

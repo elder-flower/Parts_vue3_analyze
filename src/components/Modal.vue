@@ -6,14 +6,13 @@
         v-bind:class="[{ modalshow: isModal2 }]"
         v-show="isModal2"
       >
-        <div id="modal_inner" v-on:click="onClose">
+        <div id="modal_inner" v-on:click="onModalClose">
           <div id="t_margin"></div>
-          <div id="dialog">
-            <slot></slot>
+          <div id="dialog" v-on:click.stop="onStopClick">
+            <slot name="contents"></slot>
           </div>
           <div id="b_margin"></div>
         </div>
-        <button id="modal_close" v-on:click="onClose"></button>
         <div id="modal_loading"><div></div></div>
       </div>
     </transition>
@@ -33,13 +32,17 @@ export default {
       isModal2.value = props.isModal;
     });
 
-    const onClose = () => {
-      console.log('onClose2');
+    const onModalClose = () => {
+      console.log('onModalClose2');
       context.emit('modalClose', false);
       isModal2.value = false;
     };
 
-    return { isModal2, onClose };
+    // コンテンツ部分をクリックした時にイベントを伝播させないようにする。
+    // 「Event.stopPropagation()」=「v-on:click.stop」
+    const onStopClick = () => {};
+
+    return { isModal2, onModalClose, onStopClick };
   },
 };
 </script>

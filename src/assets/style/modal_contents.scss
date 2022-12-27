@@ -1,3 +1,15 @@
 .hide-area {
   display: none;
 }
+// modal contents
+.bg {
+  border-radius: 20px;
+  background: #333;
+  cursor: default;
+}
+.close_btn {
+  margin: 10px auto 10px;
+  min-width: 200px;
+  padding: 0.8em 0.5em;
+  display: block;
+}
