@@ -112,6 +112,7 @@ export default {
 
     // タッチスクロールした際の座標の履歴を格納する配列。
     let touch_scroll_log = [];
+
     //「touchmove」用の通常動作をキャンセルしてx座標を配列に追加する関数。
     const touchDownAction = (e) => {
       e.preventDefault();
@@ -121,48 +122,52 @@ export default {
     // タッチスクロール検出時の実行関数。
     const touchScrollDetection = (e) => {
       e.preventDefault();
-      //const mainHeight = main.clientHeight;
-      //const scroll = e.touches[0].clientY;
 
       const touchScrollDetectionMove = () => {
         //console.log('touchScrollDetectionMove');
         // この距離以上に横スクロールされたら、その時点で次のデータを表示。。
         const distance = 10;
 
+        // 配列の一番最後のindex。
         const last = touch_scroll_log.length - 1;
+
+        // 一番最初の座標。
         const first_scroll = touch_scroll_log[0];
+
+        // 一番最後の座標。
         const last_scroll = touch_scroll_log[last];
+
         if (isNaN(last_scroll - first_scroll)) {
           return;
         }
-
+        /*
         console.log('last_scroll - first_scroll');
         console.log(last_scroll - first_scroll);
 
-        let direction = '';
+        */
+
+        // 右方向の場合は「true」
+        let isRight = '';
+
         if (last_scroll - first_scroll > 0) {
-          direction = true;
+          isRight = true;
         } else {
-          direction = false;
+          isRight = false;
         }
 
-        let dir = -1;
-        if (direction) {
-          dir = 1;
-        }
-
-        let scroll_on = false;
-
-        if (direction) {
+        if (isRight) {
           if (last_scroll - first_scroll > distance) {
+            // 閾値を超えた場合は、表示の切り替え処理。
             onPrevBtn();
           }
         } else {
           if (last_scroll - first_scroll < distance * -1) {
+            // 閾値を超えた場合は、表示の切り替え処理。
             onNextBtn();
           }
         }
 
+        // タッチスクロールした際の座標の履歴を初期化。
         touch_scroll_log = [];
       };
 
@@ -188,30 +193,36 @@ export default {
       const touch_area = touch_area_ref.value;
       //console.log(touch_area);
 
-      touch_area.addEventListener('touchmove', touchDownAction, {
-        passive: false,
-      });
-      touch_area.addEventListener('touchend', touchScrollDetection, {
-        passive: false,
-      });
+      if (isScrollSnap) {
+        touch_area.addEventListener('touchmove', touchDownAction, {
+          passive: false,
+        });
+        touch_area.addEventListener('touchend', touchScrollDetection, {
+          passive: false,
+        });
+      }
+
       // / 横タッチスクロール検出処理。
     });
 
     onUnmounted(() => {
       console.log('Component is onUnmounted!');
 
-      // 横タッチスクロール検出解除処理。
+      // 横タッチスクロール検出の解除処理。
       // main要素にイベントリスナーを設定する。
       const touch_area = touch_area_ref.value;
       //console.log(touch_area);
 
-      touch_area.removeEventListener('touchmove', touchDownAction, {
-        passive: false,
-      });
-      touch_area.removeEventListener('touchend', touchScrollDetection, {
-        passive: false,
-      });
-      // / 横タッチスクロール検出解除処理。
+      if (isScrollSnap) {
+        touch_area.removeEventListener('touchmove', touchDownAction, {
+          passive: false,
+        });
+        touch_area.removeEventListener('touchend', touchScrollDetection, {
+          passive: false,
+        });
+      }
+
+      // / 横タッチスクロール検出の解除処理。
     });
 
     // 「dot btn」の状態を更新する。
@@ -275,6 +286,8 @@ export default {
     };
 
     const onNextBtn = () => {
+      console.log('onNextBtn pos.value');
+      console.log(pos.value);
       let new_pos = pos.value + 1;
 
       const last = dots - 1;
@@ -283,6 +296,8 @@ export default {
         new_pos = last;
       }
       pos.value = new_pos;
+
+      console.log(pos.value);
 
       const btn_id = `btn${new_pos}`;
       btnsUpdata(btn_id);
