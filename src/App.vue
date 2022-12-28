@@ -30,7 +30,10 @@ export default {
     // 仮想受信したデータ。
     const data = [];
 
+    // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
+
+    //「dotボタン」要素を取得する為のref要素。
     const btn_refs = ref('');
 
     // 50個のダミーデータ。
@@ -38,7 +41,9 @@ export default {
       data.push({ id: i, txt: `txt${i}` });
     }
 
+    // 初期化時の位置を指定する変数。
     const pos_init = 0;
+
     // 現在表示している「Pagination」の位置。
     const pos = ref(pos_init);
 
@@ -79,11 +84,13 @@ export default {
     });
 
     onMounted(() => {
-      console.log('Component is onMounted!');
-      const btns = btn_refs.value;
-      const init_btn = btns[pos_init];
-      console.log(init_btn);
+      //console.log('Component is onMounted!');
 
+      // dotボタンを全て取得。
+      const btns = btn_refs.value;
+
+      // 初期化時の位置に該当するdotボタンにクラスを付ける。
+      const init_btn = btns[pos_init];
       init_btn.classList.add(ac_class);
 
       /*
@@ -96,24 +103,30 @@ export default {
     // 「dots」ボタンを押した時の実行処理関数。
     const onDotBtn = (e) => {
       if (e instanceof Event) {
+        // クリックされた「dotボタン」
         const clicked_btn = e.currentTarget;
-        /*
-        その部分に繊維する。
-        clicked_btn.scrollIntoView({ behavior: 'smooth' });
-        */
+
+        // クリックされた「dotボタン」のID
+        const clicked_btn_id = clicked_btn.id;
+
+        // その部分に繊維する。
+        //clicked_btn.scrollIntoView({ behavior: 'smooth' });
 
         /*
         console.log('btn_refs');
         console.log(btn_refs.value);
         */
 
+        // dotボタンを全て取得。
         const btns = btn_refs.value;
 
+        // dotボタンに付いている「ac_class」を省く。
         btns.forEach((btn) => {
           //console.log(btn);
           btn.classList.remove(ac_class);
         });
 
+        // クリックされた「dotボタン」にクラスを付ける。
         clicked_btn.classList.add(ac_class);
 
         // クリックされたdotの位置を取得。
