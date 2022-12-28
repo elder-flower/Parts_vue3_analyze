@@ -17,7 +17,7 @@
 
     <section class="lists">
       <section v-for="i in lists.data" v-bind:key="i.id">
-        list {{ i.id }}
+        <a> list {{ i.id }} </a>
       </section>
     </section>
   </main>
@@ -42,7 +42,7 @@ export default {
     const data = [];
 
     // 50個のダミーデータ。
-    for (let i = 1; i < 51; i++) {
+    for (let i = 1; i < 111; i++) {
       data.push({ id: i, txt: `txt${i}` });
     }
 
@@ -56,7 +56,7 @@ export default {
     const totalNumber = data.length;
 
     // 一度に表示する 「Pagination」の数。
-    const displayNumber = 9;
+    const displayNumber = 10;
 
     // 分割数を割り出す。
     let divisionNumber = Math.floor(totalNumber / displayNumber);
@@ -198,5 +198,7 @@ export default {
 @import './assets/style/variables.scss';
 @import './assets/style/reset_btn.scss';
 @import './assets/style/base.scss';
+@import './assets/style/layouyt.scss';
+@import './assets/style/btns.scss';
 @import './assets/style/pagination.scss';
 </style>

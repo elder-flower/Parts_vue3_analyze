@@ -4,17 +4,3 @@ body {
     padding: 0;
   }
 }
-.lists {
-  display: grid;
-  grid-template-columns: auto;
-
-  section {
-    width: 100%;
-    min-height: 3em;
-    background: #000;
-    display: grid;
-    //place-content: center;
-    place-items: center;
-    border: 1px solid #222;
-  }
-}
