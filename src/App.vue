@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="main">
     <div class="nav">
       <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
       <ul class="nav_dot">
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onBeforeUpdate, onMounted } from 'vue';
 import Pagination from './components/Pagination.vue';
 
 export default {
@@ -93,9 +93,151 @@ export default {
 
     listsUpdata();
 
-    onMounted(() => {
-      //console.log('Component is onMounted!');
+    // タッチスクロールで「pagination」の切り替えを行う場合は「true」;
+    const isScrollSnap = true;
 
+    onBeforeUpdate(() => {
+      //html要素に「overflow-y:hidden」を付ける。
+      const html = document.documentElement;
+
+      if (isScrollSnap) {
+        html.setAttribute('style', 'overflow-x: hidden;');
+      } else {
+        html.removeAttribute('style');
+      }
+    });
+
+    let touch_scroll_log = [];
+    // タッチスクロール検出処理
+    const mouseDownac = (e) => {
+      e.preventDefault();
+      touch_scroll_log.push(e.touches[0].clientX);
+      //console.log(touch_scroll_log);
+    };
+    const ScroolSnap = (e) => {
+      e.preventDefault();
+      //const mainHeight = main.clientHeight;
+      //const scroll = e.touches[0].clientY;
+
+      const ScroolSnapMove = () => {
+        //console.log('ScroolSnapMove');
+        // この距離以上に横スクロールされたら、その時点で次のデータを表示。。
+        const distance = 10;
+
+        const last = touch_scroll_log.length - 1;
+        const first_scroll = touch_scroll_log[last];
+        const last_scroll = touch_scroll_log[0];
+        if (isNaN(last_scroll - first_scroll)) {
+          return;
+        }
+
+        console.log('last_scroll - first_scroll');
+        console.log(last_scroll - first_scroll);
+
+        let direction = '';
+        if (last_scroll - first_scroll > 0) {
+          direction = true;
+        } else {
+          direction = false;
+        }
+
+        let dir = -1;
+        if (direction) {
+          dir = 1;
+        }
+
+        let scroll_on = false;
+
+        if (direction) {
+          if (last_scroll - first_scroll > distance) {
+            scroll_on = true;
+          }
+        } else {
+          if (last_scroll - first_scroll < distance * -1) {
+            scroll_on = true;
+          }
+        }
+
+        const pos = last_scroll - first_scroll + main.scrollTop;
+        //console.log(last_scroll - first_scroll);
+
+        if (scroll_on) {
+          const ScrollSegmentation = new ScrollSegmentation_Class({
+            offset: 0,
+          });
+
+          let index = ScrollSegmentation.segmentation2(pos, scrollPoints);
+          index = index + dir;
+
+          if (index < 0) {
+            index = len;
+          }
+          if (index > len) {
+            index = 0;
+          }
+
+          const toId = ids[index];
+          const toId2 = toId + 'r';
+
+          const ScrollAnimation = new ScrollAnimation_Init_Class({
+            toID: toId,
+            doc: doc,
+            win: win,
+            duration: 300,
+            wrapper: main,
+            easeFunc: easeOutCubic,
+            location_hash: true,
+          });
+          const ScrollAnimation2 = new ScrollAnimation_Init_Class({
+            toID: toId2,
+            doc: doc,
+            win: win,
+            duration: 300,
+            wrapper: main2,
+            easeFunc: easeOutCubic,
+          });
+          old_ScrollAnimation = ScrollAnimation;
+          old_ScrollAnimation2 = ScrollAnimation2;
+          ScrollAnimation.scroll();
+          ScrollAnimation2.scroll();
+        } else {
+          const ScrollSegmentation = new ScrollSegmentation_Class({
+            offset: 0,
+          });
+          const toId = ScrollSegmentation.segmentation(pos, scrollPoints, ids);
+          const toId2 = toId + 'r';
+
+          const ScrollAnimation = new ScrollAnimation_Init_Class({
+            toID: toId,
+            doc: doc,
+            win: win,
+            duration: 200,
+            wrapper: main,
+            location_hash: true,
+          });
+          const ScrollAnimation2 = new ScrollAnimation_Init_Class({
+            toID: toId2,
+            doc: doc,
+            win: win,
+            duration: 200,
+            wrapper: main2,
+          });
+          old_ScrollAnimation = ScrollAnimation;
+          old_ScrollAnimation2 = ScrollAnimation2;
+          ScrollAnimation.scroll();
+          ScrollAnimation2.scroll();
+        }
+
+        touch_scroll_log = [];
+      };
+
+      ScroolSnapMove();
+    };
+    // /タッチスクロール検出処理
+    onMounted(() => {
+      console.log('Component is onMounted!');
+
+      // 初期化処理。
       // dotボタンを全て取得。
       const btns = btn_refs.value;
 
@@ -103,21 +245,15 @@ export default {
       const init_btn = btns[pos_init];
       init_btn.classList.add(ac_class);
 
-      /*
-      その部分に繊維する。
-      var element = document.getElementById('btn4');
-      element.scrollIntoView({ behavior: 'smooth' });
-      */
+      // /初期化処理。
+
+      // 横タッチスクロール検出処理。
     });
 
+    // 「dot btn」の状態を更新する。
     const btnsUpdata = (id = 0) => {
       // dotボタンを全て取得。
       const btns = btn_refs.value;
-
-      /*
-        console.log('btn_refs');
-        console.log(btn_refs.value);
-      */
 
       // dotボタンに付いている「ac_class」を省く。
       btns.forEach((btn) => {

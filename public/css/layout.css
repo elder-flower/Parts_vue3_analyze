@@ -70,3 +70,10 @@ li {
   list-style: none;
 }
 /* /基本レイアウト */
+
+/*
+タッチスクロールで「pagination」の切り替えを行う場合のテスト用。
+html {
+  overflow: hidden;
+}
+*/
