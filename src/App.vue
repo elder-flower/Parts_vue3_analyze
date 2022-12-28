@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import Pagination from './components/Pagination.vue';
 
 export default {
@@ -29,6 +29,7 @@ export default {
     // 仮想受信したデータ。
     const data = [];
 
+    const ac_class = 'dot_active';
     const btn_refs = ref('');
 
     // 50個のダミーデータ。
@@ -36,8 +37,9 @@ export default {
       data.push({ id: i, txt: `txt${i}` });
     }
 
+    const pos_init = 0;
     // 現在表示している「Pagination」の位置。
-    const pos = ref(0);
+    const pos = ref(pos_init);
 
     // 「Pagination」の総数。
     const totalNumber = data.length;
@@ -75,26 +77,34 @@ export default {
       data: init_lists,
     });
 
+    onMounted(() => {
+      console.log('Component is onMounted!');
+      const btns = btn_refs.value;
+      const init_btn = btns[pos_init];
+      console.log(init_btn);
+
+      init_btn.classList.add(ac_class);
+    });
+
     // 「dots」ボタンを押した時の実行処理関数。
     const onDotBtn = (e) => {
       if (e instanceof Event) {
-        const btn = e.currentTarget;
+        const clicked_btn = e.currentTarget;
 
         console.log('btn_refs');
         console.log(btn_refs.value);
 
-        const ac_class = 'active';
-        const lis = btn_refs.value;
+        const btns = btn_refs.value;
 
-        lis.forEach((li) => {
-          console.log(li);
-          li.classList.remove(ac_class);
+        btns.forEach((btn) => {
+          console.log(btn);
+          btn.classList.remove(ac_class);
         });
 
-        btn.classList.add(ac_class);
+        clicked_btn.classList.add(ac_class);
 
         // クリックされたdotの位置を取得。
-        const btn_id = btn.dataset.id;
+        const btn_id = clicked_btn.dataset.id;
         //console.log(btn_id);
 
         pos.value = Number(btn_id);
