@@ -2,16 +2,19 @@
   <main id="main">
     <div class="nav">
       <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
-      <ul class="nav_dot">
-        <li v-for="j in dots" v-bind:key="j">
-          <button
-            v-bind:data-id="j - 1"
-            v-on:click="onDotBtn"
-            ref="btn_refs"
-            v-bind:id="`btn${j - 1}`"
-          ></button>
-        </li>
-      </ul>
+      <div class="nav_dot_wrapper">
+        <ul class="nav_dot" ref="nav_dot_ref">
+          <li v-for="j in dots" v-bind:key="j">
+            <button
+              v-bind:data-id="j - 1"
+              v-on:click="onDotBtn"
+              ref="btn_refs"
+              v-bind:id="`btn${j - 1}`"
+            ></button>
+          </li>
+        </ul>
+      </div>
+
       <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
     </div>
 
@@ -24,6 +27,7 @@
 </template>
 
 <script>
+import Velocity from 'velocity-animate';
 import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
 import Pagination from './components/Pagination.vue';
 
@@ -40,6 +44,8 @@ export default {
 
     //「dot」ボタン要素を取得する為のref要素。
     const btn_refs = ref('');
+
+    const nav_dot_ref = ref('');
 
     // 仮想受信したデータ生成処理。
     // 仮想受信したデータ。
@@ -101,9 +107,16 @@ export default {
     listsUpdata();
 
     // 「dot」ボタンの表示状態を更新する。
-    const btnsUpdata = (id = 0) => {
+    const btnsUpdate = (id = 0) => {
       // dotボタンを全て取得。
       const btns = btn_refs.value;
+
+      // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
+      const nav_dot = nav_dot_ref.value;
+      console.log(nav_dot.scrollWidth);
+
+      // アニメーション移動距離。
+      let distance = Number(nav_dot.scrollWidth) / dots;
 
       // dotボタンに付いている「ac_class」を省く。
       btns.forEach((btn) => {
@@ -114,8 +127,26 @@ export default {
           // クリックされた「dotボタン」にクラスを付ける。
           btn.classList.add(ac_class);
 
-          // その部分に繊維する。
-          btn.scrollIntoView({ behavior: 'smooth' });
+          /*
+          console.log('nav_dot.scrollLeft');
+          console.log(nav_dot.scrollLeft);
+          */
+
+          // その部分に遷移する。
+          const num = Number(btn.dataset.id) - 1;
+          console.log(num);
+
+          if (num < 0) {
+            num = 0;
+          }
+
+          console.log(nav_dot.scrollLeft + distance * num);
+          const move = nav_dot.scrollLeft + distance * num;
+
+          Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
+
+          // iOS Safariでは正常に動かず。
+          //btn.scrollIntoView({ behavior: 'smooth' });
         } else {
           btn.classList.remove(ac_class);
         }
@@ -131,7 +162,7 @@ export default {
         // クリックされた「dotボタン」のID
         const clicked_btn_id = clicked_btn.id;
 
-        btnsUpdata(clicked_btn_id);
+        btnsUpdate(clicked_btn_id);
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
@@ -157,7 +188,7 @@ export default {
 
       //「dot」ボタンの表示を更新。
       const btn_id = `btn${new_pos}`;
-      btnsUpdata(btn_id);
+      btnsUpdate(btn_id);
 
       listsUpdata();
     };
@@ -175,7 +206,7 @@ export default {
 
       //「dot」ボタンの表示を更新。
       const btn_id = `btn${new_pos}`;
-      btnsUpdata(btn_id);
+      btnsUpdate(btn_id);
 
       listsUpdata();
     };
@@ -322,6 +353,7 @@ export default {
       onPrevBtn,
       onNextBtn,
       touch_area_ref,
+      nav_dot_ref,
     };
   },
 };

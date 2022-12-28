@@ -1,14 +1,16 @@
 .nav {
   --btn-color: #eee;
 }
-.nav_dot {
+.nav_dot_wrapper {
   /*
   width: 300px;
     max-width: 500px;
   */
-
   width: 120px;
   margin: 0 auto 0;
+  overflow: hidden;
+}
+.nav_dot {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -19,7 +21,6 @@
   overflow-y: hidden;
   overflow-x: auto;
   */
-  overflow: hidden;
 
   button {
     &.dot_active {
