@@ -81,7 +81,7 @@ export default {
     });
 
     // 表示するデータを更新する関数。
-    const onListsUpdata = () => {
+    const listsUpdata = () => {
       const start = pos.value * displayNumber;
 
       // 終了位置。
@@ -91,7 +91,7 @@ export default {
       lists.data = data.slice(start, end);
     };
 
-    onListsUpdata();
+    listsUpdata();
 
     onMounted(() => {
       //console.log('Component is onMounted!');
@@ -110,6 +110,29 @@ export default {
       */
     });
 
+    const btnsUpdata = (id = 0) => {
+      // dotボタンを全て取得。
+      const btns = btn_refs.value;
+
+      /*
+        console.log('btn_refs');
+        console.log(btn_refs.value);
+      */
+
+      // dotボタンに付いている「ac_class」を省く。
+      btns.forEach((btn) => {
+        //console.log(btn);
+        const btn_id = btn.id;
+
+        if (btn_id === id) {
+          // クリックされた「dotボタン」にクラスを付ける。
+          btn.classList.add(ac_class);
+        } else {
+          btn.classList.remove(ac_class);
+        }
+      });
+    };
+
     // 「dots」ボタンを押した時の実行処理関数。
     const onDotBtn = (e) => {
       if (e instanceof Event) {
@@ -119,25 +142,10 @@ export default {
         // クリックされた「dotボタン」のID
         const clicked_btn_id = clicked_btn.id;
 
+        btnsUpdata(clicked_btn_id);
+
         // その部分に繊維する。
         //clicked_btn.scrollIntoView({ behavior: 'smooth' });
-
-        /*
-        console.log('btn_refs');
-        console.log(btn_refs.value);
-        */
-
-        // dotボタンを全て取得。
-        const btns = btn_refs.value;
-
-        // dotボタンに付いている「ac_class」を省く。
-        btns.forEach((btn) => {
-          //console.log(btn);
-          btn.classList.remove(ac_class);
-        });
-
-        // クリックされた「dotボタン」にクラスを付ける。
-        clicked_btn.classList.add(ac_class);
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
@@ -147,7 +155,7 @@ export default {
 
         // 新たに表示するデータを切り出す為の処理。
         // 開始位置。
-        onListsUpdata();
+        listsUpdata();
       }
     };
 
@@ -157,9 +165,13 @@ export default {
       if (new_pos < 0) {
         new_pos = 0;
       }
+
       pos.value = new_pos;
 
-      onListsUpdata();
+      const btn_id = `btn${new_pos}`;
+      btnsUpdata(btn_id);
+
+      listsUpdata();
     };
 
     const onNextBtn = () => {
@@ -172,7 +184,10 @@ export default {
       }
       pos.value = new_pos;
 
-      onListsUpdata();
+      const btn_id = `btn${new_pos}`;
+      btnsUpdata(btn_id);
+
+      listsUpdata();
     };
 
     return { lists, dots, onDotBtn, btn_refs, onPrevBtn, onNextBtn };
