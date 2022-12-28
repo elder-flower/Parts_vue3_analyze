@@ -1,15 +1,20 @@
 <template>
   <main>
-    <ul class="nav_dot">
-      <li v-for="j in dots" v-bind:key="j">
-        <button
-          v-bind:data-id="j - 1"
-          v-on:click="onDotBtn"
-          ref="btn_refs"
-          v-bind:id="`btn${j - 1}`"
-        ></button>
-      </li>
-    </ul>
+    <div class="nav">
+      <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
+      <ul class="nav_dot">
+        <li v-for="j in dots" v-bind:key="j">
+          <button
+            v-bind:data-id="j - 1"
+            v-on:click="onDotBtn"
+            ref="btn_refs"
+            v-bind:id="`btn${j - 1}`"
+          ></button>
+        </li>
+      </ul>
+      <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
+    </div>
+
     <section class="lists">
       <section v-for="i in lists.data" v-bind:key="i.id">
         list {{ i.id }}
@@ -27,14 +32,14 @@ export default {
   //components: { Pagination },
 
   setup() {
-    // 仮想受信したデータ。
-    const data = [];
-
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
 
     //「dotボタン」要素を取得する為のref要素。
     const btn_refs = ref('');
+
+    // 仮想受信したデータ。
+    const data = [];
 
     // 50個のダミーデータ。
     for (let i = 1; i < 51; i++) {
@@ -61,6 +66,7 @@ export default {
 
     // dot navigation の数を算出。
     let dots = divisionNumber;
+    console.log(dots);
 
     // 余りがある場合は、「dots」の数を1つ増やす。
     if (remainder !== 0) {
@@ -69,19 +75,23 @@ export default {
 
     // 受信したデータから表示するデータを切り出す為の処理。
 
-    // 開始位置。
-    let start = pos.value * displayNumber;
-
-    // 終了位置。
-    let end = start + displayNumber;
-
-    // 受信したデータから表示するデータを切り出す。
-    const init_lists = data.slice(start, end);
-
     // 表示されるデータの配列。リアクティブにする為、「eactive」でラッピング。
     let lists = reactive({
-      data: init_lists,
+      data: [],
     });
+
+    // 表示するデータを更新する関数。
+    const onListsUpdata = () => {
+      const start = pos.value * displayNumber;
+
+      // 終了位置。
+      const end = start + displayNumber;
+
+      // 表示されるデータの配列を更新。
+      lists.data = data.slice(start, end);
+    };
+
+    onListsUpdata();
 
     onMounted(() => {
       //console.log('Component is onMounted!');
@@ -137,17 +147,35 @@ export default {
 
         // 新たに表示するデータを切り出す為の処理。
         // 開始位置。
-        start = pos.value * displayNumber;
-
-        // 終了位置。
-        end = start + displayNumber;
-
-        // 表示されるデータの配列を更新。
-        lists.data = data.slice(start, end);
+        onListsUpdata();
       }
     };
 
-    return { lists, dots, onDotBtn, btn_refs };
+    const onPrevBtn = () => {
+      let new_pos = pos.value - 1;
+
+      if (new_pos < 0) {
+        new_pos = 0;
+      }
+      pos.value = new_pos;
+
+      onListsUpdata();
+    };
+
+    const onNextBtn = () => {
+      let new_pos = pos.value + 1;
+
+      const last = dots - 1;
+
+      if (new_pos > last) {
+        new_pos = last;
+      }
+      pos.value = new_pos;
+
+      onListsUpdata();
+    };
+
+    return { lists, dots, onDotBtn, btn_refs, onPrevBtn, onNextBtn };
   },
 };
 </script>
