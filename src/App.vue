@@ -35,11 +35,13 @@ export default {
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
 
+    // タッチスクロール検出対象の要素取得。
     const touch_area_ref = ref('');
 
-    //「dotボタン」要素を取得する為のref要素。
+    //「dot」ボタン要素を取得する為のref要素。
     const btn_refs = ref('');
 
+    // 仮想受信したデータ生成処理。
     // 仮想受信したデータ。
     const data = [];
 
@@ -48,6 +50,9 @@ export default {
       data.push({ id: i, txt: `txt${i}` });
     }
 
+    // / 仮想受信したデータ生成処理。
+
+    // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
     const pos_init = 0;
 
@@ -66,17 +71,17 @@ export default {
     // 一度に表示する数から余りを算出。
     const remainder = totalNumber % displayNumber;
 
-    // dot navigation の数を算出。
+    // 「dot」ボタンの数を算出。
     let dots = divisionNumber;
 
-    // 余りがある場合は、「dots」の数を1つ増やす。
+    // 余りがある場合は、「dot」ボタンの数を1つ増やす。
     if (remainder !== 0) {
       dots = divisionNumber + 1;
     }
 
     // 受信したデータから表示するデータを切り出す為の処理。
 
-    // 表示されるデータの配列。リアクティブにする為、「eactive」でラッピング。
+    // 表示されるデータの配列。リアクティブにする為、「reactive」でラッピング。
     let lists = reactive({
       data: [],
     });
@@ -92,13 +97,95 @@ export default {
       lists.data = data.slice(start, end);
     };
 
+    // 表示を更新。
     listsUpdata();
 
+    // 「dot」ボタンの表示状態を更新する。
+    const btnsUpdata = (id = 0) => {
+      // dotボタンを全て取得。
+      const btns = btn_refs.value;
+
+      // dotボタンに付いている「ac_class」を省く。
+      btns.forEach((btn) => {
+        //console.log(btn);
+        const btn_id = btn.id;
+
+        if (btn_id === id) {
+          // クリックされた「dotボタン」にクラスを付ける。
+          btn.classList.add(ac_class);
+
+          // その部分に繊維する。
+          btn.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          btn.classList.remove(ac_class);
+        }
+      });
+    };
+
+    // 「dot」ボタンを押した時に実行する関数。
+    const onDotBtn = (e) => {
+      if (e instanceof Event) {
+        // クリックされた「dotボタン」
+        const clicked_btn = e.currentTarget;
+
+        // クリックされた「dotボタン」のID
+        const clicked_btn_id = clicked_btn.id;
+
+        btnsUpdata(clicked_btn_id);
+
+        // クリックされたdotの位置を取得。
+        const btn_id = clicked_btn.dataset.id;
+        //console.log(btn_id);
+
+        pos.value = Number(btn_id);
+
+        // 新たに表示するデータを切り出す為の処理。
+        // 開始位置。
+        listsUpdata();
+      }
+    };
+
+    //「前へ」のボタンが押された時に実行する関数。
+    const onPrevBtn = () => {
+      let new_pos = pos.value - 1;
+
+      if (new_pos < 0) {
+        new_pos = 0;
+      }
+
+      pos.value = new_pos;
+
+      //「dot」ボタンの表示を更新。
+      const btn_id = `btn${new_pos}`;
+      btnsUpdata(btn_id);
+
+      listsUpdata();
+    };
+
+    //「次へ」のボタンが押された時に実行する関数。
+    const onNextBtn = () => {
+      let new_pos = pos.value + 1;
+
+      const last = dots - 1;
+
+      if (new_pos > last) {
+        new_pos = last;
+      }
+      pos.value = new_pos;
+
+      //「dot」ボタンの表示を更新。
+      const btn_id = `btn${new_pos}`;
+      btnsUpdata(btn_id);
+
+      listsUpdata();
+    };
+
+    // タッチスクロールイベント関連処理。
     // タッチスクロールで「pagination」の切り替えを行う場合は「true」;
     const isScrollSnap = true;
 
     onBeforeUpdate(() => {
-      //html要素に「overflow-y:hidden」を付ける。
+      // 横タッチスクロールした際に少しずれる為、完全固定させる為にhtml要素に「overflow-y:hidden」を付ける。
       const html = document.documentElement;
 
       if (isScrollSnap) {
@@ -225,85 +312,7 @@ export default {
       // / 横タッチスクロール検出の解除処理。
     });
 
-    // 「dot btn」の状態を更新する。
-    const btnsUpdata = (id = 0) => {
-      // dotボタンを全て取得。
-      const btns = btn_refs.value;
-
-      // dotボタンに付いている「ac_class」を省く。
-      btns.forEach((btn) => {
-        //console.log(btn);
-        const btn_id = btn.id;
-
-        if (btn_id === id) {
-          // クリックされた「dotボタン」にクラスを付ける。
-          btn.classList.add(ac_class);
-
-          // その部分に繊維する。
-          btn.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          btn.classList.remove(ac_class);
-        }
-      });
-    };
-
-    // 「dots」ボタンを押した時の実行処理関数。
-    const onDotBtn = (e) => {
-      if (e instanceof Event) {
-        // クリックされた「dotボタン」
-        const clicked_btn = e.currentTarget;
-
-        // クリックされた「dotボタン」のID
-        const clicked_btn_id = clicked_btn.id;
-
-        btnsUpdata(clicked_btn_id);
-
-        // クリックされたdotの位置を取得。
-        const btn_id = clicked_btn.dataset.id;
-        //console.log(btn_id);
-
-        pos.value = Number(btn_id);
-
-        // 新たに表示するデータを切り出す為の処理。
-        // 開始位置。
-        listsUpdata();
-      }
-    };
-
-    const onPrevBtn = () => {
-      let new_pos = pos.value - 1;
-
-      if (new_pos < 0) {
-        new_pos = 0;
-      }
-
-      pos.value = new_pos;
-
-      const btn_id = `btn${new_pos}`;
-      btnsUpdata(btn_id);
-
-      listsUpdata();
-    };
-
-    const onNextBtn = () => {
-      console.log('onNextBtn pos.value');
-      console.log(pos.value);
-      let new_pos = pos.value + 1;
-
-      const last = dots - 1;
-
-      if (new_pos > last) {
-        new_pos = last;
-      }
-      pos.value = new_pos;
-
-      console.log(pos.value);
-
-      const btn_id = `btn${new_pos}`;
-      btnsUpdata(btn_id);
-
-      listsUpdata();
-    };
+    // /タッチスクロールイベント関連処理。
 
     return {
       lists,
