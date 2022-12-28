@@ -127,6 +127,9 @@ export default {
         if (btn_id === id) {
           // クリックされた「dotボタン」にクラスを付ける。
           btn.classList.add(ac_class);
+
+          // その部分に繊維する。
+          btn.scrollIntoView({ behavior: 'smooth' });
         } else {
           btn.classList.remove(ac_class);
         }
@@ -143,9 +146,6 @@ export default {
         const clicked_btn_id = clicked_btn.id;
 
         btnsUpdata(clicked_btn_id);
-
-        // その部分に繊維する。
-        //clicked_btn.scrollIntoView({ behavior: 'smooth' });
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;

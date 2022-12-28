@@ -36,11 +36,11 @@
 }
 .nav_dot {
   /*
-
+  width: 300px;
     max-width: 500px;
   */
 
-  width: 300px;
+  width: 120px;
   margin: 0 auto 0;
   display: flex;
   flex-wrap: nowrap;
@@ -48,12 +48,11 @@
   align-items: center;
 
   /*
-  overflow: hidden;
 
-
-  */
   overflow-y: hidden;
   overflow-x: auto;
+  */
+  overflow: hidden;
 
   button {
     &.dot_active {
