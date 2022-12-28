@@ -2,7 +2,11 @@
   <main>
     <ul class="nav_dot">
       <li v-for="j in dots" v-bind:key="j">
-        <button v-bind:data-id="j - 1" v-on:click="onDotBtn">●</button>
+        <button
+          v-bind:data-id="j - 1"
+          v-on:click="onDotBtn"
+          ref="btn_refs"
+        ></button>
       </li>
     </ul>
     <section class="lists">
@@ -15,28 +19,30 @@
 
 <script>
 import { ref, reactive } from 'vue';
-import Modal from './components/Modal.vue';
+import Pagination from './components/Pagination.vue';
 
 export default {
   name: 'App',
-  components: { Modal },
+  //components: { Pagination },
 
   setup() {
     // 仮想受信したデータ。
     const data = [];
+
+    const btn_refs = ref('');
 
     // 50個のダミーデータ。
     for (let i = 1; i < 51; i++) {
       data.push({ id: i, txt: `txt${i}` });
     }
 
-    // 現在表示している「pagination」の位置。
+    // 現在表示している「Pagination」の位置。
     const pos = ref(0);
 
-    // 「pagination」の総数。
+    // 「Pagination」の総数。
     const totalNumber = data.length;
 
-    // 一度に表示する 「pagination」の数。
+    // 一度に表示する 「Pagination」の数。
     const displayNumber = 9;
 
     // 分割数を割り出す。
@@ -74,6 +80,19 @@ export default {
       if (e instanceof Event) {
         const btn = e.currentTarget;
 
+        console.log('btn_refs');
+        console.log(btn_refs.value);
+
+        const ac_class = 'active';
+        const lis = btn_refs.value;
+
+        lis.forEach((li) => {
+          console.log(li);
+          li.classList.remove(ac_class);
+        });
+
+        btn.classList.add(ac_class);
+
         // クリックされたdotの位置を取得。
         const btn_id = btn.dataset.id;
         //console.log(btn_id);
@@ -92,7 +111,7 @@ export default {
       }
     };
 
-    return { lists, dots, onDotBtn };
+    return { lists, dots, onDotBtn, btn_refs };
   },
 };
 </script>

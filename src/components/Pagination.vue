@@ -3,7 +3,7 @@
 <script>
 import { ref, watchEffect } from 'vue';
 export default {
-  name: 'Modal',
+  name: 'Pagination',
   props: [''],
   emits: [''],
   setup(props, context) {
