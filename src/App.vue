@@ -15,7 +15,7 @@
       <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
     </div>
 
-    <section class="lists">
+    <section class="lists" ref="touch_area_ref">
       <section v-for="i in lists.data" v-bind:key="i.id">
         <a> list {{ i.id }} </a>
       </section>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ref, reactive, onBeforeUpdate, onMounted } from 'vue';
+import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
 import Pagination from './components/Pagination.vue';
 
 export default {
@@ -34,6 +34,8 @@ export default {
   setup() {
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
+
+    const touch_area_ref = ref('');
 
     //「dotボタン」要素を取得する為のref要素。
     const btn_refs = ref('');
@@ -66,7 +68,6 @@ export default {
 
     // dot navigation の数を算出。
     let dots = divisionNumber;
-    console.log(dots);
 
     // 余りがある場合は、「dots」の数を1つ増やす。
     if (remainder !== 0) {
@@ -107,26 +108,30 @@ export default {
       }
     });
 
-    let touch_scroll_log = [];
     // タッチスクロール検出処理
-    const mouseDownac = (e) => {
+
+    // タッチスクロールした際の座標の履歴を格納する配列。
+    let touch_scroll_log = [];
+    //「touchmove」用の通常動作をキャンセルしてx座標を配列に追加する関数。
+    const touchDownAction = (e) => {
       e.preventDefault();
       touch_scroll_log.push(e.touches[0].clientX);
       //console.log(touch_scroll_log);
     };
-    const ScroolSnap = (e) => {
+    // タッチスクロール検出時の実行関数。
+    const touchScrollDetection = (e) => {
       e.preventDefault();
       //const mainHeight = main.clientHeight;
       //const scroll = e.touches[0].clientY;
 
-      const ScroolSnapMove = () => {
-        //console.log('ScroolSnapMove');
+      const touchScrollDetectionMove = () => {
+        //console.log('touchScrollDetectionMove');
         // この距離以上に横スクロールされたら、その時点で次のデータを表示。。
         const distance = 10;
 
         const last = touch_scroll_log.length - 1;
-        const first_scroll = touch_scroll_log[last];
-        const last_scroll = touch_scroll_log[0];
+        const first_scroll = touch_scroll_log[0];
+        const last_scroll = touch_scroll_log[last];
         if (isNaN(last_scroll - first_scroll)) {
           return;
         }
@@ -150,89 +155,20 @@ export default {
 
         if (direction) {
           if (last_scroll - first_scroll > distance) {
-            scroll_on = true;
+            onPrevBtn();
           }
         } else {
           if (last_scroll - first_scroll < distance * -1) {
-            scroll_on = true;
+            onNextBtn();
           }
-        }
-
-        const pos = last_scroll - first_scroll + main.scrollTop;
-        //console.log(last_scroll - first_scroll);
-
-        if (scroll_on) {
-          const ScrollSegmentation = new ScrollSegmentation_Class({
-            offset: 0,
-          });
-
-          let index = ScrollSegmentation.segmentation2(pos, scrollPoints);
-          index = index + dir;
-
-          if (index < 0) {
-            index = len;
-          }
-          if (index > len) {
-            index = 0;
-          }
-
-          const toId = ids[index];
-          const toId2 = toId + 'r';
-
-          const ScrollAnimation = new ScrollAnimation_Init_Class({
-            toID: toId,
-            doc: doc,
-            win: win,
-            duration: 300,
-            wrapper: main,
-            easeFunc: easeOutCubic,
-            location_hash: true,
-          });
-          const ScrollAnimation2 = new ScrollAnimation_Init_Class({
-            toID: toId2,
-            doc: doc,
-            win: win,
-            duration: 300,
-            wrapper: main2,
-            easeFunc: easeOutCubic,
-          });
-          old_ScrollAnimation = ScrollAnimation;
-          old_ScrollAnimation2 = ScrollAnimation2;
-          ScrollAnimation.scroll();
-          ScrollAnimation2.scroll();
-        } else {
-          const ScrollSegmentation = new ScrollSegmentation_Class({
-            offset: 0,
-          });
-          const toId = ScrollSegmentation.segmentation(pos, scrollPoints, ids);
-          const toId2 = toId + 'r';
-
-          const ScrollAnimation = new ScrollAnimation_Init_Class({
-            toID: toId,
-            doc: doc,
-            win: win,
-            duration: 200,
-            wrapper: main,
-            location_hash: true,
-          });
-          const ScrollAnimation2 = new ScrollAnimation_Init_Class({
-            toID: toId2,
-            doc: doc,
-            win: win,
-            duration: 200,
-            wrapper: main2,
-          });
-          old_ScrollAnimation = ScrollAnimation;
-          old_ScrollAnimation2 = ScrollAnimation2;
-          ScrollAnimation.scroll();
-          ScrollAnimation2.scroll();
         }
 
         touch_scroll_log = [];
       };
 
-      ScroolSnapMove();
+      touchScrollDetectionMove();
     };
+
     // /タッチスクロール検出処理
     onMounted(() => {
       console.log('Component is onMounted!');
@@ -248,6 +184,34 @@ export default {
       // /初期化処理。
 
       // 横タッチスクロール検出処理。
+      // main要素にイベントリスナーを設定する。
+      const touch_area = touch_area_ref.value;
+      //console.log(touch_area);
+
+      touch_area.addEventListener('touchmove', touchDownAction, {
+        passive: false,
+      });
+      touch_area.addEventListener('touchend', touchScrollDetection, {
+        passive: false,
+      });
+      // / 横タッチスクロール検出処理。
+    });
+
+    onUnmounted(() => {
+      console.log('Component is onUnmounted!');
+
+      // 横タッチスクロール検出解除処理。
+      // main要素にイベントリスナーを設定する。
+      const touch_area = touch_area_ref.value;
+      //console.log(touch_area);
+
+      touch_area.removeEventListener('touchmove', touchDownAction, {
+        passive: false,
+      });
+      touch_area.removeEventListener('touchend', touchScrollDetection, {
+        passive: false,
+      });
+      // / 横タッチスクロール検出解除処理。
     });
 
     // 「dot btn」の状態を更新する。
@@ -326,7 +290,15 @@ export default {
       listsUpdata();
     };
 
-    return { lists, dots, onDotBtn, btn_refs, onPrevBtn, onNextBtn };
+    return {
+      lists,
+      dots,
+      onDotBtn,
+      btn_refs,
+      onPrevBtn,
+      onNextBtn,
+      touch_area_ref,
+    };
   },
 };
 </script>
