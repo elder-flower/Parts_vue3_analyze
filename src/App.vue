@@ -6,6 +6,7 @@
           v-bind:data-id="j - 1"
           v-on:click="onDotBtn"
           ref="btn_refs"
+          v-bind:id="`btn${j - 1}`"
         ></button>
       </li>
     </ul>
@@ -84,20 +85,32 @@ export default {
       console.log(init_btn);
 
       init_btn.classList.add(ac_class);
+
+      /*
+      その部分に繊維する。
+      var element = document.getElementById('btn4');
+      element.scrollIntoView({ behavior: 'smooth' });
+      */
     });
 
     // 「dots」ボタンを押した時の実行処理関数。
     const onDotBtn = (e) => {
       if (e instanceof Event) {
         const clicked_btn = e.currentTarget;
+        /*
+        その部分に繊維する。
+        clicked_btn.scrollIntoView({ behavior: 'smooth' });
+        */
 
+        /*
         console.log('btn_refs');
         console.log(btn_refs.value);
+        */
 
         const btns = btn_refs.value;
 
         btns.forEach((btn) => {
-          console.log(btn);
+          //console.log(btn);
           btn.classList.remove(ac_class);
         });
 
