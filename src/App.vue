@@ -369,10 +369,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './assets/style/variables.scss';
-@import './assets/style/reset_btn.scss';
-@import './assets/style/base.scss';
-@import './assets/style/layouyt.scss';
-@import './assets/style/btns.scss';
-@import './assets/style/pagination.scss';
+@import './assets/style/pagination/pagination_btns.scss';
+@import './assets/style/pagination/pagination_contents.scss';
+@import './assets/style/pagination/pagination_layout.scss';
+@import './assets/style/pagination/pagination_navigation.scss';
 </style>

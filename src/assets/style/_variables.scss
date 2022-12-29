@@ -36,13 +36,16 @@ $viewportSP: 375;
   width: $min_width;
   max-width: $max_width;
 }
-
 @function pxtvw($px, $width: $viewportSP) {
   @return (1vw * $px / $width * 100);
 }
 
 @function pxtvw2($px, $width: $viewportPC) {
   @return (1vw * $px / $width * 100);
+}
+
+@function pxtem($px, $base_size: 16) {
+  @return (1em * $px / $base_size);
 }
 
 // font-size: pxtvw( 500 );
