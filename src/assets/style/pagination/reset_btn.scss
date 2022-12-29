@@ -18,21 +18,12 @@ button::-moz-focus-inner,
   padding: 0;
 }
 
-/* 上の枠線リセットで削除されたフォーカススタイルを置換 */
-button:-moz-focusring,
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
-  outline: 1px dotted ButtonText;
-}
-
 button,
 html [type='button'], /* Android 4のネイティブ`audio'および`video'コントロールを (2) 破棄するWebKitバグを防ぐ*/
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button; /* iOSでクリック可能な型をスタイル設定できない問題を修正する */
 }
-
 /* すべてのブラウザで既定のボタンスタイルを削除する */
 button,
 input,
@@ -41,6 +32,14 @@ textarea {
   background-color: transparent;
   border-style: none;
 }
+/* 上の枠線リセットで削除されたフォーカススタイルを置換 */
+button:-moz-focusring,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  outline: 1px dotted ButtonText;
+}
+
 a:focus,
 button:focus,
 input:focus,

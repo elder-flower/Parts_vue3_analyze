@@ -164,6 +164,12 @@ textarea {
   resize: vertical; /* textarea のサイズ変更可能性を指定する */
 }
 
+/* 標準のinput要素のようにスタイル選択*/
+select {
+  -moz-appearance: none; /* Firefox 36+ */
+  -webkit-appearance: none; /* Chrome 41+ */
+}
+
 button,
 input,
 optgroup,
@@ -204,14 +210,6 @@ button::-moz-focus-inner,
   padding: 0;
 }
 
-/* 上の枠線リセットで削除されたフォーカススタイルを置換 */
-button:-moz-focusring,
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
-  outline: 1px dotted ButtonText;
-}
-
 button,
 html [type='button'], /* Android 4のネイティブ`audio'および`video'コントロールを (2) 破棄するWebKitバグを防ぐ*/
 [type='reset'],
@@ -228,18 +226,20 @@ textarea {
   border-style: none;
 }
 
+/* 上の枠線リセットで削除されたフォーカススタイルを置換 */
+button:-moz-focusring,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  outline: 1px dotted ButtonText;
+}
+
 a:focus,
 button:focus,
 input:focus,
 select:focus,
 textarea:focus {
   outline-width: 0;
-}
-
-/* 標準のinput要素のようにスタイル選択*/
-select {
-  -moz-appearance: none; /* Firefox 36+ */
-  -webkit-appearance: none; /* Chrome 41+ */
 }
 
 select::-ms-expand {
