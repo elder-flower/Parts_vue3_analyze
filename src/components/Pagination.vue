@@ -1,12 +1,10 @@
-<template></template>
-
 <script>
-import { ref, watchEffect } from 'vue';
+//import { ref, watchEffect } from 'vue';
 export default {
-  name: 'Pagination',
-  props: [''],
-  emits: [''],
-  setup(props, context) {
+  name: 'PagiNation',
+  //props: [''],
+  //emits: [''],
+  setup() {
     return {};
   },
 };

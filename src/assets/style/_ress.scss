@@ -151,7 +151,8 @@ input {
 }
 
 [type='search'] {
-  -webkit-appearance: textfield; /* 「Chrome」と「Safari」で表示される違和感を修正する */
+  -webkit-appearance: textfield;
+  appearance: textfield; /* 「Chrome」と「Safari」で表示される違和感を修正する */
   outline-offset: -2px; /* Safariでアウトラインスタイルを修正する */
 }
 
@@ -168,6 +169,7 @@ textarea {
 select {
   -moz-appearance: none; /* Firefox 36+ */
   -webkit-appearance: none; /* Chrome 41+ */
+  appearance: none;
 }
 
 button,
@@ -214,7 +216,8 @@ button,
 html [type='button'], /* Android 4のネイティブ`audio'および`video'コントロールを (2) 破棄するWebKitバグを防ぐ*/
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button; /* iOSでクリック可能な型をスタイル設定できない問題を修正する */
+  -webkit-appearance: button;
+  appearance: button; /* iOSでクリック可能な型をスタイル設定できない問題を修正する */
 }
 
 /* すべてのブラウザで既定のボタンスタイルを削除する */

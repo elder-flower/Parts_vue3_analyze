@@ -29,7 +29,7 @@
 <script>
 //import Velocity from 'velocity-animate';
 import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
-import Pagination from './components/Pagination.vue';
+//import PagiNation from './components/Pagination.vue';
 
 export default {
   name: 'App',
