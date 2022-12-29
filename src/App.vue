@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Velocity from 'velocity-animate';
+//import Velocity from 'velocity-animate';
 import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
 import Pagination from './components/Pagination.vue';
 
@@ -134,6 +134,7 @@ export default {
             num = 0;
           }
 
+          // animation 移動量。
           const move = nav_dot.scrollLeft + distance * num;
 
           console.log('move');
@@ -142,14 +143,14 @@ export default {
           // アニメーション実行方法
 
           // web animation api
-          /*
+
           nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
             duration: 500,
             fill: 'forwards',
           });
-          */
 
-          Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
+          // 「web animation api」より動作が重い。
+          // Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
           // Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
 
           // iOS Safariでは正常に動かず。
