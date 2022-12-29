@@ -22,7 +22,8 @@ button,
 html [type='button'], /* Android 4のネイティブ`audio'および`video'コントロールを (2) 破棄するWebKitバグを防ぐ*/
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button; /* iOSでクリック可能な型をスタイル設定できない問題を修正する */
+  -webkit-appearance: button;
+  appearance: button; /* iOSでクリック可能な型をスタイル設定できない問題を修正する */
 }
 /* すべてのブラウザで既定のボタンスタイルを削除する */
 button,
