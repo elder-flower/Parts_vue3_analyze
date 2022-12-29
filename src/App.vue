@@ -127,26 +127,35 @@ export default {
           // クリックされた「dotボタン」にクラスを付ける。
           btn.classList.add(ac_class);
 
-          /*
-          console.log('nav_dot.scrollLeft');
-          console.log(nav_dot.scrollLeft);
-          */
-
           // その部分に遷移する。
-          const num = Number(btn.dataset.id) - 1;
-          console.log(num);
+          let num = Number(btn.dataset.id) - 1;
 
           if (num < 0) {
             num = 0;
           }
 
-          console.log(nav_dot.scrollLeft + distance * num);
           const move = nav_dot.scrollLeft + distance * num;
 
-          Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
+          console.log('move');
+          console.log(nav_dot.scrollLeft + distance * num);
+
+          // アニメーション実行方法
+
+          // web animation api
+          /*
+          nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
+            duration: 500,
+            fill: 'forwards',
+          });
+          */
+
+          Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
+          // Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
 
           // iOS Safariでは正常に動かず。
           //btn.scrollIntoView({ behavior: 'smooth' });
+
+          // / アニメーション実行方法
         } else {
           btn.classList.remove(ac_class);
         }
