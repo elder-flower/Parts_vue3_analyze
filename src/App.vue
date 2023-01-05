@@ -1,6 +1,12 @@
 <template>
   <main id="main">
-    <Pagination v-bind:datalist="data" />
+    <Pagination v-bind:datalist="data">
+      <template v-slot:default="slotProp">
+        <a class="list">
+          list {{ slotProp.list.id }} {{ slotProp.list.txt }}
+        </a>
+      </template></Pagination
+    >
   </main>
 </template>
 
@@ -49,4 +55,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/style/pagination/contents.scss';
+@import '@/assets/style/pagination/pagination_contents.scss';
 </style>

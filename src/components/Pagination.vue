@@ -21,7 +21,7 @@
     <section class="lists" ref="touch_area_ref">
       <!-- 書き換える場所 -->
       <section v-for="i in lists.data" v-bind:key="i.id">
-        <a> list {{ i.id }} {{ i.txt }} </a>
+        <slot v-bind:list="i"></slot>
       </section>
       <!-- 書き換える場所 -->
     </section>
@@ -36,6 +36,7 @@ import {
   onMounted,
   onUnmounted,
 } from 'vue';
+
 export default {
   name: 'PagiNation',
   props: ['datalist'],
