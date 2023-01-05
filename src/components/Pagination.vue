@@ -19,19 +19,33 @@
     </div>
 
     <section class="lists" ref="touch_area_ref">
+      <!-- 書き換える場所 -->
       <section v-for="i in lists.data" v-bind:key="i.id">
-        <a> list {{ i.id }} </a>
+        <a> list {{ i.id }} {{ i.txt }} </a>
       </section>
+      <!-- 書き換える場所 -->
     </section>
   </div>
 </template>
 <script>
-import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
+import {
+  ref,
+  reactive,
+  watchEffect,
+  onBeforeUpdate,
+  onMounted,
+  onUnmounted,
+} from 'vue';
 export default {
   name: 'PagiNation',
-  //props: [''],
+  props: ['datalist'],
   //emits: [''],
-  setup() {
+  setup(props) {
+    // 親から渡されたデータ。
+    const datalist = reactive({ data: [] });
+
+    datalist.data = props.datalist;
+
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
 
@@ -41,18 +55,8 @@ export default {
     //「dot」ボタン要素を取得する為のref要素。
     const btn_refs = ref('');
 
+    //「dot」ボタンのラッパー要素を取得する為のref要素。
     const nav_dot_ref = ref('');
-
-    // 仮想受信したデータ生成処理。
-    // 仮想受信したデータ。
-    const data = [];
-
-    // 50個のダミーデータ。
-    for (let i = 1; i < 111; i++) {
-      data.push({ id: i, txt: `txt${i}` });
-    }
-
-    // / 仮想受信したデータ生成処理。
 
     // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
@@ -61,25 +65,32 @@ export default {
     // 現在表示している「Pagination」の位置。
     const pos = ref(pos_init);
 
-    // 「Pagination」の総数。
-    const totalNumber = data.length;
+    // 「dot」ボタンの数
+    let dots;
 
     // 一度に表示する 「Pagination」の数。
     const displayNumber = 10;
 
-    // 分割数を割り出す。
-    let divisionNumber = Math.floor(totalNumber / displayNumber);
+    const generatePagination = () => {
+      // 「Pagination」の総数。
+      const totalNumber = datalist.data.length;
 
-    // 一度に表示する数から余りを算出。
-    const remainder = totalNumber % displayNumber;
+      // 分割数を割り出す。
+      let divisionNumber = Math.floor(totalNumber / displayNumber);
 
-    // 「dot」ボタンの数を算出。
-    let dots = divisionNumber;
+      // 一度に表示する数から余りを算出。
+      const remainder = totalNumber % displayNumber;
 
-    // 余りがある場合は、「dot」ボタンの数を1つ増やす。
-    if (remainder !== 0) {
-      dots = divisionNumber + 1;
-    }
+      // 「dot」ボタンの数を算出。
+      dots = divisionNumber;
+
+      // 余りがある場合は、「dot」ボタンの数を1つ増やす。
+      if (remainder !== 0) {
+        dots = divisionNumber + 1;
+      }
+    };
+
+    generatePagination();
 
     // 受信したデータから表示するデータを切り出す為の処理。
 
@@ -96,12 +107,24 @@ export default {
       const end = start + displayNumber;
 
       // 表示されるデータの配列を更新。
-      lists.data = data.slice(start, end);
+      lists.data = datalist.data.slice(start, end);
     };
 
     // 表示を更新。
     listsUpdata();
 
+    // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
+    watchEffect(() => {
+      datalist.data = props.datalist;
+      console.log('watchEffect');
+      //console.log(datalist.data);
+      generatePagination();
+      // 表示を更新。
+      listsUpdata();
+    });
+    // / 動的に「datalist.data」が変更になった場合に変更に追従する処理。
+
+    // ナビゲーション関連の処理
     // 「dot」ボタンの表示状態を更新する。
     const btnsUpdate = (id = 0) => {
       // dotボタンを全て取得。
@@ -216,6 +239,7 @@ export default {
 
       listsUpdata();
     };
+    // / ナビゲーション関連の処理
 
     // タッチスクロールイベント関連処理。
     // タッチスクロールで「pagination」の切り替えを行う場合は「true」;
@@ -233,7 +257,6 @@ export default {
     });
 
     // タッチスクロール検出処理
-
     // タッチスクロールした際の座標の履歴を格納する配列。
     let touch_scroll_log = [];
 
@@ -348,7 +371,6 @@ export default {
 
       // / 横タッチスクロール検出の解除処理。
     });
-
     // /タッチスクロールイベント関連処理。
 
     return {
