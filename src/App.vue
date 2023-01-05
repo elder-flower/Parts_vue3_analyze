@@ -1,39 +1,17 @@
 <template>
   <main id="main">
-    <div class="nav">
-      <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
-      <div class="nav_dot_wrapper">
-        <ul class="nav_dot" ref="nav_dot_ref">
-          <li v-for="j in dots" v-bind:key="j">
-            <button
-              v-bind:data-id="j - 1"
-              v-on:click="onDotBtn"
-              ref="btn_refs"
-              v-bind:id="`btn${j - 1}`"
-            ></button>
-          </li>
-        </ul>
-      </div>
-
-      <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
-    </div>
-
-    <section class="lists" ref="touch_area_ref">
-      <section v-for="i in lists.data" v-bind:key="i.id">
-        <a> list {{ i.id }} </a>
-      </section>
-    </section>
+    <Pagination></Pagination>
   </main>
 </template>
 
 <script>
 //import Velocity from 'velocity-animate';
 import { ref, reactive, onBeforeUpdate, onMounted, onUnmounted } from 'vue';
-//import PagiNation from './components/Pagination.vue';
+import Pagination from './components/Pagination.vue';
 
 export default {
   name: 'App',
-  //components: { Pagination },
+  components: { Pagination },
 
   setup() {
     // 「dotボタン」に付けるクラス名。
@@ -369,8 +347,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './assets/style/pagination/pagination_btns.scss';
-@import './assets/style/pagination/pagination_contents.scss';
-@import './assets/style/pagination/pagination_layout.scss';
-@import './assets/style/pagination/pagination_navigation.scss';
+@import '@/assets/style/pagination/contents.scss';
 </style>
