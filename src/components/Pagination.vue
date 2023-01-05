@@ -366,7 +366,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/style/pagination/pagination_btns.scss';
 @import '@/assets/style/pagination/pagination_layout.scss';
+@import '@/assets/style/pagination/pagination_btns.scss';
 @import '@/assets/style/pagination/pagination_navigation.scss';
 </style>
