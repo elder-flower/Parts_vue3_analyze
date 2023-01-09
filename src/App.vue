@@ -2,9 +2,9 @@
   <main id="main">
     <Pagination v-bind:datalist="data">
       <template v-slot:default="slotProp">
-        <a class="list">
-          list {{ slotProp.list.id }} {{ slotProp.list.txt }}
-        </a>
+        <section v-for="i in slotProp.list" v-bind:key="i.id">
+          <a class="list"> list {{ i.id }} {{ i.txt }} </a>
+        </section>
       </template></Pagination
     >
   </main>

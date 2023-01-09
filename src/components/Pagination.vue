@@ -20,9 +20,7 @@
 
     <section class="lists" ref="touch_area_ref">
       <!-- 書き換える場所 -->
-      <section v-for="i in lists.data" v-bind:key="i.id">
-        <slot v-bind:list="i"></slot>
-      </section>
+      <slot v-bind:list="lists.data"></slot>
       <!-- 書き換える場所 -->
     </section>
   </div>
