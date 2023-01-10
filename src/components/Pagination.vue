@@ -2,7 +2,11 @@
   <div class="pagination_wrapper">
     <div>
       <div class="nav">
-        <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
+        <button
+          class="triBtn prevBtn"
+          v-on:click="onPrevBtn"
+          ref="prevBtn_ref"
+        ></button>
         <div class="nav_dot_wrapper">
           <ul class="nav_dot" ref="nav_dot_ref">
             <li v-for="j in dots" v-bind:key="j">
@@ -16,7 +20,11 @@
           </ul>
         </div>
 
-        <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
+        <button
+          class="triBtn nextBtn"
+          v-on:click="onNextBtn"
+          ref="nextBtn_ref"
+        ></button>
       </div>
     </div>
 
@@ -25,6 +33,8 @@
       <slot v-bind:list="lists.data"></slot>
       <!-- 書き換える場所 -->
     </section>
+
+    <div class="page_number">{{ pos + 1 }} / {{ divisionNumber }}</div>
   </div>
 </template>
 <script>
@@ -59,6 +69,10 @@ export default {
     //「dot」ボタンのラッパー要素を取得する為のref要素。
     const nav_dot_ref = ref('');
 
+    const prevBtn_ref = ref('');
+
+    const nextBtn_ref = ref('');
+
     // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
     const pos_init = props.start_pos;
@@ -72,12 +86,14 @@ export default {
     // 一度に表示する 「Pagination」の数。
     const displayNumber = props.num_of_display;
 
+    let divisionNumber;
+
     const generatePagination = () => {
       // 「Pagination」の総数。
       const totalNumber = datalist.data.length;
 
       // 分割数を割り出す。
-      let divisionNumber = Math.floor(totalNumber / displayNumber);
+      divisionNumber = Math.floor(totalNumber / displayNumber);
 
       // 一度に表示する数から余りを算出。
       const remainder = totalNumber % displayNumber;
@@ -102,9 +118,11 @@ export default {
 
     // 表示するデータを更新する関数。
     const listsUpdata = () => {
+      console.log('listsUpdata');
+      // データ切り出し開始位置。
       const start = pos.value * displayNumber;
 
-      // 終了位置。
+      // データ切り出し開終了位置。
       const end = start + displayNumber;
 
       // 表示されるデータの配列を更新。
@@ -125,20 +143,50 @@ export default {
       console.log('watchEffect');
       //console.log(datalist.data);
       generatePagination();
+
       // 表示を更新。
       listsUpdata();
     });
+
+    //「triBtn」の表示状態を更新する。
+    const triBtnUpdate = () => {
+      console.log('triBtnUpdate');
+      // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
+      const inactive_class = 'inactive';
+
+      const prevBtn = prevBtn_ref.value;
+      const nextBtn = nextBtn_ref.value;
+
+      /*
+      console.log('pos.value');
+      console.log(pos.value);
+      */
+
+      if (pos.value === 0) {
+        prevBtn.classList.add(inactive_class);
+      } else {
+        prevBtn.classList.remove(inactive_class);
+      }
+      if (pos.value === divisionNumber - 1) {
+        nextBtn.classList.add(inactive_class);
+      } else {
+        nextBtn.classList.remove(inactive_class);
+      }
+    };
+
     // / 動的に「datalist.data」が変更になった場合に変更に追従する処理。
 
     // ナビゲーション関連の処理
-    // 「dot」ボタンの表示状態を更新する。
+
+    // 「dotBtn」の表示状態を更新する。
     const btnsUpdate = (id = 0) => {
+      console.log('btnsUpdate');
       // dotボタンを全て取得。
       const btns = btn_refs.value;
 
       // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
       const nav_dot = nav_dot_ref.value;
-      console.log(nav_dot.scrollWidth);
+      //console.log(nav_dot.scrollWidth);
 
       // アニメーション移動距離。
       let distance = Number(nav_dot.scrollWidth) / dots;
@@ -162,9 +210,10 @@ export default {
           // animation 移動量。
           const move = nav_dot.scrollLeft + distance * num;
 
+          /*
           console.log('move');
           console.log(nav_dot.scrollLeft + distance * num);
-
+          */
           // アニメーション実行方法
 
           // web animation api
@@ -207,7 +256,8 @@ export default {
 
         // 新たに表示するデータを切り出す為の処理。
         // 開始位置。
-        listsUpdata();
+        //listsUpdata();
+        triBtnUpdate();
       }
     };
 
@@ -225,7 +275,8 @@ export default {
       const btn_id = `btn${new_pos}`;
       btnsUpdate(btn_id);
 
-      listsUpdata();
+      //listsUpdata();
+      triBtnUpdate();
     };
 
     //「次へ」のボタンが押された時に実行する関数。
@@ -243,7 +294,8 @@ export default {
       const btn_id = `btn${new_pos}`;
       btnsUpdate(btn_id);
 
-      listsUpdata();
+      //listsUpdata();
+      triBtnUpdate();
     };
     // / ナビゲーション関連の処理
 
@@ -329,7 +381,7 @@ export default {
 
     // /タッチスクロール検出処理
     onMounted(() => {
-      console.log('Component is onMounted!');
+      //console.log('Component is onMounted!');
 
       // 初期化処理。
       // dotボタンを全て取得。
@@ -339,6 +391,7 @@ export default {
       const init_btn = btns[pos_init];
       init_btn.classList.add(ac_class);
 
+      triBtnUpdate();
       // /初期化処理。
 
       // 横タッチスクロール検出処理。
@@ -359,7 +412,7 @@ export default {
     });
 
     onUnmounted(() => {
-      console.log('Component is onUnmounted!');
+      //console.log('Component is onUnmounted!');
 
       // 横タッチスクロール検出の解除処理。
       // main要素にイベントリスナーを設定する。
@@ -388,6 +441,10 @@ export default {
       onNextBtn,
       touch_area_ref,
       nav_dot_ref,
+      prevBtn_ref,
+      nextBtn_ref,
+      pos,
+      divisionNumber,
     };
   },
 };

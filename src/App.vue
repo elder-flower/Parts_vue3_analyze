@@ -27,7 +27,7 @@ export default {
     // 仮想受信したデータ生成処理。
 
     // 仮想受信したデータ総数。
-    const totalNumber = 12;
+    const totalNumber = 80;
 
     // 仮想受信したデータ。
     let data = ref('[]');
