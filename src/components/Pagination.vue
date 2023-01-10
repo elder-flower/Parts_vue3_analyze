@@ -1,21 +1,23 @@
 <template>
   <div class="pagination_wrapper">
-    <div class="nav">
-      <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
-      <div class="nav_dot_wrapper">
-        <ul class="nav_dot" ref="nav_dot_ref">
-          <li v-for="j in dots" v-bind:key="j">
-            <button
-              v-bind:data-id="j - 1"
-              v-on:click="onDotBtn"
-              ref="btn_refs"
-              v-bind:id="`btn${j - 1}`"
-            ></button>
-          </li>
-        </ul>
-      </div>
+    <div>
+      <div class="nav">
+        <button class="triBtn leftBtn" v-on:click="onPrevBtn"></button>
+        <div class="nav_dot_wrapper">
+          <ul class="nav_dot" ref="nav_dot_ref">
+            <li v-for="j in dots" v-bind:key="j">
+              <button
+                v-bind:data-id="j - 1"
+                v-on:click="onDotBtn"
+                ref="btn_refs"
+                v-bind:id="`btn${j - 1}`"
+              ></button>
+            </li>
+          </ul>
+        </div>
 
-      <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
+        <button class="triBtn rightBtn" v-on:click="onNextBtn"></button>
+      </div>
     </div>
 
     <section class="lists" ref="touch_area_ref">
@@ -37,7 +39,7 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist'],
+  props: ['datalist', 'start_pos', 'num_of_display'],
   //emits: [''],
   setup(props) {
     // 親から渡されたデータ。
@@ -59,7 +61,7 @@ export default {
 
     // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
-    const pos_init = 0;
+    const pos_init = props.start_pos;
 
     // 現在表示している「Pagination」の位置。
     const pos = ref(pos_init);
@@ -68,7 +70,7 @@ export default {
     let dots;
 
     // 一度に表示する 「Pagination」の数。
-    const displayNumber = 10;
+    const displayNumber = props.num_of_display;
 
     const generatePagination = () => {
       // 「Pagination」の総数。
@@ -115,6 +117,11 @@ export default {
     // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
     watchEffect(() => {
       datalist.data = props.datalist;
+
+      while (datalist.data.length % displayNumber !== 0) {
+        datalist.data.push({});
+      }
+
       console.log('watchEffect');
       //console.log(datalist.data);
       generatePagination();
