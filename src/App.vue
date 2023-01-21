@@ -52,8 +52,8 @@ export default {
     };
 
     const data_generate2 = () => {
-      number_of_display_contents.value = 5;
-      totalNumber = 32;
+      number_of_display_contents.value = 4;
+      totalNumber = 18;
       console.log('data_generate2');
       const data2 = [];
       // 50個のダミーデータ。
