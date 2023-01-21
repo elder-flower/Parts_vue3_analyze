@@ -83,10 +83,13 @@ export default {
     let dots = ref(0);
 
     // 一度に表示する 「Pagination」の数。
-    const displayNumber = props.num_of_display;
+    const displayNumber = ref(props.num_of_display);
 
     // 分割数。
-    let divisionNumber;
+    let divisionNumber = ref(0);
+
+    // 一度に表示する数から余りを算出。
+    let remainder = ref(0);
 
     // 「Pagination」の総数。
     let totalNumber = ref(0);
@@ -95,17 +98,18 @@ export default {
       totalNumber.value = datalist.data.length;
 
       // 分割数を割り出す。
-      divisionNumber = Math.floor(totalNumber.value / displayNumber);
+      divisionNumber.value = Math.floor(
+        totalNumber.value / displayNumber.value
+      );
 
-      // 一度に表示する数から余りを算出。
-      const remainder = totalNumber.value % displayNumber;
+      remainder.value = totalNumber.value % displayNumber.value;
 
       // 「dot」ボタンの数を算出。
-      dots.value = divisionNumber;
+      dots.value = divisionNumber.value;
 
       // 余りがある場合は、「dot」ボタンの数を1つ増やす。
-      if (remainder !== 0) {
-        dots.value = divisionNumber + 1;
+      if (remainder.value !== 0) {
+        dots.value = divisionNumber.value + 1;
       }
     };
 
@@ -122,10 +126,10 @@ export default {
     const listsUpdata = () => {
       console.log('listsUpdata');
       // データ切り出し開始位置。
-      const start = pos.value * displayNumber;
+      const start = pos.value * displayNumber.value;
 
       // データ切り出し開終了位置。
-      const end = start + displayNumber;
+      const end = start + displayNumber.value;
 
       // 表示されるデータの配列を更新。
       lists.data = datalist.data.slice(start, end);
@@ -137,13 +141,17 @@ export default {
     // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
     watchEffect(() => {
       datalist.data = props.datalist;
+      displayNumber.value = props.num_of_display;
 
+      // 端数がある場合、「空」Object で埋める。
+      /*
       while (datalist.data.length % displayNumber !== 0) {
         datalist.data.push({});
       }
+      */
 
       console.log('watchEffect');
-      //console.log(datalist.data);
+
       generatePagination();
 
       // 表示を更新。
@@ -169,7 +177,7 @@ export default {
       } else {
         prevBtn.classList.remove(inactive_class);
       }
-      if (pos.value === divisionNumber - 1) {
+      if (pos.value === divisionNumber.value - 1) {
         nextBtn.classList.add(inactive_class);
       } else {
         nextBtn.classList.remove(inactive_class);
@@ -191,7 +199,7 @@ export default {
       //console.log(nav_dot.scrollWidth);
 
       // アニメーション移動距離。
-      let distance = Number(nav_dot.scrollWidth) / dots;
+      let distance = Number(nav_dot.scrollWidth) / dots.value;
 
       // dotボタンに付いている「ac_class」を省く。
       btns.forEach((btn) => {
@@ -285,7 +293,7 @@ export default {
     const onNextBtn = () => {
       let new_pos = pos.value + 1;
 
-      const last = dots - 1;
+      const last = dots.value - 1;
 
       if (new_pos > last) {
         new_pos = last;
@@ -436,7 +444,6 @@ export default {
 
     return {
       lists,
-      dots,
       onDotBtn,
       btn_refs,
       onPrevBtn,

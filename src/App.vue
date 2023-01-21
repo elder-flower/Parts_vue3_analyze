@@ -30,7 +30,7 @@ export default {
     const start_position = 0;
 
     // 1ページに表示するコンテンツ数。
-    let number_of_display_contents = 7;
+    let number_of_display_contents = ref(7);
 
     // /「pagination」の基本設定。
     // 仮想受信したデータ生成処理。
@@ -52,8 +52,8 @@ export default {
     };
 
     const data_generate2 = () => {
-      //number_of_display_contents = 6;
-      totalNumber = 19;
+      number_of_display_contents.value = 5;
+      totalNumber = 32;
       console.log('data_generate2');
       const data2 = [];
       // 50個のダミーデータ。
@@ -65,7 +65,7 @@ export default {
 
     data_generate();
 
-    //setTimeout(data_generate2, 2000);
+    setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
