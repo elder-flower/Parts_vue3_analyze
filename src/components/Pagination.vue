@@ -34,7 +34,7 @@
       <!-- 書き換える場所 -->
     </section>
 
-    <div class="page_number">{{ pos + 1 }} / {{ divisionNumber }}</div>
+    <div class="page_number">{{ pos + 1 }} / {{ dots }}</div>
   </div>
 </template>
 <script>
@@ -54,7 +54,6 @@ export default {
   setup(props) {
     // 親から渡されたデータ。
     const datalist = reactive({ data: [] });
-
     datalist.data = props.datalist;
 
     // 「dotボタン」に付けるクラス名。
@@ -81,29 +80,32 @@ export default {
     const pos = ref(pos_init);
 
     // 「dot」ボタンの数
-    let dots;
+    let dots = ref(0);
 
     // 一度に表示する 「Pagination」の数。
     const displayNumber = props.num_of_display;
 
+    // 分割数。
     let divisionNumber;
 
+    // 「Pagination」の総数。
+    let totalNumber = ref(0);
+
     const generatePagination = () => {
-      // 「Pagination」の総数。
-      const totalNumber = datalist.data.length;
+      totalNumber.value = datalist.data.length;
 
       // 分割数を割り出す。
-      divisionNumber = Math.floor(totalNumber / displayNumber);
+      divisionNumber = Math.floor(totalNumber.value / displayNumber);
 
       // 一度に表示する数から余りを算出。
-      const remainder = totalNumber % displayNumber;
+      const remainder = totalNumber.value % displayNumber;
 
       // 「dot」ボタンの数を算出。
-      dots = divisionNumber;
+      dots.value = divisionNumber;
 
       // 余りがある場合は、「dot」ボタンの数を1つ増やす。
       if (remainder !== 0) {
-        dots = divisionNumber + 1;
+        dots.value = divisionNumber + 1;
       }
     };
 
@@ -445,6 +447,7 @@ export default {
       nextBtn_ref,
       pos,
       divisionNumber,
+      dots,
     };
   },
 };

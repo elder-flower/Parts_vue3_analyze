@@ -24,10 +24,19 @@ export default {
   components: { Pagination },
 
   setup() {
+    // 「pagination」の基本設定。
+
+    // 初期化時に表示するページ位置。
+    const start_position = 0;
+
+    // 1ページに表示するコンテンツ数。
+    let number_of_display_contents = 7;
+
+    // /「pagination」の基本設定。
     // 仮想受信したデータ生成処理。
 
     // 仮想受信したデータ総数。
-    const totalNumber = 80;
+    let totalNumber = 20;
 
     // 仮想受信したデータ。
     let data = ref('[]');
@@ -43,6 +52,8 @@ export default {
     };
 
     const data_generate2 = () => {
+      //number_of_display_contents = 6;
+      totalNumber = 19;
       console.log('data_generate2');
       const data2 = [];
       // 50個のダミーデータ。
@@ -54,19 +65,10 @@ export default {
 
     data_generate();
 
-    setTimeout(data_generate2, 2000);
+    //setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
-    // 「pagination」の基本設定。
-
-    // 初期化時に表示するページ位置。
-    const start_position = 0;
-
-    // 1ページに表示するコンテンツ数。
-    const number_of_display_contents = 7;
-
-    // /「pagination」の基本設定。
     return { data, start_position, number_of_display_contents };
   },
 };
