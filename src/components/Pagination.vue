@@ -34,7 +34,11 @@
       <!-- 書き換える場所 -->
     </section>
 
-    <div class="page_number">{{ pos + 1 }} / {{ dots }}</div>
+    <div class="page_number">
+      {{ pos + 1 }} / ページ数 : {{ dots }} / ページ毎の表示数 :
+      {{ displayNumber }} / 総数 :
+      {{ datalist.data.length }}
+    </div>
   </div>
 </template>
 <script>
@@ -443,6 +447,7 @@ export default {
     // /タッチスクロールイベント関連処理。
 
     return {
+      datalist,
       lists,
       onDotBtn,
       btn_refs,
@@ -455,6 +460,7 @@ export default {
       pos,
       divisionNumber,
       dots,
+      displayNumber,
     };
   },
 };

@@ -36,7 +36,7 @@ export default {
     // 仮想受信したデータ生成処理。
 
     // 仮想受信したデータ総数。
-    let totalNumber = 20;
+    let totalNumber = 21;
 
     // 仮想受信したデータ。
     let data = ref('[]');
@@ -65,7 +65,7 @@ export default {
 
     data_generate();
 
-    setTimeout(data_generate2, 2000);
+    //setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
