@@ -142,6 +142,42 @@ export default {
     // 表示を更新。
     listsUpdata();
 
+    //「triBtn」の表示状態を更新する。
+    const triBtnUpdate = () => {
+      console.log('triBtnUpdate');
+      // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
+      const inactive_class = 'inactive';
+
+      const prevBtn = prevBtn_ref.value;
+      const nextBtn = nextBtn_ref.value;
+
+      /*
+      console.log('pos.value');
+      console.log(pos.value);
+      */
+
+      if (prevBtn_ref.value !== '') {
+        if (pos.value === 0) {
+          prevBtn.classList.add(inactive_class);
+        } else {
+          prevBtn.classList.remove(inactive_class);
+        }
+      }
+
+      if (nextBtn_ref.value !== '') {
+        if (pos.value === dots.value - 1) {
+          nextBtn.classList.add(inactive_class);
+        } else {
+          nextBtn.classList.remove(inactive_class);
+        }
+      }
+
+      console.log('pos.value');
+      console.log(pos.value);
+      console.log('dots.value');
+      console.log(dots.value);
+    };
+
     // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
     watchEffect(() => {
       datalist.data = props.datalist;
@@ -160,33 +196,8 @@ export default {
 
       // 表示を更新。
       listsUpdata();
+      triBtnUpdate();
     });
-
-    //「triBtn」の表示状態を更新する。
-    const triBtnUpdate = () => {
-      console.log('triBtnUpdate');
-      // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
-      const inactive_class = 'inactive';
-
-      const prevBtn = prevBtn_ref.value;
-      const nextBtn = nextBtn_ref.value;
-
-      /*
-      console.log('pos.value');
-      console.log(pos.value);
-      */
-
-      if (pos.value === 0) {
-        prevBtn.classList.add(inactive_class);
-      } else {
-        prevBtn.classList.remove(inactive_class);
-      }
-      if (pos.value === divisionNumber.value - 1) {
-        nextBtn.classList.add(inactive_class);
-      } else {
-        nextBtn.classList.remove(inactive_class);
-      }
-    };
 
     // / 動的に「datalist.data」が変更になった場合に変更に追従する処理。
 
