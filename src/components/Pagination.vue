@@ -1,6 +1,6 @@
 <template>
   <div class="pagination_wrapper">
-    <div>
+    <div ref="nav_ref">
       <div class="nav">
         <button
           class="triBtn prevBtn"
@@ -34,7 +34,7 @@
       <!-- 書き換える場所 -->
     </section>
 
-    <div class="page_number">
+    <div class="page_number" ref="page_number_ref">
       {{ pos + 1 }} / ページ数 : {{ dots }} / ページ毎の表示数 :
       {{ displayNumber }} / 総数 :
       {{ datalist.data.length }}
@@ -66,6 +66,12 @@ export default {
     // タッチスクロール検出対象の要素取得。
     const touch_area_ref = ref('');
 
+    // 「nav」要素の高さを取得する用。
+    const nav_ref = ref('');
+
+    // 「footer」の高さ。
+    const page_number_ref = ref('');
+
     //「dot」ボタン要素を取得する為のref要素。
     const btn_refs = ref('');
 
@@ -75,6 +81,46 @@ export default {
     const prevBtn_ref = ref('');
 
     const nextBtn_ref = ref('');
+
+    //各要素の高さを取得して合計値から表示する数を調節する関数。
+    const responsive = () => {
+      if (
+        nav_ref.value !== '' &&
+        touch_area_ref.value !== '' &&
+        page_number_ref.value !== ''
+      ) {
+        // getBoundingClientRect だと駄目かも。paddingとか取得してなさそう。
+
+        const nav_area = nav_ref.value;
+        const pagination_area = touch_area_ref.value;
+        const page_number_area = page_number_ref.value;
+        const nav_area_rect = nav_area.getBoundingClientRect();
+        const pagination_area_rect = pagination_area.getBoundingClientRect();
+        const page_number_area_rect = page_number_area.getBoundingClientRect();
+
+        const nav_area_height = nav_area_rect.height;
+        const pagination_area_height = pagination_area_rect.height;
+        const page_number_area_height = page_number_area_rect.height;
+
+        console.log('nav_area_height');
+        console.log(nav_area_height);
+        console.log('pagination_area_height');
+        console.log(pagination_area_height);
+        console.log('page_number_area_height');
+        console.log(page_number_area_height);
+
+        const doc = document;
+        const lists = doc.getElementsByClassName('list');
+        console.log(lists);
+
+        for (let aa = 0; aa < lists.length; aa++) {
+          const list_height = lists[aa].getBoundingClientRect().height;
+
+          // 小数点以下を切り上げます。
+          console.log(Math.ceil(list_height));
+        }
+      }
+    };
 
     // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
@@ -128,7 +174,7 @@ export default {
 
     // 表示するデータを更新する関数。
     const listsUpdata = () => {
-      console.log('listsUpdata');
+      //console.log('listsUpdata');
       // データ切り出し開始位置。
       const start = pos.value * displayNumber.value;
 
@@ -137,6 +183,8 @@ export default {
 
       // 表示されるデータの配列を更新。
       lists.data = datalist.data.slice(start, end);
+
+      setTimeout(responsive, 100);
     };
 
     // 表示を更新。
@@ -144,7 +192,7 @@ export default {
 
     //「triBtn」の表示状態を更新する。
     const triBtnUpdate = () => {
-      console.log('triBtnUpdate');
+      //console.log('triBtnUpdate');
       // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
       const inactive_class = 'inactive';
 
@@ -172,10 +220,12 @@ export default {
         }
       }
 
+      /*
       console.log('pos.value');
       console.log(pos.value);
       console.log('dots.value');
       console.log(dots.value);
+      */
     };
 
     // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
@@ -205,7 +255,7 @@ export default {
 
     // 「dotBtn」の表示状態を更新する。
     const btnsUpdate = (id = 0) => {
-      console.log('btnsUpdate');
+      //console.log('btnsUpdate');
       // dotボタンを全て取得。
       const btns = btn_refs.value;
 
@@ -419,10 +469,11 @@ export default {
       triBtnUpdate();
       // /初期化処理。
 
+      responsive();
+
       // 横タッチスクロール検出処理。
       // main要素にイベントリスナーを設定する。
       const touch_area = touch_area_ref.value;
-      //console.log(touch_area);
 
       if (isScrollSnap) {
         touch_area.addEventListener('touchmove', touchDownAction, {
@@ -466,6 +517,8 @@ export default {
       onNextBtn,
       touch_area_ref,
       nav_dot_ref,
+      nav_ref,
+      page_number_ref,
       prevBtn_ref,
       nextBtn_ref,
       pos,

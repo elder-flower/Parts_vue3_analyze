@@ -7,7 +7,10 @@
     >
       <template v-slot:default="slotProp">
         <section v-for="i in slotProp.list" v-bind:key="i.id">
-          <a class="list"> list {{ i.id }} {{ i.txt }} </a>
+          <a class="list">
+            list {{ i.id }} {{ i.txt }}
+            <br />aaaaaaaaaaaaaaa<br />aaaaaaaaaaaaaa</a
+          >
         </section>
       </template></Pagination
     >
@@ -52,8 +55,8 @@ export default {
     };
 
     const data_generate2 = () => {
-      number_of_display_contents.value = 4;
-      totalNumber = 18;
+      number_of_display_contents.value = 6;
+      totalNumber = 23;
       console.log('data_generate2');
       const data2 = [];
       // 50個のダミーデータ。
@@ -65,7 +68,7 @@ export default {
 
     data_generate();
 
-    setTimeout(data_generate2, 2000);
+    //setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
