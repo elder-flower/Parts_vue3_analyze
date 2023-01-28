@@ -30,7 +30,7 @@
 
     <section class="lists">
       <!-- 書き換える場所 -->
-      <section v-for="i in datalist.data" v-bind:key="i.id">
+      <section v-for="i in lists.data" v-bind:key="i.id">
         <a class="list">
           list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
         >
@@ -65,19 +65,39 @@ export default {
     const datalist = reactive({ data: [] });
     datalist.data = props.datalist;
 
-    const pos = 0;
-    const dots = 0;
-    const displayNumber = 0;
+    /*
+    console.log('datalist.data ');
+    console.log(datalist.data);
+    */
 
+    // Pagination 生成処理。
+    // 「dotボタン」に付けるクラス名。
+    const ac_class = 'dot_active';
+
+    // 初期化時の位置を指定する変数。
+    const pos_init = props.start_pos;
+
+    // 現在表示している「Pagination」の位置。
+    const pos = ref(pos_init);
+
+    // 「dot」ボタンの数
+    let dots = ref(0);
+
+    // 一度に表示する 「Pagination」の数。
+    const displayNumber = ref(props.num_of_display);
+
+    // 分割数。
+    let divisionNumber = ref(0);
+
+    // 「Pagination」の総数。
+    let totalNumber = ref(0);
+
+    // 高さを取得し計算する処理。
     // 「nav」要素の高さを取得する用。
     const nav_ref = ref('');
 
     // 「footer」の高さ。
     const page_number_ref = ref('');
-
-    const onPrevBtn = () => {};
-    const onNextBtn = () => {};
-    const onDotBtn = () => {};
 
     // 各paginationの子要素の高さの値を入れる変数。
     let list_elements_height = [];
@@ -119,8 +139,10 @@ export default {
         const pagination_max_height =
           html_height - nav_area_height - page_number_area_height;
 
+        /*
         console.log('pagination_max_height');
         console.log(pagination_max_height);
+        */
 
         let index = 0;
 
@@ -134,24 +156,85 @@ export default {
             content_height += list_elements_height[index];
             index++;
           }
+          /*
           console.log('content_height');
           console.log(content_height);
+          */
           numbers_of_display_contents.push(index);
         }
 
-        console.log(numbers_of_display_contents);
+        //console.log(numbers_of_display_contents);
+
+        const generatePagination = () => {
+          totalNumber.value = datalist.data.length;
+
+          // 分割数を割り出す。
+          divisionNumber.value = numbers_of_display_contents.length;
+
+          // 「dot」ボタンの数を算出。
+          dots.value = divisionNumber.value;
+        };
+
+        generatePagination();
       }
+
+      setTimeout(listsUpdata, 0);
+      listsUpdata();
     };
+
+    // 表示されるデータの配列。リアクティブにする為、「reactive」でラッピング。
+    let lists = reactive({
+      data: [],
+    });
+
+    // 表示するデータを更新する関数。
+    const listsUpdata = () => {
+      console.log('listsUpdata');
+
+      // データ切り出し開始位置。
+      let start_index = 0;
+
+      // データ切り出し開終了位置。
+      let end_index = 0;
+
+      let prev_pos = pos.value - 1;
+
+      if (prev_pos < 0) {
+        start_index = 0;
+        end_index = numbers_of_display_contents[pos.value];
+        if (end_index === undefined) {
+          end_index = datalist.data.length;
+        }
+      } else {
+        start_index =
+          numbers_of_display_contents[pos.value] -
+          numbers_of_display_contents[prev_pos];
+        end_index = numbers_of_display_contents[pos.value];
+      }
+
+      console.log('index');
+      console.log(start_index);
+      console.log(end_index);
+
+      // 表示されるデータの配列を更新。
+      lists.data = datalist.data.slice(start_index, end_index);
+      console.log(lists.data);
+    };
+
+    const update = () => {
+      division_recalculation();
+    };
+
+    update();
 
     watch(
       () => props.datalist,
       (newV) => {
         datalist.data = newV;
         //division_recalculation();
-        setTimeout(division_recalculation, 0);
+        setTimeout(update, 0);
       }
     );
-
     /*
     watchEffect(() => {
       datalist.data = props.datalist;
@@ -159,6 +242,10 @@ export default {
       setTimeout(division_recalculation, 0);
     });
     */
+
+    const onPrevBtn = () => {};
+    const onNextBtn = () => {};
+    const onDotBtn = () => {};
 
     onMounted(() => {
       division_recalculation();
@@ -168,11 +255,13 @@ export default {
 
     return {
       datalist,
+      lists,
       nav_ref,
       page_number_ref,
       pos,
       dots,
       displayNumber,
+
       onPrevBtn,
       onNextBtn,
       onDotBtn,
