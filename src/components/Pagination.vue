@@ -161,11 +161,14 @@ export default {
 
         let index = 0;
 
+        //「offset」を取らないとレイアウト的に少しずれるので防止用。
+        const offset = 50;
+
         while (index < list_elements_height.length) {
           let content_height = 0;
 
           while (
-            content_height + list_elements_height[index] <
+            content_height + list_elements_height[index] + offset <
             pagination_max_height
           ) {
             content_height += list_elements_height[index];
