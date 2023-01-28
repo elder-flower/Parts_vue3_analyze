@@ -3,7 +3,8 @@
   grid-template-rows: max-content auto 40px;
   height: 100vh;
 }
-.lists {
+.lists,
+#measurement {
   /*
   display: grid;
   grid-template-columns: auto;
@@ -11,25 +12,18 @@
 
   display: flex;
   flex-direction: column;
-
   section {
     min-height: 2em;
   }
-
-  margin-bottom: auto;
 }
-.page_number {
-  margin: 10px 0 10px 0;
-  text-align: center;
+.lists {
+  margin-bottom: auto;
 }
 #measurement {
   visibility: hidden;
   display: none;
-
-  display: grid;
-  grid-template-columns: auto;
-
-  section {
-    min-height: 2em;
-  }
+}
+.page_number {
+  margin: 10px 0 10px 0;
+  text-align: center;
 }

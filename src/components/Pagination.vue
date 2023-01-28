@@ -124,7 +124,8 @@ export default {
         const lists = doc.getElementsByClassName('measurement_list');
         list_elements_height = [];
 
-        measurement_elem.setAttribute('style', 'display:block');
+        measurement_elem.setAttribute('style', 'display:flex');
+
         for (let aa = 0; aa < lists.length; aa++) {
           list_elements_height.push(lists[aa].clientHeight);
         }
