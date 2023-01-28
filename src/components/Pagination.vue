@@ -82,21 +82,25 @@ export default {
     const onNextBtn = () => {};
     const onDotBtn = () => {};
 
-    let list_height_elements = [];
+    // 各paginationの子要素の高さの値を入れる変数。
+    let list_elements_height = [];
+
+    // 各ページの表示数を入れる配列。
+    let numbers_of_display_contents = [];
 
     // 高さを取得し計算して分割する関数。
     const division_recalculation = () => {
       console.log('division_recalculation');
       const doc = document;
       const lists = doc.getElementsByClassName('list');
-      list_height_elements = [];
+      list_elements_height = [];
 
       for (let aa = 0; aa < lists.length; aa++) {
-        list_height_elements.push(lists[aa].clientHeight);
+        list_elements_height.push(lists[aa].clientHeight);
       }
 
       //console.log(lists);
-      console.log(list_height_elements);
+      console.log(list_elements_height);
 
       // ブラウザの表示高さからpaginationの表示数を割り出す処理。
       if (
@@ -104,6 +108,7 @@ export default {
         pagination_area_ref.value !== '' &&
         page_number_ref.value !== ''
       ) {
+        numbers_of_display_contents = [];
         const html = doc.documentElement;
         const nav_area = nav_ref.value;
         const pagination_area = pagination_area_ref.value;
@@ -121,6 +126,23 @@ export default {
         const pagination_max_height =
           html_height - nav_area_height - page_number_area_height;
         console.log(pagination_max_height);
+
+        let index = 0;
+        let content_height = 0;
+
+        while (
+          content_height + list_elements_height[index] <
+          pagination_max_height
+        ) {
+          content_height += list_elements_height[index];
+          index++;
+        }
+
+        console.log('content_height');
+        console.log(content_height);
+
+        numbers_of_display_contents.push(index);
+        console.log(numbers_of_display_contents);
       }
     };
 
