@@ -1,6 +1,6 @@
 .pagination_wrapper {
   display: grid;
-  grid-template-rows: max-content auto 40px;
+  grid-template-rows: max-content auto 40px auto;
   height: 100vh;
 }
 .lists {
@@ -14,4 +14,15 @@
 .page_number {
   margin: 10px 0 10px 0;
   text-align: center;
+}
+#measurement {
+  visibility: hidden;
+  display: none;
+
+  display: grid;
+  grid-template-columns: auto;
+
+  section {
+    min-height: 2em;
+  }
 }

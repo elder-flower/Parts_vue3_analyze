@@ -43,6 +43,14 @@
       {{ displayNumber }} / 総数 :
       {{ datalist.data.length }}
     </div>
+
+    <section id="measurement" ref="measurement_ref">
+      <section v-for="i in datalist.data" v-bind:key="i.id">
+        <a class="measurement_list">
+          list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
+        >
+      </section>
+    </section>
   </div>
 </template>
 <script>
@@ -99,6 +107,8 @@ export default {
     // 「footer」の高さ。
     const page_number_ref = ref('');
 
+    const measurement_ref = ref('');
+
     // 各paginationの子要素の高さの値を入れる変数。
     let list_elements_height = [];
 
@@ -106,18 +116,23 @@ export default {
     let numbers_of_display_contents = [];
 
     // 高さを取得し計算して分割する関数。
-    const division_recalculation = () => {
+    const division_recalculation = async () => {
       console.log('division_recalculation');
       const doc = document;
-      const lists = doc.getElementsByClassName('list');
-      list_elements_height = [];
+      if (measurement_ref.value !== '') {
+        const measurement_elem = measurement_ref.value;
+        const lists = doc.getElementsByClassName('measurement_list');
+        list_elements_height = [];
 
-      for (let aa = 0; aa < lists.length; aa++) {
-        list_elements_height.push(lists[aa].clientHeight);
+        measurement_elem.setAttribute('style', 'display:block');
+        for (let aa = 0; aa < lists.length; aa++) {
+          list_elements_height.push(lists[aa].clientHeight);
+        }
+        measurement_elem.setAttribute('style', 'display:none');
+
+        //console.log(lists);
+        console.log(list_elements_height);
       }
-
-      //console.log(lists);
-      console.log(list_elements_height);
 
       // ブラウザの表示高さからpaginationの表示数を割り出す処理。
       if (nav_ref.value !== '' && page_number_ref.value !== '') {
@@ -163,7 +178,8 @@ export default {
           numbers_of_display_contents.push(index);
         }
 
-        //console.log(numbers_of_display_contents);
+        console.log('numbers_of_display_contents');
+        console.log(numbers_of_display_contents);
 
         const generatePagination = () => {
           totalNumber.value = datalist.data.length;
@@ -177,9 +193,6 @@ export default {
 
         generatePagination();
       }
-
-      setTimeout(listsUpdata, 0);
-      listsUpdata();
     };
 
     // 表示されるデータの配列。リアクティブにする為、「reactive」でラッピング。
@@ -218,11 +231,13 @@ export default {
 
       // 表示されるデータの配列を更新。
       lists.data = datalist.data.slice(start_index, end_index);
-      console.log(lists.data);
+      //console.log(lists.data);
     };
 
     const update = () => {
-      division_recalculation();
+      division_recalculation().then(() => {
+        listsUpdata();
+      });
     };
 
     update();
@@ -258,6 +273,7 @@ export default {
       lists,
       nav_ref,
       page_number_ref,
+      measurement_ref,
       pos,
       dots,
       displayNumber,
