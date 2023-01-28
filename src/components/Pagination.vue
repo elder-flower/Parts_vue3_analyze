@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <section class="lists" ref="pagination_area_ref">
+    <section class="lists">
       <!-- 書き換える場所 -->
       <section v-for="i in datalist.data" v-bind:key="i.id">
         <a class="list">
@@ -59,7 +59,7 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist', 'start_pos', 'num_of_display'],
+  props: ['datalist', 'start_pos'],
   //emits: [''],
   setup(props) {
     const datalist = reactive({ data: [] });
@@ -71,9 +71,6 @@ export default {
 
     // 「nav」要素の高さを取得する用。
     const nav_ref = ref('');
-
-    // タッチスクロール検出対象の要素取得。
-    const pagination_area_ref = ref('');
 
     // 「footer」の高さ。
     const page_number_ref = ref('');
@@ -103,45 +100,45 @@ export default {
       console.log(list_elements_height);
 
       // ブラウザの表示高さからpaginationの表示数を割り出す処理。
-      if (
-        nav_ref.value !== '' &&
-        pagination_area_ref.value !== '' &&
-        page_number_ref.value !== ''
-      ) {
+      if (nav_ref.value !== '' && page_number_ref.value !== '') {
         numbers_of_display_contents = [];
         const html = doc.documentElement;
         const nav_area = nav_ref.value;
-        const pagination_area = pagination_area_ref.value;
         const page_number_area = page_number_ref.value;
 
         const html_height = html.clientHeight;
         const nav_area_height = nav_area.clientHeight;
-        const pagination_area_height = pagination_area.clientHeight;
         const page_number_area_height = page_number_area.clientHeight;
 
+        /*
         console.log(html_height);
         console.log(nav_area_height);
         console.log(pagination_area_height);
         console.log(page_number_area_height);
+        */
         const pagination_max_height =
           html_height - nav_area_height - page_number_area_height;
+
+        console.log('pagination_max_height');
         console.log(pagination_max_height);
 
         let index = 0;
-        let content_height = 0;
 
-        while (
-          content_height + list_elements_height[index] <
-          pagination_max_height
-        ) {
-          content_height += list_elements_height[index];
-          index++;
+        while (index < list_elements_height.length) {
+          let content_height = 0;
+
+          while (
+            content_height + list_elements_height[index] <
+            pagination_max_height
+          ) {
+            content_height += list_elements_height[index];
+            index++;
+          }
+          console.log('content_height');
+          console.log(content_height);
+          numbers_of_display_contents.push(index);
         }
 
-        console.log('content_height');
-        console.log(content_height);
-
-        numbers_of_display_contents.push(index);
         console.log(numbers_of_display_contents);
       }
     };
@@ -172,7 +169,6 @@ export default {
     return {
       datalist,
       nav_ref,
-      pagination_area_ref,
       page_number_ref,
       pos,
       dots,

@@ -1,10 +1,6 @@
 <template>
   <main id="main">
-    <Pagination
-      v-bind:datalist="data.list"
-      v-bind:start_pos="start_position"
-      v-bind:num_of_display="number_of_display_contents"
-    >
+    <Pagination v-bind:datalist="data.list" v-bind:start_pos="start_position">
     </Pagination>
   </main>
 </template>
@@ -22,9 +18,6 @@ export default {
 
     // 初期化時に表示するページ位置。
     const start_position = 0;
-
-    // 1ページに表示するコンテンツ数。
-    let number_of_display_contents = ref(7);
 
     // /「pagination」の基本設定。
     // 仮想受信したデータ生成処理。
@@ -48,7 +41,6 @@ export default {
     };
 
     const data_generate2 = () => {
-      number_of_display_contents.value = 4;
       totalNumber = 18;
       console.log('data_generate2');
       const data2 = [];
@@ -70,7 +62,7 @@ export default {
 
     // / 仮想受信したデータ生成処理。
 
-    return { data, start_position, number_of_display_contents };
+    return { data, start_position };
   },
 };
 </script>
