@@ -1,6 +1,6 @@
 <template>
   <div class="pagination_wrapper">
-    <div>
+    <div ref="nav_ref">
       <div class="nav">
         <button
           class="triBtn prevBtn"
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <section class="lists" ref="touch_area_ref">
+    <section class="lists" ref="pagination_area_ref">
       <!-- 書き換える場所 -->
       <section v-for="i in datalist.data" v-bind:key="i.id">
         <a class="list">
@@ -38,7 +38,7 @@
       <!-- 書き換える場所 -->
     </section>
 
-    <div class="page_number">
+    <div class="page_number" ref="page_number_ref">
       {{ pos + 1 }} / ページ数 : {{ dots }} / ページ毎の表示数 :
       {{ displayNumber }} / 総数 :
       {{ datalist.data.length }}
@@ -69,6 +69,15 @@ export default {
     const dots = 0;
     const displayNumber = 0;
 
+    // 「nav」要素の高さを取得する用。
+    const nav_ref = ref('');
+
+    // タッチスクロール検出対象の要素取得。
+    const pagination_area_ref = ref('');
+
+    // 「footer」の高さ。
+    const page_number_ref = ref('');
+
     const onPrevBtn = () => {};
     const onNextBtn = () => {};
     const onDotBtn = () => {};
@@ -88,6 +97,31 @@ export default {
 
       //console.log(lists);
       console.log(list_height_elements);
+
+      // ブラウザの表示高さからpaginationの表示数を割り出す処理。
+      if (
+        nav_ref.value !== '' &&
+        pagination_area_ref.value !== '' &&
+        page_number_ref.value !== ''
+      ) {
+        const html = doc.documentElement;
+        const nav_area = nav_ref.value;
+        const pagination_area = pagination_area_ref.value;
+        const page_number_area = page_number_ref.value;
+
+        const html_height = html.clientHeight;
+        const nav_area_height = nav_area.clientHeight;
+        const pagination_area_height = pagination_area.clientHeight;
+        const page_number_area_height = page_number_area.clientHeight;
+
+        console.log(html_height);
+        console.log(nav_area_height);
+        console.log(pagination_area_height);
+        console.log(page_number_area_height);
+        const pagination_max_height =
+          html_height - nav_area_height - page_number_area_height;
+        console.log(pagination_max_height);
+      }
     };
 
     watch(
@@ -115,6 +149,9 @@ export default {
 
     return {
       datalist,
+      nav_ref,
+      pagination_area_ref,
+      page_number_ref,
       pos,
       dots,
       displayNumber,
