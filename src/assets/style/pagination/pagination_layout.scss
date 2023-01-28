@@ -1,15 +1,22 @@
 .pagination_wrapper {
   display: grid;
-  grid-template-rows: max-content auto 40px auto;
+  grid-template-rows: max-content auto 40px;
   height: 100vh;
 }
 .lists {
+  /*
   display: grid;
   grid-template-columns: auto;
+  */
+
+  display: flex;
+  flex-direction: column;
 
   section {
     min-height: 2em;
   }
+
+  margin-bottom: auto;
 }
 .page_number {
   margin: 10px 0 10px 0;

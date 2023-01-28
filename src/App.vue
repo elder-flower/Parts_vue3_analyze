@@ -58,7 +58,7 @@ export default {
 
     data_generate();
 
-    //setTimeout(data_generate2, 2000);
+    setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
