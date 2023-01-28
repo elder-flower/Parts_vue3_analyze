@@ -1,25 +1,16 @@
 <template>
   <main id="main">
     <Pagination
-      v-bind:datalist="data"
+      v-bind:datalist="data.list"
       v-bind:start_pos="start_position"
       v-bind:num_of_display="number_of_display_contents"
     >
-      <template v-slot:default="slotProp">
-        <section v-for="i in slotProp.list" v-bind:key="i.id">
-          <a class="list">
-            list {{ i.id }} {{ i.txt }}
-            <br />aaaaaaaaaaaaaaa<br />aaaaaaaaaaaaaa</a
-          >
-        </section>
-      </template></Pagination
-    >
+    </Pagination>
   </main>
 </template>
 
 <script>
-//import Velocity from 'velocity-animate';
-import { ref } from 'vue';
+import { ref, reactive, watchEffect } from 'vue';
 import Pagination from './components/Pagination.vue';
 
 export default {
@@ -42,7 +33,9 @@ export default {
     let totalNumber = 21;
 
     // 仮想受信したデータ。
-    let data = ref('[]');
+    let data = reactive({
+      list: [],
+    });
 
     const data_generate = () => {
       const data2 = [];
@@ -51,24 +44,29 @@ export default {
         data2.push({ id: i, txt: `txt${i}` });
       }
 
-      data.value = data2;
+      data.list = data2;
     };
 
     const data_generate2 = () => {
-      number_of_display_contents.value = 6;
-      totalNumber = 23;
+      number_of_display_contents.value = 4;
+      totalNumber = 18;
       console.log('data_generate2');
       const data2 = [];
       // 50個のダミーデータ。
       for (let i = 1; i < totalNumber; i++) {
-        data2.push({ id: i, txt: `txt:${i}:a` });
+        data2.push({
+          id: i,
+          txt: `txt:${i}`,
+          txt2: `aaaaaaaaaaaaaaaaaa`,
+          txt3: `bbbbbbbbbbbbbbbbbbbbbbb`,
+        });
       }
-      data.value = data2;
+      data.list = data2;
     };
 
     data_generate();
 
-    //setTimeout(data_generate2, 2000);
+    setTimeout(data_generate2, 2000);
 
     // / 仮想受信したデータ生成処理。
 
