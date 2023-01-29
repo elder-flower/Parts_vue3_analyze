@@ -107,7 +107,18 @@ export default {
     // 「footer」の高さ。
     const page_number_ref = ref('');
 
+    // 計測用のラッパー要素を取得。
     const measurement_ref = ref('');
+
+    //「dot」ボタン要素を取得する為のref要素。
+    const btn_refs = ref('');
+
+    //「dot」ボタンのラッパー要素を取得する為のref要素。
+    const nav_dot_ref = ref('');
+
+    const prevBtn_ref = ref('');
+
+    const nextBtn_ref = ref('');
 
     // 各paginationの子要素の高さの値を入れる変数。
     let list_elements_height = [];
@@ -237,10 +248,49 @@ export default {
       //console.log(lists.data);
     };
 
+    //「triBtn」の表示状態を更新する。
+    const triBtnUpdate = () => {
+      console.log('triBtnUpdate');
+      // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
+      const inactive_class = 'inactive';
+
+      const prevBtn = prevBtn_ref.value;
+      const nextBtn = nextBtn_ref.value;
+
+      /*
+      console.log('pos.value');
+      console.log(pos.value);
+      */
+
+      if (prevBtn_ref.value !== '') {
+        if (pos.value === 0) {
+          prevBtn.classList.add(inactive_class);
+        } else {
+          prevBtn.classList.remove(inactive_class);
+        }
+      }
+
+      if (nextBtn_ref.value !== '') {
+        if (pos.value === dots.value - 1) {
+          nextBtn.classList.add(inactive_class);
+        } else {
+          nextBtn.classList.remove(inactive_class);
+        }
+      }
+
+      /*
+      console.log('pos.value');
+      console.log(pos.value);
+           */
+      console.log('dots.value');
+      console.log(dots.value);
+    };
+
     const update = () => {
       division_recalculation().then(() => {
         generatePagination();
         listsUpdata();
+        triBtnUpdate();
       });
     };
 
@@ -254,6 +304,7 @@ export default {
         setTimeout(update, 0);
       }
     );
+
     /*
     watchEffect(() => {
       datalist.data = props.datalist;
@@ -262,13 +313,142 @@ export default {
     });
     */
 
-    const onPrevBtn = () => {};
-    const onNextBtn = () => {};
-    const onDotBtn = () => {};
+    // 「dotBtn」の表示状態を更新する。
+    const btnsUpdate = (id = 0) => {
+      console.log('btnsUpdate');
+      // dotボタンを全て取得。
+      const btns = btn_refs.value;
+
+      // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
+      const nav_dot = nav_dot_ref.value;
+      //console.log(nav_dot.scrollWidth);
+
+      // アニメーション移動距離。
+      let distance = Number(nav_dot.scrollWidth) / dots.value;
+
+      // dotボタンに付いている「ac_class」を省く。
+      btns.forEach((btn) => {
+        //console.log(btn);
+        const btn_id = btn.id;
+
+        if (btn_id === id) {
+          // クリックされた「dotボタン」にクラスを付ける。
+          btn.classList.add(ac_class);
+
+          // その部分に遷移する。
+          let num = Number(btn.dataset.id) - 1;
+
+          if (num < 0) {
+            num = 0;
+          }
+
+          // animation 移動量。
+          const move = nav_dot.scrollLeft + distance * num;
+
+          /*
+          console.log('move');
+          console.log(nav_dot.scrollLeft + distance * num);
+          */
+          // アニメーション実行方法
+
+          // web animation api
+
+          nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
+            duration: 500,
+            fill: 'forwards',
+          });
+
+          // 「web animation api」より動作が重い。
+          // Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
+          // Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
+
+          // iOS Safariでは正常に動かず。
+          //btn.scrollIntoView({ behavior: 'smooth' });
+
+          // / アニメーション実行方法
+        } else {
+          btn.classList.remove(ac_class);
+        }
+      });
+    };
+
+    // 「dot」ボタンを押した時に実行する関数。
+    const onDotBtn = (e) => {
+      if (e instanceof Event) {
+        // クリックされた「dotボタン」
+        const clicked_btn = e.currentTarget;
+
+        // クリックされた「dotボタン」のID
+        const clicked_btn_id = clicked_btn.id;
+
+        btnsUpdate(clicked_btn_id);
+
+        // クリックされたdotの位置を取得。
+        const btn_id = clicked_btn.dataset.id;
+        //console.log(btn_id);
+
+        pos.value = Number(btn_id);
+
+        // 新たに表示するデータを切り出す為の処理。
+        // 開始位置。
+        update();
+      }
+    };
+
+    //「前へ」のボタンが押された時に実行する関数。
+    const onPrevBtn = () => {
+      let new_pos = pos.value - 1;
+
+      if (new_pos < 0) {
+        new_pos = 0;
+      }
+
+      pos.value = new_pos;
+
+      //「dot」ボタンの表示を更新。
+      const btn_id = `btn${new_pos}`;
+      btnsUpdate(btn_id);
+
+      update();
+    };
+
+    //「次へ」のボタンが押された時に実行する関数。
+    const onNextBtn = () => {
+      let new_pos = pos.value + 1;
+
+      const last = dots.value - 1;
+
+      if (new_pos > last) {
+        new_pos = last;
+      }
+      pos.value = new_pos;
+
+      //「dot」ボタンの表示を更新。
+      const btn_id = `btn${new_pos}`;
+      btnsUpdate(btn_id);
+
+      update();
+    };
 
     onMounted(() => {
-      division_recalculation();
+      division_recalculation().then(() => {
+        generatePagination();
+        listsUpdata();
+        // 初期化処理。
+        // dotボタンを全て取得。
+        const btns = btn_refs.value;
+
+        // 初期化時の位置に該当するdotボタンにクラスを付ける。
+
+        const init_btn = btns[pos_init];
+        init_btn.classList.add(ac_class);
+
+        triBtnUpdate();
+        // /初期化処理。
+      });
     });
+
+    onUnmounted(() => {});
 
     // 高さを取得し計算して分割する検証。
 
@@ -276,8 +456,15 @@ export default {
       datalist,
       lists,
       nav_ref,
+      nav_dot_ref,
+      prevBtn_ref,
+      nextBtn_ref,
+      btn_refs,
       page_number_ref,
       measurement_ref,
+      onDotBtn,
+      onPrevBtn,
+      onNextBtn,
       pos,
       dots,
       displayNumber,
