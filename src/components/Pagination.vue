@@ -40,7 +40,7 @@
 
     <div class="page_number" ref="page_number_ref" v-show="nav_off">
       {{ pos + 1 }} ページ / ページ数 : {{ dots }} / ページ毎の表示数 :
-      {{ displayNumber }} / 総数 :
+      {{ lists.data.length }} / 総数 :
       {{ datalist.data.length }}
     </div>
 
@@ -98,9 +98,6 @@ export default {
     // 「dot」ボタンの数
     let dots = ref(0);
 
-    // 一度に表示する 「Pagination」の数。
-    const displayNumber = ref(props.num_of_display);
-
     // 分割数。
     let divisionNumber = ref(0);
 
@@ -150,7 +147,7 @@ export default {
         measurement_elem.setAttribute('style', 'display:none');
 
         //console.log(lists);
-        console.log(list_elements_height);
+        //console.log(list_elements_height);
       }
 
       // ブラウザの表示高さからpaginationの表示数を割り出す処理。
@@ -225,6 +222,11 @@ export default {
     const listsUpdata = () => {
       //console.log('listsUpdata');
 
+      // ページの表示サイズ変更で「pos(現在地)」がページ分割数の数を超えた際の回避処理。
+      if (pos.value > numbers_of_display_contents.length) {
+        pos.value = numbers_of_display_contents.length - 1;
+      }
+
       // データ切り出し開始位置。
       let start_index = 0;
 
@@ -261,6 +263,13 @@ export default {
       console.log('index');
       console.log(start_index);
       console.log(end_index);
+
+      // ページの表示サイズ変更で「undefined」になった際の回避処理。
+
+      if (start_index === undefined || end_index === undefined) {
+        start_index = 0;
+        end_index = 3;
+      }
 
       // 表示されるデータの配列を更新。
       lists.data = datalist.data.slice(start_index, end_index);
@@ -300,18 +309,22 @@ export default {
       /*
       console.log('pos.value');
       console.log(pos.value);
-   
+
       console.log('dots.value');
       console.log(dots.value);
               */
     };
 
-    const update = () => {
+    const update = (id = 0) => {
       division_recalculation().then(() => {
         generatePagination();
         listsUpdata();
         triBtnUpdate();
-      });
+
+        setTimeout(() => {
+          btnsUpdate(id);
+        });
+      }, 0);
     };
 
     update();
@@ -336,8 +349,13 @@ export default {
     // 「dotBtn」の表示状態を更新する。
     const btnsUpdate = (id = 0) => {
       console.log('btnsUpdate');
+      //console.log(id);
+
+      let id2 = id;
+
       // dotボタンを全て取得。
       const btns = btn_refs.value;
+      console.log(btns.length);
 
       // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
       const nav_dot = nav_dot_ref.value;
@@ -346,12 +364,25 @@ export default {
       // アニメーション移動距離。
       let distance = Number(nav_dot.scrollWidth) / dots.value;
 
+      /*
+      console.log('nav_dot.scrollWidth');
+      console.log(nav_dot.scrollWidth);
+      */
+
+      // ページ数が多い時から少ない時に可変して最後のページ数より現在地が超えていた時の補正。
+      if (id > btns.length - 1) {
+        id2 = btns.length - 1;
+      }
+
+      let move_flag = false;
+
       // dotボタンに付いている「ac_class」を省く。
       btns.forEach((btn) => {
         //console.log(btn);
         const btn_id = btn.id;
+        //console.log(btn_id);
 
-        if (btn_id === id) {
+        if (btn_id === `btn${id2}`) {
           // クリックされた「dotボタン」にクラスを付ける。
           btn.classList.add(ac_class);
 
@@ -365,10 +396,9 @@ export default {
           // animation 移動量。
           const move = nav_dot.scrollLeft + distance * num;
 
-          /*
           console.log('move');
           console.log(nav_dot.scrollLeft + distance * num);
-          */
+
           // アニメーション実行方法
 
           // web animation api
@@ -386,10 +416,20 @@ export default {
           //btn.scrollIntoView({ behavior: 'smooth' });
 
           // / アニメーション実行方法
+
+          move_flag = true;
         } else {
           btn.classList.remove(ac_class);
         }
       });
+
+      // ページ数が多い時から少ない時に可変して最後のページ数より現在地が超えていた時。
+      if (!move_flag) {
+        nav_dot.animate([{ transform: `translate(${0}px,0)` }], {
+          duration: 500,
+          fill: 'forwards',
+        });
+      }
     };
 
     // 「dot」ボタンを押した時に実行する関数。
@@ -401,17 +441,16 @@ export default {
         // クリックされた「dotボタン」のID
         const clicked_btn_id = clicked_btn.id;
 
-        btnsUpdate(clicked_btn_id);
-
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
         //console.log(btn_id);
 
+        //現在地を再設定。
         pos.value = Number(btn_id);
 
         // 新たに表示するデータを切り出す為の処理。
         // 開始位置。
-        update();
+        update(clicked_btn_id);
       }
     };
 
@@ -426,10 +465,7 @@ export default {
       pos.value = new_pos;
 
       //「dot」ボタンの表示を更新。
-      const btn_id = `btn${new_pos}`;
-      btnsUpdate(btn_id);
-
-      update();
+      update(new_pos);
     };
 
     //「次へ」のボタンが押された時に実行する関数。
@@ -444,10 +480,7 @@ export default {
       pos.value = new_pos;
 
       //「dot」ボタンの表示を更新。
-      const btn_id = `btn${new_pos}`;
-      btnsUpdate(btn_id);
-
-      update();
+      update(new_pos);
     };
 
     onMounted(() => {
@@ -484,7 +517,6 @@ export default {
       measurement_ref,
       pos,
       dots,
-      displayNumber,
       onDotBtn,
       onPrevBtn,
       onNextBtn,
