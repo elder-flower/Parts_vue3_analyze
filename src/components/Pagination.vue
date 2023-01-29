@@ -184,19 +184,18 @@ export default {
 
         console.log('numbers_of_display_contents');
         console.log(numbers_of_display_contents);
-
-        const generatePagination = () => {
-          totalNumber.value = datalist.data.length;
-
-          // 分割数を割り出す。
-          divisionNumber.value = numbers_of_display_contents.length;
-
-          // 「dot」ボタンの数を算出。
-          dots.value = divisionNumber.value;
-        };
-
-        generatePagination();
       }
+    };
+
+    // pagination生成の為の基本的パラメータを設定。
+    const generatePagination = () => {
+      totalNumber.value = datalist.data.length;
+
+      // 分割数を割り出す。
+      divisionNumber.value = numbers_of_display_contents.length;
+
+      // 「dot」ボタンの数を算出。
+      dots.value = divisionNumber.value;
     };
 
     // 表示されるデータの配列。リアクティブにする為、「reactive」でラッピング。
@@ -240,6 +239,7 @@ export default {
 
     const update = () => {
       division_recalculation().then(() => {
+        generatePagination();
         listsUpdata();
       });
     };
