@@ -224,18 +224,30 @@ export default {
       // データ切り出し開終了位置。
       let end_index = 0;
 
-      let prev_pos = pos.value - 1;
+      let prev_pos = ref(pos.value - 1);
 
-      if (prev_pos < 0) {
+      /*
+      console.log('pos.value');
+      console.log(pos.value);
+      console.log('prev_pos');
+      console.log(prev_pos.value);
+      */
+
+      if (prev_pos.value < 0) {
+        //console.log('prev_pos.value < 0');
         start_index = 0;
         end_index = numbers_of_display_contents[pos.value];
         if (end_index === undefined) {
           end_index = datalist.data.length;
         }
       } else {
-        start_index =
-          numbers_of_display_contents[pos.value] -
-          numbers_of_display_contents[prev_pos];
+        /*
+        console.log('not prev_pos.value < 0');
+        console.log(numbers_of_display_contents[pos.value]);
+        console.log(numbers_of_display_contents[prev_pos.value]);
+        */
+
+        start_index = numbers_of_display_contents[prev_pos.value];
         end_index = numbers_of_display_contents[pos.value];
       }
 
