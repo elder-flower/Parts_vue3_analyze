@@ -1,6 +1,6 @@
 <template>
   <div class="pagination_wrapper">
-    <div ref="nav_ref">
+    <div ref="nav_ref" v-show="nav_off">
       <div class="nav">
         <button
           class="triBtn prevBtn"
@@ -38,8 +38,8 @@
       <!-- 書き換える場所 -->
     </section>
 
-    <div class="page_number" ref="page_number_ref">
-      {{ pos + 1 }} / ページ数 : {{ dots }} / ページ毎の表示数 :
+    <div class="page_number" ref="page_number_ref" v-show="nav_off">
+      {{ pos + 1 }} ページ / ページ数 : {{ dots }} / ページ毎の表示数 :
       {{ displayNumber }} / 総数 :
       {{ datalist.data.length }}
     </div>
@@ -70,7 +70,7 @@ export default {
   props: ['datalist', 'start_pos'],
   //emits: [''],
   setup(props) {
-    const datalist = reactive({ data: [] });
+    const datalist = reactive({ data: undefined });
     datalist.data = props.datalist;
 
     /*
@@ -79,6 +79,13 @@ export default {
     */
 
     // Pagination 生成処理。
+    // ナビゲーションの表示切り替え。
+    const nav_off = ref(true);
+
+    if (datalist.data.length === 0 || datalist.data == undefined) {
+      nav_off.value = false;
+    }
+
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
 
@@ -475,16 +482,13 @@ export default {
       btn_refs,
       page_number_ref,
       measurement_ref,
-      onDotBtn,
-      onPrevBtn,
-      onNextBtn,
       pos,
       dots,
       displayNumber,
-
+      onDotBtn,
       onPrevBtn,
       onNextBtn,
-      onDotBtn,
+      nav_off,
     };
   },
 };
