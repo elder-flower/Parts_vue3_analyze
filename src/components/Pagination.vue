@@ -216,7 +216,7 @@ export default {
 
     // 表示するデータを更新する関数。
     const listsUpdata = () => {
-      console.log('listsUpdata');
+      //console.log('listsUpdata');
 
       // データ切り出し開始位置。
       let start_index = 0;
@@ -250,7 +250,7 @@ export default {
 
     //「triBtn」の表示状態を更新する。
     const triBtnUpdate = () => {
-      console.log('triBtnUpdate');
+      //console.log('triBtnUpdate');
       // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
       const inactive_class = 'inactive';
 
@@ -281,9 +281,10 @@ export default {
       /*
       console.log('pos.value');
       console.log(pos.value);
-           */
+   
       console.log('dots.value');
       console.log(dots.value);
+              */
     };
 
     const update = () => {
