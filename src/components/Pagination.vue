@@ -439,7 +439,11 @@ export default {
         const clicked_btn = e.currentTarget;
 
         // クリックされた「dotボタン」のID
-        const clicked_btn_id = clicked_btn.id;
+        const clicked_btn_id_str = clicked_btn.id;
+
+        const clicked_btn_id = Number(clicked_btn_id_str.split('btn')[1]);
+        console.log('clicked_btn_id');
+        console.log(clicked_btn_id);
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
