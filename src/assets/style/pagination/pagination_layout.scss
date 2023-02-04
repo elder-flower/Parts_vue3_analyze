@@ -1,6 +1,7 @@
 .pagination_wrapper {
   display: grid;
-  grid-template-rows: max-content auto 40px;
+  //grid-template-rows: max-content auto 40px;
+  grid-template-rows: max-content auto max-content;
   height: 100vh;
 }
 .lists,
