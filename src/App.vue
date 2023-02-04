@@ -32,7 +32,8 @@ export default {
 
     const data_generate = () => {
       const data2 = [];
-      // 50個のダミーデータ。
+
+      // ダミーデータ。
       for (let i = 1; i < totalNumber; i++) {
         data2.push({ id: i, txt: `txt${i}` });
       }
@@ -40,6 +41,7 @@ export default {
       data.list = data2;
     };
 
+    // 改行で要素の高さを変更したダミーデータ。
     const data_generate2 = () => {
       totalNumber = 18;
       console.log('data_generate2');

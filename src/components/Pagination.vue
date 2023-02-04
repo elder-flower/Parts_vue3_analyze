@@ -70,7 +70,8 @@ export default {
   props: ['datalist', 'start_pos'],
   //emits: [''],
   setup(props) {
-    const datalist = reactive({ data: undefined });
+    // 「PagiNation」で表示させるデータ（型：配列）
+    const datalist = reactive({ data: [] });
     datalist.data = props.datalist;
 
     /*
@@ -79,10 +80,11 @@ export default {
     */
 
     // Pagination 生成処理。
+
     // ナビゲーションの表示切り替え。
     const nav_off = ref(true);
 
-    if (datalist.data.length === 0 || datalist.data == undefined) {
+    if (datalist.data.length < 2 || datalist.data == undefined) {
       nav_off.value = false;
     }
 
@@ -355,6 +357,7 @@ export default {
 
       // dotボタンを全て取得。
       const btns = btn_refs.value;
+      console.log('btns.length');
       console.log(btns.length);
 
       // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
@@ -377,51 +380,53 @@ export default {
       let move_flag = false;
 
       // dotボタンに付いている「ac_class」を省く。
-      btns.forEach((btn) => {
-        //console.log(btn);
-        const btn_id = btn.id;
-        //console.log(btn_id);
+      if (btns.length !== 0) {
+        btns.forEach((btn) => {
+          //console.log(btn);
+          const btn_id = btn.id;
+          //console.log(btn_id);
 
-        if (btn_id === `btn${id2}`) {
-          // クリックされた「dotボタン」にクラスを付ける。
-          btn.classList.add(ac_class);
+          if (btn_id === `btn${id2}`) {
+            // クリックされた「dotボタン」にクラスを付ける。
+            btn.classList.add(ac_class);
 
-          // その部分に遷移する。
-          let num = Number(btn.dataset.id) - 1;
+            // その部分に遷移する。
+            let num = Number(btn.dataset.id) - 1;
 
-          if (num < 0) {
-            num = 0;
+            if (num < 0) {
+              num = 0;
+            }
+
+            // animation 移動量。
+            const move = nav_dot.scrollLeft + distance * num;
+
+            console.log('move');
+            console.log(nav_dot.scrollLeft + distance * num);
+
+            // アニメーション実行方法
+
+            // web animation api
+
+            nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
+              duration: 500,
+              fill: 'forwards',
+            });
+
+            // 「web animation api」より動作が重い。
+            // Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
+            // Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
+
+            // iOS Safariでは正常に動かず。
+            //btn.scrollIntoView({ behavior: 'smooth' });
+
+            // / アニメーション実行方法
+
+            move_flag = true;
+          } else {
+            btn.classList.remove(ac_class);
           }
-
-          // animation 移動量。
-          const move = nav_dot.scrollLeft + distance * num;
-
-          console.log('move');
-          console.log(nav_dot.scrollLeft + distance * num);
-
-          // アニメーション実行方法
-
-          // web animation api
-
-          nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
-            duration: 500,
-            fill: 'forwards',
-          });
-
-          // 「web animation api」より動作が重い。
-          // Velocity(nav_dot, { translateX: move * -1 }, { duration: 500 });
-          // Velocity(nav_dot, { translate: move * -1 }, { duration: 500 });
-
-          // iOS Safariでは正常に動かず。
-          //btn.scrollIntoView({ behavior: 'smooth' });
-
-          // / アニメーション実行方法
-
-          move_flag = true;
-        } else {
-          btn.classList.remove(ac_class);
-        }
-      });
+        });
+      }
 
       // ページ数が多い時から少ない時に可変して最後のページ数より現在地が超えていた時。
       if (!move_flag) {
@@ -498,7 +503,14 @@ export default {
         // 初期化時の位置に該当するdotボタンにクラスを付ける。
 
         const init_btn = btns[pos_init];
-        init_btn.classList.add(ac_class);
+        /*
+        console.log('init_btn');
+        console.log(init_btn);
+        */
+
+        if (init_btn !== undefined) {
+          init_btn.classList.add(ac_class);
+        }
 
         triBtnUpdate();
         // /初期化処理。
