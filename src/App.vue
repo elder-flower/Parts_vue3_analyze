@@ -1,6 +1,24 @@
 <template>
   <main id="main">
     <Pagination v-bind:datalist="data.list" v-bind:start_pos="start_position">
+      <template v-slot:default="slotProp">
+        <!-- 書き換える場所 -->
+        <section v-for="i in slotProp.list" v-bind:key="i.id">
+          <a class="list">
+            list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
+          >
+        </section>
+        <!-- 書き換える場所 -->
+      </template>
+      <!--  計測用のラッパー要素 -->
+      <template v-slot:measurement="slotProp">
+        <!--「Pagination」に渡された全データを生成する処理。-->
+        <section v-for="i in slotProp.list" v-bind:key="i.id">
+          <a class="measurement_list">
+            list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
+          >
+        </section>
+      </template>
     </Pagination>
   </main>
 </template>

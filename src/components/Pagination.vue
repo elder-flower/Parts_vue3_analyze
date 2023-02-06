@@ -29,13 +29,7 @@
     </div>
 
     <section class="lists">
-      <!-- 書き換える場所 -->
-      <section v-for="i in lists.data" v-bind:key="i.id">
-        <a class="list">
-          list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
-        >
-      </section>
-      <!-- 書き換える場所 -->
+      <slot v-bind:list="lists.data" name="default"></slot>
     </section>
 
     <div class="page_number" ref="page_number_ref" v-show="nav_off">
@@ -44,12 +38,10 @@
       {{ datalist.data.length }}
     </div>
 
+    <!--  計測用のラッパー要素 -->
     <section id="measurement" ref="measurement_ref">
-      <section v-for="i in datalist.data" v-bind:key="i.id">
-        <a class="measurement_list">
-          list {{ i.id }} {{ i.txt }}<br />{{ i.txt2 }}<br />{{ i.txt3 }}</a
-        >
-      </section>
+      <!--「Pagination」に渡された全データを生成する処理。-->
+      <slot v-bind:list="datalist.data" name="measurement"></slot>
     </section>
   </div>
 </template>
@@ -58,9 +50,9 @@ import {
   ref,
   reactive,
   watch,
-  watchEffect,
-  onBeforeUpdate,
-  onBeforeMount,
+  // watchEffect,
+  // onBeforeUpdate,
+  // onBeforeMount,
   onMounted,
   onUnmounted,
 } from 'vue';
@@ -107,13 +99,14 @@ export default {
     let totalNumber = ref(0);
 
     // 高さを取得し計算する処理。
-    // 「nav」要素の高さを取得する用。
+
+    // 「nav」要素を取得する為のref要素。
     const nav_ref = ref('');
 
-    // 「footer」の高さ。
+    // 「footer」要素を取得する為のref要素。
     const page_number_ref = ref('');
 
-    // 計測用のラッパー要素を取得。
+    // 計測用のラッパー要素を取得する為のref要素。
     const measurement_ref = ref('');
 
     //「dot」ボタン要素を取得する為のref要素。
@@ -122,11 +115,13 @@ export default {
     //「dot」ボタンのラッパー要素を取得する為のref要素。
     const nav_dot_ref = ref('');
 
+    //「前へ」ボタンのラッパー要素を取得する為のref要素。
     const prevBtn_ref = ref('');
 
+    //「次へ」ボタンのラッパー要素を取得する為のref要素。
     const nextBtn_ref = ref('');
 
-    // 各paginationの子要素の高さの値を入れる変数。
+    // 「Pagination」の各子要素の高さの値を入れる変数。
     let list_elements_height = [];
 
     // 各ページの表示数を入れる配列。
@@ -135,32 +130,52 @@ export default {
     // 高さを取得し計算して分割する関数。
     const division_recalculation = async () => {
       console.log('division_recalculation');
+
       const doc = document;
+
+      // 計測用の各子要素の表示高さを取得する処理。
       if (measurement_ref.value !== '') {
+        // 計測用の要素が取得出来た場合。
+
         const measurement_elem = measurement_ref.value;
+
+        // 計測用の各子要素を取得。
         const lists = doc.getElementsByClassName('measurement_list');
+
+        // 計測用の各子要素の表示高さを入れる配列。初期化する。
         list_elements_height = [];
 
+        // 計測用の要素を一瞬だけ表示する。
         measurement_elem.setAttribute('style', 'display:flex');
 
+        // 計測用の各子要素の表示高さを取得。
         for (let aa = 0; aa < lists.length; aa++) {
           list_elements_height.push(lists[aa].clientHeight);
         }
+
+        // 計測用の要素を非表示にする。
         measurement_elem.setAttribute('style', 'display:none');
 
         //console.log(lists);
         //console.log(list_elements_height);
       }
 
-      // ブラウザの表示高さからpaginationの表示数を割り出す処理。
+      // ブラウザの表示高さから「Pagination」の表示数を割り出す処理。
       if (nav_ref.value !== '' && page_number_ref.value !== '') {
+        // 各ページの表示数を入れる配列。初期化。
         numbers_of_display_contents = [];
+
         const html = doc.documentElement;
         const nav_area = nav_ref.value;
         const page_number_area = page_number_ref.value;
 
+        // ブラウザの表示領域の高さを取得。
         const html_height = html.clientHeight;
+
+        //「nav」要素の表示領域の高さを取得。
         const nav_area_height = nav_area.clientHeight;
+
+        //「footer」要素の表示領域の高さを取得。
         const page_number_area_height = page_number_area.clientHeight;
 
         /*
@@ -169,6 +184,8 @@ export default {
         console.log(pagination_area_height);
         console.log(page_number_area_height);
         */
+
+        //「Pagination」要素が表示出来る高さを算出。
         const pagination_max_height =
           html_height - nav_area_height - page_number_area_height;
 
@@ -179,12 +196,14 @@ export default {
 
         let index = 0;
 
-        //「offset」を取らないとレイアウト的に少しずれるので防止用。
+        //「Pagination」要要素が表示出来る高さから「offset」を取る。（「offset」で引かないとレイアウト的に少しずれるので防止用。）
         const offset = 50;
 
+        //「表示出来る高さ」から表示数を算出する処理。
         while (index < list_elements_height.length) {
           let content_height = 0;
 
+          //「Pagination」要要素が表示出来る高さ（「offset」で引いた値）まで子要素を足す。
           while (
             content_height + list_elements_height[index] + offset <
             pagination_max_height
@@ -196,19 +215,23 @@ export default {
           console.log('content_height');
           console.log(content_height);
           */
+
+          //「1つのページに表示する数」が決まったので配列に追加。
           numbers_of_display_contents.push(index);
         }
 
+        // 各ページの表示数が決まり、値が格納された配列。
         console.log('numbers_of_display_contents');
         console.log(numbers_of_display_contents);
       }
     };
 
-    // pagination生成の為の基本的パラメータを設定。
+    // 「Pagination」生成の為の基本的パラメータを設定。
     const generatePagination = () => {
+      // 総数
       totalNumber.value = datalist.data.length;
 
-      // 分割数を割り出す。
+      // 高さを算出した結果を元に「分割数」を割り出す。
       divisionNumber.value = numbers_of_display_contents.length;
 
       // 「dot」ボタンの数を算出。
@@ -235,6 +258,7 @@ export default {
       // データ切り出し開終了位置。
       let end_index = 0;
 
+      // 現在地の一つ前のpos値。
       let prev_pos = ref(pos.value - 1);
 
       /*
@@ -245,8 +269,11 @@ export default {
       */
 
       if (prev_pos.value < 0) {
+        // 現在地が1番最初の時。
+
         //console.log('prev_pos.value < 0');
         start_index = 0;
+
         end_index = numbers_of_display_contents[pos.value];
         if (end_index === undefined) {
           end_index = datalist.data.length;
@@ -257,8 +284,10 @@ export default {
         console.log(numbers_of_display_contents[pos.value]);
         console.log(numbers_of_display_contents[prev_pos.value]);
         */
-
+        // 表示開始位置
         start_index = numbers_of_display_contents[prev_pos.value];
+
+        // 表示終了位置
         end_index = numbers_of_display_contents[pos.value];
       }
 
@@ -278,7 +307,7 @@ export default {
       //console.log(lists.data);
     };
 
-    //「triBtn」の表示状態を更新する。
+    // ページの存在状況により「triBtn」の表示状態を更新する。
     const triBtnUpdate = () => {
       //console.log('triBtnUpdate');
       // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
@@ -292,6 +321,7 @@ export default {
       console.log(pos.value);
       */
 
+      //「前のページ」が存在しない場合は「前へ」ボタンの非表示処理。
       if (prevBtn_ref.value !== '') {
         if (pos.value === 0) {
           prevBtn.classList.add(inactive_class);
@@ -300,6 +330,7 @@ export default {
         }
       }
 
+      //「次のページ」が存在しない場合は「次へ」ボタンの非表示処理。
       if (nextBtn_ref.value !== '') {
         if (pos.value === dots.value - 1) {
           nextBtn.classList.add(inactive_class);
@@ -317,6 +348,7 @@ export default {
               */
     };
 
+    // 高さを再計算し「Pagination」を再生成する処理。
     const update = (id = 0) => {
       division_recalculation().then(() => {
         generatePagination();
@@ -357,14 +389,16 @@ export default {
 
       // dotボタンを全て取得。
       const btns = btn_refs.value;
+      /*
       console.log('btns.length');
       console.log(btns.length);
+      */
 
       // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
       const nav_dot = nav_dot_ref.value;
       //console.log(nav_dot.scrollWidth);
 
-      // アニメーション移動距離。
+      /// アニメーション移動距離を案出。
       let distance = Number(nav_dot.scrollWidth) / dots.value;
 
       /*
@@ -377,9 +411,10 @@ export default {
         id2 = btns.length - 1;
       }
 
+      // 移動アニメーションが実行された時に「true」になるflag。
       let move_flag = false;
 
-      // dotボタンに付いている「ac_class」を省く。
+      // 現在地に該当する「dot」ボタンに「ac_class」を付与してそれ以外のdotボタンに付いている「ac_class」を省く。
       if (btns.length !== 0) {
         btns.forEach((btn) => {
           //console.log(btn);
@@ -390,7 +425,7 @@ export default {
             // クリックされた「dotボタン」にクラスを付ける。
             btn.classList.add(ac_class);
 
-            // その部分に遷移する。
+            // その部分に遷移するアニメーション処理。
             let num = Number(btn.dataset.id) - 1;
 
             if (num < 0) {
@@ -407,6 +442,7 @@ export default {
 
             // web animation api
 
+            // アニメーション実行。
             nav_dot.animate([{ transform: `translate(${move * -1}px,0)` }], {
               duration: 500,
               fill: 'forwards',
@@ -421,6 +457,7 @@ export default {
 
             // / アニメーション実行方法
 
+            // アニメーションを実行したので「true」
             move_flag = true;
           } else {
             btn.classList.remove(ac_class);
@@ -429,6 +466,7 @@ export default {
       }
 
       // ページ数が多い時から少ない時に可変して最後のページ数より現在地が超えていた時。
+      // 移動アニメーションが実行されない場合で「dot」が表示されていなかった場合の回避処理。
       if (!move_flag) {
         nav_dot.animate([{ transform: `translate(${0}px,0)` }], {
           duration: 500,
@@ -444,22 +482,27 @@ export default {
         const clicked_btn = e.currentTarget;
 
         // クリックされた「dotボタン」のID
+        // 例「btn1」
+        /*
         const clicked_btn_id_str = clicked_btn.id;
+        console.log(clicked_btn_id_str);
 
         const clicked_btn_id = Number(clicked_btn_id_str.split('btn')[1]);
         console.log('clicked_btn_id');
         console.log(clicked_btn_id);
+        */
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
-        //console.log(btn_id);
+        console.log(btn_id);
 
         //現在地を再設定。
         pos.value = Number(btn_id);
 
         // 新たに表示するデータを切り出す為の処理。
         // 開始位置。
-        update(clicked_btn_id);
+        //update(clicked_btn_id);
+        update(btn_id);
       }
     };
 
@@ -501,7 +544,6 @@ export default {
         const btns = btn_refs.value;
 
         // 初期化時の位置に該当するdotボタンにクラスを付ける。
-
         const init_btn = btns[pos_init];
         /*
         console.log('init_btn');
