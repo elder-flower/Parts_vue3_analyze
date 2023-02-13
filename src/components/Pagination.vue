@@ -59,12 +59,14 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist', 'start_pos'],
+  props: ['datalist', 'start_pos', 'class_name'],
   //emits: [''],
   setup(props) {
     // 「PagiNation」で表示させるデータ（型：配列）
     const datalist = reactive({ data: [] });
     datalist.data = props.datalist;
+
+    const measurement_class_name = props.class_name;
 
     /*
     console.log('datalist.data ');
@@ -140,7 +142,7 @@ export default {
         const measurement_elem = measurement_ref.value;
 
         // 計測用の各子要素を取得。
-        const lists = doc.getElementsByClassName('measurement_list');
+        const lists = doc.getElementsByClassName(measurement_class_name);
 
         // 計測用の各子要素の表示高さを入れる配列。初期化する。
         list_elements_height = [];

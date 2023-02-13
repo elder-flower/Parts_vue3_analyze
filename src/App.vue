@@ -1,6 +1,10 @@
 <template>
   <main id="main">
-    <Pagination v-bind:datalist="data.list" v-bind:start_pos="start_position">
+    <Pagination
+      v-bind:datalist="data.list"
+      v-bind:start_pos="start_position"
+      v-bind:class_name="class_name"
+    >
       <template v-slot:default="slotProp">
         <!-- 書き換える場所 -->
         <section v-for="i in slotProp.list" v-bind:key="i.id">
@@ -32,12 +36,6 @@ export default {
   components: { Pagination },
 
   setup() {
-    // 「pagination」の基本設定。
-
-    // 初期化時に表示するページ位置。
-    const start_position = 0;
-
-    // /「pagination」の基本設定。
     // 仮想受信したデータ生成処理。
 
     // 仮想受信したデータ総数。
@@ -82,7 +80,16 @@ export default {
 
     // / 仮想受信したデータ生成処理。
 
-    return { data, start_position };
+    // 「pagination」の基本設定。
+
+    // 初期化時に表示するページ位置。
+    const start_position = 0;
+
+    // 計測用に取得する要素に指定するクラス名。
+    const class_name = 'measurement_list';
+
+    // /「pagination」の基本設定。
+    return { data, start_position, class_name };
   },
 };
 </script>
