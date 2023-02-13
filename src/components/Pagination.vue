@@ -194,6 +194,11 @@ export default {
         console.log(pagination_max_height);
         */
 
+        //「limit」回数 While ループしたら強制終了させる。
+        const limit = 50;
+        let count = 0;
+
+        // 1ページ毎に表示させる数を入れる変数。
         let index = 0;
 
         //「Pagination」要要素が表示出来る高さから「offset」を取る。（「offset」で引かないとレイアウト的に少しずれるので防止用。）
@@ -218,6 +223,10 @@ export default {
 
           //「1つのページに表示する数」が決まったので配列に追加。
           numbers_of_display_contents.push(index);
+          count++;
+          if (count > limit) {
+            break;
+          }
         }
 
         // 各ページの表示数が決まり、値が格納された配列。
