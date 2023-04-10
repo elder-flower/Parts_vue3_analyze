@@ -31,11 +31,8 @@ export default {
 
     // 1ページに表示するコンテンツ数。
     let number_of_display_contents = ref(7);
-
     // /「pagination」の基本設定。
-    // 仮想受信したデータ生成処理。
 
-    // 仮想受信したデータ総数。
     let totalNumber = 21;
 
     // 仮想受信したデータ。
@@ -51,23 +48,7 @@ export default {
       data.value = data2;
     };
 
-    const data_generate2 = () => {
-      number_of_display_contents.value = 4;
-      totalNumber = 18;
-      console.log('data_generate2');
-      const data2 = [];
-      // 50個のダミーデータ。
-      for (let i = 1; i < totalNumber; i++) {
-        data2.push({ id: i, txt: `txt:${i}:a` });
-      }
-      data.value = data2;
-    };
-
     data_generate();
-
-    setTimeout(data_generate2, 2000);
-
-    // / 仮想受信したデータ生成処理。
 
     return { data, start_position, number_of_display_contents };
   },
