@@ -1,5 +1,5 @@
 <template>
-  <categoryMenu></categoryMenu>
+  <categoryMenu v-bind:menu="menuData"></categoryMenu>
 </template>
 
 <script>
