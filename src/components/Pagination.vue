@@ -326,7 +326,7 @@ export default {
 
     // タッチスクロールイベント関連処理。
     // タッチスクロールで「pagination」の切り替えを行う場合は「true」;
-    const isScrollSnap = true;
+    const isScrollSnap = false;
 
     onBeforeUpdate(() => {
       // 横タッチスクロールした際に少しずれる為、完全固定させる為にhtml要素に「overflow-y:hidden」を付ける。

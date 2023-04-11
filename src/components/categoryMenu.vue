@@ -1,13 +1,17 @@
 <template>
   <main id="main">
     <Pagination
-      v-bind:datalist="data"
+      v-bind:datalist="menuData?.data?.children"
       v-bind:start_pos="start_position"
       v-bind:num_of_display="number_of_display_contents"
     >
       <template v-slot:default="slotProp">
-        <section v-for="i in slotProp.list" v-bind:key="i.id">
-          <a class="list"> list {{ i.id }} {{ i.txt }} </a>
+        <section
+          v-for="i in slotProp.list"
+          v-bind:key="i.id"
+          v-on:click="onSelect(i.type)"
+        >
+          <a class="list"> {{ i.menu_id }} {{ i.type }} </a>
         </section>
       </template></Pagination
     >
@@ -16,41 +20,36 @@
 
 <script>
 //import Velocity from 'velocity-animate';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import Pagination from './Pagination.vue';
 
 export default {
   name: 'categoryMenu',
+  props: ['menu'],
   components: { Pagination },
 
-  setup() {
+  setup(props, context) {
+    const menuData = reactive({ data: {} });
+    menuData.data = props.menu?.data ? props.menu?.data : {};
+
+    console.log('props.menu');
+    console.log(props.menu);
+
+    const onSelect = (arg) => {
+      console.log('onSelect');
+      console.log(arg);
+      context.emit('select', arg);
+    };
     // 「pagination」の基本設定。
 
     // 初期化時に表示するページ位置。
-    const start_position = 0;
+    const start_position = ref(0);
 
     // 1ページに表示するコンテンツ数。
     let number_of_display_contents = ref(7);
     // /「pagination」の基本設定。
 
-    let totalNumber = 21;
-
-    // 仮想受信したデータ。
-    let data = ref('[]');
-
-    const data_generate = () => {
-      const data2 = [];
-      // 50個のダミーデータ。
-      for (let i = 1; i < totalNumber; i++) {
-        data2.push({ id: i, txt: `txt${i}` });
-      }
-
-      data.value = data2;
-    };
-
-    data_generate();
-
-    return { data, start_position, number_of_display_contents };
+    return { menuData, start_position, number_of_display_contents, onSelect };
   },
 };
 </script>
