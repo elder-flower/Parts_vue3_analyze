@@ -45,6 +45,7 @@ export default {
     };
 
     const onNavigate2 = () => {
+      //menuData.data = {};
       menuData.data = categroyData;
     };
 

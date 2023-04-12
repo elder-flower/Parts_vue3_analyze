@@ -78,7 +78,7 @@ export default {
 
     // Pagination 生成処理。
     // 初期化時の位置を指定する変数。
-    const pos_init = props.start_pos;
+    const pos_init = JSON.parse(JSON.stringify(props.start_pos));
 
     // 現在表示している「Pagination」の位置。
     const pos = ref(pos_init);
