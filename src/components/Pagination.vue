@@ -58,7 +58,7 @@ export default {
   setup(props) {
     // 親から渡されたデータ。
     const datalist = reactive({ data: [] });
-    datalist.data = props.datalist;
+    datalist.data = JSON.parse(JSON.stringify(props.datalist));
 
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
@@ -411,6 +411,8 @@ export default {
       // 初期化処理。
       // dotボタンを全て取得。
       const btns = btn_refs.value;
+      // console.log('btns');
+      // console.log(btns);
 
       // 初期化時の位置に該当するdotボタンにクラスを付ける。
       const init_btn = btns[pos_init];

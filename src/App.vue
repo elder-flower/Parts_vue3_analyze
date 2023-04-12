@@ -33,14 +33,14 @@ export default {
     menuData.data = categroyData;
 
     const onNavigate = (arg) => {
-      console.log('onNavigate App');
+      console.log('App onNavigate');
 
       const arr = categroyData.children.filter((val) => val.type === arg.type);
 
       menuData.data = arr[0];
       menuData.previewID = arg.menu_id;
 
-      console.log('menuData');
+      console.log('App menuData');
       console.log(menuData);
     };
 

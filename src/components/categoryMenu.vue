@@ -33,8 +33,8 @@ export default {
     menuData.data = props.menu?.data ? props.menu?.data : {};
     menuData.previewID = props.menu?.previewID ? props.menu?.previewID : '';
 
-    console.log('categoryMenu menuData');
-    console.log(menuData);
+    // console.log('categoryMenu menuData');
+    // console.log(menuData);
 
     const onSelect = (arg) => {
       console.log('categoryMenu onSelect');
@@ -44,17 +44,21 @@ export default {
 
     // 初期化時に表示するページ位置。
     const start_position = ref(0);
-    start_position.value = menuData.data.children.findIndex(
-      (val) => val.menu_id == menuData.previewID
-    );
-
-    if (start_position.value < 0) {
-      start_position.value = 0;
-    }
-    console.log(start_position.value);
 
     // 1ページに表示するコンテンツ数。
     let number_of_display_contents = ref(7);
+
+    let page_index = menuData.data.children.findIndex(
+      (val) => val.menu_id == menuData.previewID
+    );
+
+    if (page_index < 0) {
+      page_index = 0;
+    }
+
+    start_position.value = Math.floor(
+      page_index / number_of_display_contents.value
+    );
 
     return { menuData, start_position, number_of_display_contents, onSelect };
   },
