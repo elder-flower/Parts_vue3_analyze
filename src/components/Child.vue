@@ -11,7 +11,7 @@ export default {
     const type = ref(props.menu?.data?.type);
     const onSelect = (arg) => {
       console.log('child onSelect');
-      console.log(arg);
+      // console.log(arg);
       context.emit('select');
     };
 

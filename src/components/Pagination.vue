@@ -128,7 +128,7 @@ export default {
 
     // 表示するデータを更新する関数。
     const listsUpdata = () => {
-      console.log('listsUpdata');
+      // console.log('listsUpdata');
       // データ切り出し開始位置。
       const start = pos.value * displayNumber.value;
 
@@ -144,7 +144,7 @@ export default {
 
     //「triBtn」の表示状態を更新する。
     const triBtnUpdate = () => {
-      console.log('triBtnUpdate');
+      // console.log('triBtnUpdate');
       // ページ位置で開始位置と一番最後の位置ではそれぞれ「prevBtn」と「nextBtn」が非アクティブになる際のクラス名。
       const inactive_class = 'inactive';
 
@@ -152,8 +152,8 @@ export default {
       const nextBtn = nextBtn_ref.value;
 
       /*
-      console.log('pos.value');
-      console.log(pos.value);
+      // console.log('pos.value');
+      // console.log(pos.value);
       */
 
       if (prevBtn_ref.value !== '') {
@@ -172,10 +172,10 @@ export default {
         }
       }
 
-      console.log('pos.value');
-      console.log(pos.value);
-      console.log('dots.value');
-      console.log(dots.value);
+      // console.log('pos.value');
+      // console.log(pos.value);
+      // console.log('dots.value');
+      // console.log(dots.value);
     };
 
     // 動的に「datalist.data」が変更になった場合に変更に追従する処理。
@@ -190,7 +190,7 @@ export default {
       }
       */
 
-      console.log('watchEffect');
+      // console.log('watchEffect');
 
       generatePagination();
 
@@ -205,20 +205,20 @@ export default {
 
     // 「dotBtn」の表示状態を更新する。
     const btnsUpdate = (id = 0) => {
-      console.log('btnsUpdate');
+      // console.log('btnsUpdate');
       // dotボタンを全て取得。
       const btns = btn_refs.value;
 
       // アニメーション処理のために「dot」ボタンのラッパー要素を取得。
       const nav_dot = nav_dot_ref.value;
-      //console.log(nav_dot.scrollWidth);
+      // console.log(nav_dot.scrollWidth);
 
       // アニメーション移動距離。
       let distance = Number(nav_dot.scrollWidth) / dots.value;
 
       // dotボタンに付いている「ac_class」を省く。
       btns.forEach((btn) => {
-        //console.log(btn);
+        // console.log(btn);
         const btn_id = btn.id;
 
         if (btn_id === id) {
@@ -236,8 +236,8 @@ export default {
           const move = nav_dot.scrollLeft + distance * num;
 
           /*
-          console.log('move');
-          console.log(nav_dot.scrollLeft + distance * num);
+          // console.log('move');
+          // console.log(nav_dot.scrollLeft + distance * num);
           */
           // アニメーション実行方法
 
@@ -275,7 +275,7 @@ export default {
 
         // クリックされたdotの位置を取得。
         const btn_id = clicked_btn.dataset.id;
-        //console.log(btn_id);
+        // console.log(btn_id);
 
         pos.value = Number(btn_id);
 
@@ -347,14 +347,14 @@ export default {
     const touchDownAction = (e) => {
       e.preventDefault();
       touch_scroll_log.push(e.touches[0].clientX);
-      //console.log(touch_scroll_log);
+      // console.log(touch_scroll_log);
     };
     // タッチスクロール検出時の実行関数。
     const touchScrollDetection = (e) => {
       e.preventDefault();
 
       const touchScrollDetectionMove = () => {
-        //console.log('touchScrollDetectionMove');
+        // console.log('touchScrollDetectionMove');
         // この距離以上に横スクロールされたら、その時点で次のデータを表示。。
         const distance = 10;
 
@@ -371,8 +371,8 @@ export default {
           return;
         }
         /*
-        console.log('last_scroll - first_scroll');
-        console.log(last_scroll - first_scroll);
+        // console.log('last_scroll - first_scroll');
+        // console.log(last_scroll - first_scroll);
 
         */
 
@@ -406,7 +406,7 @@ export default {
 
     // /タッチスクロール検出処理
     onMounted(() => {
-      //console.log('Component is onMounted!');
+      // console.log('Component is onMounted!');
 
       // 初期化処理。
       // dotボタンを全て取得。
@@ -422,7 +422,7 @@ export default {
       // 横タッチスクロール検出処理。
       // main要素にイベントリスナーを設定する。
       const touch_area = touch_area_ref.value;
-      //console.log(touch_area);
+      // console.log(touch_area);
 
       if (isScrollSnap) {
         touch_area.addEventListener('touchmove', touchDownAction, {
@@ -437,12 +437,12 @@ export default {
     });
 
     onUnmounted(() => {
-      //console.log('Component is onUnmounted!');
+      // console.log('Component is onUnmounted!');
 
       // 横タッチスクロール検出の解除処理。
       // main要素にイベントリスナーを設定する。
       const touch_area = touch_area_ref.value;
-      //console.log(touch_area);
+      // console.log(touch_area);
 
       if (isScrollSnap) {
         touch_area.removeEventListener('touchmove', touchDownAction, {

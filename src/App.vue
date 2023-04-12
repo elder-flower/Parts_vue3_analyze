@@ -26,17 +26,22 @@ export default {
   name: 'App',
   components: { categoryMenu, child },
   setup() {
-    const menuData = reactive({ data: {} });
+    const menuData = reactive({
+      data: {},
+      previewID: '',
+    });
     menuData.data = categroyData;
 
-    const onNavigate = (arg_type) => {
-      console.log('onNavigate');
-      console.log(arg_type);
+    const onNavigate = (arg) => {
+      console.log('onNavigate App');
 
-      const arr = categroyData.children.filter((val) => val.type === arg_type);
+      const arr = categroyData.children.filter((val) => val.type === arg.type);
 
       menuData.data = arr[0];
-      console.log(menuData.data);
+      menuData.previewID = arg.menu_id;
+
+      console.log('menuData');
+      console.log(menuData);
     };
 
     const onNavigate2 = () => {
@@ -60,6 +65,54 @@ const categroyData = {
     },
     {
       menu_id: 'c',
+      type: 'text2',
+    },
+    {
+      menu_id: 'd',
+      type: 'text2',
+    },
+    {
+      menu_id: 'e',
+      type: 'text2',
+    },
+    {
+      menu_id: 'f',
+      type: 'text2',
+    },
+    {
+      menu_id: 'g',
+      type: 'text2',
+    },
+    {
+      menu_id: 'h',
+      type: 'text2',
+    },
+    {
+      menu_id: 'i',
+      type: 'text2',
+    },
+    {
+      menu_id: 'j',
+      type: 'text2',
+    },
+    {
+      menu_id: 'k',
+      type: 'text2',
+    },
+    {
+      menu_id: 'l',
+      type: 'text2',
+    },
+    {
+      menu_id: 'm',
+      type: 'text2',
+    },
+    {
+      menu_id: 'n',
+      type: 'text2',
+    },
+    {
+      menu_id: 'o',
       type: 'text2',
     },
   ],
