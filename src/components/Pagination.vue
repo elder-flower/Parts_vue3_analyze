@@ -59,7 +59,7 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist', 'start_pos', 'class_name'],
+  props: ['datalist', 'start_pos', 'contents_pos', 'class_name'],
   //emits: [''],
   setup(props) {
     const eslint_avoid = (props) => {
@@ -91,6 +91,12 @@ export default {
 
     // 初期化時の位置を指定する変数。
     const pos_init = eslint_avoid(props.start_pos);
+
+    // 表示するコンテンツの位置を取得。=> 表示する「Pagination」の「page」位置を算出。
+    const contents_pos_init = ref(eslint_avoid(props.contents_pos));
+
+    //「Pagination」生成時の初回一回のみ「true」で2回目以降の更新処理は「false」になる。
+    let isInit = true;
 
     // 現在表示している「Pagination」の位置。
     const pos = ref(pos_init);
@@ -240,6 +246,7 @@ export default {
         }
 
         // 各ページの表示数が決まり、値が格納された配列。
+
         console.log('numbers_of_display_contents');
         console.log(numbers_of_display_contents);
       }
@@ -250,13 +257,19 @@ export default {
       // 総数
       totalNumber.value = datalist.data.length;
 
-      // 異常値が検出された場合はs「0」にfixする。
-      if (pos.value > totalNumber.value - 1) {
-        pos.value = 0;
-      }
-
       // 高さを算出した結果を元に「分割数」を割り出す。
       divisionNumber.value = numbers_of_display_contents.length;
+
+      if (isInit) {
+        let numbers_of_display =
+          numbers_of_display_contents[1] - numbers_of_display_contents[0];
+
+        if (numbers_of_display < 1) {
+          numbers_of_display = 1;
+        }
+        pos.value = Math.floor(contents_pos_init.value / numbers_of_display);
+        isInit = false;
+      }
 
       // 「dot」ボタンの数を算出。
       dots.value = divisionNumber.value;
@@ -269,7 +282,8 @@ export default {
 
     // 表示するデータを更新する関数。
     const listsUpdata = () => {
-      //console.log('listsUpdata');
+      console.log('listsUpdata');
+      console.log(pos.value);
 
       // ページの表示サイズ変更で「pos(現在地)」がページ分割数の数を超えた際の回避処理。
       if (pos.value > numbers_of_display_contents.length) {
@@ -315,9 +329,11 @@ export default {
         end_index = numbers_of_display_contents[pos.value];
       }
 
+      /*
       console.log('index');
       console.log(start_index);
       console.log(end_index);
+      */
 
       // ページの表示サイズ変更で「undefined」になった際の回避処理。
 

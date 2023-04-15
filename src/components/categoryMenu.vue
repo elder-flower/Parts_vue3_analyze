@@ -3,6 +3,7 @@
     <Pagination
       v-bind:datalist="menuData?.data?.children"
       v-bind:start_pos="start_position"
+      v-bind:contents_pos="contents_position"
       v-bind:class_name="class_name"
     >
       <template v-slot:default="slotProp">
@@ -59,28 +60,35 @@ export default {
 
     // 初期化時に表示するページ位置。
     const start_position = 0;
+    const contents_position = ref(0);
 
     // 計測用に取得する要素に指定するクラス名。
     const class_name = 'measurement_list';
 
-    // 1ページに表示するコンテンツ数。
-    /*
-    let number_of_display_contents = ref(7);
-
-    let page_index = menuData.data.children.findIndex(
+    //「子からCategoryMenu」に戻った時の「子のコンテンツの位置」。
+    let contents_index = menuData.data.children.findIndex(
       (val) => val.menu_id == menuData.previewID
     );
 
-    if (page_index < 0) {
-      page_index = 0;
+    if (contents_index < 0) {
+      contents_index = 0;
     }
 
+    contents_position.value = contents_index;
+
+    /*
     start_position.value = Math.floor(
       page_index / number_of_display_contents.value
     );
     */
 
-    return { menuData, start_position, class_name, onSelect };
+    return {
+      menuData,
+      start_position,
+      contents_position,
+      class_name,
+      onSelect,
+    };
   },
 };
 </script>
