@@ -59,7 +59,7 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist', 'start_pos', 'contents_pos', 'class_name'],
+  props: ['datalist', 'contents_pos', 'class_name'],
   //emits: [''],
   setup(props) {
     const eslint_avoid = (props) => {
@@ -89,8 +89,8 @@ export default {
     // 「dotボタン」に付けるクラス名。
     const ac_class = 'dot_active';
 
-    // 初期化時の位置を指定する変数。
-    const pos_init = eslint_avoid(props.start_pos);
+    // 初期化時の「Pagination」の位置を指定する変数。
+    const pos_init = 0;
 
     // 表示するコンテンツの位置を取得。=> 表示する「Pagination」の「page」位置を算出。
     const contents_pos_init = ref(eslint_avoid(props.contents_pos));

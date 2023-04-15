@@ -2,7 +2,6 @@
   <main id="main">
     <Pagination
       v-bind:datalist="menuData?.data?.children"
-      v-bind:start_pos="start_position"
       v-bind:contents_pos="contents_position"
       v-bind:class_name="class_name"
     >
@@ -58,8 +57,7 @@ export default {
 
     // 「pagination」の基本設定。
 
-    // 初期化時に表示するページ位置。
-    const start_position = 0;
+    // 初期化時に表示するコンテンツの配列のindex位置。
     const contents_position = ref(0);
 
     // 計測用に取得する要素に指定するクラス名。
@@ -76,15 +74,8 @@ export default {
 
     contents_position.value = contents_index;
 
-    /*
-    start_position.value = Math.floor(
-      page_index / number_of_display_contents.value
-    );
-    */
-
     return {
       menuData,
-      start_position,
       contents_position,
       class_name,
       onSelect,

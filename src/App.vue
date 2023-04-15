@@ -6,15 +6,9 @@
         v-on:select="onNavigate"
       ></categoryMenu
     ></template>
-    <template v-else-if="menuData.data.type === 'number'"
+    <template v-else-if="menuData.data.type !== 'categroy'"
       ><child v-bind:menu="menuData" v-on:select="onNavigate2"></child
     ></template>
-    <template v-else-if="menuData.data.type === 'text'">
-      <child v-bind:menu="menuData" v-on:select="onNavigate2"></child>
-    </template>
-    <template v-else-if="menuData.data.type === 'text2'">
-      <child v-bind:menu="menuData" v-on:select="onNavigate2"></child>
-    </template>
   </section>
 </template>
 
@@ -35,7 +29,9 @@ export default {
     const onNavigate = (arg) => {
       console.log('App onNavigate');
 
-      const arr = categroyData.children.filter((val) => val.type === arg.type);
+      const arr = categroyData.children.filter(
+        (val) => val.menu_id === arg.menu_id
+      );
 
       menuData.data = arr[0];
       menuData.previewID = arg.menu_id;
