@@ -260,14 +260,23 @@ export default {
       // 高さを算出した結果を元に「分割数」を割り出す。
       divisionNumber.value = numbers_of_display_contents.length;
 
+      // 親からもらったコンテンツのindex位置から「Pagination」の表示位置を算出する処理。初期化時のみ実行。
       if (isInit) {
+        //「Pagination」の1ページあたりの表示数を算出。
         let numbers_of_display =
           numbers_of_display_contents[1] - numbers_of_display_contents[0];
 
+        // 異常値である場合の回避処理。
         if (numbers_of_display < 1) {
           numbers_of_display = 1;
         }
+
         pos.value = Math.floor(contents_pos_init.value / numbers_of_display);
+
+        // 異常値である場合の回避処理。1番最初の位置に初期化。
+        if (numbers_of_display < 1) {
+          pos.value = 0;
+        }
         isInit = false;
       }
 
