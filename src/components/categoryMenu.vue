@@ -3,15 +3,28 @@
     <Pagination
       v-bind:datalist="menuData?.data?.children"
       v-bind:start_pos="start_position"
-      v-bind:num_of_display="number_of_display_contents"
+      v-bind:class_name="class_name"
     >
       <template v-slot:default="slotProp">
+        <!-- 書き換える場所 -->
         <section
           v-for="i in slotProp.list"
           v-bind:key="i.id"
           v-on:click="onSelect(i)"
         >
           <a class="list"> {{ i.menu_id }} {{ i.type }} </a>
+        </section>
+        <!-- 書き換える場所 -->
+      </template>
+      <!--  計測用のラッパー要素 -->
+      <template v-slot:measurement="slotProp">
+        <!--「Pagination」に渡された全データを生成する処理。-->
+        <section
+          v-for="i in slotProp.list"
+          v-bind:key="i.id"
+          v-on:click="onSelect(i)"
+        >
+          <a class="list measurement_list"> {{ i.menu_id }} {{ i.type }} </a>
         </section>
       </template></Pagination
     >
@@ -42,10 +55,16 @@ export default {
     };
     // 「pagination」の基本設定。
 
+    // 「pagination」の基本設定。
+
     // 初期化時に表示するページ位置。
-    const start_position = ref(0);
+    const start_position = 0;
+
+    // 計測用に取得する要素に指定するクラス名。
+    const class_name = 'measurement_list';
 
     // 1ページに表示するコンテンツ数。
+    /*
     let number_of_display_contents = ref(7);
 
     let page_index = menuData.data.children.findIndex(
@@ -59,8 +78,9 @@ export default {
     start_position.value = Math.floor(
       page_index / number_of_display_contents.value
     );
+    */
 
-    return { menuData, start_position, number_of_display_contents, onSelect };
+    return { menuData, start_position, class_name, onSelect };
   },
 };
 </script>
