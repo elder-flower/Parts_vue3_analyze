@@ -59,7 +59,13 @@ import {
 
 export default {
   name: 'PagiNation',
-  props: ['datalist', 'contents_pos', 'class_name'],
+  props: [
+    'datalist',
+    'contents_pos',
+    'pagination_margin_offset',
+    'pagination_measurement_display',
+    'pagination_measurement_class_name',
+  ],
   //emits: [''],
   setup(props) {
     const eslint_avoid = (props) => {
@@ -70,8 +76,16 @@ export default {
     const datalist = reactive({ data: [] });
     datalist.data = eslint_avoid(props.datalist);
 
-    const measurement_class_name = eslint_avoid(props.class_name);
+    const measurement_class_name = eslint_avoid(
+      props.pagination_measurement_class_name
+    );
 
+    const pagination_margin_offset = eslint_avoid(
+      props.pagination_margin_offset
+    );
+    const pagination_measurement_display = eslint_avoid(
+      props.pagination_measurement_display
+    );
     /*
     console.log('datalist.data ');
     console.log(datalist.data);
@@ -158,11 +172,13 @@ export default {
         list_elements_height = [];
 
         // 計測用の要素を一瞬だけ表示する。
-        measurement_elem.setAttribute('style', 'display:flex');
+        measurement_elem.setAttribute('style', pagination_measurement_display);
 
         // 計測用の各子要素の表示高さを取得。
         for (let aa = 0; aa < lists.length; aa++) {
-          list_elements_height.push(lists[aa].clientHeight);
+          list_elements_height.push(
+            lists[aa].clientHeight + pagination_margin_offset
+          );
         }
 
         // 計測用の要素を非表示にする。

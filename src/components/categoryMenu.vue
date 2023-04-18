@@ -3,7 +3,11 @@
     <Pagination
       v-bind:datalist="menuData?.data?.children"
       v-bind:contents_pos="contents_position"
-      v-bind:class_name="class_name"
+      v-bind:pagination_margin_offset="pagination_margin_offset"
+      v-bind:pagination_measurement_display="pagination_measurement_display"
+      v-bind:pagination_measurement_class_name="
+        pagination_measurement_class_name
+      "
     >
       <template v-slot:default="slotProp">
         <!-- 書き換える場所 -->
@@ -32,7 +36,6 @@
 </template>
 
 <script>
-//import Velocity from 'velocity-animate';
 import { ref, reactive } from 'vue';
 import Pagination from './Pagination.vue';
 
@@ -55,18 +58,25 @@ export default {
     };
     // 「pagination」の基本設定。
 
-    // 「pagination」の基本設定。
-
     // 初期化時に表示するコンテンツの配列のindex位置。
     const contents_position = ref(0);
 
+    const pagination_margin_offset = 0;
+
+    const pagination_measurement_display = 'display:flex';
+
     // 計測用に取得する要素に指定するクラス名。
-    const class_name = 'measurement_list';
+    const pagination_measurement_class_name = 'measurement_list';
 
     //「子からCategoryMenu」に戻った時の「子のコンテンツの位置」。
     let contents_index = menuData.data.children.findIndex(
-      (val) => val.menu_id == menuData.previewID
+      (val) => val.menu_id === menuData.previewID
     );
+
+    //「menuData.previewID」が未定義の場合、最初の未定義の「index」値が返ってくるので回避処理。
+    if (menuData.previewID === null) {
+      contents_index = 0;
+    }
 
     if (contents_index < 0) {
       contents_index = 0;
@@ -77,7 +87,9 @@ export default {
     return {
       menuData,
       contents_position,
-      class_name,
+      pagination_margin_offset,
+      pagination_measurement_display,
+      pagination_measurement_class_name,
       onSelect,
     };
   },
