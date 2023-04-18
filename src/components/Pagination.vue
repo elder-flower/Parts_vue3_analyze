@@ -81,10 +81,12 @@ export default {
     );
 
     const pagination_margin_offset = eslint_avoid(
-      props.pagination_margin_offset
+      props.pagination_margin_offset ? props.pagination_margin_offset : 0
     );
     const pagination_measurement_display = eslint_avoid(
       props.pagination_measurement_display
+        ? props.pagination_measurement_display
+        : 'display:flex'
     );
     /*
     console.log('datalist.data ');
@@ -150,6 +152,9 @@ export default {
     // 「Pagination」の各子要素の高さの値を入れる変数。
     let list_elements_height = [];
 
+    //「Pagination」の各子要素の「domRect」を入れる変数。
+    let list_elements_domRect = [];
+
     // 各ページの表示数を入れる配列。
     let numbers_of_display_contents = [];
 
@@ -170,22 +175,27 @@ export default {
 
         // 計測用の各子要素の表示高さを入れる配列。初期化する。
         list_elements_height = [];
+        list_elements_domRect = [];
 
         // 計測用の要素を一瞬だけ表示する。
         measurement_elem.setAttribute('style', pagination_measurement_display);
 
         // 計測用の各子要素の表示高さを取得。
         for (let aa = 0; aa < lists.length; aa++) {
+          const elem = lists[aa];
           list_elements_height.push(
-            lists[aa].clientHeight + pagination_margin_offset
+            elem.clientHeight + pagination_margin_offset
           );
+
+          list_elements_domRect.push(elem.getBoundingClientRect());
         }
 
         // 計測用の要素を非表示にする。
         measurement_elem.setAttribute('style', 'display:none');
 
         //console.log(lists);
-        //console.log(list_elements_height);
+        console.log(list_elements_height);
+        console.log(list_elements_domRect);
       }
 
       // ブラウザの表示高さから「Pagination」の表示数を割り出す処理。
