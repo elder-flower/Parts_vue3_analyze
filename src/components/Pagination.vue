@@ -62,6 +62,7 @@ export default {
   props: [
     'datalist',
     'contents_pos',
+    'pagination_offset',
     'pagination_margin_offset',
     'pagination_measurement_display',
     'pagination_measurement_class_name',
@@ -78,6 +79,11 @@ export default {
 
     const measurement_class_name = eslint_avoid(
       props.pagination_measurement_class_name
+    );
+
+    //「Pagination」要素が表示出来る高さから「offset」を取る。（「offset」で引かないとレイアウト的に少しずれるので防止用。）
+    const pagination_offset = eslint_avoid(
+      props.pagination_offset ? props.pagination_offset : 50
     );
 
     const pagination_margin_offset = eslint_avoid(
@@ -239,8 +245,7 @@ export default {
         // 1ページ毎に表示させる数を入れる変数。
         let index = 0;
 
-        //「Pagination」要要素が表示出来る高さから「offset」を取る。（「offset」で引かないとレイアウト的に少しずれるので防止用。）
-        const offset = 50;
+        let next_elem_pos_y = 0;
 
         //「表示出来る高さ」から表示数を算出する処理。
         while (index < list_elements_height.length) {
@@ -248,16 +253,29 @@ export default {
 
           //「Pagination」要素が表示出来る高さ（「offset」で引いた値）まで子要素を足す。
           while (
-            content_height + list_elements_height[index] + offset <
+            content_height + list_elements_height[index] + pagination_offset <
             pagination_max_height
           ) {
-            content_height += list_elements_height[index];
+            // 今のindex値の要素の「Y座標」。
+            const elem_pos_y = list_elements_domRect[index].y;
+
+            // 次のindex値の要素の「Y座標」。
+            const next_domRect = list_elements_domRect[index + 1];
+            let next_elem_pos_y = 0;
+            if (next_domRect !== undefined) {
+              next_elem_pos_y = next_domRect.y;
+            }
+
+            // それぞれの「Y座標」が違う場合は「高さ」を加算する。
+            // それぞれの「Y座標」が同じ場合は同じ行で表示されているとみなし「高さ」を加算しない。
+            if (elem_pos_y !== next_elem_pos_y) {
+              content_height += list_elements_height[index];
+            }
             index++;
           }
-          /*
-          console.log('content_height');
-          console.log(content_height);
-          */
+
+          // console.log('content_height');
+          // console.log(content_height);
 
           //「1つのページに表示する数」が決まったので配列に追加。
           numbers_of_display_contents.push(index);
@@ -291,6 +309,10 @@ export default {
         //「Pagination」の1ページあたりの表示数を算出。
         let numbers_of_display =
           numbers_of_display_contents[1] - numbers_of_display_contents[0];
+
+        if (isNaN(numbers_of_display)) {
+          numbers_of_display = 1;
+        }
 
         // 異常値である場合の回避処理。
         if (numbers_of_display < 1) {

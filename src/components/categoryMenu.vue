@@ -61,8 +61,10 @@ export default {
     // 初期化時に表示するコンテンツの配列のindex位置。
     const contents_position = ref(0);
 
+    // コンテンツの「各要素の高さ」計算する際に「各要素の高さ」に追加するoffset値。
     const pagination_margin_offset = 0;
 
+    // 計測用のコンテンツで高さ計算するに設定するcssの「display」値。実際表示するレイアウトに合わせる必要がある。
     const pagination_measurement_display = 'display:flex';
 
     // 計測用に取得する要素に指定するクラス名。
