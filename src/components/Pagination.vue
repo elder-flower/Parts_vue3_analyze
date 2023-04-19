@@ -188,12 +188,25 @@ export default {
 
         // 計測用の各子要素の表示高さを取得。
         for (let aa = 0; aa < lists.length; aa++) {
-          const elem = lists[aa];
-          list_elements_height.push(
-            elem.clientHeight + pagination_margin_offset
-          );
+          let height;
 
-          list_elements_domRect.push(elem.getBoundingClientRect());
+          const elem = lists[aa];
+          const domRect = elem.getBoundingClientRect();
+
+          let next_elem;
+          if (lists[aa + 1] !== undefined) {
+            next_elem = lists[aa + 1];
+            const next_domRect = next_elem.getBoundingClientRect();
+            height = next_domRect.y - domRect.y;
+          }
+
+          if (height === 0 || height === undefined) {
+            // 通常の高さ計算。
+            height = elem.clientHeight + pagination_margin_offset;
+          }
+
+          list_elements_height.push(height);
+          list_elements_domRect.push(domRect);
         }
 
         // 計測用の要素を非表示にする。
@@ -307,12 +320,17 @@ export default {
       // 親からもらったコンテンツのindex位置から「Pagination」の表示位置を算出する処理。初期化時のみ実行。
       if (isInit) {
         //「Pagination」の1ページあたりの表示数を算出。
-        let numbers_of_display =
-          numbers_of_display_contents[1] - numbers_of_display_contents[0];
+        let numbers_of_display;
 
-        if (isNaN(numbers_of_display)) {
-          numbers_of_display = 1;
+        if (numbers_of_display_contents.length === 1) {
+          numbers_of_display = numbers_of_display_contents[0];
+        } else {
+          numbers_of_display =
+            numbers_of_display_contents[1] - numbers_of_display_contents[0];
         }
+
+        console.log('numbers_of_display');
+        console.log(numbers_of_display);
 
         // 異常値である場合の回避処理。
         if (numbers_of_display < 1) {
