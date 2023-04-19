@@ -1,6 +1,6 @@
 <template>
   <div class="pagination_wrapper">
-    <div ref="nav_ref" v-show="nav_off">
+    <div ref="nav_ref" v-show="isNavOn">
       <div class="nav">
         <button
           class="triBtn prevBtn"
@@ -32,7 +32,7 @@
       <slot v-bind:list="lists.data" name="default"></slot>
     </section>
 
-    <div class="page_number" ref="page_number_ref" v-show="nav_off">
+    <div class="page_number" ref="page_number_ref" v-show="isNavOn">
       {{ pos + 1 }} ページ / ページ数 : {{ dots }} / ページ毎の表示数 :
       {{ lists.data.length }} / 総数 :
       {{ datalist.data.length }}
@@ -77,6 +77,7 @@ export default {
     const datalist = reactive({ data: [] });
     datalist.data = eslint_avoid(props.datalist);
 
+    // 高さ計算計測用の各要素に指定するクラス名。
     const measurement_class_name = eslint_avoid(
       props.pagination_measurement_class_name
     );
@@ -86,9 +87,13 @@ export default {
       props.pagination_offset ? props.pagination_offset : 50
     );
 
+    // 高さ計算は現在の要素と次の要素の「Y座標」の差分から高さが算出される。
+    // 差分が「0」の場合に「height = elem.clientHeight + pagination_margin_offset;」が適用される。
     const pagination_margin_offset = eslint_avoid(
       props.pagination_margin_offset ? props.pagination_margin_offset : 0
     );
+
+    // 高さ計算する際に各要素の親要素に指定する「CSSのdisplay値」。
     const pagination_measurement_display = eslint_avoid(
       props.pagination_measurement_display
         ? props.pagination_measurement_display
@@ -101,15 +106,12 @@ export default {
 
     // Pagination 生成処理。
 
-    // ナビゲーションの表示切り替え。
-    const nav_off = ref(true);
+    // ナビゲーションを表示する場合は「true」。
+    const isNavOn = ref(true);
 
     if (datalist.data.length < 2 || datalist.data == undefined) {
-      nav_off.value = false;
+      isNavOn.value = false;
     }
-
-    // 「dotボタン」に付けるクラス名。
-    const ac_class = 'dot_active';
 
     // 初期化時の「Pagination」の位置を指定する変数。
     const pos_init = 0;
@@ -126,10 +128,13 @@ export default {
     // 「dot」ボタンの数
     let dots = ref(0);
 
+    // 「dotボタン」に付けるクラス名。
+    const ac_class = 'dot_active';
+
     // 分割数。
     let divisionNumber = ref(0);
 
-    // 「Pagination」の総数。
+    // 「Pagination」のpage数。
     let totalNumber = ref(0);
 
     // 高さを取得し計算する処理。
@@ -155,10 +160,10 @@ export default {
     //「次へ」ボタンのラッパー要素を取得する為のref要素。
     const nextBtn_ref = ref('');
 
-    // 「Pagination」の各子要素の高さの値を入れる変数。
+    // 「Pagination」の各子要素の高さの値を入れる配列。
     let list_elements_height = [];
 
-    //「Pagination」の各子要素の「domRect」を入れる変数。
+    //「Pagination」の各子要素の「domRect」を入れる配列。
     let list_elements_domRect = [];
 
     // 各ページの表示数を入れる配列。
@@ -411,7 +416,6 @@ export default {
       */
 
       // ページの表示サイズ変更で「undefined」になった際の回避処理。
-
       if (start_index === undefined || end_index === undefined) {
         start_index = 0;
         end_index = 3;
@@ -463,7 +467,7 @@ export default {
               */
     };
 
-    // 高さを再計算し「Pagination」を再生成する処理。
+    // 高さを再計算し「Pagination」の表示領域を再生成する処理。
     const update = (id = 0) => {
       division_recalculation().then(() => {
         generatePagination();
@@ -693,7 +697,7 @@ export default {
       onDotBtn,
       onPrevBtn,
       onNextBtn,
-      nav_off,
+      isNavOn,
     };
   },
 };
