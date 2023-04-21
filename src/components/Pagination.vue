@@ -166,7 +166,7 @@ export default {
     //「Pagination」の各子要素の「domRect」を入れる配列。
     let list_elements_domRect = [];
 
-    // 各ページの表示数を入れる配列。
+    // 各ページの表示数を入れる配列。そのページ位置までの合計値が入る。
     let numbers_of_display_contents = [];
 
     // 高さを取得し計算して分割する関数。
@@ -224,7 +224,7 @@ export default {
 
       // ブラウザの表示高さから「Pagination」の表示数を割り出す処理。
       if (nav_ref.value !== '' && page_number_ref.value !== '') {
-        // 各ページの表示数を入れる配列。初期化。
+        // 各ページの表示数を入れる配列。そのページ位置までの合計値が入る。初期化。
         numbers_of_display_contents = [];
 
         const html = doc.documentElement;
@@ -325,29 +325,37 @@ export default {
       // 親からもらったコンテンツのindex位置から「Pagination」の表示位置を算出する処理。初期化時のみ実行。
       if (isInit) {
         //「Pagination」の1ページあたりの表示数を算出。
-        let numbers_of_display;
 
-        if (numbers_of_display_contents.length === 1) {
-          numbers_of_display = numbers_of_display_contents[0];
-        } else {
-          numbers_of_display =
-            numbers_of_display_contents[1] - numbers_of_display_contents[0];
+        const numbers_of_display_contents_length =
+          numbers_of_display_contents.length;
+
+        let contents_pos_index = 0;
+        let contents_pos_num;
+
+        console.log('contents_pos_init.value');
+        console.log(contents_pos_init.value);
+
+        for (let zz = 0; zz < numbers_of_display_contents_length; zz++) {
+          contents_pos_num =
+            contents_pos_init.value - numbers_of_display_contents[zz];
+
+          console.log(contents_pos_num);
+
+          contents_pos_index = zz;
+          if (contents_pos_num < 0) {
+            break;
+          }
         }
 
-        console.log('numbers_of_display');
-        console.log(numbers_of_display);
+        /*
+        console.log('contents_pos_init.value');
+        console.log(contents_pos_init.value);
+        console.log('contents_pos_index');
+        console.log(contents_pos_index);
+        */
 
-        // 異常値である場合の回避処理。
-        if (numbers_of_display < 1) {
-          numbers_of_display = 1;
-        }
+        pos.value = contents_pos_index;
 
-        pos.value = Math.floor(contents_pos_init.value / numbers_of_display);
-
-        // 異常値である場合の回避処理。1番最初の位置に初期化。
-        if (numbers_of_display < 1) {
-          pos.value = 0;
-        }
         isInit = false;
       }
 
