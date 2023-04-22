@@ -7,8 +7,13 @@
 }
 .lists,
 #measurement {
+  /*
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  */
+
+  display: flex;
+  flex-direction: column;
 
   section {
     min-height: 4em;

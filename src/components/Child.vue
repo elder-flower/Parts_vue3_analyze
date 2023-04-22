@@ -24,7 +24,6 @@ export default {
 
 <style scoped>
 div {
-  width: 100%;
   padding: 2em;
   margin: 0;
   pointer-events: auto;
