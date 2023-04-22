@@ -112,6 +112,48 @@ const categroyData = {
       menu_id: 'o',
       type: 'text2',
     },
+
+    {
+      menu_id: 'p',
+      type: 'text2',
+    },
+    {
+      menu_id: 'q',
+      type: 'text2',
+    },
+    {
+      menu_id: 'r',
+      type: 'text2',
+    },
+    {
+      menu_id: 's',
+      type: 'text2',
+    },
+    {
+      menu_id: 't',
+      type: 'text2',
+    },
+    {
+      menu_id: 'u',
+      type: 'text2',
+    },
+    {
+      menu_id: 'w',
+      type: 'text2',
+    },
+    {
+      menu_id: 'x',
+      type: 'text2',
+    },
+
+    {
+      menu_id: 'y',
+      type: 'text2',
+    },
+    {
+      menu_id: 'z',
+      type: 'text2',
+    },
   ],
 };
 </script>

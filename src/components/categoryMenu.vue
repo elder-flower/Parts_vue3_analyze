@@ -65,7 +65,7 @@ export default {
     const pagination_margin_offset = 0;
 
     // 計測用のコンテンツで高さ計算するに設定するcssの「display」値。実際表示するレイアウトに合わせる必要がある。
-    const pagination_measurement_display = 'display:flex';
+    const pagination_measurement_display = 'display:grid';
 
     // 計測用に取得する要素に指定するクラス名。
     const pagination_measurement_class_name = 'measurement_list';

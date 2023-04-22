@@ -1,20 +1,17 @@
 .pagination_wrapper {
   display: grid;
   //grid-template-rows: max-content auto 40px;
+  grid-template-rows: -webkit-max-content auto -webkit-max-content;
   grid-template-rows: max-content auto max-content;
   height: 100vh;
 }
 .lists,
 #measurement {
-  /*
   display: grid;
-  grid-template-columns: auto;
-  */
+  grid-template-columns: 1fr 1fr 1fr;
 
-  display: flex;
-  flex-direction: column;
   section {
-    min-height: 2em;
+    min-height: 4em;
   }
 }
 .lists {
