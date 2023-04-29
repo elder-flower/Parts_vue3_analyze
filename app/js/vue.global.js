@@ -12270,6 +12270,7 @@ var Vue = (function (exports) {
     return renderer;
   }
   // use explicit type casts here to avoid import() calls in rolled-up d.ts
+  // ここで明示的な型キャストを使用して、ロールアップされた d.ts での import() 呼び出しを回避します
   const render = (...args) => {
     ensureRenderer().render(...args);
   };
@@ -12278,8 +12279,8 @@ var Vue = (function (exports) {
   };
   const createApp = (...args) => {
     const app = ensureRenderer().createApp(...args);
-    console.log('createApp  app');
-    console.log(app);
+    // console.log('createApp  app');
+    // console.log(app);
     {
       injectNativeTagCheck(app);
       injectCompilerOptionsCheck(app);
@@ -12294,6 +12295,10 @@ var Vue = (function (exports) {
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's
         // rendered by the server, the template should not contain any user data.
+        // __UNSAFE__
+        // 理由: in-DOM テンプレートで JS 式が実行される可能性があります。
+        // ユーザーは、DOM テンプレートが信頼されていることを確認する必要があります。 もし
+        // サーバーによってレンダリングされるため、テンプレートにはユーザー データを含めないでください。
         component.template = container.innerHTML;
       }
       // clear content before mounting
