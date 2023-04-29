@@ -2,118 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSSグラデーションの種類</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-
-    <link rel="stylesheet" type="text/css" href="css/base.css" media="all" />
-    <style>
-      body {
-        background: #000;
-        padding: 3rem;
-        color: #ddd;
-      }
-      a {
-        color: #cc3;
-        text-decoration: none;
-        overflow: hidden;
-        outline: none;
-      }
-      h2 {
-        text-align: center;
-      }
-      .flex {
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 0 0 2rem 0;
-      }
-      .box {
-        width: 500px;
-        height: 300px;
-        margin: 0 0 2rem 0;
-        /* background: #333; */
-      }
-
-      .sec1 {
-        color: #003a46;
-      }
-      h2 {
-        color: #eee;
-      }
-      /* 円グラフ 基本スタイル */
-      .chart-style {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .chart-style + .chart-style {
-        margin-top: 20px;
-      }
-
-      /* 円グラフ1 */
-      .pie-chart1 {
-        clip-path: circle(50% at 50% 50%);
-        background-image: conic-gradient(
-          #e66966 0%,
-          #e66966 60%,
-          #d9d9d9 60.2% 100%
-        );
-      }
-
-      /*
-      検討項目。mask, object-fit, clip-path, background-clip
-      CSSによる「真ん中のくり抜き」が出来ない為に、「radial-gradient」の開始色をCSS変数で切り替えるのが無難。
-      */
-      /* 円グラフ2 */
-      .pie-chart2 {
-      }
-      .pie-chart2 div {
-        background-image: radial-gradient(#000 0% 55%, transparent 56%),
-          conic-gradient(#f2b900 85%, #d9d9d9 85.2% 100%);
-      }
-
-      /* 円グラフ3 */
-      .pie-chart3 {
-        background-image: radial-gradient(#fff 0% 35%, transparent 36%),
-          conic-gradient(#003681 0%, #0f9d87 35%, #d9d9d9 35.2% 100%);
-      }
-
-      /* ギザギザの例 */
-      .pie-chart4 {
-        background-image: radial-gradient(#fff 0% 35%, transparent 35%),
-          conic-gradient(#003681 0%, #0f9d87 35%, #d9d9d9 35% 100%);
-      }
-    </style>
+    <title>Vue.js</title>
   </head>
-  <body id="top">
-    <main id="main">
-      <h1>
-        <a
-          href="https://zenn.dev/itayuri/articles/07dc088b51ee86"
-          target="_blank"
-          >【CSS】円グラフをつくる conic-gradient</a
-        >
-      </h1>
-
-      <section class="sec1">
-        <h2>CSSグラデーションの基本的な書き方</h2>
-        <div class="flex">
-          <div class="pie-chart1 chart-style">円グラフ1</div>
-          <div class="pie-chart2"><div class="chart-style">円グラフ2</div></div>
-          <div class="pie-chart3 chart-style">円グラフ3</div>
-          <div class="pie-chart4 chart-style">ギザギザ</div>
-        </div>
-      </section>
-    </main>
+  <body>
+    <div id="app">
+      <p>{{ message }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+    <script src="js/hello.js"></script>
   </body>
 </html>
