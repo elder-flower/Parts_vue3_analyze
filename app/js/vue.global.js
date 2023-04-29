@@ -7260,7 +7260,7 @@ var Vue = (function (exports) {
             // which also requires the correct parent container
             !isSameVNodeType(oldVNode, newVNode) ||
             // - In the case of a component, it could contain anything.
-            oldVNode.shapeFlag & (6 /* COMPONENT */ | 64) /* TELEPORT */)
+            oldVNode.shapeFlag & (6 /* COMPONENT */ | 64)) /* TELEPORT */
             ? hostParentNode(oldVNode.el)
             : // In other cases, the parent container is not actually used so we
               // just pass the block element here to avoid a DOM parentNode call.
@@ -8282,7 +8282,7 @@ var Vue = (function (exports) {
           dynamicChildren &&
           // #1153: fast path should not be taken for non-stable (v-for) fragments
           (type !== Fragment ||
-            (patchFlag > 0 && patchFlag & 64) /* STABLE_FRAGMENT */)
+            (patchFlag > 0 && patchFlag & 64)) /* STABLE_FRAGMENT */
         ) {
           // fast path for block nodes: only need to unmount dynamic children.
           unmountChildren(
@@ -8295,7 +8295,7 @@ var Vue = (function (exports) {
         } else if (
           (type === Fragment &&
             patchFlag &
-              (128 /* KEYED_FRAGMENT */ | 256) /* UNKEYED_FRAGMENT */) ||
+              (128 /* KEYED_FRAGMENT */ | 256)) /* UNKEYED_FRAGMENT */ ||
           (!optimized && shapeFlag & 16) /* ARRAY_CHILDREN */
         ) {
           unmountChildren(children, parentComponent, parentSuspense);
@@ -12278,6 +12278,8 @@ var Vue = (function (exports) {
   };
   const createApp = (...args) => {
     const app = ensureRenderer().createApp(...args);
+    console.log('createApp  app');
+    console.log(app);
     {
       injectNativeTagCheck(app);
       injectCompilerOptionsCheck(app);
@@ -16130,9 +16132,10 @@ var Vue = (function (exports) {
       node = context.currentNode;
       if (
         !(
-          node.type === 1 /* ELEMENT */ &&
-          (node.tagType === 0 /* ELEMENT */ ||
-            node.tagType === 1) /* COMPONENT */
+          (
+            node.type === 1 /* ELEMENT */ &&
+            (node.tagType === 0 /* ELEMENT */ || node.tagType === 1)
+          ) /* COMPONENT */
         )
       ) {
         return;
