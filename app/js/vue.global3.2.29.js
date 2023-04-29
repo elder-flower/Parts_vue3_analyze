@@ -287,9 +287,7 @@ var Vue = (function (exports) {
    * @private
    */
   const toDisplayString = (val) => {
-    return isString(val)
-      ? val
-      : val == null
+    return val == null
       ? ''
       : isArray(val) ||
         (isObject(val) &&
@@ -370,9 +368,6 @@ var Vue = (function (exports) {
       'onVnodeBeforeUpdate,onVnodeUpdated,' +
       'onVnodeBeforeUnmount,onVnodeUnmounted'
   );
-  const isBuiltInDirective = /*#__PURE__*/ makeMap(
-    'bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text,memo'
-  );
   const cacheStringFunction = (fn) => {
     const cache = Object.create(null);
     return (str) => {
@@ -446,6 +441,7 @@ var Vue = (function (exports) {
   }
 
   let activeEffectScope;
+  const effectScopeStack = [];
   class EffectScope {
     constructor(detached = false) {
       this.active = true;
@@ -462,34 +458,33 @@ var Vue = (function (exports) {
     run(fn) {
       if (this.active) {
         try {
-          activeEffectScope = this;
+          this.on();
           return fn();
         } finally {
-          activeEffectScope = this.parent;
+          this.off();
         }
       } else {
         warn(`cannot run an inactive effect scope.`);
       }
     }
     on() {
-      activeEffectScope = this;
+      if (this.active) {
+        effectScopeStack.push(this);
+        activeEffectScope = this;
+      }
     }
     off() {
-      activeEffectScope = this.parent;
+      if (this.active) {
+        effectScopeStack.pop();
+        activeEffectScope = effectScopeStack[effectScopeStack.length - 1];
+      }
     }
     stop(fromParent) {
       if (this.active) {
-        let i, l;
-        for (i = 0, l = this.effects.length; i < l; i++) {
-          this.effects[i].stop();
-        }
-        for (i = 0, l = this.cleanups.length; i < l; i++) {
-          this.cleanups[i]();
-        }
+        this.effects.forEach((e) => e.stop());
+        this.cleanups.forEach((cleanup) => cleanup());
         if (this.scopes) {
-          for (i = 0, l = this.scopes.length; i < l; i++) {
-            this.scopes[i].stop(true);
-          }
+          this.scopes.forEach((e) => e.stop(true));
         }
         // nested scope, dereference from parent to avoid memory leaks
         if (this.parent && !fromParent) {
@@ -507,7 +502,8 @@ var Vue = (function (exports) {
   function effectScope(detached) {
     return new EffectScope(detached);
   }
-  function recordEffectScope(effect, scope = activeEffectScope) {
+  function recordEffectScope(effect, scope) {
+    scope = scope || activeEffectScope;
     if (scope && scope.active) {
       scope.effects.push(effect);
     }
@@ -570,6 +566,7 @@ var Vue = (function (exports) {
    * When recursion depth is greater, fall back to using a full cleanup.
    */
   const maxMarkerBits = 30;
+  const effectStack = [];
   let activeEffect;
   const ITERATE_KEY = Symbol('iterate');
   const MAP_KEY_ITERATE_KEY = Symbol('Map key iterate');
@@ -579,40 +576,33 @@ var Vue = (function (exports) {
       this.scheduler = scheduler;
       this.active = true;
       this.deps = [];
-      this.parent = undefined;
       recordEffectScope(this, scope);
     }
     run() {
       if (!this.active) {
         return this.fn();
       }
-      let parent = activeEffect;
-      let lastShouldTrack = shouldTrack;
-      while (parent) {
-        if (parent === this) {
-          return;
+      if (!effectStack.length || !effectStack.includes(this)) {
+        try {
+          effectStack.push((activeEffect = this));
+          enableTracking();
+          trackOpBit = 1 << ++effectTrackDepth;
+          if (effectTrackDepth <= maxMarkerBits) {
+            initDepMarkers(this);
+          } else {
+            cleanupEffect(this);
+          }
+          return this.fn();
+        } finally {
+          if (effectTrackDepth <= maxMarkerBits) {
+            finalizeDepMarkers(this);
+          }
+          trackOpBit = 1 << --effectTrackDepth;
+          resetTracking();
+          effectStack.pop();
+          const n = effectStack.length;
+          activeEffect = n > 0 ? effectStack[n - 1] : undefined;
         }
-        parent = parent.parent;
-      }
-      try {
-        this.parent = activeEffect;
-        activeEffect = this;
-        shouldTrack = true;
-        trackOpBit = 1 << ++effectTrackDepth;
-        if (effectTrackDepth <= maxMarkerBits) {
-          initDepMarkers(this);
-        } else {
-          cleanupEffect(this);
-        }
-        return this.fn();
-      } finally {
-        if (effectTrackDepth <= maxMarkerBits) {
-          finalizeDepMarkers(this);
-        }
-        trackOpBit = 1 << --effectTrackDepth;
-        activeEffect = this.parent;
-        shouldTrack = lastShouldTrack;
-        this.parent = undefined;
       }
     }
     stop() {
@@ -659,23 +649,31 @@ var Vue = (function (exports) {
     trackStack.push(shouldTrack);
     shouldTrack = false;
   }
+  function enableTracking() {
+    trackStack.push(shouldTrack);
+    shouldTrack = true;
+  }
   function resetTracking() {
     const last = trackStack.pop();
     shouldTrack = last === undefined ? true : last;
   }
   function track(target, type, key) {
-    if (shouldTrack && activeEffect) {
-      let depsMap = targetMap.get(target);
-      if (!depsMap) {
-        targetMap.set(target, (depsMap = new Map()));
-      }
-      let dep = depsMap.get(key);
-      if (!dep) {
-        depsMap.set(key, (dep = createDep()));
-      }
-      const eventInfo = { effect: activeEffect, target, type, key };
-      trackEffects(dep, eventInfo);
+    if (!isTracking()) {
+      return;
     }
+    let depsMap = targetMap.get(target);
+    if (!depsMap) {
+      targetMap.set(target, (depsMap = new Map()));
+    }
+    let dep = depsMap.get(key);
+    if (!dep) {
+      depsMap.set(key, (dep = createDep()));
+    }
+    const eventInfo = { effect: activeEffect, target, type, key };
+    trackEffects(dep, eventInfo);
+  }
+  function isTracking() {
+    return shouldTrack && activeEffect !== undefined;
   }
   function trackEffects(dep, debuggerEventExtraInfo) {
     let shouldTrack = false;
@@ -1433,10 +1431,13 @@ var Vue = (function (exports) {
   const toReadonly = (value) => (isObject(value) ? readonly(value) : value);
 
   function trackRefValue(ref) {
-    if (shouldTrack && activeEffect) {
+    if (isTracking()) {
       ref = toRaw(ref);
+      if (!ref.dep) {
+        ref.dep = createDep();
+      }
       {
-        trackEffects(ref.dep || (ref.dep = createDep()), {
+        trackEffects(ref.dep, {
           target: ref,
           type: 'get' /* GET */,
           key: 'value',
@@ -1458,7 +1459,7 @@ var Vue = (function (exports) {
     }
   }
   function isRef(r) {
-    return !!(r && r.__v_isRef === true);
+    return Boolean(r && r.__v_isRef === true);
   }
   function ref(value) {
     return createRef(value, false);
@@ -5809,6 +5810,9 @@ var Vue = (function (exports) {
     [bar, this.y]
   ])
   */
+  const isBuiltInDirective = /*#__PURE__*/ makeMap(
+    'bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text,memo'
+  );
   function validateDirectiveName(name) {
     if (isBuiltInDirective(name)) {
       warn$1(
@@ -7260,7 +7264,7 @@ var Vue = (function (exports) {
             // which also requires the correct parent container
             !isSameVNodeType(oldVNode, newVNode) ||
             // - In the case of a component, it could contain anything.
-            oldVNode.shapeFlag & (6 /* COMPONENT */ | 64) /* TELEPORT */)
+            oldVNode.shapeFlag & (6 /* COMPONENT */ | 64)) /* TELEPORT */
             ? hostParentNode(oldVNode.el)
             : // In other cases, the parent container is not actually used so we
               // just pass the block element here to avoid a DOM parentNode call.
@@ -8282,7 +8286,7 @@ var Vue = (function (exports) {
           dynamicChildren &&
           // #1153: fast path should not be taken for non-stable (v-for) fragments
           (type !== Fragment ||
-            (patchFlag > 0 && patchFlag & 64) /* STABLE_FRAGMENT */)
+            (patchFlag > 0 && patchFlag & 64)) /* STABLE_FRAGMENT */
         ) {
           // fast path for block nodes: only need to unmount dynamic children.
           unmountChildren(
@@ -8295,7 +8299,7 @@ var Vue = (function (exports) {
         } else if (
           (type === Fragment &&
             patchFlag &
-              (128 /* KEYED_FRAGMENT */ | 256) /* UNKEYED_FRAGMENT */) ||
+              (128 /* KEYED_FRAGMENT */ | 256)) /* UNKEYED_FRAGMENT */ ||
           (!optimized && shapeFlag & 16) /* ARRAY_CHILDREN */
         ) {
           unmountChildren(children, parentComponent, parentSuspense);
@@ -10698,7 +10702,7 @@ var Vue = (function (exports) {
   }
 
   // Core API ------------------------------------------------------------------
-  const version = '3.2.30';
+  const version = '3.2.29';
   /**
    * SSR utils for \@vue/server-renderer. Only exposed in cjs builds.
    * @internal
@@ -13072,14 +13076,14 @@ var Vue = (function (exports) {
         `Platform-native elements with "is" prop will no longer be ` +
         `treated as components in Vue 3 unless the "is" value is explicitly ` +
         `prefixed with "vue:".`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/custom-elements-interop.html`,
+      link: `https://v3.vuejs.org/guide/migration/custom-elements-interop.html`,
     },
     ['COMPILER_V_BIND_SYNC' /* COMPILER_V_BIND_SYNC */]: {
       message: (key) =>
         `.sync modifier for v-bind has been removed. Use v-model with ` +
         `argument instead. \`v-bind:${key}.sync\` should be changed to ` +
         `\`v-model:${key}\`.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/v-model.html`,
+      link: `https://v3.vuejs.org/guide/migration/v-model.html`,
     },
     ['COMPILER_V_BIND_PROP' /* COMPILER_V_BIND_PROP */]: {
       message:
@@ -13093,11 +13097,11 @@ var Vue = (function (exports) {
         `that appears before v-bind in the case of conflict. ` +
         `To retain 2.x behavior, move v-bind to make it the first attribute. ` +
         `You can also suppress this warning if the usage is intended.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/v-bind.html`,
+      link: `https://v3.vuejs.org/guide/migration/v-bind.html`,
     },
     ['COMPILER_V_ON_NATIVE' /* COMPILER_V_ON_NATIVE */]: {
       message: `.native modifier for v-on has been removed as is no longer necessary.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html`,
+      link: `https://v3.vuejs.org/guide/migration/v-on-native-modifier-removed.html`,
     },
     ['COMPILER_V_IF_V_FOR_PRECEDENCE' /* COMPILER_V_IF_V_FOR_PRECEDENCE */]: {
       message:
@@ -13106,7 +13110,7 @@ var Vue = (function (exports) {
         `access to v-for scope variables. It is best to avoid the ambiguity ` +
         `with <template> tags or use a computed property that filters v-for ` +
         `data source.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/v-if-v-for.html`,
+      link: `https://v3.vuejs.org/guide/migration/v-if-v-for.html`,
     },
     ['COMPILER_NATIVE_TEMPLATE' /* COMPILER_NATIVE_TEMPLATE */]: {
       message:
@@ -13115,14 +13119,14 @@ var Vue = (function (exports) {
     },
     ['COMPILER_INLINE_TEMPLATE' /* COMPILER_INLINE_TEMPLATE */]: {
       message: `"inline-template" has been removed in Vue 3.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/inline-template-attribute.html`,
+      link: `https://v3.vuejs.org/guide/migration/inline-template-attribute.html`,
     },
     ['COMPILER_FILTER' /* COMPILER_FILTERS */]: {
       message:
         `filters have been removed in Vue 3. ` +
         `The "|" symbol will be treated as native JavaScript bitwise OR operator. ` +
         `Use method calls or computed properties instead.`,
-      link: `https://v3-migration.vuejs.org/breaking-changes/filters.html`,
+      link: `https://v3.vuejs.org/guide/migration/filters.html`,
     },
   };
   function getCompatValue(key, context) {
@@ -16130,9 +16134,10 @@ var Vue = (function (exports) {
       node = context.currentNode;
       if (
         !(
-          node.type === 1 /* ELEMENT */ &&
-          (node.tagType === 0 /* ELEMENT */ ||
-            node.tagType === 1) /* COMPONENT */
+          (
+            node.type === 1 /* ELEMENT */ &&
+            (node.tagType === 0 /* ELEMENT */ || node.tagType === 1)
+          ) /* COMPONENT */
         )
       ) {
         return;
@@ -16526,7 +16531,7 @@ var Vue = (function (exports) {
               directiveImportMap.set(prop, needRuntime);
             }
           }
-        } else if (!isBuiltInDirective(name)) {
+        } else {
           // no built-in transform, this is a user custom directive.
           runtimeDirectives.push(prop);
           // custom dirs may use beforeUpdate so they need to force blocks
