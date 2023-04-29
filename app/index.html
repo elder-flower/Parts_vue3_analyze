@@ -62,6 +62,7 @@
 
       /* 円グラフ1 */
       .pie-chart1 {
+        clip-path: circle(50% at 50% 50%);
         background-image: conic-gradient(
           #e66966 0%,
           #e66966 60%,
@@ -69,9 +70,15 @@
         );
       }
 
+      /*
+      検討項目。mask, object-fit, clip-path, background-clip
+      CSSによる「真ん中のくり抜き」が出来ない為に、「radial-gradient」の開始色をCSS変数で切り替えるのが無難。
+      */
       /* 円グラフ2 */
       .pie-chart2 {
-        background-image: radial-gradient(#e5f6fc 0% 55%, transparent 56%),
+      }
+      .pie-chart2 div {
+        background-image: radial-gradient(#000 0% 55%, transparent 56%),
           conic-gradient(#f2b900 85%, #d9d9d9 85.2% 100%);
       }
 
@@ -102,9 +109,8 @@
         <h2>CSSグラデーションの基本的な書き方</h2>
         <div class="flex">
           <div class="pie-chart1 chart-style">円グラフ1</div>
-          <div class="pie-chart2 chart-style">円グラフ2</div>
+          <div class="pie-chart2"><div class="chart-style">円グラフ2</div></div>
           <div class="pie-chart3 chart-style">円グラフ3</div>
-
           <div class="pie-chart4 chart-style">ギザギザ</div>
         </div>
       </section>
