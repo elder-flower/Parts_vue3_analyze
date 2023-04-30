@@ -94,7 +94,9 @@ function createBaseVNode(
 
 _createVNode から呼ばれる。
 
-createBaseVNode
+| L 9116
+ 
+const vnode
 
 ||| L 9061
 

@@ -9175,6 +9175,7 @@ var Vue = (function (exports) {
     ) {
       currentBlock.push(vnode);
     }
+    
     return vnode;
   }
   const createVNode = createVNodeWithArgsTransform;
