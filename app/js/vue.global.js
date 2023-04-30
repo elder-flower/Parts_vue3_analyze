@@ -9196,6 +9196,11 @@ var Vue = (function (exports) {
       // createVNode receiving an existing vnode. This happens in cases like
       // <component :is="vnode"/>
       // #2078 make sure to merge refs during the clone instead of overwriting it
+
+      // 既存の vnode を受け取る createVNode。 これは、次のような場合に発生します
+      // <component :is="vnode"/>
+      // #2078 上書きするのではなく、クローン中に参照をマージするようにしてください
+
       const cloned = cloneVNode(type, props, true /* mergeRef: true */);
       if (children) {
         normalizeChildren(cloned, children);
@@ -9207,6 +9212,7 @@ var Vue = (function (exports) {
       type = type.__vccOpts;
     }
     // class & style normalization.
+    // クラスとスタイルの正規化。
     if (props) {
       // for reactive or proxy objects, we need to clone it to enable mutation.
       props = guardReactiveProps(props);
@@ -9246,6 +9252,18 @@ var Vue = (function (exports) {
         type
       );
     }
+
+    console.log('createBaseVNode');
+    console.log(createBaseVNode(
+      type,
+      props,
+      children,
+      patchFlag,
+      dynamicProps,
+      shapeFlag,
+      isBlockNode,
+      true
+    ));
     return createBaseVNode(
       type,
       props,

@@ -67,7 +67,7 @@ const createVNodeWithArgsTransform = (...args) => {}
 
 ||| L 9181
 
-createVNodeWithArgsTransform で呼ばれる。
+createVNodeWithArgsTransform から呼ばれる。
 
 function _createVNode(
     type,
@@ -76,8 +76,25 @@ function _createVNode(
     patchFlag = 0,
     dynamicProps = null,
     isBlockNode = false
-  ){}
+){}
 
+
+||| L 9106
+
+function createBaseVNode(
+    type,
+    props = null,
+    children = null,
+    patchFlag = 0,
+    dynamicProps = null,
+    shapeFlag = type === Fragment ? 0 : 1 /* ELEMENT */,
+    isBlockNode = false,
+    needFullChildrenNormalization = false
+  ) {}
+
+_createVNode から呼ばれる。
+
+createBaseVNode
 
 ||| L 9061
 
