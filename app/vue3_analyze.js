@@ -4,8 +4,17 @@
 
 ||||  vue 概要
 
-でターゲット要素の中に生成される。
+||| アプリケーション API
+
+https://ja.vuejs.org/api/application.html
+
+
+
+|||
+
 Vue.createApp({}).mount('#app');
+でターゲット要素の中に生成される。
+
 
 
 ||| L 12279

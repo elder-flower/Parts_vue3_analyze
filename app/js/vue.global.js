@@ -5805,6 +5805,7 @@ var Vue = (function (exports) {
 
   /**
   Runtime helper for applying directives to a vnode. Example usage:
+  ディレクティブを vnode に適用するためのランタイム ヘルパー。 使用例:
 
   const comp = resolveComponent('comp')
   const foo = resolveDirective('foo')
