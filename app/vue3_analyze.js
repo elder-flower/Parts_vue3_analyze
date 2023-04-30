@@ -8,11 +8,18 @@
 
 https://ja.vuejs.org/api/application.html
 
+const app = Vue.createApp({})
+console.log(app);
+
+app Object の中身が上記のAPIに対応する、
+
 
 
 |||
 
-Vue.createApp({}).mount('#app');
+const app = Vue.createApp({})
+app.mount('#app');
+
 でターゲット要素の中に生成される。
 
 
@@ -25,5 +32,27 @@ const createApp = (...args) =>
 
 app.mount()
 
-||| 
-||| 
+
+
+||| L17868
+
+Vue Object の中身で見れるメソッドが書かれている。
+
+グローバル API: 汎用
+https://ja.vuejs.org/api/general.html
+
+
+レンダー関数 API
+https://ja.vuejs.org/api/render-function.html
+
+
+カスタムレンダラー API
+https://ja.vuejs.org/api/custom-renderer.html
+
+
+
+
+
+||| L11805 Composition API: setup() の変換関数？
+
+const TransitionGroupImpl 

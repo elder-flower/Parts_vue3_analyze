@@ -11851,6 +11851,7 @@ var Vue = (function (exports) {
         });
       });
       return () => {
+        console.log('TransitionGroup setup');
         const rawProps = toRaw(props);
         const cssTransitionProps = resolveTransitionProps(rawProps);
         let tag = rawProps.tag || Fragment;
@@ -18015,4 +18016,5 @@ var Vue = (function (exports) {
   return exports;
 })({});
 
+console.log('Vue');
 console.log(Vue);
