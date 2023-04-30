@@ -1,16 +1,12 @@
-Vue.createApp({
+const app = Vue.createApp({
   data: function() {
     return {
       message: '皆さん、こんにちは！'
     };
   }
-}).mount('#app');
+});
 
-console.log('Vue.createApp({}))');
-console.log(Vue.createApp({
-  data: function() {
-    return {
-      message: '皆さん、こんにちは！'
-    };
-  }
-}));
+app.mount('#app');
+
+console.log('app');
+console.log(app);
