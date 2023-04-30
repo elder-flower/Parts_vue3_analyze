@@ -1,3 +1,4 @@
+/*
 const app = Vue.createApp({
   data: function() {
     return {
@@ -7,6 +8,9 @@ const app = Vue.createApp({
 });
 
 app.mount('#app');
+*/
+
+Vue.h('div');
 
 // console.log('app');
 // console.log(app);

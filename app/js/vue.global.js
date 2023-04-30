@@ -9059,8 +9059,8 @@ var Vue = (function (exports) {
     );
   }
   function isVNode(value) {
-    console.log('isVNode value');
-    console.log(value);
+    // console.log('isVNode value');
+    // console.log(value);
     return value ? value.__v_isVNode === true : false;
   }
   function isSameVNodeType(n1, n2) {
@@ -9076,11 +9076,18 @@ var Vue = (function (exports) {
    * used for creating stubs in the test-utils
    * It is *internal* but needs to be exposed for test-utils to pick up proper
    * typings
+   * 
+   * test-utils でスタブを作成するために使用される createVNode の引数変換を登録するための内部 API 内部*ですが、test-utils が適切な型を取得するために公開する必要があります
    */
   function transformVNodeArgs(transformer) {
     vnodeArgsTransformer = transformer;
   }
   const createVNodeWithArgsTransform = (...args) => {
+    console.log('createVNodeWithArgsTransform args');
+    console.log( args );
+    console.log(  ...(vnodeArgsTransformer
+      ? vnodeArgsTransformer(args, currentRenderingInstance)
+      : args));
     return _createVNode(
       ...(vnodeArgsTransformer
         ? vnodeArgsTransformer(args, currentRenderingInstance)
@@ -10482,7 +10489,9 @@ var Vue = (function (exports) {
 
     //第 1 引数には、文字列（ネイティブ要素の場合）または Vue コンポーネント定義を指定します。第 2 引数は渡されるプロパティで、第 3 引数は子要素です。
     const l = arguments.length;
+    // console.log( l );
     if (l === 2) {
+      console.log('h l === 2)');
       if (isObject(propsOrChildren) && !isArray(propsOrChildren)) {
         // single vnode without props
         if (isVNode(propsOrChildren)) {
@@ -10495,6 +10504,7 @@ var Vue = (function (exports) {
         return createVNode(type, null, propsOrChildren);
       }
     } else {
+      console.log('h else');
       if (l > 3) {
         children = Array.prototype.slice.call(arguments, 2);
       } else if (l === 3 && isVNode(children)) {
