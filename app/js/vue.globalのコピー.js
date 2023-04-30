@@ -9103,6 +9103,7 @@ var Vue = (function (exports) {
         : ref
       : null;
   };
+  // VNode 作成関連。
   function createBaseVNode(
     type,
     props = null,
@@ -9154,27 +9155,38 @@ var Vue = (function (exports) {
         : 16 /* ARRAY_CHILDREN */;
     }
     // validate key
+    // キーの検証
     if (vnode.key !== vnode.key) {
       warn$1(`VNode created with invalid key (NaN). VNode type:`, vnode.type);
     }
     // track vnode for block tree
+    // ブロック ツリーの vnode を追跡する
     if (
       isBlockTreeEnabled > 0 &&
       // avoid a block node from tracking itself
+      // ブロックノードが自分自身を追跡しないようにする
       !isBlockNode &&
       // has current parent block
+      // 現在の親ブロックを持つ
       currentBlock &&
       // presence of a patch flag indicates this node needs patching on updates.
       // component nodes also should always be patched, because even if the
       // component doesn't need to update, it needs to persist the instance on to
       // the next vnode so that it can be properly unmounted later.
+
+      // パッチ フラグの存在は、このノードが更新時にパッチを適用する必要があることを示します。¥
+      // コンポーネントを更新する必要がない場合でも、後で適切にアンマウントできるように、インスタンスを次の vnode に永続化する必要があるため、コンポーネント ノードにも常にパッチを適用する必要があります。
+
       (vnode.patchFlag > 0 || shapeFlag & 6) /* COMPONENT */ &&
       // the EVENTS flag is only for hydration and if it is the only flag, the
       // vnode should not be considered dynamic due to handler caching.
+
+      // EVENTS フラグはハイドレーション専用であり、それが唯一のフラグである場合、vnode はハンドラーのキャッシュのために動的と見なされるべきではありません。
       vnode.patchFlag !== 32 /* HYDRATE_EVENTS */
     ) {
       currentBlock.push(vnode);
     }
+
     return vnode;
   }
   const createVNode = createVNodeWithArgsTransform;
@@ -9275,6 +9287,7 @@ var Vue = (function (exports) {
       true
     );
   }
+  // / VNode 作成関連。
   function guardReactiveProps(props) {
     if (!props) return null;
     return isProxy(props) || InternalObjectKey in props
