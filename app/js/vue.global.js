@@ -10475,7 +10475,10 @@ var Vue = (function (exports) {
   }
 
   // Actual implementation
+  // 実際の実装
   function h(type, propsOrChildren, children) {
+
+    //第 1 引数には、文字列（ネイティブ要素の場合）または Vue コンポーネント定義を指定します。第 2 引数は渡されるプロパティで、第 3 引数は子要素です。
     const l = arguments.length;
     if (l === 2) {
       if (isObject(propsOrChildren) && !isArray(propsOrChildren)) {
@@ -10495,6 +10498,9 @@ var Vue = (function (exports) {
       } else if (l === 3 && isVNode(children)) {
         children = [children];
       }
+
+      console.log('createVNode(type, propsOrChildren, children)');
+      console.log( createVNode(type, propsOrChildren, children) );
       return createVNode(type, propsOrChildren, children);
     }
   }

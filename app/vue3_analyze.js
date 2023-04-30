@@ -50,6 +50,12 @@ https://ja.vuejs.org/api/render-function.html
 https://ja.vuejs.org/api/custom-renderer.html
 
 
+||| L 10478 function h(type, propsOrChildren, children){}
+
+h()
+仮想 DOM ノード（vnode）を作成します。
+
+
 
 
 
