@@ -9059,6 +9059,8 @@ var Vue = (function (exports) {
     );
   }
   function isVNode(value) {
+    console.log('isVNode value');
+    console.log(value);
     return value ? value.__v_isVNode === true : false;
   }
   function isSameVNodeType(n1, n2) {

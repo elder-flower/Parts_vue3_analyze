@@ -56,8 +56,20 @@ h()
 仮想 DOM ノード（vnode）を作成します。
 
 
+||| L 9061
+
+function isVNode(value) {
+    return value ? value.__v_isVNode === true : false;
+}
 
 
+||| VNode
+
+{
+data: f(),
+render: f(),
+template: "\n      <p><span>{{ message }}</span></p>\n    "
+}
 
 ||| L11805 Composition API: setup() の変換関数？
 
