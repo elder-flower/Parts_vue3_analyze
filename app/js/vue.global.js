@@ -10876,8 +10876,8 @@ var Vue = (function (exports) {
     },
   };
 
-  console.log('nodeOps');
-  console.log(nodeOps);
+  // console.log('nodeOps');
+  // console.log(nodeOps);
 
   // compiler should normalize class + :class bindings on the same element
   // into a single binding ['staticClass', dynamic]
@@ -12333,10 +12333,10 @@ var Vue = (function (exports) {
   }
 
   const rendererOptions = extend({ patchProp }, nodeOps);
-  console.log('rendererOptions');
-  console.log(rendererOptions);
-  console.log('rendererOptions patchProp ');
-  console.log(patchProp);
+  // console.log('rendererOptions');
+  // console.log(rendererOptions);
+  // console.log('rendererOptions patchProp ');
+  // console.log(patchProp);
 
   // lazy create the renderer - this makes core renderer logic tree-shakable
   // in case the user only imports reactivity utilities from Vue.
@@ -12348,6 +12348,8 @@ var Vue = (function (exports) {
   function ensureRenderer() {
     return renderer || (renderer = createRenderer(rendererOptions));
   }
+  console.log('ensureRenderer()');
+  console.log(ensureRenderer());
   function ensureHydrationRenderer() {
     renderer = enabledHydration
       ? renderer

@@ -49,6 +49,11 @@ const nodeOps = {}
 
 const rendererOptions = extend({ patchProp }, nodeOps);
 
+||| L 12348
+
+function ensureRenderer() {
+    return renderer || (renderer = createRenderer(rendererOptions));
+  }
 
 ||| L 17868
 
