@@ -7033,8 +7033,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
-      // console.log('mountElement vnode');
-      // console.log(vnode);
+      console.log('mountElement vnode');
+       console.log(vnode);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;

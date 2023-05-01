@@ -41,12 +41,23 @@ mount(rootContainer, isHydrate, isSVG) {} ==> const render = (vnode, container, 
 
 ==> switch (type) {} で表示処理される。
 
+processElement();
+
+
+
 | L 12417 以下から呼び出されている。
 
 const proxy = mount(container, false, container instanceof SVGElement);
 
 
 |||  L 6979 const processElement = () => {}
+
+processElement() => mountElement();
+                 => patchElement();
+
+|||  L 7026 mountElement();
+
+|||  L 7206 patchElement();
 
 |||  L 6756 patch
 
