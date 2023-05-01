@@ -14,7 +14,6 @@ console.log(app);
 app Object の中身が上記のAPIに対応する、
 
 
-
 |||
 
 const app = Vue.createApp({})
@@ -28,9 +27,11 @@ app.mount('#app');
 
 const createApp = (...args) => 
 
-|||  L 5993
 
-app.mount()
+|||  L 8651
+
+const mount = (container, anchor) => {}
+
 
 || L 12323
 
@@ -77,6 +78,10 @@ data: f(),
 render: f(),
 template: "\n      <p><span>{{ message }}</span></p>\n    "
 }
+
+||| L 5905 function createAppAPI(render, hydrate) {}
+
+console.log(app); で出力されるObjectのテンプレート部分がある。
 
 ||| L11805 Composition API: setup() の変換関数？
 
