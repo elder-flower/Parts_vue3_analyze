@@ -55,6 +55,14 @@ function ensureRenderer() {
     return renderer || (renderer = createRenderer(rendererOptions));
   }
 
+
+||| L 12498 normalizeContainer
+
+文字列の場合は文字列の要素を取得して返す。
+const res = document.querySelector(container)
+return res;
+
+
 ||| L 17868
 
 Vue Object の中身で見れるメソッドが書かれている。

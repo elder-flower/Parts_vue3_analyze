@@ -12373,6 +12373,7 @@ var Vue = (function (exports) {
     // console.log('ensureRenderer');
     // console.log(ensureRenderer());
     {
+      //console.log(' createApp1');
       injectNativeTagCheck(app);
       injectCompilerOptionsCheck(app);
     }
@@ -12453,6 +12454,7 @@ var Vue = (function (exports) {
   function injectNativeTagCheck(app) {
     // Inject `isNativeTag`
     // this is used for component name validation (dev only)
+    // これはコンポーネント名の検証に使用されます (開発のみ)
     Object.defineProperty(app.config, 'isNativeTag', {
       value: (tag) => isHTMLTag(tag) || isSVGTag(tag),
       writable: false,
@@ -12494,6 +12496,7 @@ var Vue = (function (exports) {
     }
   }
   function normalizeContainer(container) {
+    // 文字列の場合は文字列の要素を取得して返す。
     if (isString(container)) {
       const res = document.querySelector(container);
       if (!res) {
@@ -12503,11 +12506,13 @@ var Vue = (function (exports) {
       }
       return res;
     }
+    //「window.ShadowRoot」の回避処理。
     if (
       window.ShadowRoot &&
       container instanceof window.ShadowRoot &&
       container.mode === 'closed'
     ) {
+      // ShadowRoot にマウントすると、予期しないバグが発生する可能性があります
       warn$1(
         `mounting on a ShadowRoot with \`{mode: "closed"}\` may lead to unpredictable bugs`
       );
