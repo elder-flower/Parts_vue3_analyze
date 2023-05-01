@@ -67,6 +67,48 @@ https://ja.vuejs.org/api/custom-renderer.html
 h()
 仮想 DOM ノード（vnode）を作成します。
 
+=> createVNode(type, propsOrChildren, children);
+
+||| L 9173
+
+const createVNode = createVNodeWithArgsTransform;
+
+||| L 9083
+
+const createVNodeWithArgsTransform = (...args) => {}
+
+||| L 9181
+
+createVNodeWithArgsTransform から呼ばれる。
+
+function _createVNode(
+    type,
+    props = null,
+    children = null,
+    patchFlag = 0,
+    dynamicProps = null,
+    isBlockNode = false
+){}
+
+
+||| L 9106
+
+function createBaseVNode(
+    type,
+    props = null,
+    children = null,
+    patchFlag = 0,
+    dynamicProps = null,
+    shapeFlag = type === Fragment ? 0 : 1 /* ELEMENT */,
+    isBlockNode = false,
+    needFullChildrenNormalization = false
+  ) {}
+
+_createVNode から呼ばれる。
+
+| L 9116
+ 
+const vnode
 
 ||| L 9061
 
@@ -75,7 +117,7 @@ function isVNode(value) {
 }
 
 
-||| VNode
+| VNode
 
 {
 data: f(),
