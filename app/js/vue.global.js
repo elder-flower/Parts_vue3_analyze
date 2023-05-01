@@ -6779,7 +6779,7 @@ var Vue = (function (exports) {
         unmount(n1, parentComponent, parentSuspense, true);
         n1 = null;
       }
-      
+
       if (n2.patchFlag === -2 /* BAIL */) {
         optimized = false;
         n2.dynamicChildren = null;
@@ -6787,19 +6787,39 @@ var Vue = (function (exports) {
       const { type, ref, shapeFlag } = n2;
       switch (type) {
         case Text:
+          console.log('case Text');
+          console.log(processText(n1, n2, container, anchor));
           processText(n1, n2, container, anchor);
           break;
         case Comment:
+          console.log('case Comment');
+          console.log(processCommentNode(n1, n2, container, anchor));
           processCommentNode(n1, n2, container, anchor);
           break;
         case Static:
+          console.log('case Static');
+          
           if (n1 == null) {
+            console.log(mountStaticNode(n2, container, anchor, isSVG));
             mountStaticNode(n2, container, anchor, isSVG);
           } else {
+            console.log(patchStaticNode(n1, n2, container, isSVG));
             patchStaticNode(n1, n2, container, isSVG);
           }
           break;
         case Fragment:
+          console.log('case Fragment');
+          console.log(processFragment(
+            n1,
+            n2,
+            container,
+            anchor,
+            parentComponent,
+            parentSuspense,
+            isSVG,
+            slotScopeIds,
+            optimized
+          ));
           processFragment(
             n1,
             n2,
@@ -6813,6 +6833,8 @@ var Vue = (function (exports) {
           );
           break;
         default:
+          console.log('default');
+          // console.log();
           if (shapeFlag & 1 /* ELEMENT */) {
             processElement(
               n1,
