@@ -7035,13 +7035,16 @@ var Vue = (function (exports) {
     ) => {
       console.log('mountElement vnode');
       console.log(vnode);
-      console.log(container);
-      console.log(anchor);
-      console.log(parentComponent);
-      console.log(parentSuspense);
-      console.log(isSVG);
-      console.log(slotScopeIds);
-      console.log(optimized);
+      // console.log(container);
+      // console.log(anchor);
+      // console.log(parentComponent);
+      // console.log(parentSuspense);
+      // console.log(isSVG);
+      // console.log(slotScopeIds);
+      // console.log(optimized);
+      // console.log('hostInsert');
+      // console.log(hostInsert);
+
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -10858,19 +10861,27 @@ var Vue = (function (exports) {
 
   const nodeOps = {
     insert: (child, parent, anchor) => {
-      // console.log('nodeOps child, parent, anchor');
-      // console.log(child);
-      // console.log(parent);
-      // console.log(anchor);
+    console.log('nodeOps insert: child, parent, anchor');
+    console.log(child);
+    console.log(parent);
+    console.log(anchor);
       parent.insertBefore(child, anchor || null);
     },
     remove: (child) => {
+      console.log('nodeOps remove: child');
+      console.log(child);
       const parent = child.parentNode;
       if (parent) {
         parent.removeChild(child);
       }
     },
     createElement: (tag, isSVG, is, props) => {
+      console.log('nodeOps createElement: tag, isSVG, is, props');
+      console.log(tag);
+      console.log(isSVG);
+      console.log(is);
+      console.log(props);
+      
       const el = isSVG
         ? doc.createElementNS(svgNS, tag)
         : doc.createElement(tag, is ? { is } : undefined);
