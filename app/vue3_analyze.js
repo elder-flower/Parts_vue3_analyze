@@ -39,6 +39,8 @@ app.mount = (containerOrSelector) => {
 
 mount(rootContainer, isHydrate, isSVG) {} ==> const render = (vnode, container, isSVG) => {} ==> patch();
 
+==> switch (type) {} で表示処理される。
+
 | L 12417 以下から呼び出されている。
 
 const proxy = mount(container, false, container instanceof SVGElement);
