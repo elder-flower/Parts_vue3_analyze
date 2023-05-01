@@ -36,6 +36,10 @@ mount(rootContainer, isHydrate, isSVG) {}
 const proxy = mount(container, false, container instanceof SVGElement);
 
 
+|||  L 
+
+getExposeProxy
+
 
 
 |||  L 8651
@@ -45,7 +49,10 @@ const mount = (container, anchor) => {}
 
 ||| L 12323
 
-app.mount = (containerOrSelector) => {}
+app.mount = (containerOrSelector) => {
+    const proxy = mount(container, false, container instanceof SVGElement);
+    return proxy
+}
 
 
 

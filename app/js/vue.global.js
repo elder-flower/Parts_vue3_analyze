@@ -6051,8 +6051,8 @@ var Vue = (function (exports) {
               devtoolsInitApp(app, version);
             }
 
-            console.log('getExposeProxy(vnode.component) || vnode.component.proxy');
-            console.log(getExposeProxy(vnode.component) || vnode.component.proxy);
+            // console.log('getExposeProxy(vnode.component) || vnode.component.proxy');
+            // console.log(getExposeProxy(vnode.component) || vnode.component.proxy);
             return getExposeProxy(vnode.component) || vnode.component.proxy;
           } else {
             warn$1(

@@ -11,4 +11,7 @@ app.mount('#app');
 console.log('app');
 console.log(app);
 
+// console.log('app.mount(#app)');
+// console.log(app.mount('#app'));
+
 // console.log(app.config)
