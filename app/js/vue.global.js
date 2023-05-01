@@ -6765,7 +6765,7 @@ var Vue = (function (exports) {
       optimized = isHmrUpdating ? false : !!n2.dynamicChildren
     ) => {
       console.log('L6756 patch');
-      console.log(n1);
+      //console.log(n1);
       console.log(n2);
 
       if (n1 === n2) {
@@ -6834,8 +6834,10 @@ var Vue = (function (exports) {
           break;
         default:
           console.log('default');
-          // console.log();
+          //console.log(shapeFlag);
           if (shapeFlag & 1 /* ELEMENT */) {
+            console.log('shapeFlag & 1');
+            console.log(shapeFlag & 1);
             processElement(
               n1,
               n2,
@@ -6848,6 +6850,8 @@ var Vue = (function (exports) {
               optimized
             );
           } else if (shapeFlag & 6 /* COMPONENT */) {
+            console.log('shapeFlag & 6');
+            console.log(shapeFlag & 6);
             processComponent(
               n1,
               n2,
@@ -6860,6 +6864,8 @@ var Vue = (function (exports) {
               optimized
             );
           } else if (shapeFlag & 64 /* TELEPORT */) {
+            console.log('shapeFlag & 64');
+            console.log(shapeFlag & 64);
             type.process(
               n1,
               n2,
@@ -6873,6 +6879,8 @@ var Vue = (function (exports) {
               internals
             );
           } else if (shapeFlag & 128 /* SUSPENSE */) {
+            console.log('shapeFlag & 128');
+            console.log(shapeFlag & 128);
             type.process(
               n1,
               n2,
