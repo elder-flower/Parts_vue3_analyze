@@ -27,6 +27,16 @@ app.mount('#app');
 
 const createApp = (...args) => 
 
+|||  L 6012
+
+mount(rootContainer, isHydrate, isSVG) {}
+
+| L 12417 以下から呼び出されている。
+
+const proxy = mount(container, false, container instanceof SVGElement);
+
+
+
 
 |||  L 8651
 
@@ -36,6 +46,8 @@ const mount = (container, anchor) => {}
 ||| L 12323
 
 app.mount = (containerOrSelector) => {}
+
+
 
 ||| L 6958
 
@@ -62,6 +74,8 @@ function ensureRenderer() {
 const res = document.querySelector(container)
 return res;
 
+L 12388
+const container = normalizeContainer(containerOrSelector);
 
 ||| L 17868
 

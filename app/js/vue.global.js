@@ -6010,10 +6010,10 @@ var Vue = (function (exports) {
 
         // app = createApp({}); AudioParamMap.mount()
         mount(rootContainer, isHydrate, isSVG) {
-          // console.log('rootContainer');
-          // console.log(rootContainer);
-          // console.log(isHydrate);
-          // console.log( isSVG);
+           console.log('L6012 rootContainer');
+           console.log(rootContainer);
+           console.log(isHydrate);
+           console.log( isSVG);
           if (!isMounted) {
             const vnode = createVNode(rootComponent, rootProps);
             // store app context on the root VNode.
@@ -12415,6 +12415,7 @@ var Vue = (function (exports) {
       // console.log(container);
 
       const proxy = mount(container, false, container instanceof SVGElement);
+);
 
       // console.log('app.mount proxy');
       // console.log(proxy);
