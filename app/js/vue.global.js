@@ -6033,12 +6033,12 @@ var Vue = (function (exports) {
               };
             }
             if (isHydrate && hydrate) {
-              console.log('isHydrate && hydrate');
-              console.log( isHydrate && hydrate );
+              // console.log('isHydrate && hydrate');
+              // console.log( isHydrate && hydrate );
               hydrate(vnode, rootContainer);
             } else {
-              console.log('isHydrate && hydrate2');
-              console.log( isHydrate && hydrate );
+              // console.log('isHydrate && hydrate2');
+              // console.log( isHydrate && hydrate );
               render(vnode, rootContainer, isSVG);
             }
             isMounted = true;
@@ -6752,6 +6752,7 @@ var Vue = (function (exports) {
     } = options;
     // Note: functions inside this closure should use `const xxx = () => {}`
     // style in order to prevent being inlined by minifiers.
+    // このクロージャ内の関数は、ミニファイアによってインライン化されるのを防ぐために、`const xxx = () => {}` スタイルを使用する必要があります。
     const patch = (
       n1,
       n2,
@@ -8491,11 +8492,13 @@ var Vue = (function (exports) {
       return hostNextSibling(vnode.anchor || vnode.el);
     };
     const render = (vnode, container, isSVG) => {
+      console.log('L8494 render');
       if (vnode == null) {
         if (container._vnode) {
           unmount(container._vnode, null, null, true);
         }
       } else {
+
         patch(
           container._vnode || null,
           vnode,
@@ -8505,6 +8508,8 @@ var Vue = (function (exports) {
           null,
           isSVG
         );
+        
+
       }
       flushPostFlushCbs();
       container._vnode = vnode;

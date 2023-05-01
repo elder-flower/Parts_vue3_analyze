@@ -29,7 +29,11 @@ const createApp = (...args) =>
 
 |||  L 6012
 
-mount(rootContainer, isHydrate, isSVG) {}
+mount, render 処理の流れ。
+
+mount(rootContainer, isHydrate, isSVG) {} ==> const render = (vnode, container, isSVG) => {} ==> patch();
+
+
 
 | L 12417 以下から呼び出されている。
 
@@ -37,6 +41,10 @@ const proxy = mount(container, false, container instanceof SVGElement);
 
 
 |||  L 
+
+render
+
+|||  L 10313
 
 getExposeProxy
 
