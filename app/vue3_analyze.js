@@ -52,12 +52,14 @@ const proxy = mount(container, false, container instanceof SVGElement);
 
 |||  L 6979 const processElement = () => {}
 
-processElement() => mountElement();
+processElement() => mountElement(); => hostInsert();
                  => patchElement();
 
 |||  L 7026 mountElement();
 
 |||  L 7206 patchElement();
+
+|||  L hostInsert();
 
 |||  L 6756 patch
 

@@ -6989,14 +6989,14 @@ var Vue = (function (exports) {
     ) => {
       console.log('L6979 processElement');
       // console.log(n1);
-      console.log(n2);
-      console.log(container);
-      console.log(anchor);
-      console.log(parentComponent);
-      console.log(parentSuspense);
-      console.log(isSVG);
-      console.log(slotScopeIds);
-      console.log(optimized);
+      // console.log(n2);
+      // console.log(container);
+      // console.log(anchor);
+      // console.log(parentComponent);
+      // console.log(parentSuspense);
+      // console.log(isSVG);
+      // console.log(slotScopeIds);
+      // console.log(optimized);
       isSVG = isSVG || n2.type === 'svg';
       if (n1 == null) {
         console.log('n1 == null');
@@ -7034,7 +7034,14 @@ var Vue = (function (exports) {
       optimized
     ) => {
       console.log('mountElement vnode');
-       console.log(vnode);
+      console.log(vnode);
+      console.log(container);
+      console.log(anchor);
+      console.log(parentComponent);
+      console.log(parentSuspense);
+      console.log(isSVG);
+      console.log(slotScopeIds);
+      console.log(optimized);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -7132,6 +7139,7 @@ var Vue = (function (exports) {
       if (needCallTransitionHooks) {
         transition.beforeEnter(el);
       }
+      // 表示処理。
       hostInsert(el, container, anchor);
       if (
         (vnodeHook = props && props.onVnodeMounted) ||
