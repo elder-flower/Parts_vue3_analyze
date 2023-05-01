@@ -6965,7 +6965,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
-      console.log('mountElement');
+      console.log('mountElement vnode');
+      console.log(vnode);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -10767,10 +10768,10 @@ var Vue = (function (exports) {
 
   const nodeOps = {
     insert: (child, parent, anchor) => {
-      console.log('nodeOps child, parent, anchor');
-      console.log(child);
-      console.log(parent);
-      console.log(anchor);
+      // console.log('nodeOps child, parent, anchor');
+      // console.log(child);
+      // console.log(parent);
+      // console.log(anchor);
       parent.insertBefore(child, anchor || null);
     },
     remove: (child) => {
@@ -12371,7 +12372,7 @@ var Vue = (function (exports) {
       // console.log(component);
 
       if (!isFunction(component) && !component.render && !component.template) {
-        console.log('app.mount component.template = container.innerHTML;');
+        // console.log('app.mount component.template = container.innerHTML;');
         // __UNSAFE__
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's
