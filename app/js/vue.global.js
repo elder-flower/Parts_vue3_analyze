@@ -6010,15 +6010,15 @@ var Vue = (function (exports) {
 
         // app = createApp({}); AudioParamMap.mount()
         mount(rootContainer, isHydrate, isSVG) {
-           console.log('L6012 createAppAPI rootContainer');
-           console.log(rootContainer);
-           console.log(isHydrate);
-           console.log(isSVG);
+           // console.log('L6012 createAppAPI rootContainer');
+           // console.log(rootContainer);
+           // console.log(isHydrate);
+           // console.log(isSVG);
 
           if (!isMounted) {
             const vnode = createVNode(rootComponent, rootProps);
-            console.log('createAppAPI mount vnode');
-            console.log(vnode);
+            // console.log('createAppAPI mount vnode');
+            // console.log(vnode);
             // store app context on the root VNode.
             // this will be set on the root instance on initial mount.
             // アプリのコンテキストをルート VNode に保存します。
@@ -6833,8 +6833,12 @@ var Vue = (function (exports) {
           );
           break;
         default:
-          console.log('default');
+          console.log('default');1
           //console.log(shapeFlag);
+          
+          // ビット論理積 (&)
+          // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Bitwise_AND
+
           if (shapeFlag & 1 /* ELEMENT */) {
             console.log('shapeFlag & 1');
             console.log(shapeFlag & 1);
