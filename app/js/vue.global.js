@@ -8649,8 +8649,13 @@ var Vue = (function (exports) {
           );
         }
         const mount = (container, anchor) => {
+          console.log('mount container');
+          console.log( container );
+          console.log( anchor );
           // Teleport *always* has Array children. This is enforced in both the
           // compiler and vnode children normalization.
+          // Teleport には *常に* Array の子があります。 これは、コンパイラと vnode の子の正規化。
+
           if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
             mountChildren(
               children,
@@ -9059,8 +9064,8 @@ var Vue = (function (exports) {
     );
   }
   function isVNode(value) {
-    console.log('isVNode value');
-    console.log(value);
+    // console.log('isVNode value');
+    // console.log(value);
     return value ? value.__v_isVNode === true : false;
   }
   function isSameVNodeType(n1, n2) {
