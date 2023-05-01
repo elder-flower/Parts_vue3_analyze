@@ -98,6 +98,21 @@ _createVNode から呼ばれる。
  
 const vnode
 
+| VNode
+
+type:
+children : 入れ子で文字列や子要素が入る。
+
+{
+data: f(),
+render: f(),
+template: "\n      <p><span>{{ message }}</span></p>\n    "
+}
+
+or 
+
+type : 'div'
+
 ||| L 9061
 
 function isVNode(value) {
@@ -105,13 +120,6 @@ function isVNode(value) {
 }
 
 
-| VNode
-
-{
-data: f(),
-render: f(),
-template: "\n      <p><span>{{ message }}</span></p>\n    "
-}
 
 ||| L11805 Composition API: setup() の変換関数？
 
