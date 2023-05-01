@@ -32,6 +32,9 @@ const createApp = (...args) =>
 
 app.mount()
 
+|| L 12323
+
+app.mount = (containerOrSelector) => {}
 
 
 ||| L17868

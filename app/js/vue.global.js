@@ -12321,10 +12321,21 @@ var Vue = (function (exports) {
     // console.log('mount');
     // console.log( mount );
     app.mount = (containerOrSelector) => {
+      console.log('app.mount containerOrSelector');
+      console.log(containerOrSelector);
+
       const container = normalizeContainer(containerOrSelector);
+      console.log('app.mount container');
+      console.log(container);
+
       if (!container) return;
+
       const component = app._component;
+      console.log('app.mount component');
+      console.log(component);
+
       if (!isFunction(component) && !component.render && !component.template) {
+        console.log('app.mount component.template = container.innerHTML;');
         // __UNSAFE__
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's
@@ -12336,14 +12347,18 @@ var Vue = (function (exports) {
         component.template = container.innerHTML;
       }
       // clear content before mounting
+      // マウント前にコンテンツをクリア
       container.innerHTML = '';
+
       const proxy = mount(container, false, container instanceof SVGElement);
+
       if (container instanceof Element) {
         container.removeAttribute('v-cloak');
         container.setAttribute('data-v-app', '');
       }
       return proxy;
     };
+
     return app;
   };
   const createSSRApp = (...args) => {
