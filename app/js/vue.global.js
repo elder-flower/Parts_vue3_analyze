@@ -6010,16 +6010,20 @@ var Vue = (function (exports) {
 
         // app = createApp({}); AudioParamMap.mount()
         mount(rootContainer, isHydrate, isSVG) {
-           console.log('L6012 rootContainer');
+           console.log('L6012 createAppAPI rootContainer');
            console.log(rootContainer);
            console.log(isHydrate);
-           console.log( isSVG);
+           console.log(isSVG);
+
           if (!isMounted) {
             const vnode = createVNode(rootComponent, rootProps);
+            console.log(' createAppAPI mount vnode');
+            console.log(vnode);
             // store app context on the root VNode.
             // this will be set on the root instance on initial mount.
             // アプリのコンテキストをルート VNode に保存します。
             // これは、初期マウント時にルート インスタンスに設定されます。
+
             vnode.appContext = context;
             // HMR root reload
             {
@@ -6965,8 +6969,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
-      console.log('mountElement vnode');
-      console.log(vnode);
+      // console.log('mountElement vnode');
+      // console.log(vnode);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -12415,7 +12419,6 @@ var Vue = (function (exports) {
       // console.log(container);
 
       const proxy = mount(container, false, container instanceof SVGElement);
-);
 
       // console.log('app.mount proxy');
       // console.log(proxy);
