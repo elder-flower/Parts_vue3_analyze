@@ -12357,18 +12357,18 @@ var Vue = (function (exports) {
     // console.log( mount );
     
     app.mount = (containerOrSelector) => {
-      console.log('app.mount containerOrSelector');
-      console.log(containerOrSelector);
+      // console.log('app.mount containerOrSelector');
+      // console.log(containerOrSelector);
 
       const container = normalizeContainer(containerOrSelector);
-      console.log('app.mount container');
-      console.log(container);
+      // console.log('app.mount container');
+      // console.log(container);
 
       if (!container) return;
 
       const component = app._component;
-      console.log('app.mount component');
-      console.log(component);
+      // console.log('app.mount component');
+      // console.log(component);
 
       if (!isFunction(component) && !component.render && !component.template) {
         console.log('app.mount component.template = container.innerHTML;');
@@ -12386,13 +12386,13 @@ var Vue = (function (exports) {
       // マウント前にコンテンツをクリア
       container.innerHTML = '';
 
-      console.log('app.mount container2');
-      console.log(container);
+      // console.log('app.mount container2');
+      // console.log(container);
 
       const proxy = mount(container, false, container instanceof SVGElement);
 
-      console.log('app.mount proxy');
-      console.log(proxy);
+      // console.log('app.mount proxy');
+      // console.log(proxy);
 
       // 意味がない事をしている。
       if (container instanceof Element) {
