@@ -33,20 +33,24 @@ const createApp = (...args) =>
 const mount = (container, anchor) => {}
 
 
-|| L 12323
+||| L 12323
 
 app.mount = (containerOrSelector) => {}
 
-|| L 6958
+||| L 6958
 
 const mountElement = (){}
 
-|| L 10747
+||| L 10747
 
 const nodeOps = {}
 
+||| L 12335
 
-||| L17868
+const rendererOptions = extend({ patchProp }, nodeOps);
+
+
+||| L 17868
 
 Vue Object の中身で見れるメソッドが書かれている。
 
