@@ -113,6 +113,9 @@ var Vue = (function (exports) {
   /**
    * On the client we only need to offer special cases for boolean attributes that
    * have different names from their corresponding dom properties:
+   * 
+   *  クライアントでは、対応する dom プロパティとは異なる名前を持つブール属性の特別なケースを提供するだけで済みます:
+   * 
    * - itemscope -> N/A
    * - allowfullscreen -> allowFullscreen
    * - formnovalidate -> formNoValidate
@@ -126,6 +129,8 @@ var Vue = (function (exports) {
   /**
    * Boolean attributes should be included if the value is truthy or ''.
    * e.g. `<select multiple>` compiles to `{ multiple: '' }`
+   * 
+   * 値が true または '' の場合は、ブール属性を含める必要があります。 例えば `<select multiple>` は `{ multiple: '' }` にコンパイルされます
    */
   function includeBooleanAttr(value) {
     return !!value || value === '';
@@ -197,6 +202,8 @@ var Vue = (function (exports) {
   }
 
   // These tag configs are shared between compiler-dom and runtime-dom, so they
+  //
+  // これらのタグ構成は、compiler-dom と runtime-dom の間で共有されるため、
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Element
   const HTML_TAGS =
     'html,body,base,head,link,meta,style,title,address,article,aside,footer,' +
@@ -224,12 +231,16 @@ var Vue = (function (exports) {
     'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
   /**
    * Compiler only.
+   * コンパイラのみ。
+   * 
    * Do NOT use in runtime code paths unless behind `true` flag.
+   * `true` フラグの背後にある場合を除き、ランタイム コード パスでは使用しないでください。
    */
   const isHTMLTag = /*#__PURE__*/ makeMap(HTML_TAGS);
   /**
    * Compiler only.
-   * Do NOT use in runtime code paths unless behind `true` flag.
+   * Do NOT use in runtime code paths unless behind `true` flag
+   * `true` フラグの背後にある場合を除き、ランタイム コード パスで使用しないでください.
    */
   const isSVGTag = /*#__PURE__*/ makeMap(SVG_TAGS);
   /**
@@ -419,7 +430,10 @@ var Vue = (function (exports) {
       fns[i](arg);
     }
   };
+
+  // あるオブジェクトに新しいプロパティを直接定義したり、オブジェクトの既存のプロパティを変更したりして、そのオブジェクトを返します。
   const def = (obj, key, value) => {
+    // 第1引数は定義されるObject
     Object.defineProperty(obj, key, {
       configurable: true,
       enumerable: false,
@@ -574,6 +588,10 @@ var Vue = (function (exports) {
    * The bitwise track markers support at most 30 levels of recursion.
    * This value is chosen to enable modern JS engines to use a SMI on all platforms.
    * When recursion depth is greater, fall back to using a full cleanup.
+   * 
+   * ビットごとのトラック マーカーは、最大 30 レベルの再帰をサポートします。
+   * この値は、最新の JS エンジンがすべてのプラットフォームで SMI を使用できるようにするために選択されています。
+   * 再帰の深さが大きい場合は、完全なクリーンアップを使用するようにフォール バックします。
    */
   const maxMarkerBits = 30;
   let activeEffect;
@@ -6947,6 +6965,7 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
+      console.log('mountElement');
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;

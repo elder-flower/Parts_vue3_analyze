@@ -37,6 +37,10 @@ const mount = (container, anchor) => {}
 
 app.mount = (containerOrSelector) => {}
 
+|| L 6958
+
+const mountElement = (){}
+
 || L 10747
 
 const nodeOps = {}
