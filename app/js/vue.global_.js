@@ -113,6 +113,9 @@ var Vue = (function (exports) {
   /**
    * On the client we only need to offer special cases for boolean attributes that
    * have different names from their corresponding dom properties:
+   * 
+   *  クライアントでは、対応する dom プロパティとは異なる名前を持つブール属性の特別なケースを提供するだけで済みます:
+   * 
    * - itemscope -> N/A
    * - allowfullscreen -> allowFullscreen
    * - formnovalidate -> formNoValidate
@@ -126,6 +129,8 @@ var Vue = (function (exports) {
   /**
    * Boolean attributes should be included if the value is truthy or ''.
    * e.g. `<select multiple>` compiles to `{ multiple: '' }`
+   * 
+   * 値が true または '' の場合は、ブール属性を含める必要があります。 例えば `<select multiple>` は `{ multiple: '' }` にコンパイルされます
    */
   function includeBooleanAttr(value) {
     return !!value || value === '';
@@ -197,6 +202,8 @@ var Vue = (function (exports) {
   }
 
   // These tag configs are shared between compiler-dom and runtime-dom, so they
+  //
+  // これらのタグ構成は、compiler-dom と runtime-dom の間で共有されるため、
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Element
   const HTML_TAGS =
     'html,body,base,head,link,meta,style,title,address,article,aside,footer,' +
@@ -224,12 +231,16 @@ var Vue = (function (exports) {
     'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
   /**
    * Compiler only.
+   * コンパイラのみ。
+   * 
    * Do NOT use in runtime code paths unless behind `true` flag.
+   * `true` フラグの背後にある場合を除き、ランタイム コード パスでは使用しないでください。
    */
   const isHTMLTag = /*#__PURE__*/ makeMap(HTML_TAGS);
   /**
    * Compiler only.
-   * Do NOT use in runtime code paths unless behind `true` flag.
+   * Do NOT use in runtime code paths unless behind `true` flag
+   * `true` フラグの背後にある場合を除き、ランタイム コード パスで使用しないでください.
    */
   const isSVGTag = /*#__PURE__*/ makeMap(SVG_TAGS);
   /**
@@ -419,7 +430,10 @@ var Vue = (function (exports) {
       fns[i](arg);
     }
   };
+
+  // あるオブジェクトに新しいプロパティを直接定義したり、オブジェクトの既存のプロパティを変更したりして、そのオブジェクトを返します。
   const def = (obj, key, value) => {
+    // 第1引数は定義されるObject
     Object.defineProperty(obj, key, {
       configurable: true,
       enumerable: false,
@@ -574,6 +588,10 @@ var Vue = (function (exports) {
    * The bitwise track markers support at most 30 levels of recursion.
    * This value is chosen to enable modern JS engines to use a SMI on all platforms.
    * When recursion depth is greater, fall back to using a full cleanup.
+   * 
+   * ビットごとのトラック マーカーは、最大 30 レベルの再帰をサポートします。
+   * この値は、最新の JS エンジンがすべてのプラットフォームで SMI を使用できるようにするために選択されています。
+   * 再帰の深さが大きい場合は、完全なクリーンアップを使用するようにフォール バックします。
    */
   const maxMarkerBits = 30;
   let activeEffect;
@@ -6947,6 +6965,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
+      console.log('mountElement vnode');
+      console.log(vnode);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -10708,6 +10728,7 @@ var Vue = (function (exports) {
     ret.memo = memo.slice();
     return (cache[index] = ret);
   }
+  
   function isMemoSame(cached, memo) {
     const prev = cached.memo;
     if (prev.length != memo.length) {
@@ -10744,8 +10765,13 @@ var Vue = (function (exports) {
   const svgNS = 'http://www.w3.org/2000/svg';
   const doc = typeof document !== 'undefined' ? document : null;
   const templateContainer = doc && doc.createElement('template');
+
   const nodeOps = {
     insert: (child, parent, anchor) => {
+      // console.log('nodeOps child, parent, anchor');
+      // console.log(child);
+      // console.log(parent);
+      // console.log(anchor);
       parent.insertBefore(child, anchor || null);
     },
     remove: (child) => {
@@ -10788,6 +10814,9 @@ var Vue = (function (exports) {
       //   cloneNode() does not copy the custom property we attached.
       // - This may need to account for other custom DOM properties we attach to
       //   elements in addition to `_value` in the future.
+
+      // `patchDOMProp` では、`el._value` プロパティに実際の値を格納します。
+      // 通常、`:value` バインディングを使用する要素は巻き上げられませんが、バインドされた値が定数の場合 (例: `:value="true"` - それらは巻き上げられます。
       if (`_value` in el) {
         cloned._value = el._value;
       }
@@ -10797,6 +10826,11 @@ var Vue = (function (exports) {
     // Reason: innerHTML.
     // Static content here can only come from compiled templates.
     // As long as the user only uses trusted templates, this is safe.
+
+    // __UNSAFE__
+    // Reason: innerHTML.
+    // ここでの静的コンテンツは、コンパイルされたテンプレートからのみ取得できます。
+    // ユーザーが信頼できるテンプレートのみを使用する限り、これは安全です。
     insertStaticContent(content, parent, anchor, isSVG, start, end) {
       // <parent> before | first ... last | anchor </parent>
       const before = anchor ? anchor.previousSibling : parent.lastChild;
@@ -10834,6 +10868,8 @@ var Vue = (function (exports) {
 
   // compiler should normalize class + :class bindings on the same element
   // into a single binding ['staticClass', dynamic]
+
+  // コンパイラは、同じ要素の class + :class バインディングを単一のバインディングに正規化する必要があります ['staticClass', dynamic]
   function patchClass(el, value, isSVG) {
     // directly setting className should be faster than setAttribute in theory
     // if this is an element during a transition, take the temporary transition
@@ -12320,22 +12356,23 @@ var Vue = (function (exports) {
     const { mount } = app;
     // console.log('mount');
     // console.log( mount );
+    
     app.mount = (containerOrSelector) => {
-      console.log('app.mount containerOrSelector');
-      console.log(containerOrSelector);
+      // console.log('app.mount containerOrSelector');
+      // console.log(containerOrSelector);
 
       const container = normalizeContainer(containerOrSelector);
-      console.log('app.mount container');
-      console.log(container);
+      // console.log('app.mount container');
+      // console.log(container);
 
       if (!container) return;
 
       const component = app._component;
-      console.log('app.mount component');
-      console.log(component);
+      // console.log('app.mount component');
+      // console.log(component);
 
       if (!isFunction(component) && !component.render && !component.template) {
-        console.log('app.mount component.template = container.innerHTML;');
+        // console.log('app.mount component.template = container.innerHTML;');
         // __UNSAFE__
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's
@@ -12350,13 +12387,13 @@ var Vue = (function (exports) {
       // マウント前にコンテンツをクリア
       container.innerHTML = '';
 
-      console.log('app.mount container2');
-      console.log(container);
+      // console.log('app.mount container2');
+      // console.log(container);
 
       const proxy = mount(container, false, container instanceof SVGElement);
 
-      console.log('app.mount proxy');
-      console.log(proxy);
+      // console.log('app.mount proxy');
+      // console.log(proxy);
 
       // 意味がない事をしている。
       if (container instanceof Element) {

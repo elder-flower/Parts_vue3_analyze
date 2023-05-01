@@ -6979,6 +6979,8 @@ var Vue = (function (exports) {
         );
         // mount children first, since some props may rely on child content
         // being already rendered, e.g. `<select value>`
+
+        // 一部の props は、すでにレンダリングされている子コンテンツに依存している可能性があるため、最初に子をマウントします。 `<select value>`
         if (shapeFlag & 8 /* TEXT_CHILDREN */) {
           hostSetElementText(el, vnode.children);
         } else if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
@@ -7021,6 +7023,13 @@ var Vue = (function (exports) {
            * the properties affects are so finite it is worth special casing it
            * here to reduce the complexity. (Special casing it also should not
            * affect non-DOM renderers)
+           * 
+           * 
+           * DOM 要素に値を設定する特殊なケース:
+           * - 順序に依存する可能性があります (例: *after* min/max, #2325, #4024 に設定する必要があります)
+           * - 強制する必要があります (#1471)
+           * #2353 は、これを構成する別のレンダラー オプションを追加することを提案していますが、プロパティの影響は非常に限られているため、
+           * 複雑さを軽減するためにここで特別にケーシングする価値があります。 (特別なケースは、非 DOM レンダラーにも影響しないはずです)
            */
           if ('value' in props) {
             hostPatchProp(el, 'value', null, props.value);
@@ -7108,6 +7117,7 @@ var Vue = (function (exports) {
       optimized,
       start = 0
     ) => {
+      console.log('mountChildren');
       for (let i = start; i < children.length; i++) {
         const child = (children[i] = optimized
           ? cloneIfMounted(children[i])
