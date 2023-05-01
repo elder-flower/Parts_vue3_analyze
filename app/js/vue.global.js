@@ -6833,7 +6833,7 @@ var Vue = (function (exports) {
           );
           break;
         default:
-          console.log('default');1
+          console.log('default');
           //console.log(shapeFlag);
           
           // ビット論理積 (&)
