@@ -6987,8 +6987,19 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
+      console.log('L6979 processElement');
+      // console.log(n1);
+      console.log(n2);
+      console.log(container);
+      console.log(anchor);
+      console.log(parentComponent);
+      console.log(parentSuspense);
+      console.log(isSVG);
+      console.log(slotScopeIds);
+      console.log(optimized);
       isSVG = isSVG || n2.type === 'svg';
       if (n1 == null) {
+        console.log('n1 == null');
         mountElement(
           n2,
           container,
@@ -7000,6 +7011,7 @@ var Vue = (function (exports) {
           optimized
         );
       } else {
+        console.log('n1 != null');
         patchElement(
           n1,
           n2,

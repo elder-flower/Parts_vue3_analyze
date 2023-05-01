@@ -45,6 +45,9 @@ mount(rootContainer, isHydrate, isSVG) {} ==> const render = (vnode, container, 
 
 const proxy = mount(container, false, container instanceof SVGElement);
 
+
+|||  L 6979 const processElement = () => {}
+
 |||  L 6756 patch
 
 const patch = (
