@@ -7564,11 +7564,16 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
+      console.log('L7556 processComponent');
+
       n2.slotScopeIds = slotScopeIds;
+
       if (n1 == null) {
         if (n2.shapeFlag & 512 /* COMPONENT_KEPT_ALIVE */) {
+          console.log('n2.shapeFlag');
           parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);
         } else {
+          console.log('mountComponent');
           mountComponent(
             n2,
             container,
@@ -7592,11 +7597,22 @@ var Vue = (function (exports) {
       isSVG,
       optimized
     ) => {
+      console.log('mountComponent');
+      // console.log(initialVNode);
+      // console.log(container);
+      // console.log(anchor);
+      // console.log(parentComponent);
+      // console.log(parentSuspense);
+      // console.log(isSVG);
+      // console.log(optimized);
       const instance = (initialVNode.component = createComponentInstance(
         initialVNode,
         parentComponent,
         parentSuspense
       ));
+
+      console.log('instance');
+      console.log(instance);
       if (instance.type.__hmrId) {
         registerHMR(instance);
       }
@@ -7631,6 +7647,7 @@ var Vue = (function (exports) {
         }
         return;
       }
+      
       setupRenderEffect(
         instance,
         initialVNode,
@@ -7640,6 +7657,7 @@ var Vue = (function (exports) {
         isSVG,
         optimized
       );
+      
       {
         popWarningContext();
         endMeasure(instance, `mount`);
@@ -7865,15 +7883,18 @@ var Vue = (function (exports) {
         }
       };
       // create reactive effect for rendering
+      // レンダリングのリアクティブ効果を作成する
+      
       const effect = (instance.effect = new ReactiveEffect(
         componentUpdateFn,
         () => queueJob(instance.update),
-        instance.scope // track it in component's effect scope
+        instance.scope // コンポーネントのエフェクトスコープで追跡する
       ));
       const update = (instance.update = effect.run.bind(effect));
       update.id = instance.uid;
+
       // allowRecurse
-      // #1801, #2043 component render effects should allow recursive updates
+      // #1801、#2043 コンポーネントのレンダリング効果は再帰的な更新を許可する必要があります
       toggleRecurse(instance, true);
       {
         effect.onTrack = instance.rtc
@@ -7885,6 +7906,7 @@ var Vue = (function (exports) {
         // @ts-ignore (for scheduler)
         update.ownerInstance = instance;
       }
+
       update();
     };
     const updateComponentPreRender = (instance, nextVNode, optimized) => {
