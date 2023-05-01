@@ -36,6 +36,10 @@ app.mount()
 
 app.mount = (containerOrSelector) => {}
 
+|| L 10747
+
+const nodeOps = {}
+
 
 ||| L17868
 

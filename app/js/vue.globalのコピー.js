@@ -8649,8 +8649,13 @@ var Vue = (function (exports) {
           );
         }
         const mount = (container, anchor) => {
+          console.log('mount container');
+          console.log( container );
+          console.log( anchor );
           // Teleport *always* has Array children. This is enforced in both the
           // compiler and vnode children normalization.
+          // Teleport には *常に* Array の子があります。 これは、コンパイラと vnode の子の正規化。
+
           if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
             mountChildren(
               children,
@@ -9059,6 +9064,8 @@ var Vue = (function (exports) {
     );
   }
   function isVNode(value) {
+    // console.log('isVNode value');
+    // console.log(value);
     return value ? value.__v_isVNode === true : false;
   }
   function isSameVNodeType(n1, n2) {
@@ -10475,7 +10482,10 @@ var Vue = (function (exports) {
   }
 
   // Actual implementation
+  // 実際の実装
   function h(type, propsOrChildren, children) {
+
+    //第 1 引数には、文字列（ネイティブ要素の場合）または Vue コンポーネント定義を指定します。第 2 引数は渡されるプロパティで、第 3 引数は子要素です。
     const l = arguments.length;
     if (l === 2) {
       if (isObject(propsOrChildren) && !isArray(propsOrChildren)) {
@@ -10495,6 +10505,9 @@ var Vue = (function (exports) {
       } else if (l === 3 && isVNode(children)) {
         children = [children];
       }
+
+      console.log('createVNode(type, propsOrChildren, children)');
+      console.log( createVNode(type, propsOrChildren, children) );
       return createVNode(type, propsOrChildren, children);
     }
   }
@@ -11851,6 +11864,7 @@ var Vue = (function (exports) {
         });
       });
       return () => {
+        console.log('TransitionGroup setup');
         const rawProps = toRaw(props);
         const cssTransitionProps = resolveTransitionProps(rawProps);
         let tag = rawProps.tag || Fragment;
@@ -12307,10 +12321,21 @@ var Vue = (function (exports) {
     // console.log('mount');
     // console.log( mount );
     app.mount = (containerOrSelector) => {
+      console.log('app.mount containerOrSelector');
+      console.log(containerOrSelector);
+
       const container = normalizeContainer(containerOrSelector);
+      console.log('app.mount container');
+      console.log(container);
+
       if (!container) return;
+
       const component = app._component;
+      console.log('app.mount component');
+      console.log(component);
+
       if (!isFunction(component) && !component.render && !component.template) {
+        console.log('app.mount component.template = container.innerHTML;');
         // __UNSAFE__
         // Reason: potential execution of JS expressions in in-DOM template.
         // The user must make sure the in-DOM template is trusted. If it's
@@ -12322,14 +12347,32 @@ var Vue = (function (exports) {
         component.template = container.innerHTML;
       }
       // clear content before mounting
+      // マウント前にコンテンツをクリア
       container.innerHTML = '';
+
+      console.log('app.mount container2');
+      console.log(container);
+
       const proxy = mount(container, false, container instanceof SVGElement);
+
+      console.log('app.mount proxy');
+      console.log(proxy);
+
+      // 意味がない事をしている。
       if (container instanceof Element) {
+        //console.log('container instanceof Element');
+
         container.removeAttribute('v-cloak');
         container.setAttribute('data-v-app', '');
+
+        // console.log('app.mount container3');
+        // console.log(container);
       }
+      // / 意味がない事をしている。
+
       return proxy;
     };
+
     return app;
   };
   const createSSRApp = (...args) => {

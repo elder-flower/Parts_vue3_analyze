@@ -10744,8 +10744,13 @@ var Vue = (function (exports) {
   const svgNS = 'http://www.w3.org/2000/svg';
   const doc = typeof document !== 'undefined' ? document : null;
   const templateContainer = doc && doc.createElement('template');
+
   const nodeOps = {
     insert: (child, parent, anchor) => {
+      console.log('nodeOps child, parent, anchor');
+      console.log(child);
+      console.log(parent);
+      console.log(anchor);
       parent.insertBefore(child, anchor || null);
     },
     remove: (child) => {
@@ -10788,6 +10793,9 @@ var Vue = (function (exports) {
       //   cloneNode() does not copy the custom property we attached.
       // - This may need to account for other custom DOM properties we attach to
       //   elements in addition to `_value` in the future.
+
+      // `patchDOMProp` では、`el._value` プロパティに実際の値を格納します。
+      // 通常、`:value` バインディングを使用する要素は巻き上げられませんが、バインドされた値が定数の場合 (例: `:value="true"` - それらは巻き上げられます。
       if (`_value` in el) {
         cloned._value = el._value;
       }
@@ -10797,6 +10805,11 @@ var Vue = (function (exports) {
     // Reason: innerHTML.
     // Static content here can only come from compiled templates.
     // As long as the user only uses trusted templates, this is safe.
+
+    // __UNSAFE__
+    // Reason: innerHTML.
+    // ここでの静的コンテンツは、コンパイルされたテンプレートからのみ取得できます。
+    // ユーザーが信頼できるテンプレートのみを使用する限り、これは安全です。
     insertStaticContent(content, parent, anchor, isSVG, start, end) {
       // <parent> before | first ... last | anchor </parent>
       const before = anchor ? anchor.previousSibling : parent.lastChild;
@@ -12320,6 +12333,7 @@ var Vue = (function (exports) {
     const { mount } = app;
     // console.log('mount');
     // console.log( mount );
+    
     app.mount = (containerOrSelector) => {
       console.log('app.mount containerOrSelector');
       console.log(containerOrSelector);
@@ -12350,14 +12364,29 @@ var Vue = (function (exports) {
       // マウント前にコンテンツをクリア
       container.innerHTML = '';
 
+      console.log('app.mount container2');
+      console.log(container);
+
       const proxy = mount(container, false, container instanceof SVGElement);
 
+      console.log('app.mount proxy');
+      console.log(proxy);
+
+      // 意味がない事をしている。
       if (container instanceof Element) {
+        //console.log('container instanceof Element');
+
         container.removeAttribute('v-cloak');
         container.setAttribute('data-v-app', '');
+
+        // console.log('app.mount container3');
+        // console.log(container);
       }
+      // / 意味がない事をしている。
+
       return proxy;
     };
+    
 
     return app;
   };
