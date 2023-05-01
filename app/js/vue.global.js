@@ -12336,11 +12336,14 @@ var Vue = (function (exports) {
   console.log('rendererOptions');
   console.log(rendererOptions);
   console.log('rendererOptions patchProp ');
-  console.log(patchProp );
-  
+  console.log(patchProp);
+
   // lazy create the renderer - this makes core renderer logic tree-shakable
   // in case the user only imports reactivity utilities from Vue.
+  // レンダラーの遅延作成 - これにより、ユーザーが Vue からのみリアクティブ ユーティリティをインポートする場合に、コア レンダラーのロジック ツリーを揺るがすことができます。
   let renderer;
+  // console.log('renderer');
+  // console.log(renderer);
   let enabledHydration = false;
   function ensureRenderer() {
     return renderer || (renderer = createRenderer(rendererOptions));
