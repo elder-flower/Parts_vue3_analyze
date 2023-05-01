@@ -6764,15 +6764,22 @@ var Vue = (function (exports) {
       slotScopeIds = null,
       optimized = isHmrUpdating ? false : !!n2.dynamicChildren
     ) => {
+      console.log('L6756 patch');
+      console.log(n1);
+      console.log(n2);
+
       if (n1 === n2) {
         return;
       }
       // patching & not same type, unmount old tree
+      // パッチ適用 & 同じタイプではない、古いツリーをアンマウント
+      
       if (n1 && !isSameVNodeType(n1, n2)) {
         anchor = getNextHostNode(n1);
         unmount(n1, parentComponent, parentSuspense, true);
         n1 = null;
       }
+      
       if (n2.patchFlag === -2 /* BAIL */) {
         optimized = false;
         n2.dynamicChildren = null;

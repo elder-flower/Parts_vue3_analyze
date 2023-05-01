@@ -6010,35 +6010,49 @@ var Vue = (function (exports) {
 
         // app = createApp({}); AudioParamMap.mount()
         mount(rootContainer, isHydrate, isSVG) {
-          // console.log('rootContainer');
-          // console.log(rootContainer);
-          // console.log(isHydrate);
-          // console.log( isSVG);
+           console.log('L6012 createAppAPI rootContainer');
+           console.log(rootContainer);
+           console.log(isHydrate);
+           console.log(isSVG);
+
           if (!isMounted) {
             const vnode = createVNode(rootComponent, rootProps);
+            console.log('createAppAPI mount vnode');
+            console.log(vnode);
             // store app context on the root VNode.
             // this will be set on the root instance on initial mount.
             // アプリのコンテキストをルート VNode に保存します。
             // これは、初期マウント時にルート インスタンスに設定されます。
+
             vnode.appContext = context;
             // HMR root reload
             {
+              // console.log('createAppAPI mount reload');
               context.reload = () => {
                 render(cloneVNode(vnode), rootContainer, isSVG);
               };
             }
             if (isHydrate && hydrate) {
+              // console.log('isHydrate && hydrate');
+              // console.log( isHydrate && hydrate );
               hydrate(vnode, rootContainer);
             } else {
+              // console.log('isHydrate && hydrate2');
+              // console.log( isHydrate && hydrate );
               render(vnode, rootContainer, isSVG);
             }
             isMounted = true;
+            // console.log('rootContainer');
+            // console.log(rootContainer);
             app._container = rootContainer;
             rootContainer.__vue_app__ = app;
             {
               app._instance = vnode.component;
               devtoolsInitApp(app, version);
             }
+
+            // console.log('getExposeProxy(vnode.component) || vnode.component.proxy');
+            // console.log(getExposeProxy(vnode.component) || vnode.component.proxy);
             return getExposeProxy(vnode.component) || vnode.component.proxy;
           } else {
             warn$1(
@@ -6738,6 +6752,7 @@ var Vue = (function (exports) {
     } = options;
     // Note: functions inside this closure should use `const xxx = () => {}`
     // style in order to prevent being inlined by minifiers.
+    // このクロージャ内の関数は、ミニファイアによってインライン化されるのを防ぐために、`const xxx = () => {}` スタイルを使用する必要があります。
     const patch = (
       n1,
       n2,
@@ -6749,15 +6764,22 @@ var Vue = (function (exports) {
       slotScopeIds = null,
       optimized = isHmrUpdating ? false : !!n2.dynamicChildren
     ) => {
+      console.log('L6756 patch');
+      console.log(n1);
+      console.log(n2);
+
       if (n1 === n2) {
         return;
       }
       // patching & not same type, unmount old tree
+      // パッチ適用 & 同じタイプではない、古いツリーをアンマウント
+      
       if (n1 && !isSameVNodeType(n1, n2)) {
         anchor = getNextHostNode(n1);
         unmount(n1, parentComponent, parentSuspense, true);
         n1 = null;
       }
+      
       if (n2.patchFlag === -2 /* BAIL */) {
         optimized = false;
         n2.dynamicChildren = null;
@@ -6965,8 +6987,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
-      console.log('mountElement vnode');
-      console.log(vnode);
+      // console.log('mountElement vnode');
+      // console.log(vnode);
       let el;
       let vnodeHook;
       const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
@@ -6979,6 +7001,8 @@ var Vue = (function (exports) {
         );
         // mount children first, since some props may rely on child content
         // being already rendered, e.g. `<select value>`
+
+        // 一部の props は、すでにレンダリングされている子コンテンツに依存している可能性があるため、最初に子をマウントします。 `<select value>`
         if (shapeFlag & 8 /* TEXT_CHILDREN */) {
           hostSetElementText(el, vnode.children);
         } else if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
@@ -7021,6 +7045,13 @@ var Vue = (function (exports) {
            * the properties affects are so finite it is worth special casing it
            * here to reduce the complexity. (Special casing it also should not
            * affect non-DOM renderers)
+           * 
+           * 
+           * DOM 要素に値を設定する特殊なケース:
+           * - 順序に依存する可能性があります (例: *after* min/max, #2325, #4024 に設定する必要があります)
+           * - 強制する必要があります (#1471)
+           * #2353 は、これを構成する別のレンダラー オプションを追加することを提案していますが、プロパティの影響は非常に限られているため、
+           * 複雑さを軽減するためにここで特別にケーシングする価値があります。 (特別なケースは、非 DOM レンダラーにも影響しないはずです)
            */
           if ('value' in props) {
             hostPatchProp(el, 'value', null, props.value);
@@ -7108,6 +7139,7 @@ var Vue = (function (exports) {
       optimized,
       start = 0
     ) => {
+      console.log('mountChildren');
       for (let i = start; i < children.length; i++) {
         const child = (children[i] = optimized
           ? cloneIfMounted(children[i])
@@ -8467,11 +8499,13 @@ var Vue = (function (exports) {
       return hostNextSibling(vnode.anchor || vnode.el);
     };
     const render = (vnode, container, isSVG) => {
+      console.log('L8494 render');
       if (vnode == null) {
         if (container._vnode) {
           unmount(container._vnode, null, null, true);
         }
       } else {
+
         patch(
           container._vnode || null,
           vnode,
@@ -8481,6 +8515,8 @@ var Vue = (function (exports) {
           null,
           isSVG
         );
+        
+
       }
       flushPostFlushCbs();
       container._vnode = vnode;
@@ -10866,6 +10902,9 @@ var Vue = (function (exports) {
     },
   };
 
+  // console.log('nodeOps');
+  // console.log(nodeOps);
+
   // compiler should normalize class + :class bindings on the same element
   // into a single binding ['staticClass', dynamic]
 
@@ -12320,13 +12359,23 @@ var Vue = (function (exports) {
   }
 
   const rendererOptions = extend({ patchProp }, nodeOps);
+  // console.log('rendererOptions');
+  // console.log(rendererOptions);
+  // console.log('rendererOptions patchProp ');
+  // console.log(patchProp);
+
   // lazy create the renderer - this makes core renderer logic tree-shakable
   // in case the user only imports reactivity utilities from Vue.
+  // レンダラーの遅延作成 - これにより、ユーザーが Vue からのみリアクティブ ユーティリティをインポートする場合に、コア レンダラーのロジック ツリーを揺るがすことができます。
   let renderer;
+  // console.log('renderer');
+  // console.log(renderer);
   let enabledHydration = false;
   function ensureRenderer() {
     return renderer || (renderer = createRenderer(rendererOptions));
   }
+  console.log('ensureRenderer()');
+  console.log(ensureRenderer());
   function ensureHydrationRenderer() {
     renderer = enabledHydration
       ? renderer
@@ -12350,6 +12399,7 @@ var Vue = (function (exports) {
     // console.log('ensureRenderer');
     // console.log(ensureRenderer());
     {
+      //console.log(' createApp1');
       injectNativeTagCheck(app);
       injectCompilerOptionsCheck(app);
     }
@@ -12430,6 +12480,7 @@ var Vue = (function (exports) {
   function injectNativeTagCheck(app) {
     // Inject `isNativeTag`
     // this is used for component name validation (dev only)
+    // これはコンポーネント名の検証に使用されます (開発のみ)
     Object.defineProperty(app.config, 'isNativeTag', {
       value: (tag) => isHTMLTag(tag) || isSVGTag(tag),
       writable: false,
@@ -12471,6 +12522,7 @@ var Vue = (function (exports) {
     }
   }
   function normalizeContainer(container) {
+    // 文字列の場合は文字列の要素を取得して返す。
     if (isString(container)) {
       const res = document.querySelector(container);
       if (!res) {
@@ -12480,11 +12532,13 @@ var Vue = (function (exports) {
       }
       return res;
     }
+    //「window.ShadowRoot」の回避処理。
     if (
       window.ShadowRoot &&
       container instanceof window.ShadowRoot &&
       container.mode === 'closed'
     ) {
+      // ShadowRoot にマウントすると、予期しないバグが発生する可能性があります
       warn$1(
         `mounting on a ShadowRoot with \`{mode: "closed"}\` may lead to unpredictable bugs`
       );

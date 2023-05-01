@@ -17,6 +17,7 @@ app Object の中身が上記のAPIに対応する、
 |||
 
 const app = Vue.createApp({})
+
 app.mount('#app');
 
 でターゲット要素の中に生成される。
@@ -31,18 +32,42 @@ const createApp = (...args) =>
 
 mount, render 処理の流れ。
 
+app.mount = (containerOrSelector) => {
+    const proxy = mount(container, false, container instanceof SVGElement);
+    return proxy
+}
+
 mount(rootContainer, isHydrate, isSVG) {} ==> const render = (vnode, container, isSVG) => {} ==> patch();
-
-
 
 | L 12417 以下から呼び出されている。
 
 const proxy = mount(container, false, container instanceof SVGElement);
 
+|||  L 6756 patch
 
-|||  L 
+const patch = (
+    n1,
+    n2,
+    container,
+    anchor = null,
+    parentComponent = null,
+    parentSuspense = null,
+    isSVG = false,
+    slotScopeIds = null,
+    optimized = isHmrUpdating ? false : !!n2.dynamicChildren
+  ) => {}
 
-render
+
+|||  L 9009
+
+  const Fragment = Symbol('Fragment');
+  const Text = Symbol('Text');
+  const Comment = Symbol('Comment');
+  const Static = Symbol('Static');
+
+
+|||  L 8494 const render = (vnode, container, isSVG) => {}
+
 
 |||  L 10313
 
