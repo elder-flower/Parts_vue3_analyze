@@ -6017,7 +6017,7 @@ var Vue = (function (exports) {
 
           if (!isMounted) {
             const vnode = createVNode(rootComponent, rootProps);
-            console.log(' createAppAPI mount vnode');
+            console.log('createAppAPI mount vnode');
             console.log(vnode);
             // store app context on the root VNode.
             // this will be set on the root instance on initial mount.
@@ -6027,22 +6027,32 @@ var Vue = (function (exports) {
             vnode.appContext = context;
             // HMR root reload
             {
+              // console.log('createAppAPI mount reload');
               context.reload = () => {
                 render(cloneVNode(vnode), rootContainer, isSVG);
               };
             }
             if (isHydrate && hydrate) {
+              console.log('isHydrate && hydrate');
+              console.log( isHydrate && hydrate );
               hydrate(vnode, rootContainer);
             } else {
+              console.log('isHydrate && hydrate2');
+              console.log( isHydrate && hydrate );
               render(vnode, rootContainer, isSVG);
             }
             isMounted = true;
+            // console.log('rootContainer');
+            // console.log(rootContainer);
             app._container = rootContainer;
             rootContainer.__vue_app__ = app;
             {
               app._instance = vnode.component;
               devtoolsInitApp(app, version);
             }
+
+            console.log('getExposeProxy(vnode.component) || vnode.component.proxy');
+            console.log(getExposeProxy(vnode.component) || vnode.component.proxy);
             return getExposeProxy(vnode.component) || vnode.component.proxy;
           } else {
             warn$1(
