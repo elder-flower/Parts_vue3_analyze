@@ -10708,6 +10708,7 @@ var Vue = (function (exports) {
     ret.memo = memo.slice();
     return (cache[index] = ret);
   }
+  
   function isMemoSame(cached, memo) {
     const prev = cached.memo;
     if (prev.length != memo.length) {
@@ -10847,6 +10848,8 @@ var Vue = (function (exports) {
 
   // compiler should normalize class + :class bindings on the same element
   // into a single binding ['staticClass', dynamic]
+
+  // コンパイラは、同じ要素の class + :class バインディングを単一のバインディングに正規化する必要があります ['staticClass', dynamic]
   function patchClass(el, value, isSVG) {
     // directly setting className should be faster than setAttribute in theory
     // if this is an element during a transition, take the temporary transition
@@ -12386,7 +12389,6 @@ var Vue = (function (exports) {
 
       return proxy;
     };
-    
 
     return app;
   };
