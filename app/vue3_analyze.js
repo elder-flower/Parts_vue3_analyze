@@ -62,10 +62,19 @@ processComponent() => mountComponent(); => setupRenderEffect();
 |||  L 7700 setupRenderEffect = ();
 
 
-|||  L createComponentInstance()
+|||  L 10131 createComponentInstance()
 
 ComponentInstanceのテンプレートを作成して返す。
 
+
+|||  L 6677 startMeasure
+
+startMeasure => const devtoolsPerfStart = /*#__PURE__*/ createDevtoolsPerformanceHook(); => return emit();
+
+
+|||  L 2256 function emit() 
+
+function emit() => exports.devtools.emit() => Vue.devtools.emit()
 
 |||  L 600 class ReactiveEffect {}
 

@@ -2252,12 +2252,21 @@ var Vue = (function (exports) {
 
   let buffer = [];
   let devtoolsNotInstalled = false;
+
   function emit(event, ...args) {
+    // console.log('emit');
+    // console.log('exports.devtools');
+    // console.log(exports.devtools);
+
     if (exports.devtools) {
+      console.log('emit exports.devtools');
+      //「vue.devtools」
       exports.devtools.emit(event, ...args);
     } else if (!devtoolsNotInstalled) {
+      console.log('emit !devtoolsNotInstalled');
       buffer.push({ event, args });
     }
+
   }
   function setDevtoolsHook(hook, target) {
     var _a, _b;
@@ -2342,6 +2351,8 @@ var Vue = (function (exports) {
     'perf:end' /* PERFORMANCE_END */
   );
   function createDevtoolsPerformanceHook(hook) {
+    console.log('createDevtoolsPerformanceHook');
+    console.log(hook);
     return (component, type, time) => {
       emit(
         hook,
@@ -6674,6 +6685,9 @@ var Vue = (function (exports) {
   /* eslint-disable no-restricted-globals */
   let supported;
   let perf;
+
+
+
   function startMeasure(instance, type) {
     if (instance.appContext.config.performance && isSupported()) {
       perf.mark(`vue-${type}-${instance.uid}`);
