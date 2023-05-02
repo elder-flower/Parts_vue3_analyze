@@ -81,12 +81,19 @@ ComponentInstanceのテンプレートを作成して返す。
 Component.render = compile(template, finalCompilerOptions);
 instance.render = Component.render || NOOP;
 
+const patch = ()=>{}
+
+の後に実行されているっぽい。
+
+
 
 setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1() => function baseCompile() => function generate() 「render」関数生成。
 
 
 vnode入れ子ObjectをbaseCreateRenderer()の「patch」で分岐処理して順次展開。
 ComponentをrenderしてvnodeのinnerHTMLにデータを入れ、最後にvnodeからタグを追加する。
+
+
 
 |||  L 4823 function applyOptions(instance){}
 
