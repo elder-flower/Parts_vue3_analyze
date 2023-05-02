@@ -4931,6 +4931,7 @@ var Vue = (function (exports) {
       }
       const data = dataOptions.call(publicThis, publicThis);
       console.log(data);
+      console.log(ctx);
       // console.log(isPromise(data));
       if (isPromise(data)) {
         warn$1(
@@ -4942,19 +4943,26 @@ var Vue = (function (exports) {
       if (!isObject(data)) {
         warn$1(`data() should return an object.`);
       } else {
-        instance.data = reactive(data);
+        //instance.data = reactive(data);
         //console.log(instance);
         {
           for (const key in data) {
             checkDuplicateProperties('Data' /* DATA */, key);
             // expose data on ctx during dev
+            // 開発中に ctx でデータを公開する
+
             if (key[0] !== '$' && key[0] !== '_') {
+              // console.log('applyOptions ctx');
+          
+              /*
               Object.defineProperty(ctx, key, {
                 configurable: true,
                 enumerable: true,
                 get: () => data[key],
                 set: NOOP,
               });
+              */
+            
             }
           }
         }

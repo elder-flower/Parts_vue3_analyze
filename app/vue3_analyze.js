@@ -90,8 +90,18 @@ ComponentをrenderしてvnodeのinnerHTMLにデータを入れ、最後にvnode�
 
 |||  L 4823 function applyOptions(instance){}
 
+「instance.data」と「instance.ctx」両方とも処理されないようにすると表示されない。
+
 L 4945 instance.data = reactive(data);
 
+L 4958 instance.ctx Object 内に追加している。
+
+Object.defineProperty(ctx, key, {
+  configurable: true,
+  enumerable: true,
+  get: () => data[key],
+  set: NOOP,
+});
 
 
 |||  L 18186 function compile$1()
