@@ -67,6 +67,9 @@ processComponent() => mountComponent(); => setupRenderEffect();
 ComponentInstanceのテンプレートを作成して返す。
 
 
+|||  L 10252 function setupComponent()
+
+
 |||  L 6677 startMeasure
 
 startMeasure => const devtoolsPerfStart = /*#__PURE__*/ createDevtoolsPerformanceHook(); => return emit();

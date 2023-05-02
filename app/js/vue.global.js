@@ -10248,6 +10248,7 @@ var Vue = (function (exports) {
     return instance.vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */;
   }
   let isInSSRComponentSetup = false;
+  
   function setupComponent(instance, isSSR = false) {
     isInSSRComponentSetup = isSSR;
     const { props, children } = instance.vnode;
