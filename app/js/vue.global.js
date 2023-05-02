@@ -2259,11 +2259,11 @@ var Vue = (function (exports) {
     // console.log(exports.devtools);
 
     if (exports.devtools) {
-      console.log('emit exports.devtools');
+      // console.log('emit exports.devtools');
       //「vue.devtools」
       exports.devtools.emit(event, ...args);
     } else if (!devtoolsNotInstalled) {
-      console.log('emit !devtoolsNotInstalled');
+      // console.log('emit !devtoolsNotInstalled');
       buffer.push({ event, args });
     }
 
