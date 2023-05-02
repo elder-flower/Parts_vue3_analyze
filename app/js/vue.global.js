@@ -6897,7 +6897,7 @@ var Vue = (function (exports) {
           if (shapeFlag & 1 /* ELEMENT */) {
             console.log('shapeFlag & 1');
             console.log(shapeFlag & 1);
-            /*
+            
             processElement(
               n1,
               n2,
@@ -6909,7 +6909,7 @@ var Vue = (function (exports) {
               slotScopeIds,
               optimized
             );
-            */
+            
           } else if (shapeFlag & 6 /* COMPONENT */) {
             console.log('shapeFlag & 6');
             console.log(shapeFlag & 6);
@@ -10527,7 +10527,13 @@ var Vue = (function (exports) {
       }
 
       instance.render = Component.render || NOOP;
-      
+
+      /*
+      instance.render = () => {
+        console.log('instance.render');
+        Component.render();
+      }
+      */
       // for runtime-compiled render functions using `with` blocks, the render
       // proxy used needs a different `has` handler which is more performant and
       // also only allows a whitelist of globals to fallthrough.
