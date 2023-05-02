@@ -59,6 +59,7 @@ processComponent() => mountComponent(); => setupRenderEffect();
 
 |||  L 7700 setupRenderEffect = ();
 
+|||  L 600 class ReactiveEffect {}
 
 
 |||  L 7026 mountElement();

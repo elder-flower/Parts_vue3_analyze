@@ -597,6 +597,7 @@ var Vue = (function (exports) {
   let activeEffect;
   const ITERATE_KEY = Symbol('iterate');
   const MAP_KEY_ITERATE_KEY = Symbol('Map key iterate');
+
   class ReactiveEffect {
     constructor(fn, scheduler = null, scope) {
       this.fn = fn;
@@ -7708,6 +7709,7 @@ var Vue = (function (exports) {
     ) => {
       const componentUpdateFn = () => {
         if (!instance.isMounted) {
+          console.log('componentUpdateFn !instance.isMounted');
           let vnodeHook;
           const { el, props } = initialVNode;
           const { bm, m, parent } = instance;
@@ -7727,6 +7729,7 @@ var Vue = (function (exports) {
           toggleRecurse(instance, true);
           if (el && hydrateNode) {
             // vnode has adopted host node - perform hydration instead of mount.
+            // vnode はホスト ノードを採用しました - マウントの代わりにハイドレーションを実行してください。
             const hydrateSubTree = () => {
               {
                 startMeasure(instance, `render`);
@@ -7749,6 +7752,9 @@ var Vue = (function (exports) {
                 // which means it won't track dependencies - but it's ok because
                 // a server-rendered async wrapper is already in resolved state
                 // and it will never need to change.
+
+                // 注: レンダリング呼び出しを非同期コールバックに移動しています。つまり、依存関係を追跡しません。ただし、サーバーでレンダリングされた非同期ラッパーは既に解決済みの状態にあり、変更する必要がないため問題ありません。
+
                 () => !instance.isUnmounted && hydrateSubTree()
               );
             } else {
@@ -7797,7 +7803,9 @@ var Vue = (function (exports) {
           // activated hook for keep-alive roots.
           // #1742 activated hook must be accessed after first render
           // since the hook may be injected by a child keep-alive
-          if (initialVNode.shapeFlag & 256 /* COMPONENT_SHOULD_KEEP_ALIVE */) {
+
+          // keep-alive rootsの有効化されたフック。1742 フックはchild keep-aliveによって注入される可能性があるため、最初のレンダリング後にアクティブ化されたフックにアクセスする必要があります
+          if (initialVNode.shapeFlag & 256 /* コンポーネントは維持する必要があります */) {
             instance.a && queuePostRenderEffect(instance.a, parentSuspense);
           }
           instance.isMounted = true;
@@ -7805,11 +7813,16 @@ var Vue = (function (exports) {
             devtoolsComponentAdded(instance);
           }
           // #2458: deference mount-only object parameters to prevent memleaks
+          // メモリリークを防ぐためのマウント専用オブジェクト パラメータの参照
           initialVNode = container = anchor = null;
         } else {
+          console.log('componentUpdateFn else');
+
           // updateComponent
           // This is triggered by mutation of component's own state (next: null)
           // OR parent calling processComponent (next: VNode)
+
+          // これは、コンポーネント自身の状態 (次: null) の変更、または processComponent を呼び出す親 (次: VNode) によってトリガーされます。
           let { next, bu, u, parent, vnode } = instance;
           let originNext = next;
           let vnodeHook;
@@ -7886,16 +7899,27 @@ var Vue = (function (exports) {
           }
         }
       };
+      
       // create reactive effect for rendering
       // レンダリングのリアクティブ効果を作成する
+
+      // console.log('componentUpdateFn');
+      // console.log(componentUpdateFn);
       
       const effect = (instance.effect = new ReactiveEffect(
-        componentUpdateFn,
+        componentUpdateFn, 
         () => queueJob(instance.update),
         instance.scope // コンポーネントのエフェクトスコープで追跡する
       ));
+
+      // console.log('effect');
+      // console.log( effect );
+
       const update = (instance.update = effect.run.bind(effect));
       update.id = instance.uid;
+
+      // console.log('update');
+      // console.log( update );
 
       // allowRecurse
       // #1801、#2043 コンポーネントのレンダリング効果は再帰的な更新を許可する必要があります
@@ -7910,7 +7934,7 @@ var Vue = (function (exports) {
         // @ts-ignore (for scheduler)
         update.ownerInstance = instance;
       }
-
+      
       update();
     };
     const updateComponentPreRender = (instance, nextVNode, optimized) => {
