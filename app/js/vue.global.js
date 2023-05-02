@@ -4943,7 +4943,7 @@ var Vue = (function (exports) {
       if (!isObject(data)) {
         warn$1(`data() should return an object.`);
       } else {
-        //instance.data = reactive(data);
+        instance.data = reactive(data);
         //console.log(instance);
         {
           for (const key in data) {
@@ -4954,14 +4954,13 @@ var Vue = (function (exports) {
             if (key[0] !== '$' && key[0] !== '_') {
               // console.log('applyOptions ctx');
           
-              /*
               Object.defineProperty(ctx, key, {
                 configurable: true,
                 enumerable: true,
                 get: () => data[key],
                 set: NOOP,
               });
-              */
+              
             
             }
           }
