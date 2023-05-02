@@ -10248,38 +10248,63 @@ var Vue = (function (exports) {
     return instance.vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */;
   }
   let isInSSRComponentSetup = false;
-  
+
   function setupComponent(instance, isSSR = false) {
+    console.log('setupComponent'); 
+
     isInSSRComponentSetup = isSSR;
+    console.log(instance);
+
     const { props, children } = instance.vnode;
+
     const isStateful = isStatefulComponent(instance);
     initProps(instance, props, isStateful, isSSR);
     initSlots(instance, children);
+
+    // console.log('isStateful');
+    // console.log(isStateful);
+
     const setupResult = isStateful
       ? setupStatefulComponent(instance, isSSR)
       : undefined;
     isInSSRComponentSetup = false;
+
+    // console.log('setupResult');
+    // console.log( setupResult );
     return setupResult;
   }
   function setupStatefulComponent(instance, isSSR) {
+    console.log('setupStatefulComponent');
+    console.log(instance);
+
     const Component = instance.type;
+    console.log('Component');
+    console.log(Component);
     {
       if (Component.name) {
+        console.log('Component.name');
+        console.log(Component.name);
         validateComponentName(Component.name, instance.appContext.config);
       }
       if (Component.components) {
+        console.log('Component.components');
+        console.log(Component.components);
         const names = Object.keys(Component.components);
         for (let i = 0; i < names.length; i++) {
           validateComponentName(names[i], instance.appContext.config);
         }
       }
       if (Component.directives) {
+        console.log('Component.directives');
+        console.log(Component.directives);
         const names = Object.keys(Component.directives);
         for (let i = 0; i < names.length; i++) {
           validateDirectiveName(names[i]);
         }
       }
       if (Component.compilerOptions && isRuntimeOnly()) {
+        console.log('Component.compilerOptions');
+        console.log(Component.compilerOptions);
         warn$1(
           `"compilerOptions" is only supported when using a build of Vue that ` +
             `includes the runtime compiler. Since you are using a runtime-only ` +
@@ -10288,9 +10313,19 @@ var Vue = (function (exports) {
       }
     }
     // 0. create render proxy property access cache
+    // レンダー プロキシ プロパティ アクセス キャッシュを作成する
     instance.accessCache = Object.create(null);
     // 1. create public instance / render proxy
     // also mark it raw so it's never observed
+    // 1. パブリック インスタンスの作成 / レンダー プロキシも raw としてマークし、監視されないようにします
+    // console.log(instance.ctx);
+    // console.log(new Proxy(instance.ctx, PublicInstanceProxyHandlers));
+    /*
+    console.log( markRaw(
+      new Proxy(instance.ctx, PublicInstanceProxyHandlers)
+    ));
+    */
+    
     instance.proxy = markRaw(
       new Proxy(instance.ctx, PublicInstanceProxyHandlers)
     );
@@ -10300,6 +10335,7 @@ var Vue = (function (exports) {
     // 2. call setup()
     const { setup } = Component;
     if (setup) {
+      console.log('setupStatefulComponent setup');
       const setupContext = (instance.setupContext =
         setup.length > 1 ? createSetupContext(instance) : null);
       setCurrentInstance(instance);
@@ -10385,14 +10421,27 @@ var Vue = (function (exports) {
   }
   // dev only
   const isRuntimeOnly = () => !compile;
+
   function finishComponentSetup(instance, isSSR, skipOptions) {
+    console.log('finishComponentSetup');
+
     const Component = instance.type;
     // template / render function normalization
     // could be already set when returned from setup()
+    // テンプレート/レンダー関数の正規化
+    // setup() から返されたときにすでに設定されている可能性があります
+    console.log(Component);
+    console.log(instance);
+
     if (!instance.render) {
+      console.log('!instance.render)');
       // only do on-the-fly compile if not in SSR - SSR on-the-fly compilation
       // is done by server-renderer
+      // SSR にない場合のみオンザフライ コンパイルを行う - SSR オンザフライ コンパイルはサーバー レンダラーによって行われます
       if (!isSSR && compile && !Component.render) {
+        console.log('!isSSR && compile');
+        console.log(instance.appContext.config);
+
         const template = Component.template;
         if (template) {
           {
@@ -10402,10 +10451,15 @@ var Vue = (function (exports) {
             isCustomElement,
             compilerOptions,
           } = instance.appContext.config;
+          // console.log('isCustomElement');
+          // console.log(isCustomElement);
+          // console.log(compilerOptions);
           const {
             delimiters,
             compilerOptions: componentCompilerOptions,
           } = Component;
+          // console.log(delimiters);
+          // console.log(compilerOptions);
           const finalCompilerOptions = extend(
             extend(
               {
@@ -10416,6 +10470,12 @@ var Vue = (function (exports) {
             ),
             componentCompilerOptions
           );
+          // console.log('finalCompilerOptions');
+          // console.log(finalCompilerOptions);
+          console.log('compile(template, finalCompilerOptions)');
+          console.log(compile(template, finalCompilerOptions));
+
+          // ここ重要。
           Component.render = compile(template, finalCompilerOptions);
           {
             endMeasure(instance, `compile`);
@@ -10432,17 +10492,22 @@ var Vue = (function (exports) {
     }
     // support for 2.x options
     {
-      setCurrentInstance(instance);
-      pauseTracking();
+       setCurrentInstance(instance);
+       pauseTracking();
       applyOptions(instance);
-      resetTracking();
-      unsetCurrentInstance();
+       resetTracking();
+       unsetCurrentInstance();
     }
+    
     // warn missing template/render
     // the runtime compilation of template in SSR is done by server-render
+
+    // テンプレートの欠落を警告/レンダリング SSR でのテンプレートのランタイム コンパイルはサーバーレンダリングによって行われます
     if (!Component.render && instance.render === NOOP && !isSSR) {
+      console.log('!Component.render && instance.render === NOOP && !isSSR');
       /* istanbul ignore if */
       if (!compile && Component.template) {
+        console.log('!compile && Component.template');
         warn$1(
           `Component provided template option but ` +
             `runtime compilation is not supported in this build of Vue.` +

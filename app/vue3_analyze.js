@@ -70,6 +70,15 @@ ComponentInstanceのテンプレートを作成して返す。
 |||  L 10252 function setupComponent()
 
 
+|||  L 10276 function setupStatefulComponent(instance, isSSR){}
+
+
+|||  L 10371 finishComponentSetup
+
+重要。L 10479
+Component.render = compile(template, finalCompilerOptions);
+
+
 |||  L 6677 startMeasure
 
 startMeasure => const devtoolsPerfStart = /*#__PURE__*/ createDevtoolsPerformanceHook(); => return emit();
