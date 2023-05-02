@@ -7624,39 +7624,59 @@ var Vue = (function (exports) {
       // console.log(parentSuspense);
       // console.log(isSVG);
       // console.log(optimized);
+
+      
       const instance = (initialVNode.component = createComponentInstance(
         initialVNode,
         parentComponent,
         parentSuspense
       ));
+      
+      /*
+      const instance =  createComponentInstance(
+        initialVNode,
+        parentComponent,
+        parentSuspense
+      );
+      */
 
       console.log('instance');
       console.log(instance);
 
       if (instance.type.__hmrId) {
+        console.log('instance.type.__hmrId');
         registerHMR(instance);
       }
       {
+        // console.log('pushWarningContext');
         pushWarningContext(initialVNode);
         startMeasure(instance, `mount`);
       }
       // inject renderer internals for keepAlive
+      // keepAlive のレンダラー内部を挿入する
       if (isKeepAlive(initialVNode)) {
+        console.log('isKeepAlive(initialVNode))');
         instance.ctx.renderer = internals;
       }
       // resolve props and slots for setup context
+      // setup context の props と slots を解決する
       {
         {
+          // console.log('startMeasure');
           startMeasure(instance, `init`);
         }
         setupComponent(instance);
         {
+          // console.log('endMeasure');
           endMeasure(instance, `init`);
         }
       }
       // setup() is async. This component relies on async logic to be resolved
       // before proceeding
+
+      // このコンポーネントは、続行する前に解決される非同期ロジックに依存しています
       if (instance.asyncDep) {
+        console.log('instance.asyncDep');
         parentSuspense &&
           parentSuspense.registerDep(instance, setupRenderEffect);
         // Give it a placeholder if this is not hydration
@@ -10169,6 +10189,8 @@ var Vue = (function (exports) {
       ec: null,
       sp: null,
     };
+    // console.log('instance');
+    // console.log(instance);
     {
       instance.ctx = createDevRenderContext(instance);
       // console.log('instance.ctx');

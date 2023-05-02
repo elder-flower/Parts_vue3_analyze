@@ -64,13 +64,8 @@ processComponent() => mountComponent(); => setupRenderEffect();
 
 |||  L createComponentInstance()
 
-data: function() {
-  return {
-    message: '皆さん、こんにちは2！'
-  };
-},
+ComponentInstanceのテンプレートを作成して返す。
 
-で割り当てられる値がComponentInstanceに割り当てられる。
 
 |||  L 600 class ReactiveEffect {}
 
