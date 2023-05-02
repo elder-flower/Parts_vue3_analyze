@@ -57,7 +57,20 @@ processElement() => mountElement(); => hostInsert(); hostInsert = nodeOps.insert
 
 processComponent() => mountComponent(); => setupRenderEffect();
 
+
+
 |||  L 7700 setupRenderEffect = ();
+
+
+|||  L createComponentInstance()
+
+data: function() {
+  return {
+    message: '皆さん、こんにちは2！'
+  };
+},
+
+で割り当てられる値がComponentInstanceに割り当てられる。
 
 |||  L 600 class ReactiveEffect {}
 

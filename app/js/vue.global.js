@@ -7576,6 +7576,13 @@ var Vue = (function (exports) {
       optimized
     ) => {
       console.log('L7556 processComponent');
+      // console.log(n1);
+      console.log(n2);
+      // console.log(parentComponent);
+      // console.log(parentSuspense);
+      // console.log(isSVG);
+      // console.log(slotScopeIds);
+      // console.log(optimized);
 
       n2.slotScopeIds = slotScopeIds;
 
@@ -10087,9 +10094,12 @@ var Vue = (function (exports) {
 
   const emptyAppContext = createAppContext();
   let uid$1 = 0;
+
   function createComponentInstance(vnode, parent, suspense) {
+    console.log();
     const type = vnode.type;
     // inherit parent app context - or - if root, adopt from root vnode
+    // 親アプリのコンテキストを継承 - または - ルートの場合、ルート vnode から採用
     const appContext =
       (parent ? parent.appContext : vnode.appContext) || emptyAppContext;
     const instance = {
@@ -10161,13 +10171,22 @@ var Vue = (function (exports) {
     };
     {
       instance.ctx = createDevRenderContext(instance);
+      // console.log('instance.ctx');
+      // console.log(instance.ctx);
     }
     instance.root = parent ? parent.root : instance;
+    // console.log('instance.root');
+    // console.log(instance.root);
     instance.emit = emit$1.bind(null, instance);
     // apply custom element special handling
+    // カスタム要素の特別な処理を適用する
+
     if (vnode.ce) {
+      console.log('vnode.ce');
+      console.log( vnode.ce );
       vnode.ce(instance);
     }
+
     return instance;
   }
   let currentInstance = null;
