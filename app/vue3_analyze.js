@@ -78,6 +78,11 @@ ComponentInstanceのテンプレートを作成して返す。
 重要。L 10479
 Component.render = compile(template, finalCompilerOptions);
 
+setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1()
+
+
+|||  L 18186 function compile$1()
+
 
 |||  L 6677 startMeasure
 

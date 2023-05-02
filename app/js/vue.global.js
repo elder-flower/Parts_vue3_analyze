@@ -18184,6 +18184,7 @@ var Vue = (function (exports) {
     show: transformShow,
   };
   function compile$1(template, options = {}) {
+    console.log('compile$1');
     return baseCompile(
       template,
       extend({}, parserOptions, options, {
@@ -18191,6 +18192,8 @@ var Vue = (function (exports) {
           // ignore <script> and <tag>
           // this is not put inside DOMNodeTransforms because that list is used
           // by compiler-ssr to generate vnode fallback branches
+
+          // <script> と <tag> を無視します。これは DOMNodeTransforms 内には配置されません。そのリストは、vnode フォールバック ブランチを生成するために compiler-ssr によって使用されるためです。
           ignoreSideEffectTags,
           ...DOMNodeTransforms,
           ...(options.nodeTransforms || []),
