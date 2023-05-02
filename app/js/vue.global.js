@@ -15074,7 +15074,15 @@ var Vue = (function (exports) {
     return context;
   }
   function generate(ast, options = {}) {
+    console.log('L15076 generate');
+    console.log(ast);
+    console.log(options);
+
     const context = createCodegenContext(ast, options);
+
+    console.log('context');
+    console.log(context);
+
     if (options.onContextCreated) options.onContextCreated(context);
     const {
       mode,
@@ -15091,6 +15099,8 @@ var Vue = (function (exports) {
     // preambles
     // in setup() inline mode, the preamble is generated in a sub context
     // and returned separately.
+
+    // setup() インライン モードでのプリアンブルの場合、プリアンブルはサブ コンテキストで生成され、個別に返されます。
     const preambleContext = context;
     {
       genFunctionPreamble(ast, preambleContext);
@@ -15110,6 +15120,10 @@ var Vue = (function (exports) {
       indent();
       // function mode const declarations should be inside with block
       // also they should be renamed to avoid collision with user properties
+      
+      // 関数モードの const 宣言はブロック内にある必要があります。
+      // また、ユーザー プロパティとの衝突を避けるために名前を変更する必要があります。
+      
       if (hasHelpers) {
         push(
           `const { ${ast.helpers
@@ -15121,6 +15135,7 @@ var Vue = (function (exports) {
       }
     }
     // generate asset resolution statements
+    // 「render」関数生成。
     if (ast.components.length) {
       genAssets(ast.components, 'component', context);
       if (ast.directives.length || ast.temps > 0) {
@@ -17643,7 +17658,13 @@ var Vue = (function (exports) {
   }
   // we name it `baseCompile` so that higher order compilers like
   // @vue/compiler-dom can export `compile` while re-exporting everything else.
+
+  // @vue/compiler-dom のような高次のコンパイラが他のすべてを再エクスポートしながら「コンパイル」をエクスポートできるように、「baseCompile」と名付けました。
   function baseCompile(template, options = {}) {
+    console.log('baseCompile');
+    console.log(template);
+    console.log(options);
+
     const onError = options.onError || defaultOnError;
     const isModuleMode = options.mode === 'module';
     /* istanbul ignore if */

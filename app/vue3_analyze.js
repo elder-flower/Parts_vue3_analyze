@@ -78,10 +78,50 @@ ComponentInstanceのテンプレートを作成して返す。
 重要。L 10479
 Component.render = compile(template, finalCompilerOptions);
 
-setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1()
+setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1() => function baseCompile() => function generate()
 
 
 |||  L 18186 function compile$1()
+
+|||  L 17648 function baseCompile(template, options = {}) {}
+
+|||  L 15076 function generate()
+
+「render」関数生成。
+
+L 15079 const context = createCodegenContext(ast, options);
+
+const context = 
+{
+  "mode": "function",
+  "prefixIdentifiers": false,
+  "sourceMap": false,
+  "filename": "template.vue.html",
+  "scopeId": null,
+  "optimizeImports": false,
+  "runtimeGlobalName": "Vue",
+  "runtimeModuleName": "vue",
+  "ssrRuntimeModuleName": "vue/server-renderer",
+  "ssr": false,
+  "isTS": false,
+  "inSSR": false,
+  "source": "\n      <span>{{ message }}</span>\n    ",
+  "code": "const _Vue = Vue\n\nreturn function render(_ctx, _cache) {\n  with (_ctx) {\n    const { toDisplayString: _toDisplayString, openBlock: _openBlock, createElementBlock: _createElementBlock } = _Vue\n\n    return (_openBlock(), _createElementBlock(\"span\", null, _toDisplayString(message), 1 /* TEXT */))\n  }\n}",
+  "column": 1,
+  "line": 1,
+  "offset": 0,
+  "indentLevel": 0,
+  "pure": false
+}
+
+ブラウザコンソールの「render」関数から。
+return function render(_ctx, _cache) {
+  with (_ctx) {
+    const { toDisplayString: _toDisplayString, openBlock: _openBlock, createElementBlock: _createElementBlock } = _Vue
+
+    return (_openBlock(), _createElementBlock("span", null, _toDisplayString(message), 1 /* TEXT */))
+  }
+}
 
 
 |||  L 6677 startMeasure
