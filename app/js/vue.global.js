@@ -4819,14 +4819,20 @@ var Vue = (function (exports) {
     };
   }
   let shouldCacheAccess = true;
+  
   function applyOptions(instance) {
+    console.log('applyOptions');
+
     const options = resolveMergedOptions(instance);
     const publicThis = instance.proxy;
     const ctx = instance.ctx;
     // do not cache property access on public proxy during state initialization
+    // 状態の初期化中にパブリック プロキシでプロパティ アクセスをキャッシュしない
     shouldCacheAccess = false;
     // call beforeCreate first before accessing other options since
     // the hook may mutate resolved options (#2791)
+
+    // フックは解決されたオプションを変更する可能性があるため、他のオプションにアクセスする前に beforeCreate を呼び出します。
     if (options.beforeCreate) {
       callHook(options.beforeCreate, instance, 'bc' /* BEFORE_CREATE */);
     }
@@ -4880,6 +4886,7 @@ var Vue = (function (exports) {
     // - computed
     // - watch (deferred since it relies on `this` access)
     if (injectOptions) {
+      console.log();
       resolveInjections(
         injectOptions,
         ctx,
@@ -4888,6 +4895,7 @@ var Vue = (function (exports) {
       );
     }
     if (methods) {
+      console.log('methods');
       for (const key in methods) {
         const methodHandler = methods[key];
         if (isFunction(methodHandler)) {
@@ -4914,6 +4922,7 @@ var Vue = (function (exports) {
       }
     }
     if (dataOptions) {
+      console.log('dataOptions');
       if (!isFunction(dataOptions)) {
         warn$1(
           `The data option must be a function. ` +
@@ -4921,6 +4930,8 @@ var Vue = (function (exports) {
         );
       }
       const data = dataOptions.call(publicThis, publicThis);
+      console.log(data);
+      // console.log(isPromise(data));
       if (isPromise(data)) {
         warn$1(
           `data() returned a Promise - note data() cannot be async; If you ` +
@@ -4932,6 +4943,7 @@ var Vue = (function (exports) {
         warn$1(`data() should return an object.`);
       } else {
         instance.data = reactive(data);
+        //console.log(instance);
         {
           for (const key in data) {
             checkDuplicateProperties('Data' /* DATA */, key);
@@ -4946,11 +4958,13 @@ var Vue = (function (exports) {
             }
           }
         }
+        
       }
     }
     // state initialization complete at this point - start caching access
     shouldCacheAccess = true;
     if (computedOptions) {
+      console.log('computedOptions');
       for (const key in computedOptions) {
         const opt = computedOptions[key];
         const get = isFunction(opt)
@@ -4985,11 +4999,13 @@ var Vue = (function (exports) {
       }
     }
     if (watchOptions) {
+      console.log('watchOptions');
       for (const key in watchOptions) {
         createWatcher(watchOptions[key], ctx, publicThis, key);
       }
     }
     if (provideOptions) {
+      console.log('provideOptions');
       const provides = isFunction(provideOptions)
         ? provideOptions.call(publicThis)
         : provideOptions;
@@ -4998,9 +5014,11 @@ var Vue = (function (exports) {
       });
     }
     if (created) {
+      console.log('created');
       callHook(created, instance, 'c' /* CREATED */);
     }
     function registerLifecycleHook(register, hook) {
+      //console.log('registerLifecycleHook');
       if (isArray(hook)) {
         hook.forEach((_hook) => register(_hook.bind(publicThis)));
       } else if (hook) {
@@ -5020,6 +5038,7 @@ var Vue = (function (exports) {
     registerLifecycleHook(onUnmounted, unmounted);
     registerLifecycleHook(onServerPrefetch, serverPrefetch);
     if (isArray(expose)) {
+      console.log('isArray(expose)');
       if (expose.length) {
         const exposed = instance.exposed || (instance.exposed = {});
         expose.forEach((key) => {
@@ -5034,13 +5053,19 @@ var Vue = (function (exports) {
     }
     // options that are handled when creating the instance but also need to be
     // applied from mixins
+    // インスタンスの作成時に処理されるが必要なオプション ミックスインから適用
     if (render && instance.render === NOOP) {
+       console.log('render && instance.render');
       instance.render = render;
     }
     if (inheritAttrs != null) {
+      console.log('inheritAttrs');
       instance.inheritAttrs = inheritAttrs;
     }
     // asset options.
+    // console.log('applyOptions components');
+    // console.log(components); undefined
+    // console.log(directives); undefined
     if (components) instance.components = components;
     if (directives) instance.directives = directives;
   }
