@@ -176,6 +176,10 @@ function emit() => exports.devtools.emit() => Vue.devtools.emit()
 
 |||  L 7556 processComponent();
 
+|||  L 7657 mountComponent();
+
+
+
 |||  L hostInsert();
 
 |||  L 6756 patch

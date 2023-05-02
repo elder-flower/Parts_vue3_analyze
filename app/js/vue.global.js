@@ -2154,6 +2154,7 @@ var Vue = (function (exports) {
     return isClassComponent(component) ? component.__vccOpts : component;
   }
   function rerender(id, newRender) {
+    console.log('L 2156 rerender');
     const record = map.get(id);
     if (!record) {
       return;
@@ -5061,6 +5062,7 @@ var Vue = (function (exports) {
     // options that are handled when creating the instance but also need to be
     // applied from mixins
     // インスタンスの作成時に処理されるが必要なオプション ミックスインから適用
+    /*
     if (render && instance.render === NOOP) {
        console.log('render && instance.render');
       instance.render = render;
@@ -5069,6 +5071,7 @@ var Vue = (function (exports) {
       console.log('inheritAttrs');
       instance.inheritAttrs = inheritAttrs;
     }
+    */
     // asset options.
     // console.log('applyOptions components');
     // console.log(components); undefined
@@ -7663,7 +7666,7 @@ var Vue = (function (exports) {
       isSVG,
       optimized
     ) => {
-      console.log('mountComponent');
+      //console.log('mountComponent');
       console.log('initialVNode');
       console.log(initialVNode);
       // console.log(container);
@@ -10412,6 +10415,7 @@ var Vue = (function (exports) {
     }
   }
   function handleSetupResult(instance, setupResult, isSSR) {
+    console.log('L 10415 handleSetupResult');
     if (isFunction(setupResult)) {
       // setup returned an inline render function
       {
