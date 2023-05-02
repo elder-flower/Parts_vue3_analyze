@@ -1339,6 +1339,7 @@ var Vue = (function (exports) {
   }
   function reactive(target) {
     // if trying to observe a readonly proxy, return the readonly version.
+    // 読み取り専用プロキシを監視しようとする場合は、読み取り専用バージョンを返します。
     if (isReadonly(target)) {
       return target;
     }
@@ -7598,7 +7599,8 @@ var Vue = (function (exports) {
       optimized
     ) => {
       console.log('mountComponent');
-      // console.log(initialVNode);
+      console.log('initialVNode');
+      console.log(initialVNode);
       // console.log(container);
       // console.log(anchor);
       // console.log(parentComponent);
@@ -7613,6 +7615,7 @@ var Vue = (function (exports) {
 
       console.log('instance');
       console.log(instance);
+
       if (instance.type.__hmrId) {
         registerHMR(instance);
       }
@@ -7657,6 +7660,7 @@ var Vue = (function (exports) {
         isSVG,
         optimized
       );
+      
       
       {
         popWarningContext();

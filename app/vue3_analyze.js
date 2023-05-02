@@ -57,7 +57,7 @@ processElement() => mountElement(); => hostInsert(); hostInsert = nodeOps.insert
 
 processComponent() => mountComponent(); => setupRenderEffect();
 
-|||  L 7696 setupRenderEffect = ();
+|||  L 7700 setupRenderEffect = ();
 
 
 
@@ -222,10 +222,40 @@ render: f(),
 template: "\n      <p><span>{{ message }}</span></p>\n    "
 }
 
+
+
 ||| L 5905 function createAppAPI(render, hydrate) {}
 
 console.log(app); で出力されるObjectのテンプレート部分がある。
 
-||| L11805 Composition API: setup() の変換関数？
+||| L 11805 Composition API: setup() の変換関数？
 
 const TransitionGroupImpl 
+
+
+||| L 1434 isReactive
+
+function isReactive(value) {
+  if (isReadonly(value)) {
+    return isReactive(value['__v_raw' /* RAW */]);
+  }
+  return !!(value && value['__v_isReactive' /* IS_REACTIVE */]);
+}
+
+||| L 1440 isReadonly
+
+function isReadonly(value) {
+  return !!(value && value['__v_isReadonly' /* IS_READONLY */]);
+}
+
+||| L 1443 isShallow
+
+function isShallow(value) {
+  return !!(value && value['__v_isShallow' /* IS_SHALLOW */]);
+}
+
+||| L 1446 isProxy
+
+function isProxy(value) {
+  return isReactive(value) || isReadonly(value);
+}
