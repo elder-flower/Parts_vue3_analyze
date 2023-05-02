@@ -555,9 +555,13 @@ var Vue = (function (exports) {
   const wasTracked = (dep) => (dep.w & trackOpBit) > 0;
   const newTracked = (dep) => (dep.n & trackOpBit) > 0;
   const initDepMarkers = ({ deps }) => {
+    // console.log('initDepMarkers');
+    // console.log(deps.length);
     if (deps.length) {
       for (let i = 0; i < deps.length; i++) {
+        console.log(deps[i].w );
         deps[i].w |= trackOpBit; // set was tracked
+        console.log(deps[i].w );
       }
     }
   };
@@ -611,14 +615,17 @@ var Vue = (function (exports) {
       if (!this.active) {
         return this.fn();
       }
+
       let parent = activeEffect;
       let lastShouldTrack = shouldTrack;
+
       while (parent) {
         if (parent === this) {
           return;
         }
         parent = parent.parent;
       }
+
       try {
         this.parent = activeEffect;
         activeEffect = this;
@@ -7035,7 +7042,7 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
-      console.log('mountElement vnode');
+      console.log('mountElement');
       console.log(vnode);
       // console.log(container);
       // console.log(anchor);
@@ -7144,8 +7151,8 @@ var Vue = (function (exports) {
       if (needCallTransitionHooks) {
         transition.beforeEnter(el);
       }
-      // 表示処理。
-      hostInsert(el, container, anchor);
+      // 表示処理。hostInsert = nodeOps.insert();
+     hostInsert(el, container, anchor);
       if (
         (vnodeHook = props && props.onVnodeMounted) ||
         needCallTransitionHooks ||
@@ -7225,6 +7232,8 @@ var Vue = (function (exports) {
       slotScopeIds,
       optimized
     ) => {
+      console.log('patchElement');
+
       const el = (n2.el = n1.el);
       let { patchFlag, dynamicChildren, dirs } = n2;
       // #1426 take the old vnode's patch flag into account since user may clone a
@@ -7925,6 +7934,7 @@ var Vue = (function (exports) {
       // #1801、#2043 コンポーネントのレンダリング効果は再帰的な更新を許可する必要があります
       toggleRecurse(instance, true);
       {
+        //console.log('effect.onTrack');
         effect.onTrack = instance.rtc
           ? (e) => invokeArrayFns(instance.rtc, e)
           : void 0;
@@ -10911,13 +10921,15 @@ var Vue = (function (exports) {
 
   const nodeOps = {
     insert: (child, parent, anchor) => {
-    console.log('nodeOps insert: child, parent, anchor');
-    console.log(child);
-    console.log(parent);
-    console.log(anchor);
+      // 子要素を親要素に追加する。
+      console.log('nodeOps insert: child, parent, anchor');
+      console.log(child);
+      console.log(parent);
+      console.log(anchor);
       parent.insertBefore(child, anchor || null);
     },
     remove: (child) => {
+      // 子要素を親要素から削除する。
       console.log('nodeOps remove: child');
       console.log(child);
       const parent = child.parentNode;
@@ -10926,6 +10938,8 @@ var Vue = (function (exports) {
       }
     },
     createElement: (tag, isSVG, is, props) => {
+
+      // 第一引数が「SVG」タグではなく通常の「HTML」タグの場合は通常のタグを生成して返す、
       console.log('nodeOps createElement: tag, isSVG, is, props');
       console.log(tag);
       console.log(isSVG);
@@ -10935,26 +10949,40 @@ var Vue = (function (exports) {
       const el = isSVG
         ? doc.createElementNS(svgNS, tag)
         : doc.createElement(tag, is ? { is } : undefined);
+
+      // Select要素の時の実装。
       if (tag === 'select' && props && props.multiple != null) {
         el.setAttribute('multiple', props.multiple);
       }
+
       return el;
     },
+    // 新しい Text ノードを生成します。
     createText: (text) => doc.createTextNode(text),
+
+    // createComment() は新たにコメントノードを作成し、返します。
     createComment: (text) => doc.createComment(text),
+
     setText: (node, text) => {
+      // nodeValue は Node インターフェイスのプロパティで、現在のノードの値を返したり設定したりします。
       node.nodeValue = text;
     },
     setElementText: (el, text) => {
+      // textContent は Node のプロパティで、ノードおよびその子孫のテキストの内容を表します。
       el.textContent = text;
     },
+
+    // DOM ツリー内の特定のノードの親ノードを返します。
     parentNode: (node) => node.parentNode,
+
+    // 指定されたノードの親の childNodes の中で、そのすぐ次のノードを返します。
     nextSibling: (node) => node.nextSibling,
     querySelector: (selector) => doc.querySelector(selector),
     setScopeId(el, id) {
       el.setAttribute(id, '');
     },
     cloneNode(el) {
+      // true の場合、ノードとそのサブツリーは、子ノードの Text にあるテキストも含め複製されます。
       const cloned = el.cloneNode(true);
       // #3072
       // - in `patchDOMProp`, we store the actual value in the `el._value` property.
@@ -10968,6 +10996,8 @@ var Vue = (function (exports) {
 
       // `patchDOMProp` では、`el._value` プロパティに実際の値を格納します。
       // 通常、`:value` バインディングを使用する要素は巻き上げられませんが、バインドされた値が定数の場合 (例: `:value="true"` - それらは巻き上げられます。
+
+      // Element型に「_value」は存在しないので多分意味がない。
       if (`_value` in el) {
         cloned._value = el._value;
       }
@@ -11011,7 +11041,7 @@ var Vue = (function (exports) {
       return [
         // first
         before ? before.nextSibling : parent.firstChild,
-        // last
+        // last 直前にある ノードを返します。
         anchor ? anchor.previousSibling : parent.lastChild,
       ];
     },
