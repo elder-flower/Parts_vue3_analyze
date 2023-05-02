@@ -73,12 +73,17 @@ ComponentInstanceのテンプレートを作成して返す。
 |||  L 10276 function setupStatefulComponent(instance, isSSR){}
 
 
+
 |||  L 10371 finishComponentSetup
 
 重要。L 10479
-Component.render = compile(template, finalCompilerOptions);
 
-setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1() => function baseCompile() => function generate()
+Component.render = compile(template, finalCompilerOptions);
+instance.render = Component.render || NOOP;
+
+
+setupComponent() => setupStatefulComponent(instance, isSSR){} => Component.render = compile(template, finalCompilerOptions); => function compile$1() => function baseCompile() => function generate() 「render」関数生成。
+
 
 
 |||  L 18186 function compile$1()
@@ -122,6 +127,7 @@ return function render(_ctx, _cache) {
     return (_openBlock(), _createElementBlock("span", null, _toDisplayString(message), 1 /* TEXT */))
   }
 }
+
 
 
 |||  L 6677 startMeasure

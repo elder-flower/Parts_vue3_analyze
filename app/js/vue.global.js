@@ -10475,18 +10475,29 @@ var Vue = (function (exports) {
           console.log('compile(template, finalCompilerOptions)');
           console.log(compile(template, finalCompilerOptions));
 
-          // ここ重要。
+          // ここ重要。「render」関数生成。
           Component.render = compile(template, finalCompilerOptions);
+
+           console.log('Component.render');
+           console.log(Component);
           {
             endMeasure(instance, `compile`);
           }
         }
       }
+
       instance.render = Component.render || NOOP;
       // for runtime-compiled render functions using `with` blocks, the render
       // proxy used needs a different `has` handler which is more performant and
       // also only allows a whitelist of globals to fallthrough.
+
+      // `with` ブロックを使用してランタイム コンパイルされたレンダー関数の場合、使用されるレンダー プロキシには、よりパフォーマンスが高く、グローバルのホワイトリストのフォールスルーのみを許可する別の `has` ハンドラが必要です。
+
+
+
       if (installWithProxy) {
+        console.log('installWithProxy');
+        console.log(installWithProxy);
         installWithProxy(instance);
       }
     }
@@ -10494,7 +10505,7 @@ var Vue = (function (exports) {
     {
        setCurrentInstance(instance);
        pauseTracking();
-      applyOptions(instance);
+       applyOptions(instance);
        resetTracking();
        unsetCurrentInstance();
     }
