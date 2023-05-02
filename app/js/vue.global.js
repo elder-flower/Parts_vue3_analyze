@@ -10466,7 +10466,7 @@ var Vue = (function (exports) {
     console.log(instance);
 
     if (!instance.render) {
-      console.log('!instance.render)');
+      console.log('!instance.render');
       // only do on-the-fly compile if not in SSR - SSR on-the-fly compilation
       // is done by server-renderer
       // SSR にない場合のみオンザフライ コンパイルを行う - SSR オンザフライ コンパイルはサーバー レンダラーによって行われます
@@ -10519,6 +10519,7 @@ var Vue = (function (exports) {
       }
 
       instance.render = Component.render || NOOP;
+      
       // for runtime-compiled render functions using `with` blocks, the render
       // proxy used needs a different `has` handler which is more performant and
       // also only allows a whitelist of globals to fallthrough.

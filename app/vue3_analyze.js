@@ -150,6 +150,9 @@ return function render(_ctx, _cache) {
 
 |||  L 6677 startMeasure
 
+
+buffer 内で履歴を溜めている。
+
 startMeasure => const devtoolsPerfStart = /*#__PURE__*/ createDevtoolsPerformanceHook(); => return emit();
 
 
